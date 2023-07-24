@@ -1,6 +1,5 @@
 {
-  "name": "DashliteReact-Demo2",
-  "homepage": "https://react.dashlite.net/demo2/",
+  "name": "JP_order_admin",
   "version": "1.6.2",
   "private": true,
   "dependencies": {

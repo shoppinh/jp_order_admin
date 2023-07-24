@@ -35,6 +35,21 @@ const menu = [
         link: "/ecommerce/support",
       },
       {
+        icon: "file-docs",
+        text: "Invoice",
+        active: false,
+        subMenu: [
+          {
+            text: "Invoice List",
+            link: "/ecommerce/invoice-list",
+          },
+          {
+            text: "Invoice Details",
+            link: "/ecommerce/invoice-details/1",
+          },
+        ],
+      },
+      {
         icon: "opt-alt-fill",
         text: "Settings",
         link: "/ecommerce/settings",
