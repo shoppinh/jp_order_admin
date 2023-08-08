@@ -144,30 +144,25 @@ const Router = () => {
     <Routes>
       <Route path={`${process.env.PUBLIC_URL}`} element={<Layout />}>
         {/*Dashboards*/}
-        <Route index element={<Homepage />}></Route>
+        <Route index element={<EcomDashboard />}></Route>
         <Route path="sales" element={<Sales />}></Route>
         <Route path="analytics" element={<Analytics />}></Route>
         <Route path="_blank" element={<Blank />}></Route>
-
-        <Route path="ecommerce">
-          <Route path="index" element={<EcomDashboard />}></Route>
-          <Route path="orders" element={<EcomOrder />}></Route>
-          <Route path="products" element={<EcomProducts />}></Route>
-          <Route path="support" element={<EcomSupport />}></Route>
-          <Route path="invoice-list" element={<InvoiceList />}></Route>
-          <Route path="invoice-details/:invoiceId" element={<InvoiceDetails />}></Route>
-          <Route path="settings" element={<EcomSettings />}></Route>y
-          <Route path="integration" element={<EcomIntegration />}></Route>
-          <Route element={<CustomerProvider />}>
-            <Route path="customer" element={<EcomCustomer />}></Route>y
-            <Route path="customer-details/:customerId" element={<EcomCustomerDetails />}></Route>y
-          </Route>
+        {/* <Route index element={<EcomDashboard />}></Route> */}
+        <Route path="orders" element={<EcomOrder />}></Route>
+        <Route path="products" element={<EcomProducts />}></Route>
+        <Route path="support" element={<EcomSupport />}></Route>
+        <Route path="invoice-list" element={<InvoiceList />}></Route>
+        <Route path="invoice-details/:invoiceId" element={<InvoiceDetails />}></Route>
+        <Route path="settings" element={<EcomSettings />}></Route>y
+        <Route path="integration" element={<EcomIntegration />}></Route>
+        <Route element={<CustomerProvider />}>
+          <Route path="customer" element={<EcomCustomer />}></Route>y
+          <Route path="customer-details/:customerId" element={<EcomCustomerDetails />}></Route>y
         </Route>
-
         {/*Pre-built Pages*/}
         <Route path="project-card" element={<ProjectCardPage />}></Route>
         <Route path="project-list" element={<ProjectListPage />}></Route>
-
         <Route element={<UserContextProvider />}>
           <Route path="user-list-default" element={<UserListDefault />}></Route>
           <Route path="user-list-regular" element={<UserListRegular />}></Route>
@@ -181,22 +176,18 @@ const Router = () => {
           <Route path="user-profile-activity" element={<UserProfileActivity />}></Route>
           <Route path="user-profile-setting" element={<UserProfileSetting />}></Route>
         </Route>
-
         <Route path="order-list-default" element={<OrderDefault />}></Route>
         <Route path="order-list-regular" element={<OrderRegular />}></Route>
         <Route path="order-list-sales" element={<OrderSales />}></Route>
         <Route path="kyc-list-regular" element={<KycListRegular />}></Route>
         <Route path="kyc-details-regular/:kycId" element={<KycDetailsRegular />}></Route>
-
         <Route element={<ProductContextProvider />}>
           <Route path="product-list" element={<ProductList />}></Route>
           <Route path="product-card" element={<ProductCard />}></Route>
           <Route path="product-details/:productId" element={<ProductDetails />}></Route>
         </Route>
-
         <Route path="pricing-table" element={<PricingTable />}></Route>
         <Route path="image-gallery" element={<GalleryPreview />}></Route>
-
         <Route path="pages">
           <Route path="terms-policy" element={<Terms />}></Route>
           <Route path="faq" element={<Faq />}></Route>
@@ -209,7 +200,6 @@ const Router = () => {
         <Route path="app-calender" element={<Calender />}></Route>
         <Route path="app-inbox" element={<Inbox />}></Route>
         <Route path="app-kanban" element={<Kanban />}></Route>
-
         <Route path="app-file-manager">
           <Route index element={<FileManager />}></Route>
           <Route path="files" element={<FileManagerFiles />}></Route>
@@ -218,7 +208,6 @@ const Router = () => {
           <Route path="recovery" element={<FileManagerRecovery />}></Route>
           <Route path="settings" element={<FileManagerSettings />}></Route>
         </Route>
-
         {/*Components*/}
         <Route path="components">
           <Route index element={<Component />}></Route>
@@ -284,7 +273,6 @@ const Router = () => {
           <Route path="chartjs" element={<ChartPage />}></Route>
           <Route path="knobs" element={<KnobPreview />}></Route>
         </Route>
-
         <Route path="table-basic" element={<BasicTable />}></Route>
         <Route path="table-datatable" element={<DataTablePage />}></Route>
         <Route path="table-special" element={<SpecialTablePage />}></Route>
