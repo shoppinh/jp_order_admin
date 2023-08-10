@@ -1,4 +1,4 @@
-import { STORAGE_KEY } from "utils/constants";
+import { STORAGE_KEY } from '../utils/constants';
 
 export const loadState = () => {
   try {

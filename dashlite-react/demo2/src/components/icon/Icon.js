@@ -1,5 +1,5 @@
-import classNames from "classnames";
-import React from "react";
+import classNames from 'classnames';
+import React from 'react';
 
 const Icon = ({ name, id, className, style, ...props }) => {
   const iconClass = classNames({

@@ -1,8 +1,0 @@
-{
-  "dependencies": {
-    "@reduxjs/toolkit": "^1.9.5",
-    "lodash": "^4.17.21",
-    "redux-injectors": "^2.1.0",
-    "redux-saga": "^1.2.3"
-  }
-}

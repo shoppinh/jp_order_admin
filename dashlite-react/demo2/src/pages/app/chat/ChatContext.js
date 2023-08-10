@@ -1,5 +1,5 @@
-import React, { useState, createContext } from "react";
-import { chatData, addUserData } from "./ChatData";
+import React, { useState, createContext } from 'react';
+import { chatData, addUserData } from './ChatData';
 
 export const ChatContext = createContext();
 
@@ -65,10 +65,10 @@ export const ChatContextProvider = (props) => {
     const grouped = data.findIndex((item) => item.id === id);
     const group = data.find((item) => item.id === id);
     group.user.forEach((element) => {
-      element.role = "User";
+      element.role = 'User';
     });
     const userIndex = group.user.findIndex((item) => item.id === userId);
-    group.user[userIndex].role = "Admin";
+    group.user[userIndex].role = 'Admin';
     data[grouped] = group;
     setChat([...data]);
   };

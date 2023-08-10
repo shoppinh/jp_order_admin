@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { dndDataSet1, dndDataSet2 } from "./Data";
+import React, { useState } from 'react';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { dndDataSet1, dndDataSet2 } from './Data';
 
 const DragHandleDnd = () => {
   const [dndSet1, setDndSet1] = useState(dndDataSet1);
@@ -21,7 +21,7 @@ const DragHandleDnd = () => {
   };
 
   const getList = (id) => {
-    if (id === "droppable1") {
+    if (id === 'droppable1') {
       return dndSet1;
     } else {
       return dndSet2;
@@ -36,7 +36,7 @@ const DragHandleDnd = () => {
     }
 
     if (source.droppableId === destination.droppableId) {
-      if (source.droppableId === "droppable1") {
+      if (source.droppableId === 'droppable1') {
         const items = Array.from(dndSet1);
         const [reorderedItem] = items.splice(result.source.index, 1);
         items.splice(result.destination.index, 0, reorderedItem);
@@ -50,26 +50,31 @@ const DragHandleDnd = () => {
         setDndSet2(items);
       }
     } else {
-      const result = move(getList(source.droppableId), getList(destination.droppableId), source, destination);
+      const result = move(
+        getList(source.droppableId),
+        getList(destination.droppableId),
+        source,
+        destination
+      );
       setDndSet1(result.droppable1);
       setDndSet2(result.droppable2);
     }
   };
   return (
     <DragDropContext onDragEnd={handleOnDragEnd}>
-      <Droppable droppableId="droppable1">
+      <Droppable droppableId='droppable1'>
         {(provided) => (
-          <div ref={provided.innerRef} className="col-sm-6">
-            <div className="card card-bordered p-4 h-100">
+          <div ref={provided.innerRef} className='col-sm-6'>
+            <div className='card card-bordered p-4 h-100'>
               {dndSet1.map((item, index) => (
                 <Draggable draggableId={item.id} key={item.id} index={index}>
                   {(provided) => (
                     <div
                       ref={provided.innerRef}
                       {...provided.draggableProps}
-                      className="p-3 bg-white border border-light round-lg mb-3 dnd-handle"
+                      className='p-3 bg-white border border-light round-lg mb-3 dnd-handle'
                     >
-                      <span {...provided.dragHandleProps} className="handle"></span>
+                      <span {...provided.dragHandleProps} className='handle'></span>
                       <span>{item.text}</span>
                     </div>
                   )}
@@ -80,19 +85,19 @@ const DragHandleDnd = () => {
           </div>
         )}
       </Droppable>
-      <Droppable droppableId="droppable2">
+      <Droppable droppableId='droppable2'>
         {(provided) => (
-          <div ref={provided.innerRef} className="col-sm-6">
-            <div className="card card-bordered p-4 h-100">
+          <div ref={provided.innerRef} className='col-sm-6'>
+            <div className='card card-bordered p-4 h-100'>
               {dndSet2.map((item, index) => (
                 <Draggable draggableId={item.id} key={item.id} index={index}>
                   {(provided) => (
                     <div
                       ref={provided.innerRef}
                       {...provided.draggableProps}
-                      className="p-3 bg-white border border-light round-lg mb-3 dnd-handle"
+                      className='p-3 bg-white border border-light round-lg mb-3 dnd-handle'
                     >
-                      <span {...provided.dragHandleProps} className="handle"></span>
+                      <span {...provided.dragHandleProps} className='handle'></span>
                       <span>{item.text}</span>
                     </div>
                   )}

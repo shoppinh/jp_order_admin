@@ -1,47 +1,55 @@
-import React from "react";
-import Content from "../../layout/content/Content";
-import Head from "../../layout/head/Head";
-import { Block, BlockHead, BlockHeadContent, BlockTitle, BlockDes, BackTo } from "../../components/block/Block";
-import { PreviewCard, CodeBlock } from "../../components/preview/Preview";
+import React from 'react';
+import Content from '../../layout/content/Content';
+import Head from '../../layout/head/Head';
+import {
+  Block,
+  BlockHead,
+  BlockHeadContent,
+  BlockTitle,
+  BlockDes,
+  BackTo,
+} from '../../components/block/Block';
+import { PreviewCard, CodeBlock } from '../../components/preview/Preview';
 
-import Accordion from "../../components/partials/accordian/Preview";
+import Accordion from '../../components/partials/accordian/Preview';
 
 const AccordionsPage = () => {
   return (
     <React.Fragment>
-      <Head title="Accordions" />
-      <Content page="component">
-        <BlockHead size="lg" wide="sm">
+      <Head title='Accordions' />
+      <Content page='component'>
+        <BlockHead size='lg' wide='sm'>
           <BlockHeadContent>
-            <BackTo link="/components" icon="arrow-left">
+            <BackTo link='/components' icon='arrow-left'>
               Components
             </BackTo>
-            <BlockTitle tag="h2" className="fw-normal">
+            <BlockTitle tag='h2' className='fw-normal'>
               Accordions
             </BlockTitle>
             <BlockDes>
-              <p className="lead">
-                Toggle the visibility of content across your project with a few classes and Bootstrap collapse
-                JavaScript plugins. The collapse plugin is used to show &amp; hide content.
+              <p className='lead'>
+                Toggle the visibility of content across your project with a few classes and
+                Bootstrap collapse JavaScript plugins. The collapse plugin is used to show &amp;
+                hide content.
               </p>
             </BlockDes>
           </BlockHeadContent>
         </BlockHead>
 
-        <Block size="lg">
+        <Block size='lg'>
           <BlockHead>
             <BlockHeadContent>
-              <BlockTitle tag="h5">Default Style</BlockTitle>
+              <BlockTitle tag='h5'>Default Style</BlockTitle>
               <p>
-                Using default collapse behavior to create an accordion. To properly achieve the accordion style, be sure
-                to use <code>.accordion</code> as a wrapper className.
+                Using default collapse behavior to create an accordion. To properly achieve the
+                accordion style, be sure to use <code>.accordion</code> as a wrapper className.
               </p>
             </BlockHeadContent>
           </BlockHead>
           <PreviewCard>
             <Accordion />
           </PreviewCard>
-          <CodeBlock language="jsx">
+          <CodeBlock language='jsx'>
             {` const Accordian = () => {
     const [open, setIsOpen] = useState("1");
     return (
@@ -181,19 +189,20 @@ const AccordionsPage = () => {
           </CodeBlock>
         </Block>
 
-        <Block size="lg">
+        <Block size='lg'>
           <BlockHead>
             <BlockHeadContent>
-              <BlockTitle tag="h5">Accordion Style2</BlockTitle>
+              <BlockTitle tag='h5'>Accordion Style2</BlockTitle>
               <p>
-                Add the className <code>.accordion-s2</code> with <code>.accordion</code> to get this accordion style.
+                Add the className <code>.accordion-s2</code> with <code>.accordion</code> to get
+                this accordion style.
               </p>
             </BlockHeadContent>
           </BlockHead>
           <PreviewCard>
-            <Accordion variation="2" />
+            <Accordion variation='2' />
           </PreviewCard>
-          <CodeBlock language="jsx">
+          <CodeBlock language='jsx'>
             {` const Accordian = () => {
     const [open, setIsOpen] = useState("1");
     return (  
@@ -331,19 +340,20 @@ const AccordionsPage = () => {
           </CodeBlock>
         </Block>
 
-        <Block size="lg">
+        <Block size='lg'>
           <BlockHead>
             <BlockHeadContent>
-              <BlockTitle tag="h5">Accordion Style3</BlockTitle>
+              <BlockTitle tag='h5'>Accordion Style3</BlockTitle>
               <p>
-                Add the className <code>.accordion-s3</code> with <code>.accordion</code> to get this accordion style.
+                Add the className <code>.accordion-s3</code> with <code>.accordion</code> to get
+                this accordion style.
               </p>
             </BlockHeadContent>
           </BlockHead>
           <PreviewCard>
-            <Accordion variation="3" />
+            <Accordion variation='3' />
           </PreviewCard>
-          <CodeBlock language="jsx">
+          <CodeBlock language='jsx'>
             {`  const Accordian = () => {
     const [open, setIsOpen] = useState("1");
     return (

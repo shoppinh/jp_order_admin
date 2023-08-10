@@ -1,19 +1,18 @@
-import React, { useState, useEffect } from "react";
-import Content from "../../../layout/content/Content";
-import Head from "../../../layout/head/Head";
-import DatePicker from "react-datepicker";
+import React, { useState, useEffect } from 'react';
+import Content from '../../../layout/content/Content';
+import Head from '../../../layout/head/Head';
+import DatePicker from 'react-datepicker';
 import {
   UncontrolledDropdown,
   DropdownMenu,
   DropdownToggle,
   Card,
-  
   Modal,
   ModalBody,
   DropdownItem,
   Form,
   Badge,
-} from "reactstrap";
+} from 'reactstrap';
 import {
   Button,
   Block,
@@ -27,14 +26,14 @@ import {
   PaginationComponent,
   Row,
   RSelect,
-} from "../../../components/Component";
-import { saleOrders, statusOptions } from "./OrderData";
-import { dateFormatterAlt } from "../../../utils/Utils";
-import { useForm } from "react-hook-form";
+} from '../../../components/Component';
+import { saleOrders, statusOptions } from './OrderData';
+import { dateFormatterAlt } from '../../../utils/Utils';
+import { useForm } from 'react-hook-form';
 
 const OrderSales = () => {
   const [onSearch, setonSearch] = useState(true);
-  const [onSearchText, setSearchText] = useState("");
+  const [onSearchText, setSearchText] = useState('');
   const [modal, setModal] = useState({
     add: false,
   });
@@ -42,23 +41,23 @@ const OrderSales = () => {
   const [detail, setDetail] = useState({});
   const [data, setData] = useState(saleOrders);
   const [formData, setFormData] = useState({
-    bill: "",
+    bill: '',
     issue: new Date(),
     due: new Date(),
-    total: "",
-    status: "Paid",
-    ref: "",
+    total: '',
+    status: 'Paid',
+    ref: '',
   });
   const [currentPage, setCurrentPage] = useState(1);
   const [itemPerPage, setItemPerPage] = useState(10);
-  const [sort, setSortState] = useState("");
+  const [sort, setSortState] = useState('');
 
   const sortingFunc = (params) => {
     let defaultData = data;
-    if (params === "asc") {
+    if (params === 'asc') {
       let sortedData = [...defaultData].sort((a, b) => parseFloat(a.ref) - parseFloat(b.ref));
       setData([...sortedData]);
-    } else if (params === "dsc") {
+    } else if (params === 'dsc') {
       let sortedData = [...defaultData].sort((a, b) => parseFloat(b.ref) - parseFloat(a.ref));
       setData([...sortedData]);
     }
@@ -66,7 +65,7 @@ const OrderSales = () => {
 
   // Changing state value when searching name
   useEffect(() => {
-    if (onSearchText !== "") {
+    if (onSearchText !== '') {
       const filteredObject = saleOrders.filter((item) => {
         return item.bill.toLowerCase().includes(onSearchText.toLowerCase());
       });
@@ -84,11 +83,11 @@ const OrderSales = () => {
   // function to reset the form
   const resetForm = () => {
     setFormData({
-      bill: "",
+      bill: '',
       issue: new Date(),
       due: new Date(),
-      total: "",
-      status: "Paid",
+      total: '',
+      status: 'Paid',
     });
   };
 
@@ -107,7 +106,7 @@ const OrderSales = () => {
       bill: bill,
       issue: dateFormatterAlt(formData.issue, true),
       due: dateFormatterAlt(formData.due, true),
-      total: total + ".00",
+      total: total + '.00',
       status: formData.status,
     };
     setData([submittedData, ...data]);
@@ -117,7 +116,7 @@ const OrderSales = () => {
   };
 
   useEffect(() => {
-    reset(formData)
+    reset(formData);
   }, [formData]);
 
   // function to load detail data
@@ -137,25 +136,34 @@ const OrderSales = () => {
   // Change Page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  const { reset, register, handleSubmit, formState: { errors } } = useForm();
+  const {
+    reset,
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   return (
     <React.Fragment>
-      <Head title="Order List - Sales"></Head>
+      <Head title='Order List - Sales'></Head>
       <Content>
-        <BlockHead size="sm">
+        <BlockHead size='sm'>
           <BlockBetween>
             <BlockHeadContent>
               <BlockTitle page>Order Sales</BlockTitle>
-              <BlockDes className="text-soft">
+              <BlockDes className='text-soft'>
                 <p>You have total {data.length} orders.</p>
               </BlockDes>
             </BlockHeadContent>
             <BlockHeadContent>
-              <ul className="nk-block-tools g-3">
+              <ul className='nk-block-tools g-3'>
                 <li>
-                  <Button color="primary" className="btn-icon" onClick={() => setModal({ add: true })}>
-                    <Icon name="plus"></Icon>
+                  <Button
+                    color='primary'
+                    className='btn-icon'
+                    onClick={() => setModal({ add: true })}
+                  >
+                    <Icon name='plus'></Icon>
                   </Button>
                 </li>
               </ul>
@@ -164,35 +172,38 @@ const OrderSales = () => {
         </BlockHead>
 
         <Block>
-          <Card className="card-stretch">
-            <div className="card-inner-group">
-              <div className="card-inner">
-                <div className="card-title-group">
-                  <div className="card-title">
-                    <h5 className="title">All Orders</h5>
+          <Card className='card-stretch'>
+            <div className='card-inner-group'>
+              <div className='card-inner'>
+                <div className='card-title-group'>
+                  <div className='card-title'>
+                    <h5 className='title'>All Orders</h5>
                   </div>
-                  <div className="card-tools me-n1">
-                    <ul className="btn-toolbar">
+                  <div className='card-tools me-n1'>
+                    <ul className='btn-toolbar'>
                       <li>
-                        <Button onClick={toggle} className="btn-icon search-toggle toggle-search">
-                          <Icon name="search"></Icon>
+                        <Button onClick={toggle} className='btn-icon search-toggle toggle-search'>
+                          <Icon name='search'></Icon>
                         </Button>
                       </li>
-                      <li className="btn-toolbar-sep"></li>
+                      <li className='btn-toolbar-sep'></li>
                       <li>
                         <UncontrolledDropdown>
-                          <DropdownToggle tag="a" className="dropdown-toggle btn btn-icon btn-trigger">
-                            <Icon name="setting"></Icon>
+                          <DropdownToggle
+                            tag='a'
+                            className='dropdown-toggle btn btn-icon btn-trigger'
+                          >
+                            <Icon name='setting'></Icon>
                           </DropdownToggle>
                           <DropdownMenu end>
-                            <ul className="link-check">
+                            <ul className='link-check'>
                               <li>
                                 <span>Show</span>
                               </li>
-                              <li className={itemPerPage === 10 ? "active" : ""}>
+                              <li className={itemPerPage === 10 ? 'active' : ''}>
                                 <DropdownItem
-                                  tag="a"
-                                  href="#dropdownitem"
+                                  tag='a'
+                                  href='#dropdownitem'
                                   onClick={(ev) => {
                                     ev.preventDefault();
                                     setItemPerPage(10);
@@ -201,10 +212,10 @@ const OrderSales = () => {
                                   10
                                 </DropdownItem>
                               </li>
-                              <li className={itemPerPage === 15 ? "active" : ""}>
+                              <li className={itemPerPage === 15 ? 'active' : ''}>
                                 <DropdownItem
-                                  tag="a"
-                                  href="#dropdownitem"
+                                  tag='a'
+                                  href='#dropdownitem'
                                   onClick={(ev) => {
                                     ev.preventDefault();
                                     setItemPerPage(15);
@@ -214,31 +225,31 @@ const OrderSales = () => {
                                 </DropdownItem>
                               </li>
                             </ul>
-                            <ul className="link-check">
+                            <ul className='link-check'>
                               <li>
                                 <span>Order</span>
                               </li>
-                              <li className={sort === "dsc" ? "active" : ""}>
+                              <li className={sort === 'dsc' ? 'active' : ''}>
                                 <DropdownItem
-                                  tag="a"
-                                  href="#dropdownitem"
+                                  tag='a'
+                                  href='#dropdownitem'
                                   onClick={(ev) => {
                                     ev.preventDefault();
-                                    setSortState("dsc");
-                                    sortingFunc("dsc");
+                                    setSortState('dsc');
+                                    sortingFunc('dsc');
                                   }}
                                 >
                                   DESC
                                 </DropdownItem>
                               </li>
-                              <li className={sort === "asc" ? "active" : ""}>
+                              <li className={sort === 'asc' ? 'active' : ''}>
                                 <DropdownItem
-                                  tag="a"
-                                  href="#dropdownitem"
+                                  tag='a'
+                                  href='#dropdownitem'
                                   onClick={(ev) => {
                                     ev.preventDefault();
-                                    setSortState("asc");
-                                    sortingFunc("asc");
+                                    setSortState('asc');
+                                    sortingFunc('asc');
                                   }}
                                 >
                                   ASC
@@ -250,55 +261,55 @@ const OrderSales = () => {
                       </li>
                     </ul>
                   </div>
-                  <div className={`card-search search-wrap ${!onSearch ? "active" : ""}`}>
-                    <div className="search-content">
+                  <div className={`card-search search-wrap ${!onSearch ? 'active' : ''}`}>
+                    <div className='search-content'>
                       <Button
-                        className="search-back btn-icon toggle-search"
+                        className='search-back btn-icon toggle-search'
                         onClick={() => {
-                          setSearchText("");
+                          setSearchText('');
                           toggle();
                         }}
                       >
-                        <Icon name="arrow-left"></Icon>
+                        <Icon name='arrow-left'></Icon>
                       </Button>
                       <input
-                        type="text"
-                        className="form-control border-transparent form-focus-none"
-                        placeholder="Search by bill name"
+                        type='text'
+                        className='form-control border-transparent form-focus-none'
+                        placeholder='Search by bill name'
                         value={onSearchText}
                         onChange={(e) => onFilterChange(e)}
                       />
-                      <Button className="search-submit btn-icon">
-                        <Icon name="search"></Icon>
+                      <Button className='search-submit btn-icon'>
+                        <Icon name='search'></Icon>
                       </Button>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="card-inner p-0">
-                <table className="table table-tranx">
+              <div className='card-inner p-0'>
+                <table className='table table-tranx'>
                   <thead>
-                    <tr className="tb-tnx-head">
-                      <th className="tb-tnx-id">
-                        <span className="">#</span>
+                    <tr className='tb-tnx-head'>
+                      <th className='tb-tnx-id'>
+                        <span className=''>#</span>
                       </th>
-                      <th className="tb-tnx-info">
-                        <span className="tb-tnx-desc d-none d-sm-inline-block">
+                      <th className='tb-tnx-info'>
+                        <span className='tb-tnx-desc d-none d-sm-inline-block'>
                           <span>Bill For</span>
                         </span>
-                        <span className="tb-tnx-date d-md-inline-block d-none">
-                          <span className="d-md-none">Date</span>
-                          <span className="d-none d-md-block">
+                        <span className='tb-tnx-date d-md-inline-block d-none'>
+                          <span className='d-md-none'>Date</span>
+                          <span className='d-none d-md-block'>
                             <span>Issue Date</span>
                             <span>Due Date</span>
                           </span>
                         </span>
                       </th>
-                      <th className="tb-tnx-amount is-alt">
-                        <span className="tb-tnx-total">Total</span>
-                        <span className="tb-tnx-status d-none d-md-inline-block">Status</span>
+                      <th className='tb-tnx-amount is-alt'>
+                        <span className='tb-tnx-total'>Total</span>
+                        <span className='tb-tnx-status d-none d-md-inline-block'>Status</span>
                       </th>
-                      <th className="tb-tnx-action">
+                      <th className='tb-tnx-action'>
                         <span>&nbsp;</span>
                       </th>
                     </tr>
@@ -307,10 +318,10 @@ const OrderSales = () => {
                     {currentItems.length > 0
                       ? currentItems.map((item) => {
                           return (
-                            <tr key={item.id} className="tb-tnx-item">
-                              <td className="tb-tnx-id">
+                            <tr key={item.id} className='tb-tnx-item'>
+                              <td className='tb-tnx-id'>
                                 <a
-                                  href="#ref"
+                                  href='#ref'
                                   onClick={(ev) => {
                                     ev.preventDefault();
                                   }}
@@ -318,40 +329,44 @@ const OrderSales = () => {
                                   <span>{item.ref}</span>
                                 </a>
                               </td>
-                              <td className="tb-tnx-info">
-                                <div className="tb-tnx-desc">
-                                  <span className="title">{item.bill}</span>
+                              <td className='tb-tnx-info'>
+                                <div className='tb-tnx-desc'>
+                                  <span className='title'>{item.bill}</span>
                                 </div>
-                                <div className="tb-tnx-date">
-                                  <span className="date">{item.issue}</span>
-                                  <span className="date">{item.due}</span>
+                                <div className='tb-tnx-date'>
+                                  <span className='date'>{item.issue}</span>
+                                  <span className='date'>{item.due}</span>
                                 </div>
                               </td>
-                              <td className="tb-tnx-amount is-alt">
-                                <div className="tb-tnx-total">
-                                  <span className="amount">${item.total}</span>
+                              <td className='tb-tnx-amount is-alt'>
+                                <div className='tb-tnx-total'>
+                                  <span className='amount'>${item.total}</span>
                                 </div>
-                                <div className="tb-tnx-status">
+                                <div className='tb-tnx-status'>
                                   <Badge
-                                    className="badge-dot"
+                                    className='badge-dot'
                                     color={
-                                      item.status === "Paid" ? "success" : item.status === "Due" ? "warning" : "danger"
+                                      item.status === 'Paid'
+                                        ? 'success'
+                                        : item.status === 'Due'
+                                        ? 'warning'
+                                        : 'danger'
                                     }
                                   >
                                     {item.status}
                                   </Badge>
                                 </div>
                               </td>
-                              <td className="tb-tnx-action">
+                              <td className='tb-tnx-action'>
                                 <UncontrolledDropdown>
                                   <DropdownToggle
-                                    tag="a"
-                                    className="text-soft dropdown-toggle btn btn-icon btn-trigger"
+                                    tag='a'
+                                    className='text-soft dropdown-toggle btn btn-icon btn-trigger'
                                   >
-                                    <Icon name="more-h"></Icon>
+                                    <Icon name='more-h'></Icon>
                                   </DropdownToggle>
                                   <DropdownMenu end>
-                                    <ul className="link-list-plain">
+                                    <ul className='link-list-plain'>
                                       <li
                                         onClick={() => {
                                           loadDetail(item.id);
@@ -359,8 +374,8 @@ const OrderSales = () => {
                                         }}
                                       >
                                         <DropdownItem
-                                          tag="a"
-                                          href="#view"
+                                          tag='a'
+                                          href='#view'
                                           onClick={(ev) => {
                                             ev.preventDefault();
                                           }}
@@ -370,8 +385,8 @@ const OrderSales = () => {
                                       </li>
                                       <li>
                                         <DropdownItem
-                                          tag="a"
-                                          href="#print"
+                                          tag='a'
+                                          href='#print'
                                           onClick={(ev) => {
                                             ev.preventDefault();
                                           }}
@@ -390,7 +405,7 @@ const OrderSales = () => {
                   </tbody>
                 </table>
               </div>
-              <div className="card-inner">
+              <div className='card-inner'>
                 {currentItems.length > 0 ? (
                   <PaginationComponent
                     noDown
@@ -400,8 +415,8 @@ const OrderSales = () => {
                     currentPage={currentPage}
                   />
                 ) : (
-                  <div className="text-center">
-                    <span className="text-silent">No data found</span>
+                  <div className='text-center'>
+                    <span className='text-silent'>No data found</span>
                   </div>
                 )}
               </div>
@@ -409,74 +424,80 @@ const OrderSales = () => {
           </Card>
         </Block>
 
-        <Modal isOpen={modal.add} toggle={() => setModal({ add: false })} className="modal-dialog-centered" size="lg">
+        <Modal
+          isOpen={modal.add}
+          toggle={() => setModal({ add: false })}
+          className='modal-dialog-centered'
+          size='lg'
+        >
           <ModalBody>
             <a
-              href="#cancel"
+              href='#cancel'
               onClick={(ev) => {
                 ev.preventDefault();
                 onFormCancel();
               }}
-              className="close"
+              className='close'
             >
-              <Icon name="cross-sm"></Icon>
+              <Icon name='cross-sm'></Icon>
             </a>
-            <div className="p-2">
-              <h5 className="title">Add Bill</h5>
-              <div className="mt-4">
-                <Form className="row gy-4 mt-4" onSubmit={handleSubmit(onFormSubmit)}>
-                  <Col md="6">
-                    <div className="form-group">
-                      <label className="form-label">Bill</label>
+            <div className='p-2'>
+              <h5 className='title'>Add Bill</h5>
+              <div className='mt-4'>
+                <Form className='row gy-4 mt-4' onSubmit={handleSubmit(onFormSubmit)}>
+                  <Col md='6'>
+                    <div className='form-group'>
+                      <label className='form-label'>Bill</label>
                       <input
-                        className="form-control"
-                        {...register('bill', { required: "This field is required" })}
-                        type="text"
+                        className='form-control'
+                        {...register('bill', { required: 'This field is required' })}
+                        type='text'
                         value={formData.bill}
                         onChange={(e) => setFormData({ ...formData, bill: e.target.value })}
-                        placeholder="Enter bill" />
-                      {errors.bill && <span className="invalid">{errors.bill.message}</span>}
+                        placeholder='Enter bill'
+                      />
+                      {errors.bill && <span className='invalid'>{errors.bill.message}</span>}
                     </div>
                   </Col>
-                  <Col md="6">
-                    <div className="form-group">
-                      <label className="form-label">Total</label>
+                  <Col md='6'>
+                    <div className='form-group'>
+                      <label className='form-label'>Total</label>
                       <input
-                        className="form-control"
-                        {...register('total', { required: "This field is required" })}
-                        type="number"
+                        className='form-control'
+                        {...register('total', { required: 'This field is required' })}
+                        type='number'
                         value={formData.total}
                         onChange={(e) => setFormData({ ...formData, total: e.target.value })}
-                        />
-                      {errors.total && <span className="invalid">{errors.total.message}</span>}
+                      />
+                      {errors.total && <span className='invalid'>{errors.total.message}</span>}
                     </div>
                   </Col>
-                  <Col md="6">
-                    <div className="form-group">
-                      <label className="form-label">Issue Date</label>
+                  <Col md='6'>
+                    <div className='form-group'>
+                      <label className='form-label'>Issue Date</label>
                       <DatePicker
                         selected={formData.issue}
-                        className="form-control"
+                        className='form-control'
                         onChange={(date) => setFormData({ ...formData, issue: date })}
                         minDate={new Date()}
                       />
                     </div>
                   </Col>
-                  <Col md="6">
-                    <div className="form-group">
-                      <label className="form-label">Due Date</label>
+                  <Col md='6'>
+                    <div className='form-group'>
+                      <label className='form-label'>Due Date</label>
                       <DatePicker
                         selected={formData.due}
-                        className="form-control"
+                        className='form-control'
                         onChange={(date) => setFormData({ ...formData, due: date })}
                         minDate={new Date()}
                       />
                     </div>
                   </Col>
-                  <Col md="12">
-                    <div className="form-group">
-                      <label className="form-label">Status</label>
-                      <div className="form-control-wrap">
+                  <Col md='12'>
+                    <div className='form-group'>
+                      <label className='form-label'>Status</label>
+                      <div className='form-control-wrap'>
                         <RSelect
                           options={statusOptions}
                           value={{
@@ -488,21 +509,21 @@ const OrderSales = () => {
                       </div>
                     </div>
                   </Col>
-                  <Col size="12">
-                    <ul className="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
+                  <Col size='12'>
+                    <ul className='align-center flex-wrap flex-sm-nowrap gx-4 gy-2'>
                       <li>
-                        <Button color="primary" size="md" type="submit">
+                        <Button color='primary' size='md' type='submit'>
                           Add Bill
                         </Button>
                       </li>
                       <li>
                         <a
-                          href="#cancel"
+                          href='#cancel'
                           onClick={(ev) => {
                             ev.preventDefault();
                             onFormCancel();
                           }}
-                          className="link link-light"
+                          className='link link-light'
                         >
                           Cancel
                         </a>
@@ -515,53 +536,64 @@ const OrderSales = () => {
           </ModalBody>
         </Modal>
 
-        <Modal isOpen={viewModal} toggle={() => setViewModal(false)} className="modal-dialog-centered" size="lg">
+        <Modal
+          isOpen={viewModal}
+          toggle={() => setViewModal(false)}
+          className='modal-dialog-centered'
+          size='lg'
+        >
           <ModalBody>
             <a
-              href="#cancel"
+              href='#cancel'
               onClick={(ev) => {
                 ev.preventDefault();
                 setViewModal(false);
               }}
-              className="close"
+              className='close'
             >
-              <Icon name="cross-sm"></Icon>
+              <Icon name='cross-sm'></Icon>
             </a>
-            <div className="nk-modal-head">
-              <h4 className="nk-modal-title title">
-                Order <small className="text-primary">#{detail.ref}</small>
+            <div className='nk-modal-head'>
+              <h4 className='nk-modal-title title'>
+                Order <small className='text-primary'>#{detail.ref}</small>
               </h4>
             </div>
-            <div className="nk-tnx-details mt-sm-3">
-              <Row className="gy-3">
+            <div className='nk-tnx-details mt-sm-3'>
+              <Row className='gy-3'>
                 <Col lg={6}>
-                  <span className="sub-text">Order ID</span>
-                  <span className="caption-text">{detail.ref}</span>
+                  <span className='sub-text'>Order ID</span>
+                  <span className='caption-text'>{detail.ref}</span>
                 </Col>
                 <Col lg={6}>
-                  <span className="sub-text">Bill </span>
-                  <span className="caption-text text-break">{detail.bill}</span>
+                  <span className='sub-text'>Bill </span>
+                  <span className='caption-text text-break'>{detail.bill}</span>
                 </Col>
                 <Col lg={6}>
-                  <span className="sub-text">Order Fee</span>
-                  <span className="caption-text">$ {detail.total}</span>
+                  <span className='sub-text'>Order Fee</span>
+                  <span className='caption-text'>$ {detail.total}</span>
                 </Col>
                 <Col lg={6}>
-                  <span className="sub-text">Status</span>
+                  <span className='sub-text'>Status</span>
                   <Badge
-                    color={detail.status === "Paid" ? "success" : detail.status === "Due" ? "warning" : "danger"}
-                    size="md"
+                    color={
+                      detail.status === 'Paid'
+                        ? 'success'
+                        : detail.status === 'Due'
+                        ? 'warning'
+                        : 'danger'
+                    }
+                    size='md'
                   >
                     {detail.status}
                   </Badge>
                 </Col>
                 <Col lg={6}>
-                  <span className="sub-text">Issue Date</span>
-                  <span className="caption-text"> {detail.issue}</span>
+                  <span className='sub-text'>Issue Date</span>
+                  <span className='caption-text'> {detail.issue}</span>
                 </Col>
                 <Col lg={6}>
-                  <span className="sub-text">Due Date</span>
-                  <span className="caption-text"> {detail.due}</span>
+                  <span className='sub-text'>Due Date</span>
+                  <span className='caption-text'> {detail.due}</span>
                 </Col>
               </Row>
             </div>

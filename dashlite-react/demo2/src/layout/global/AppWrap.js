@@ -1,16 +1,12 @@
-import React from 'react'
-import classNames from "classnames"
+import React from 'react';
+import classNames from 'classnames';
 
-function AppWrap({className,...props}) {
+function AppWrap({ className, ...props }) {
   const compClass = classNames({
-    "nk-wrap": true,
+    'nk-wrap': true,
     [`${className}`]: className,
   });
-  return (
-    <div className={compClass}>
-        {props.children}
-    </div>
-  )
+  return <div className={compClass}>{props.children}</div>;
 }
 
-export default AppWrap
+export default AppWrap;

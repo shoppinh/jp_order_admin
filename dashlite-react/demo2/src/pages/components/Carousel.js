@@ -1,61 +1,72 @@
-import React from "react";
-import Content from "../../layout/content/Content";
-import Head from "../../layout/head/Head";
+import React from 'react';
+import Content from '../../layout/content/Content';
+import Head from '../../layout/head/Head';
 
-import BasicCarousel from "../../components/partials/carousel/Basic";
-import ControlsCarousel from "../../components/partials/carousel/Controls";
-import CaptionsCarousel from "../../components/partials/carousel/Captions";
-import FadeCarousel from "../../components/partials/carousel/Fade";
+import BasicCarousel from '../../components/partials/carousel/Basic';
+import ControlsCarousel from '../../components/partials/carousel/Controls';
+import CaptionsCarousel from '../../components/partials/carousel/Captions';
+import FadeCarousel from '../../components/partials/carousel/Fade';
 
-
-import { Block, BlockHead, BlockHeadContent, BlockTitle, BlockDes, BackTo } from "../../components/block/Block";
-import { PreviewCard, CodeBlock } from "../../components/preview/Preview";
+import {
+  Block,
+  BlockHead,
+  BlockHeadContent,
+  BlockTitle,
+  BlockDes,
+  BackTo,
+} from '../../components/block/Block';
+import { PreviewCard, CodeBlock } from '../../components/preview/Preview';
 
 const CarouselPage = ({ ...props }) => {
   return (
     <React.Fragment>
-      <Head title="Carousel" />
-      <Content page="component">
-        <BlockHead size="lg" wide="sm">
+      <Head title='Carousel' />
+      <Content page='component'>
+        <BlockHead size='lg' wide='sm'>
           <BlockHeadContent>
-            <BackTo link="/components" icon="arrow-left">
+            <BackTo link='/components' icon='arrow-left'>
               Components
             </BackTo>
-            <BlockTitle tag="h2" className="fw-normal">
+            <BlockTitle tag='h2' className='fw-normal'>
               Carousel
             </BlockTitle>
             <BlockDes>
-              <p className="lead">
-                A slideshow component for cycling through elements or slides of text—like a carousel. To use it{" "}
+              <p className='lead'>
+                A slideshow component for cycling through elements or slides of text—like a
+                carousel. To use it{' '}
                 <code>
                   Import
                   {` {Carousel, CarouselItem, CarouselControl, CarouselIndicators } `}
                   from "reactstrap"
                 </code>
-                . Visit the{" "}
-                <a href={"https://reactstrap.github.io/?path=/docs/components-carousel--carousel"} target="_blank" rel="noreferrer">
+                . Visit the{' '}
+                <a
+                  href={'https://reactstrap.github.io/?path=/docs/components-carousel--carousel'}
+                  target='_blank'
+                  rel='noreferrer'
+                >
                   Reactstrap
-                </a>{" "}
+                </a>{' '}
                 library for detailed instructions.
               </p>
             </BlockDes>
           </BlockHeadContent>
         </BlockHead>
 
-        <Block size="lg">
+        <Block size='lg'>
           <BlockHead>
             <BlockHeadContent>
-              <BlockTitle tag="h5">Basic Examples</BlockTitle>
+              <BlockTitle tag='h5'>Basic Examples</BlockTitle>
               <p>
-                Carousels don’t automatically normalize slide dimensions. You may need to use additional utilities to
-                appropriate function.
+                Carousels don’t automatically normalize slide dimensions. You may need to use
+                additional utilities to appropriate function.
               </p>
             </BlockHeadContent>
           </BlockHead>
           <PreviewCard>
             <BasicCarousel />
           </PreviewCard>
-          <CodeBlock language="jsx">
+          <CodeBlock language='jsx'>
             {`const items = [
   {
     src: SlideA,
@@ -112,17 +123,20 @@ const BasicCarousel = (props) => {
 `}
           </CodeBlock>
         </Block>
-        <Block size="lg">
+        <Block size='lg'>
           <BlockHead>
             <BlockHeadContent>
-              <BlockTitle tag="h5">With Controls &amp; Indicators</BlockTitle>
-              <p>You can add the indicators to the carousel, as well as the previous and next controls too.</p>
+              <BlockTitle tag='h5'>With Controls &amp; Indicators</BlockTitle>
+              <p>
+                You can add the indicators to the carousel, as well as the previous and next
+                controls too.
+              </p>
             </BlockHeadContent>
           </BlockHead>
           <PreviewCard>
             <ControlsCarousel />
           </PreviewCard>
-          <CodeBlock language="jsx">
+          <CodeBlock language='jsx'>
             {`const items = [
   {
     src: SlideA,
@@ -187,22 +201,23 @@ const BasicCarousel = (props) => {
             `}
           </CodeBlock>
         </Block>
-        <Block size="lg">
+        <Block size='lg'>
           <BlockHead>
             <BlockHeadContent>
-              <BlockTitle tag="h5">With Captions</BlockTitle>
+              <BlockTitle tag='h5'>With Captions</BlockTitle>
               <p>
-                Add captions to your slides easily with the <code>.carousel-caption</code> element within any{" "}
-                <code>.carousel-item</code>. They can be easily hidden on smaller viewports, as shown below, with
-                optional <a href="ut">display utilities</a>. We hide them initially with <code>.d-none</code> and bring
-                them back on medium-sized devices with <code>.d-md-block</code>.
+                Add captions to your slides easily with the <code>.carousel-caption</code> element
+                within any <code>.carousel-item</code>. They can be easily hidden on smaller
+                viewports, as shown below, with optional <a href='ut'>display utilities</a>. We hide
+                them initially with <code>.d-none</code> and bring them back on medium-sized devices
+                with <code>.d-md-block</code>.
               </p>
             </BlockHeadContent>
           </BlockHead>
           <PreviewCard>
             <CaptionsCarousel />
           </PreviewCard>
-          <CodeBlock language="jsx">
+          <CodeBlock language='jsx'>
             {`const items = [
   {
     src: SlideA,
@@ -274,20 +289,20 @@ const BasicCarousel = (props) => {
 }`}
           </CodeBlock>
         </Block>
-        <Block size="lg">
+        <Block size='lg'>
           <BlockHead>
             <BlockHeadContent>
-              <BlockTitle tag="h5">Crossfade Effect</BlockTitle>
+              <BlockTitle tag='h5'>Crossfade Effect</BlockTitle>
               <p>
-                Add <code>.carousel-fade</code> to your carousel to animate slides with a fade transition instead of a
-                slide.
+                Add <code>.carousel-fade</code> to your carousel to animate slides with a fade
+                transition instead of a slide.
               </p>
             </BlockHeadContent>
           </BlockHead>
           <PreviewCard>
             <FadeCarousel />
           </PreviewCard>
-          <CodeBlock language="jsx">
+          <CodeBlock language='jsx'>
             {`const items = [
   {
     src: SlideA,

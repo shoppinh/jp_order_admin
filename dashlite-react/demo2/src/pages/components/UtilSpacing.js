@@ -1,52 +1,59 @@
-import React from "react";
-import Content from "../../layout/content/Content";
-import Head from "../../layout/head/Head";
-import { Block, BlockHead, BlockHeadContent, BlockTitle, BlockDes, BackTo } from "../../components/block/Block";
-import { PreviewCard, PreviewTable, CodeBlock } from "../../components/preview/Preview";
+import React from 'react';
+import Content from '../../layout/content/Content';
+import Head from '../../layout/head/Head';
+import {
+  Block,
+  BlockHead,
+  BlockHeadContent,
+  BlockTitle,
+  BlockDes,
+  BackTo,
+} from '../../components/block/Block';
+import { PreviewCard, PreviewTable, CodeBlock } from '../../components/preview/Preview';
 
 const SpacingPage = ({ ...props }) => {
   return (
     <React.Fragment>
-      <Head title="Spacing Utility" />
-      <Content page="component">
-        <BlockHead size="lg" wide="sm">
+      <Head title='Spacing Utility' />
+      <Content page='component'>
+        <BlockHead size='lg' wide='sm'>
           <BlockHeadContent>
-            <BackTo link="/components" icon="arrow-left">
+            <BackTo link='/components' icon='arrow-left'>
               Components
             </BackTo>
-            <BlockTitle tag="h2" className="fw-normal">
+            <BlockTitle tag='h2' className='fw-normal'>
               Spacing Utility
             </BlockTitle>
             <BlockDes>
-              <p className="lead">
-                A wide range of shorthand responsive margin and padding utility classNames to modify an element’s
-                appearance. Mostly use for cards, buttons, or any other element.
+              <p className='lead'>
+                A wide range of shorthand responsive margin and padding utility classNames to modify
+                an element’s appearance. Mostly use for cards, buttons, or any other element.
               </p>
             </BlockDes>
           </BlockHeadContent>
         </BlockHead>
 
-        <Block size="lg">
+        <Block size='lg'>
           <BlockHead>
             <BlockHeadContent>
-              <BlockTitle tag="h5">Size Reference</BlockTitle>
+              <BlockTitle tag='h5'>Size Reference</BlockTitle>
               <p>
-                This will guide you how much space used in <code>{"{size}"}</code>.
+                This will guide you how much space used in <code>{'{size}'}</code>.
               </p>
             </BlockHeadContent>
           </BlockHead>
           <PreviewTable>
-            <thead className="table-light">
+            <thead className='table-light'>
               <tr>
-                <th className="overline-title w-250px">Reference</th>
-                <th className="overline-title">Value</th>
-                <th className="overline-title">Details</th>
+                <th className='overline-title w-250px'>Reference</th>
+                <th className='overline-title'>Value</th>
+                <th className='overline-title'>Details</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td>
-                  <code>{"{size}"}</code>
+                  <code>{'{size}'}</code>
                 </td>
                 <td>
                   0<br />
@@ -57,248 +64,248 @@ const SpacingPage = ({ ...props }) => {
                   5<br />
                   gs
                 </td>
-                <td className="text-soft">
-                  <code>0rem</code> as <code className="code-tag">0px</code>
+                <td className='text-soft'>
+                  <code>0rem</code> as <code className='code-tag'>0px</code>
                   <br />
-                  <code>0.375rem</code> as <code className="code-tag">6px</code>
+                  <code>0.375rem</code> as <code className='code-tag'>6px</code>
                   <br />
-                  <code>0.75rem</code> as <code className="code-tag">12px</code>
+                  <code>0.75rem</code> as <code className='code-tag'>12px</code>
                   <br />
-                  <code>1.0rem</code> as <code className="code-tag">16px</code>
+                  <code>1.0rem</code> as <code className='code-tag'>16px</code>
                   <br />
-                  <code>1.5rem</code> as <code className="code-tag">24px</code>
+                  <code>1.5rem</code> as <code className='code-tag'>24px</code>
                   <br />
-                  <code>2.75rem</code> as <code className="code-tag">44px</code>
+                  <code>2.75rem</code> as <code className='code-tag'>44px</code>
                   <br />
-                  <code>28px</code> as <code className="code-tag">gutter</code> size
+                  <code>28px</code> as <code className='code-tag'>gutter</code> size
                 </td>
               </tr>
               <tr>
-                <td colSpan="3">
-                  <em className="fs-13px">Note: Base font size is 16px and 1rem equal to 16px</em>
+                <td colSpan='3'>
+                  <em className='fs-13px'>Note: Base font size is 16px and 1rem equal to 16px</em>
                 </td>
               </tr>
             </tbody>
           </PreviewTable>
         </Block>
 
-        <Block size="lg">
+        <Block size='lg'>
           <BlockHead>
             <BlockHeadContent>
-              <BlockTitle tag="h5">Set Margin</BlockTitle>
+              <BlockTitle tag='h5'>Set Margin</BlockTitle>
               <p>These utility classNames allow to set margin to an element.</p>
             </BlockHeadContent>
           </BlockHead>
           <PreviewCard>
-            <div className="d-flex flex-wrap example-spacing example-spacing-mg">
-              <div className="me-gs">me-gs</div>
-              <div className="me-5">me-5</div>
-              <div className="me-4">me-4</div>
-              <div className="me-3">me-3</div>
-              <div className="me-2">me-2</div>
-              <div className="me-1">me-1</div>
+            <div className='d-flex flex-wrap example-spacing example-spacing-mg'>
+              <div className='me-gs'>me-gs</div>
+              <div className='me-5'>me-5</div>
+              <div className='me-4'>me-4</div>
+              <div className='me-3'>me-3</div>
+              <div className='me-2'>me-2</div>
+              <div className='me-1'>me-1</div>
             </div>
           </PreviewCard>
           <PreviewTable>
-            <thead className="table-light">
+            <thead className='table-light'>
               <tr>
-                <th className="overline-title w-250px">ClassName Reference</th>
-                <th className="overline-title">Size</th>
-                <th className="overline-title">Note</th>
+                <th className='overline-title w-250px'>ClassName Reference</th>
+                <th className='overline-title'>Size</th>
+                <th className='overline-title'>Note</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td>
-                  <code>.m-{"{size}"}</code>
+                  <code>.m-{'{size}'}</code>
                 </td>
                 <td>0 | 1 | 2 | 3 | 4 | 5 | gs | auto</td>
-                <td className="text-soft">Apply margin around to the element</td>
+                <td className='text-soft'>Apply margin around to the element</td>
               </tr>
               <tr>
                 <td>
-                  <code>.ms-{"{size}"}</code>
+                  <code>.ms-{'{size}'}</code>
                   <br />
-                  <code>.me-{"{size}"}</code>
+                  <code>.me-{'{size}'}</code>
                   <br />
-                  <code>.mt-{"{size}"}</code>
+                  <code>.mt-{'{size}'}</code>
                   <br />
-                  <code>.mb-{"{size}"}</code>
+                  <code>.mb-{'{size}'}</code>
                 </td>
                 <td>0 | 1 | 2 | 3 | 4 | 5 | gs | auto</td>
-                <td className="text-soft">Apply margin on specific side of the element</td>
-              </tr>
-              <tr>
-                <td>
-                  <code>
-                    .m-{"{screen}"}-{"{size}"}
-                  </code>
-                </td>
-                <td>0 | 1 | 2 | 3 | 4 | 5 | gs | auto</td>
-                <td className="text-soft">
-                  Use <code>{"{screen}"}</code> as <code>sm | md | lg | xl</code>
-                </td>
+                <td className='text-soft'>Apply margin on specific side of the element</td>
               </tr>
               <tr>
                 <td>
                   <code>
-                    .ms-{"{screen}"}-{"{size}"}
-                  </code>
-                  <br />
-                  <code>
-                    .me-{"{screen}"}-{"{size}"}
-                  </code>
-                  <br />
-                  <code>
-                    .mt-{"{screen}"}-{"{size}"}
-                  </code>
-                  <br />
-                  <code>
-                    .mb-{"{screen}"}-{"{size}"}
+                    .m-{'{screen}'}-{'{size}'}
                   </code>
                 </td>
                 <td>0 | 1 | 2 | 3 | 4 | 5 | gs | auto</td>
-                <td className="text-soft">Same as above</td>
+                <td className='text-soft'>
+                  Use <code>{'{screen}'}</code> as <code>sm | md | lg | xl</code>
+                </td>
               </tr>
               <tr>
-                <td colSpan="3">
-                  <em className="fs-13px">
-                    <code>{"{screen}"}</code> related with breakpoint and apply from the <code>{"{screen}"}</code> you
-                    have use. For example, <code>.m-sm-2</code> sets margin on <code>sm</code> screen and continue to
-                    above screens.
+                <td>
+                  <code>
+                    .ms-{'{screen}'}-{'{size}'}
+                  </code>
+                  <br />
+                  <code>
+                    .me-{'{screen}'}-{'{size}'}
+                  </code>
+                  <br />
+                  <code>
+                    .mt-{'{screen}'}-{'{size}'}
+                  </code>
+                  <br />
+                  <code>
+                    .mb-{'{screen}'}-{'{size}'}
+                  </code>
+                </td>
+                <td>0 | 1 | 2 | 3 | 4 | 5 | gs | auto</td>
+                <td className='text-soft'>Same as above</td>
+              </tr>
+              <tr>
+                <td colSpan='3'>
+                  <em className='fs-13px'>
+                    <code>{'{screen}'}</code> related with breakpoint and apply from the{' '}
+                    <code>{'{screen}'}</code> you have use. For example, <code>.m-sm-2</code> sets
+                    margin on <code>sm</code> screen and continue to above screens.
                   </em>
                 </td>
               </tr>
             </tbody>
           </PreviewTable>
-          <CodeBlock language="jsx">
+          <CodeBlock language='jsx'>
             {`<div className="m-2"> ... </div>
 <div className="m-lg-2"> ... </div>
 <div className="ms-lg-3 ms-sm-2"> ... </div>`}
           </CodeBlock>
         </Block>
 
-        <Block size="lg">
+        <Block size='lg'>
           <BlockHead>
             <BlockHeadContent>
-              <BlockTitle tag="h5">Set Padding</BlockTitle>
+              <BlockTitle tag='h5'>Set Padding</BlockTitle>
               <p>These utility classNames allow to set inside padding to an element.</p>
             </BlockHeadContent>
           </BlockHead>
           <PreviewCard>
-            <div className="d-flex align-items-start flex-wrap example-spacing example-spacing-pd">
-              <div className="p-1">
+            <div className='d-flex align-items-start flex-wrap example-spacing example-spacing-pd'>
+              <div className='p-1'>
                 <span>p-1</span>
               </div>
-              <div className="p-2">
+              <div className='p-2'>
                 <span>p-2</span>
               </div>
-              <div className="p-3">
+              <div className='p-3'>
                 <span>p-3</span>
               </div>
-              <div className="p-4">
+              <div className='p-4'>
                 <span>p-4</span>
               </div>
-              <div className="p-5">
+              <div className='p-5'>
                 <span>p-5</span>
               </div>
-              <div className="p-gs">
+              <div className='p-gs'>
                 <span>p-gs</span>
               </div>
             </div>
           </PreviewCard>
           <PreviewTable>
-            <thead className="table-light">
+            <thead className='table-light'>
               <tr>
-                <th className="overline-title w-250px">ClassName Reference</th>
-                <th className="overline-title">Size</th>
-                <th className="overline-title">Note</th>
+                <th className='overline-title w-250px'>ClassName Reference</th>
+                <th className='overline-title'>Size</th>
+                <th className='overline-title'>Note</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td>
-                  <code>.p-{"{size}"}</code>
+                  <code>.p-{'{size}'}</code>
                 </td>
                 <td>0 | 1 | 2 | 3 | 4 | 5 | gs | auto</td>
-                <td className="text-soft">Apply padding around to the element</td>
+                <td className='text-soft'>Apply padding around to the element</td>
               </tr>
               <tr>
                 <td>
-                  <code>.ps-{"{size}"}</code>
+                  <code>.ps-{'{size}'}</code>
                   <br />
-                  <code>.pe-{"{size}"}</code>
+                  <code>.pe-{'{size}'}</code>
                   <br />
-                  <code>.pt-{"{size}"}</code>
+                  <code>.pt-{'{size}'}</code>
                   <br />
-                  <code>.pb-{"{size}"}</code>
+                  <code>.pb-{'{size}'}</code>
                 </td>
                 <td>0 | 1 | 2 | 3 | 4 | 5 | gs | auto</td>
-                <td className="text-soft">Apply padding on specific side of the element</td>
-              </tr>
-              <tr>
-                <td>
-                  <code>
-                    .p-{"{screen}"}-{"{size}"}
-                  </code>
-                </td>
-                <td>0 | 1 | 2 | 3 | 4 | 5 | gs | auto</td>
-                <td className="text-soft">
-                  Use <code>{"{screen}"}</code> as <code>sm, md, lg, xl</code>
-                </td>
+                <td className='text-soft'>Apply padding on specific side of the element</td>
               </tr>
               <tr>
                 <td>
                   <code>
-                    .ps-{"{screen}"}-{"{size}"}
-                  </code>
-                  <br />
-                  <code>
-                    .pe-{"{screen}"}-{"{size}"}
-                  </code>
-                  <br />
-                  <code>
-                    .pt-{"{screen}"}-{"{size}"}
-                  </code>
-                  <br />
-                  <code>
-                    .pb-{"{screen}"}-{"{size}"}
+                    .p-{'{screen}'}-{'{size}'}
                   </code>
                 </td>
                 <td>0 | 1 | 2 | 3 | 4 | 5 | gs | auto</td>
-                <td className="text-soft">Same as above</td>
+                <td className='text-soft'>
+                  Use <code>{'{screen}'}</code> as <code>sm, md, lg, xl</code>
+                </td>
               </tr>
               <tr>
-                <td colSpan="3">
-                  <em className="fs-13px">
-                    <code>{"{screen}"}</code> related with breakpoint and will apply from the <code>{"{screen}"}</code>{" "}
-                    to above. For example, <code>.m-sm-2</code> sets padding on <code>sm</code> screen and continue to
-                    above screens.
+                <td>
+                  <code>
+                    .ps-{'{screen}'}-{'{size}'}
+                  </code>
+                  <br />
+                  <code>
+                    .pe-{'{screen}'}-{'{size}'}
+                  </code>
+                  <br />
+                  <code>
+                    .pt-{'{screen}'}-{'{size}'}
+                  </code>
+                  <br />
+                  <code>
+                    .pb-{'{screen}'}-{'{size}'}
+                  </code>
+                </td>
+                <td>0 | 1 | 2 | 3 | 4 | 5 | gs | auto</td>
+                <td className='text-soft'>Same as above</td>
+              </tr>
+              <tr>
+                <td colSpan='3'>
+                  <em className='fs-13px'>
+                    <code>{'{screen}'}</code> related with breakpoint and will apply from the{' '}
+                    <code>{'{screen}'}</code> to above. For example, <code>.m-sm-2</code> sets
+                    padding on <code>sm</code> screen and continue to above screens.
                   </em>
                 </td>
               </tr>
             </tbody>
           </PreviewTable>
-          <CodeBlock language="jsx">
+          <CodeBlock language='jsx'>
             {`<div className="p-2"> ... </div>
 <div className="p-lg-2"> ... </div>
 <div className="p-lg-3 p-sm-2"> ... </div>`}
           </CodeBlock>
         </Block>
 
-        <Block size="lg">
+        <Block size='lg'>
           <BlockHead>
             <BlockHeadContent>
-              <BlockTitle tag="h5">Gaps classNames</BlockTitle>
+              <BlockTitle tag='h5'>Gaps classNames</BlockTitle>
               <p>The gap classNames allow to set specific gap between to section or block.</p>
             </BlockHeadContent>
           </BlockHead>
           <PreviewTable>
-            <thead className="table-light">
+            <thead className='table-light'>
               <tr>
-                <th className="overline-title w-250px">className Reference</th>
-                <th className="overline-title">Value</th>
-                <th className="overline-title"></th>
+                <th className='overline-title w-250px'>className Reference</th>
+                <th className='overline-title'>Value</th>
+                <th className='overline-title'></th>
               </tr>
             </thead>
             <tbody>
@@ -307,7 +314,7 @@ const SpacingPage = ({ ...props }) => {
                   <code>.gap</code>
                 </td>
                 <td>
-                  <code>28px</code> as <code className="code-tag">gutter</code> size
+                  <code>28px</code> as <code className='code-tag'>gutter</code> size
                 </td>
                 <td></td>
               </tr>
@@ -316,7 +323,7 @@ const SpacingPage = ({ ...props }) => {
                   <code>.gap-sm</code>
                 </td>
                 <td>
-                  <code>0.75rem</code> as <code className="code-tag">12px</code>
+                  <code>0.75rem</code> as <code className='code-tag'>12px</code>
                 </td>
                 <td></td>
               </tr>
@@ -325,7 +332,7 @@ const SpacingPage = ({ ...props }) => {
                   <code>.gap-md</code>
                 </td>
                 <td>
-                  <code>1.25rem</code> as <code className="code-tag">20px</code>
+                  <code>1.25rem</code> as <code className='code-tag'>20px</code>
                 </td>
                 <td></td>
               </tr>
@@ -334,7 +341,7 @@ const SpacingPage = ({ ...props }) => {
                   <code>.gap-lg</code>
                 </td>
                 <td>
-                  <code>2rem</code> as <code className="code-tag">32px</code>
+                  <code>2rem</code> as <code className='code-tag'>32px</code>
                 </td>
                 <td></td>
               </tr>
@@ -343,37 +350,38 @@ const SpacingPage = ({ ...props }) => {
                   <code>.gap-xl</code>
                 </td>
                 <td>
-                  <code>2.5rem</code> as <code className="code-tag">40px</code>
+                  <code>2.5rem</code> as <code className='code-tag'>40px</code>
                 </td>
                 <td></td>
               </tr>
               <tr>
                 <td>
-                  <code>.gap-{"{num}"}px</code>
+                  <code>.gap-{'{num}'}px</code>
                 </td>
                 <td>
-                  <code>[10, 20, 30, 40, 50, 60, 70, 80, 90, 100]</code> use as <code>{"{num}"}</code> value
+                  <code>[10, 20, 30, 40, 50, 60, 70, 80, 90, 100]</code> use as{' '}
+                  <code>{'{num}'}</code> value
                 </td>
                 <td>
-                  <span className="fs-11px text-soft">Fixed in pixel</span>
+                  <span className='fs-11px text-soft'>Fixed in pixel</span>
                 </td>
               </tr>
               <tr>
                 <td>
-                  <code>.gap-{"{size}"}</code>
+                  <code>.gap-{'{size}'}</code>
                 </td>
                 <td>
-                  <code>[0, 1, 2, 3, 4, 5] </code> as <code>{"{size}"}</code> value
+                  <code>[0, 1, 2, 3, 4, 5] </code> as <code>{'{size}'}</code> value
                 </td>
                 <td>
-                  <span className="fs-11px text-soft">
-                    <code>{"{size}"}</code> is related to Size reference.
+                  <span className='fs-11px text-soft'>
+                    <code>{'{size}'}</code> is related to Size reference.
                   </span>
                 </td>
               </tr>
             </tbody>
           </PreviewTable>
-          <CodeBlock language="jsx">
+          <CodeBlock language='jsx'>
             {`<div className="gap"></div>
 <div className="gap gap-sm"></div>
 <div className="gap gap-20px"></div>`}

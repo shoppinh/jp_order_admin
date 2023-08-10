@@ -1,10 +1,17 @@
-import React, { useState } from "react";
-import Content from "../../layout/content/Content";
-import Head from "../../layout/head/Head";
+import React, { useState } from 'react';
+import Content from '../../layout/content/Content';
+import Head from '../../layout/head/Head';
 
-import { Button, Popover, UncontrolledPopover, PopoverHeader, PopoverBody } from "reactstrap";
-import { Block, BlockHead, BlockHeadContent, BlockTitle, BlockDes, BackTo } from "../../components/block/Block";
-import { PreviewCard, CodeBlock } from "../../components/preview/Preview";
+import { Button, Popover, UncontrolledPopover, PopoverHeader, PopoverBody } from 'reactstrap';
+import {
+  Block,
+  BlockHead,
+  BlockHeadContent,
+  BlockTitle,
+  BlockDes,
+  BackTo,
+} from '../../components/block/Block';
+import { PreviewCard, CodeBlock } from '../../components/preview/Preview';
 
 const PopoversPage = ({ ...props }) => {
   const [popoverOpen, setPopoverOpen] = useState(false);
@@ -12,46 +19,51 @@ const PopoversPage = ({ ...props }) => {
   const toggle = () => setPopoverOpen(!popoverOpen);
   return (
     <React.Fragment>
-      <Head title="Popovers" />
-      <Content page="component">
-        <BlockHead size="lg" wide="sm">
+      <Head title='Popovers' />
+      <Content page='component'>
+        <BlockHead size='lg' wide='sm'>
           <BlockHeadContent>
-            <BackTo link="/components" icon="arrow-left">
+            <BackTo link='/components' icon='arrow-left'>
               Components
             </BackTo>
-            <BlockTitle tag="h2" className="fw-normal">
+            <BlockTitle tag='h2' className='fw-normal'>
               Popovers
             </BlockTitle>
             <BlockDes>
-              <p className="lead">
-                Examples for adding Bootstrap popovers, like those found in iOS, to any element on your site.To use it,
-                import it such as <code>import {`{Popover}`} from "reactstrap"</code>. Visit the{" "}
-                <a href={"https://reactstrap.github.io/?path=/docs/components-popover--popover"} target="_blank" rel="noreferrer">
+              <p className='lead'>
+                Examples for adding Bootstrap popovers, like those found in iOS, to any element on
+                your site.To use it, import it such as{' '}
+                <code>import {`{Popover}`} from "reactstrap"</code>. Visit the{' '}
+                <a
+                  href={'https://reactstrap.github.io/?path=/docs/components-popover--popover'}
+                  target='_blank'
+                  rel='noreferrer'
+                >
                   Reactstrap
-                </a>{" "}
+                </a>{' '}
                 library for detailed instructions.
               </p>
             </BlockDes>
           </BlockHeadContent>
         </BlockHead>
 
-        <Block size="lg">
+        <Block size='lg'>
           <BlockHead>
             <BlockHeadContent>
-              <BlockTitle tag="h5">Basic Examples</BlockTitle>
+              <BlockTitle tag='h5'>Basic Examples</BlockTitle>
               <p>Click the following button to see the basic example of popover.</p>
             </BlockHeadContent>
           </BlockHead>
           <PreviewCard>
-            <Button size="lg" color="primary" id="Popover1" type="button">
+            <Button size='lg' color='primary' id='Popover1' type='button'>
               Click to toggle popover
             </Button>
-            <Popover isOpen={popoverOpen} target="Popover1" toggle={toggle}>
+            <Popover isOpen={popoverOpen} target='Popover1' toggle={toggle}>
               <PopoverHeader>Popover Title</PopoverHeader>
               <PopoverBody>And here's some amazing content. It's very engaging. Right?</PopoverBody>
             </Popover>
           </PreviewCard>
-          <CodeBlock language="jsx">
+          <CodeBlock language='jsx'>
             {`<Button size="lg" color="primary" id="Popover1" type="button">
   Click to toggle popover
 </Button>
@@ -64,56 +76,65 @@ const PopoversPage = ({ ...props }) => {
           </CodeBlock>
         </Block>
 
-        <Block size="lg">
+        <Block size='lg'>
           <BlockHead>
             <BlockHeadContent>
-              <BlockTitle tag="h5">Four Directions</BlockTitle>
+              <BlockTitle tag='h5'>Four Directions</BlockTitle>
               <p>
-                Use <code>{`placement={top|right|bottom|left}`}</code> props in <code>Popover</code> for direction.
+                Use <code>{`placement={top|right|bottom|left}`}</code> props in <code>Popover</code>{' '}
+                for direction.
               </p>
             </BlockHeadContent>
           </BlockHead>
           <PreviewCard>
-            <ul className="preview-list">
-              <li className="preview-item">
-                <Button color="primary" id="PopoverTop" type="button">
+            <ul className='preview-list'>
+              <li className='preview-item'>
+                <Button color='primary' id='PopoverTop' type='button'>
                   Popover on Top
                 </Button>
-                <UncontrolledPopover placement="top" target="PopoverTop">
+                <UncontrolledPopover placement='top' target='PopoverTop'>
                   <PopoverHeader>Popover Title</PopoverHeader>
-                  <PopoverBody>And here"s some amazing content. It"s very engaging. Right?</PopoverBody>
+                  <PopoverBody>
+                    And here"s some amazing content. It"s very engaging. Right?
+                  </PopoverBody>
                 </UncontrolledPopover>
               </li>
-              <li className="preview-item">
-                <Button color="primary" id="PopoverRight" type="button">
+              <li className='preview-item'>
+                <Button color='primary' id='PopoverRight' type='button'>
                   Popover on Right
                 </Button>
-                <UncontrolledPopover placement="right" target="PopoverRight">
+                <UncontrolledPopover placement='right' target='PopoverRight'>
                   <PopoverHeader>Popover Title</PopoverHeader>
-                  <PopoverBody>And here"s some amazing content. It"s very engaging. Right?</PopoverBody>
+                  <PopoverBody>
+                    And here"s some amazing content. It"s very engaging. Right?
+                  </PopoverBody>
                 </UncontrolledPopover>
               </li>
-              <li className="preview-item">
-                <Button color="primary" id="PopoverBottom" type="button">
+              <li className='preview-item'>
+                <Button color='primary' id='PopoverBottom' type='button'>
                   Popover on Bottom
                 </Button>
-                <UncontrolledPopover placement="bottom" target="PopoverBottom">
+                <UncontrolledPopover placement='bottom' target='PopoverBottom'>
                   <PopoverHeader>Popover Title</PopoverHeader>
-                  <PopoverBody>And here"s some amazing content. It"s very engaging. Right?</PopoverBody>
+                  <PopoverBody>
+                    And here"s some amazing content. It"s very engaging. Right?
+                  </PopoverBody>
                 </UncontrolledPopover>
               </li>
-              <li className="preview-item">
-                <Button color="primary" id="PopoverLeft" type="button">
+              <li className='preview-item'>
+                <Button color='primary' id='PopoverLeft' type='button'>
                   Popover on Left
                 </Button>
-                <UncontrolledPopover placement="left" target="PopoverLeft">
+                <UncontrolledPopover placement='left' target='PopoverLeft'>
                   <PopoverHeader>Popover Title</PopoverHeader>
-                  <PopoverBody>And here"s some amazing content. It"s very engaging. Right?</PopoverBody>
+                  <PopoverBody>
+                    And here"s some amazing content. It"s very engaging. Right?
+                  </PopoverBody>
                 </UncontrolledPopover>
               </li>
             </ul>
           </PreviewCard>
-          <CodeBlock language="jsx">
+          <CodeBlock language='jsx'>
             {`<Button color="primary" id="PopoverTop" type="button">
   Popover on Top
 </Button>
@@ -126,26 +147,26 @@ const PopoversPage = ({ ...props }) => {
           </CodeBlock>
         </Block>
 
-        <Block size="lg">
+        <Block size='lg'>
           <BlockHead>
             <BlockHeadContent>
-              <BlockTitle tag="h5">Dismissible Popover</BlockTitle>
+              <BlockTitle tag='h5'>Dismissible Popover</BlockTitle>
               <p>
-                Use the <code>focus</code> trigger to dismiss popovers on the user’s next click of a different element
-                than the toggle element.
+                Use the <code>focus</code> trigger to dismiss popovers on the user’s next click of a
+                different element than the toggle element.
               </p>
             </BlockHeadContent>
           </BlockHead>
           <PreviewCard>
-            <Button color="danger" id="PopoverDismisable" className="btn-dim">
+            <Button color='danger' id='PopoverDismisable' className='btn-dim'>
               Dismissible popover
             </Button>
-            <UncontrolledPopover target="PopoverDismisable" trigger="focus">
+            <UncontrolledPopover target='PopoverDismisable' trigger='focus'>
               <PopoverHeader>Popover Title</PopoverHeader>
               <PopoverBody>And here"s some amazing content. It"s very engaging. Right?</PopoverBody>
             </UncontrolledPopover>
           </PreviewCard>
-          <CodeBlock language="jsx">
+          <CodeBlock language='jsx'>
             {`<Button color="danger" id="PopoverDismisable" className="btn-dim">
   Dismissible popover
 </Button>

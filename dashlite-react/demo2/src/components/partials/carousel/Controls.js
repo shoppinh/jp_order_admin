@@ -1,22 +1,22 @@
-import React, { useState } from "react";
-import { Carousel, CarouselItem, CarouselControl, CarouselIndicators } from "reactstrap";
+import React, { useState } from 'react';
+import { Carousel, CarouselItem, CarouselControl, CarouselIndicators } from 'reactstrap';
 
-import SlideA from "../../../images/slides/slide-a.jpg";
-import SlideB from "../../../images/slides/slide-b.jpg";
-import SlideC from "../../../images/slides/slide-c.jpg";
+import SlideA from '../../../images/slides/slide-a.jpg';
+import SlideB from '../../../images/slides/slide-b.jpg';
+import SlideC from '../../../images/slides/slide-c.jpg';
 
 const items = [
   {
     src: SlideA,
-    altText: "Slide 1",
+    altText: 'Slide 1',
   },
   {
     src: SlideB,
-    altText: "Slide 2",
+    altText: 'Slide 2',
   },
   {
     src: SlideC,
-    altText: "Slide 3",
+    altText: 'Slide 3',
   },
 ];
 
@@ -43,7 +43,11 @@ const BasicCarousel = (props) => {
 
   const slides = items.map((item) => {
     return (
-      <CarouselItem onExiting={() => setAnimating(true)} onExited={() => setAnimating(false)} key={item.src}>
+      <CarouselItem
+        onExiting={() => setAnimating(true)}
+        onExited={() => setAnimating(false)}
+        key={item.src}
+      >
         <img src={item.src} alt={item.altText} />
       </CarouselItem>
     );
@@ -53,8 +57,8 @@ const BasicCarousel = (props) => {
     <Carousel activeIndex={activeIndex} next={next} previous={previous}>
       <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={goToIndex} />
       {slides}
-      <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous} />
-      <CarouselControl direction="next" directionText="Next" onClickHandler={next} />
+      <CarouselControl direction='prev' directionText='Previous' onClickHandler={previous} />
+      <CarouselControl direction='next' directionText='Next' onClickHandler={next} />
     </Carousel>
   );
 };

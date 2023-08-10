@@ -1,12 +1,7 @@
-import React, { useContext, useEffect, useState } from "react";
-import Content from "../../../../layout/content/Content";
-import Head from "../../../../layout/head/Head";
-import {
-  DropdownMenu,
-  DropdownToggle,
-  UncontrolledDropdown,
-  DropdownItem,
-} from "reactstrap";
+import React, { useContext, useEffect, useState } from 'react';
+import Content from '../../../../layout/content/Content';
+import Head from '../../../../layout/head/Head';
+import { DropdownMenu, DropdownToggle, UncontrolledDropdown, DropdownItem } from 'reactstrap';
 import {
   Block,
   BlockBetween,
@@ -25,38 +20,38 @@ import {
   TooltipComponent,
   RSelect,
   PreviewAltCard,
-} from "../../../../components/Component";
-import { filterStatus, CustomerData } from "./CustomerData";
-import { findUpper } from "../../../../utils/Utils";
-import { Link } from "react-router-dom";
-import { CustomerContext } from "./CustomerContext";
-import EditModal from "./EditModal";
-import AddModal from "./AddModal";
+} from '../../../../components/Component';
+import { filterStatus, CustomerData } from './CustomerData';
+import { findUpper } from '../../../../utils/Utils';
+import { Link } from 'react-router-dom';
+import { CustomerContext } from './CustomerContext';
+import EditModal from './EditModal';
+import AddModal from './AddModal';
 
 const CustomerList = () => {
   const { contextData } = useContext(CustomerContext);
   const [data, setData] = contextData;
 
   const [sm, updateSm] = useState(false);
-  const [onSearchText] = useState("");
+  const [onSearchText] = useState('');
   const [modal, setModal] = useState({
     edit: false,
     add: false,
   });
   const [editId, setEditedId] = useState();
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
+    name: '',
+    email: '',
     balance: 0,
-    phone: "",
-    status: "Active",
+    phone: '',
+    status: 'Active',
   });
   const [editFormData, setEditFormData] = useState({
-    name: "",
-    email: "",
+    name: '',
+    email: '',
     balance: 0,
-    phone: "",
-    status: "",
+    phone: '',
+    status: '',
   });
   const [currentPage, setCurrentPage] = useState(1);
   const [itemPerPage] = useState(10);
@@ -73,7 +68,7 @@ const CustomerList = () => {
 
   // Changing state value when searching name
   useEffect(() => {
-    if (onSearchText !== "") {
+    if (onSearchText !== '') {
       const filteredObject = CustomerData.filter((item) => {
         return (
           item.name.toLowerCase().includes(onSearchText.toLowerCase()) ||
@@ -97,21 +92,21 @@ const CustomerList = () => {
   // function to reset the form
   const resetForm = () => {
     setFormData({
-      name: "",
-      email: "",
+      name: '',
+      email: '',
       balance: 0,
-      phone: "",
-      status: "Active",
+      phone: '',
+      status: 'Active',
     });
   };
 
   const closeModal = () => {
-    setModal({ add: false })
+    setModal({ add: false });
     resetForm();
   };
 
   const closeEditModal = () => {
-    setModal({ edit: false })
+    setModal({ edit: false });
     resetForm();
   };
 
@@ -120,17 +115,17 @@ const CustomerList = () => {
     const { name, email, balance, phone } = submitData;
     let submittedData = {
       id: data.length + 1,
-      avatarBg: "purple",
+      avatarBg: 'purple',
       name: name,
-      role: "Customer",
+      role: 'Customer',
       email: email,
       balance: balance,
       phone: phone,
-      emailStatus: "success",
-      kycStatus: "alert",
-      lastLogin: "10 Feb 2020",
+      emailStatus: 'success',
+      kycStatus: 'alert',
+      lastLogin: '10 Feb 2020',
       status: formData.status,
-      country: "Bangladesh",
+      country: 'Bangladesh',
     };
     setData([submittedData, ...data]);
     resetForm();
@@ -187,7 +182,7 @@ const CustomerList = () => {
   const suspendUser = (id) => {
     let newData = data;
     let index = newData.findIndex((item) => item.id === id);
-    newData[index].status = "Suspend";
+    newData[index].status = 'Suspend';
     setData([...newData]);
   };
 
@@ -212,7 +207,7 @@ const CustomerList = () => {
   const selectorSuspendUser = () => {
     let newData;
     newData = data.map((item) => {
-      if (item.checked === true) item.status = "Suspend";
+      if (item.checked === true) item.status = 'Suspend';
       return item;
     });
     setData([...newData]);
@@ -228,37 +223,41 @@ const CustomerList = () => {
 
   return (
     <React.Fragment>
-      <Head title="User List - Default"></Head>
+      <Head title='User List - Default'></Head>
       <Content>
-        <BlockHead size="sm">
+        <BlockHead size='sm'>
           <BlockBetween>
             <BlockHeadContent>
-              <BlockTitle tag="h3" page>
+              <BlockTitle tag='h3' page>
                 Users Lists
               </BlockTitle>
-              <BlockDes className="text-soft">
+              <BlockDes className='text-soft'>
                 <p>You have total 2,595 users.</p>
               </BlockDes>
             </BlockHeadContent>
             <BlockHeadContent>
-              <div className="toggle-wrap nk-block-tools-toggle">
+              <div className='toggle-wrap nk-block-tools-toggle'>
                 <Button
-                  className={`btn-icon btn-trigger toggle-expand me-n1 ${sm ? "active" : ""}`}
+                  className={`btn-icon btn-trigger toggle-expand me-n1 ${sm ? 'active' : ''}`}
                   onClick={() => updateSm(!sm)}
                 >
-                  <Icon name="menu-alt-r"></Icon>
+                  <Icon name='menu-alt-r'></Icon>
                 </Button>
-                <div className="toggle-expand-content" style={{ display: sm ? "block" : "none" }}>
-                  <ul className="nk-block-tools g-3">
+                <div className='toggle-expand-content' style={{ display: sm ? 'block' : 'none' }}>
+                  <ul className='nk-block-tools g-3'>
                     <li>
-                      <Button color="light" outline className="btn-white">
-                        <Icon name="download-cloud"></Icon>
+                      <Button color='light' outline className='btn-white'>
+                        <Icon name='download-cloud'></Icon>
                         <span>Export</span>
                       </Button>
                     </li>
-                    <li className="nk-block-tools-opt">
-                      <Button color="primary" className="btn-icon" onClick={() => setModal({ add: true })}>
-                        <Icon name="plus"></Icon>
+                    <li className='nk-block-tools-opt'>
+                      <Button
+                        color='primary'
+                        className='btn-icon'
+                        onClick={() => setModal({ add: true })}
+                      >
+                        <Icon name='plus'></Icon>
                       </Button>
                     </li>
                   </ul>
@@ -269,67 +268,70 @@ const CustomerList = () => {
         </BlockHead>
 
         <Block>
-          <div className="nk-tb-list is-separate is-medium mb-3">
-            <DataTableHead className="nk-tb-item">
-              <DataTableRow className="nk-tb-col-check">
-                <div className="custom-control custom-control-sm custom-checkbox notext">
+          <div className='nk-tb-list is-separate is-medium mb-3'>
+            <DataTableHead className='nk-tb-item'>
+              <DataTableRow className='nk-tb-col-check'>
+                <div className='custom-control custom-control-sm custom-checkbox notext'>
                   <input
-                    type="checkbox"
-                    className="custom-control-input"
+                    type='checkbox'
+                    className='custom-control-input'
                     onChange={(e) => selectorCheck(e)}
-                    id="uid"
+                    id='uid'
                   />
-                  <label className="custom-control-label" htmlFor="uid"></label>
+                  <label className='custom-control-label' htmlFor='uid'></label>
                 </div>
               </DataTableRow>
               <DataTableRow>
-                <span className="sub-text">User</span>
+                <span className='sub-text'>User</span>
               </DataTableRow>
-              <DataTableRow size="mb">
-                <span className="sub-text">Ordered</span>
+              <DataTableRow size='mb'>
+                <span className='sub-text'>Ordered</span>
               </DataTableRow>
-              <DataTableRow size="md">
-                <span className="sub-text">Phone</span>
+              <DataTableRow size='md'>
+                <span className='sub-text'>Phone</span>
               </DataTableRow>
-              <DataTableRow size="lg">
-                <span className="sub-text">Country</span>
+              <DataTableRow size='lg'>
+                <span className='sub-text'>Country</span>
               </DataTableRow>
-              <DataTableRow size="lg">
-                <span className="sub-text">Last Order</span>
+              <DataTableRow size='lg'>
+                <span className='sub-text'>Last Order</span>
               </DataTableRow>
-              <DataTableRow size="md">
-                <span className="sub-text">Status</span>
+              <DataTableRow size='md'>
+                <span className='sub-text'>Status</span>
               </DataTableRow>
-              <DataTableRow className="nk-tb-col-tools text-end">
+              <DataTableRow className='nk-tb-col-tools text-end'>
                 <UncontrolledDropdown>
-                  <DropdownToggle color="tranparent" className="dropdown-toggle btn btn-icon btn-trigger me-n1">
-                    <Icon name="more-h"></Icon>
+                  <DropdownToggle
+                    color='tranparent'
+                    className='dropdown-toggle btn btn-icon btn-trigger me-n1'
+                  >
+                    <Icon name='more-h'></Icon>
                   </DropdownToggle>
                   <DropdownMenu end>
-                    <ul className="link-list-opt no-bdr">
+                    <ul className='link-list-opt no-bdr'>
                       <li>
                         <DropdownItem
-                          tag="a"
-                          href="#"
+                          tag='a'
+                          href='#'
                           onClick={(ev) => {
                             ev.preventDefault();
                             selectorDeleteUser();
                           }}
                         >
-                          <Icon name="na"></Icon>
+                          <Icon name='na'></Icon>
                           <span>Remove Selected</span>
                         </DropdownItem>
                       </li>
                       <li>
                         <DropdownItem
-                          tag="a"
-                          href="#"
+                          tag='a'
+                          href='#'
                           onClick={(ev) => {
                             ev.preventDefault();
                             selectorSuspendUser();
                           }}
                         >
-                          <Icon name="trash"></Icon>
+                          <Icon name='trash'></Icon>
                           <span>Suspend Selected</span>
                         </DropdownItem>
                       </li>
@@ -342,112 +344,126 @@ const CustomerList = () => {
             {currentItems.length > 0
               ? currentItems.map((item) => (
                   <DataTableItem key={item.id}>
-                    <DataTableRow className="nk-tb-col-check">
-                      <div className="custom-control custom-control-sm custom-checkbox notext">
+                    <DataTableRow className='nk-tb-col-check'>
+                      <div className='custom-control custom-control-sm custom-checkbox notext'>
                         <input
-                          type="checkbox"
-                          className="custom-control-input"
+                          type='checkbox'
+                          className='custom-control-input'
                           defaultChecked={item.checked}
-                          id={item.id + "uid1"}
+                          id={item.id + 'uid1'}
                           key={Math.random()}
                           onChange={(e) => onSelectChange(e, item.id)}
                         />
-                        <label className="custom-control-label" htmlFor={item.id + "uid1"}></label>
+                        <label className='custom-control-label' htmlFor={item.id + 'uid1'}></label>
                       </div>
                     </DataTableRow>
                     <DataTableRow>
                       <Link to={`${process.env.PUBLIC_URL}/ecommerce/customer-details/${item.id}`}>
-                        <div className="user-card">
-                          <UserAvatar theme={item.avatarBg} text={findUpper(item.name)} image={item.image}></UserAvatar>
-                          <div className="user-info">
-                            <span className="tb-lead">
-                              {item.name} <span className="dot dot-success d-md-none ms-1"></span>
+                        <div className='user-card'>
+                          <UserAvatar
+                            theme={item.avatarBg}
+                            text={findUpper(item.name)}
+                            image={item.image}
+                          ></UserAvatar>
+                          <div className='user-info'>
+                            <span className='tb-lead'>
+                              {item.name} <span className='dot dot-success d-md-none ms-1'></span>
                             </span>
                             <span>{item.email}</span>
                           </div>
                         </div>
                       </Link>
                     </DataTableRow>
-                    <DataTableRow size="mb">
-                      <span className="tb-amount">
-                        {item.balance} <span className="currency">USD</span>
+                    <DataTableRow size='mb'>
+                      <span className='tb-amount'>
+                        {item.balance} <span className='currency'>USD</span>
                       </span>
                     </DataTableRow>
-                    <DataTableRow size="md">
+                    <DataTableRow size='md'>
                       <span>{item.phone}</span>
                     </DataTableRow>
-                    <DataTableRow size="lg">
+                    <DataTableRow size='lg'>
                       <span>{item.country}</span>
                     </DataTableRow>
-                    <DataTableRow size="lg">
+                    <DataTableRow size='lg'>
                       <span>{item.lastLogin}</span>
                     </DataTableRow>
-                    <DataTableRow size="md">
+                    <DataTableRow size='md'>
                       <span
                         className={`tb-status text-${
-                          item.status === "Active" ? "success" : item.status === "Pending" ? "warning" : "danger"
+                          item.status === 'Active'
+                            ? 'success'
+                            : item.status === 'Pending'
+                            ? 'warning'
+                            : 'danger'
                         }`}
                       >
                         {item.status}
                       </span>
                     </DataTableRow>
-                    <DataTableRow className="nk-tb-col-tools">
-                      <ul className="nk-tb-actions gx-1">
-                        <li className="nk-tb-action-hidden" onClick={() => onEditClick(item.id)}>
+                    <DataTableRow className='nk-tb-col-tools'>
+                      <ul className='nk-tb-actions gx-1'>
+                        <li className='nk-tb-action-hidden' onClick={() => onEditClick(item.id)}>
                           <TooltipComponent
-                            tag="a"
-                            containerClassName="btn btn-trigger btn-icon"
-                            id={"edit" + item.id}
-                            icon="edit-alt-fill"
-                            direction="top"
-                            text="Edit"
+                            tag='a'
+                            containerClassName='btn btn-trigger btn-icon'
+                            id={'edit' + item.id}
+                            icon='edit-alt-fill'
+                            direction='top'
+                            text='Edit'
                           />
                         </li>
-                        {item.status !== "Suspend" && (
+                        {item.status !== 'Suspend' && (
                           <React.Fragment>
-                            <li className="nk-tb-action-hidden" onClick={() => suspendUser(item.id)}>
+                            <li
+                              className='nk-tb-action-hidden'
+                              onClick={() => suspendUser(item.id)}
+                            >
                               <TooltipComponent
-                                tag="a"
-                                containerClassName="btn btn-trigger btn-icon"
-                                id={"suspend" + item.id}
-                                icon="user-cross-fill"
-                                direction="top"
-                                text="Suspend"
+                                tag='a'
+                                containerClassName='btn btn-trigger btn-icon'
+                                id={'suspend' + item.id}
+                                icon='user-cross-fill'
+                                direction='top'
+                                text='Suspend'
                               />
                             </li>
                           </React.Fragment>
                         )}
                         <li>
                           <UncontrolledDropdown>
-                            <DropdownToggle tag="a" className="dropdown-toggle btn btn-icon btn-trigger">
-                              <Icon name="more-h"></Icon>
+                            <DropdownToggle
+                              tag='a'
+                              className='dropdown-toggle btn btn-icon btn-trigger'
+                            >
+                              <Icon name='more-h'></Icon>
                             </DropdownToggle>
                             <DropdownMenu end>
-                              <ul className="link-list-opt no-bdr">
+                              <ul className='link-list-opt no-bdr'>
                                 <li onClick={() => onEditClick(item.id)}>
                                   <DropdownItem
-                                    tag="a"
-                                    href="#edit"
+                                    tag='a'
+                                    href='#edit'
                                     onClick={(ev) => {
                                       ev.preventDefault();
                                     }}
                                   >
-                                    <Icon name="edit"></Icon>
+                                    <Icon name='edit'></Icon>
                                     <span>Edit</span>
                                   </DropdownItem>
                                 </li>
-                                {item.status !== "Suspend" && (
+                                {item.status !== 'Suspend' && (
                                   <React.Fragment>
-                                    <li className="divider"></li>
+                                    <li className='divider'></li>
                                     <li onClick={() => suspendUser(item.id)}>
                                       <DropdownItem
-                                        tag="a"
-                                        href="#suspend"
+                                        tag='a'
+                                        href='#suspend'
                                         onClick={(ev) => {
                                           ev.preventDefault();
                                         }}
                                       >
-                                        <Icon name="na"></Icon>
+                                        <Icon name='na'></Icon>
                                         <span>Suspend User</span>
                                       </DropdownItem>
                                     </li>
@@ -472,17 +488,29 @@ const CustomerList = () => {
                 currentPage={currentPage}
               />
             ) : (
-              <div className="text-center">
-                <span className="text-silent">No data found</span>
+              <div className='text-center'>
+                <span className='text-silent'>No data found</span>
               </div>
             )}
           </PreviewAltCard>
         </Block>
 
-        
-        <AddModal modal={modal.add} formData={formData} setFormData={setFormData} closeModal={closeModal} onSubmit={onFormSubmit} filterStatus={filterStatus} />
-        <EditModal modal={modal.edit} formData={editFormData} setFormData={setEditFormData} closeModal={closeEditModal} onSubmit={onEditSubmit} filterStatus={filterStatus} />
-        
+        <AddModal
+          modal={modal.add}
+          formData={formData}
+          setFormData={setFormData}
+          closeModal={closeModal}
+          onSubmit={onFormSubmit}
+          filterStatus={filterStatus}
+        />
+        <EditModal
+          modal={modal.edit}
+          formData={editFormData}
+          setFormData={setEditFormData}
+          closeModal={closeEditModal}
+          onSubmit={onEditSubmit}
+          filterStatus={filterStatus}
+        />
       </Content>
     </React.Fragment>
   );

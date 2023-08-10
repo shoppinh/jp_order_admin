@@ -1,5 +1,5 @@
-import React from "react";
-import classnames from "classnames";
+import React from 'react';
+import classnames from 'classnames';
 
 export const Col = ({ sm, lg, md, xxl, size, className, ...props }) => {
   var classNames = classnames({

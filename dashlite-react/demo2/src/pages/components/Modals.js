@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import Content from "../../layout/content/Content";
-import Head from "../../layout/head/Head";
+import React, { useState } from 'react';
+import Content from '../../layout/content/Content';
+import Head from '../../layout/head/Head';
 
 import {
   Button,
@@ -8,17 +8,23 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  
   Nav,
   NavLink,
   NavItem,
   TabContent,
   TabPane,
-} from "reactstrap";
-import { Block, BlockHead, BlockHeadContent, BlockTitle, BlockDes, BackTo } from "../../components/block/Block";
-import { PreviewCard, CodeBlock } from "../../components/preview/Preview";
-import Icon from "../../components/icon/Icon";
-import classnames from "classnames";
+} from 'reactstrap';
+import {
+  Block,
+  BlockHead,
+  BlockHeadContent,
+  BlockTitle,
+  BlockDes,
+  BackTo,
+} from '../../components/block/Block';
+import { PreviewCard, CodeBlock } from '../../components/preview/Preview';
+import Icon from '../../components/icon/Icon';
+import classnames from 'classnames';
 
 const ModalsPage = () => {
   const [modal, setModal] = useState(false);
@@ -31,7 +37,7 @@ const ModalsPage = () => {
   const [modalTab, setModalTab] = useState(false);
   const [modalSuccess, setModalSuccess] = useState(false);
   const [modalFail, setModalFail] = useState(false);
-  const [activeTab, setActiveTab] = useState("1");
+  const [activeTab, setActiveTab] = useState('1');
 
   const toggle = () => setModal(!modal);
   const toggleSm = () => setModalSm(!modalSm);
@@ -47,51 +53,57 @@ const ModalsPage = () => {
   //   const code = ;
   return (
     <React.Fragment>
-      <Head title="Modals" />
-      <Content page="component">
-        <BlockHead size="lg" wide="sm">
+      <Head title='Modals' />
+      <Content page='component'>
+        <BlockHead size='lg' wide='sm'>
           <BlockHeadContent>
-            <BackTo link="/components" icon="arrow-left">
+            <BackTo link='/components' icon='arrow-left'>
               Components
             </BackTo>
-            <BlockTitle tag="h2" className="fw-normal">
+            <BlockTitle tag='h2' className='fw-normal'>
               Modals
             </BlockTitle>
             <BlockDes>
-              <p className="lead">
-                Use Bootstrap’s JavaScript modal plugin to add dialogs to your site for lightboxes, user notifications,
-                or completely custom content. To use it, import it such as{" "}
-                <code>import {`{Modal,ModalBody,ModalBody,ModalFooter}`} from "reactstrap"</code>. Visit the{" "}
-                <a href={"https://reactstrap.github.io/?path=/docs/components-modal--modal"} target="_blank" rel="noreferrer">
+              <p className='lead'>
+                Use Bootstrap’s JavaScript modal plugin to add dialogs to your site for lightboxes,
+                user notifications, or completely custom content. To use it, import it such as{' '}
+                <code>import {`{Modal,ModalBody,ModalBody,ModalFooter}`} from "reactstrap"</code>.
+                Visit the{' '}
+                <a
+                  href={'https://reactstrap.github.io/?path=/docs/components-modal--modal'}
+                  target='_blank'
+                  rel='noreferrer'
+                >
                   Reactstrap
-                </a>{" "}
+                </a>{' '}
                 library for detailed instructions.
               </p>
             </BlockDes>
           </BlockHeadContent>
         </BlockHead>
 
-        <Block size="lg">
+        <Block size='lg'>
           <BlockHead>
             <BlockHeadContent>
-              <BlockTitle tag="h5">Base Examples</BlockTitle>
+              <BlockTitle tag='h5'>Base Examples</BlockTitle>
               <p>
-                Following are basic example of modals, just toggle a working modal demo by clicking the buttons below.
+                Following are basic example of modals, just toggle a working modal demo by clicking
+                the buttons below.
               </p>
             </BlockHeadContent>
           </BlockHead>
           <PreviewCard>
-            <ul className="preview-list">
-              <li className="preview-item">
-                <Button color="primary" onClick={toggle}>
+            <ul className='preview-list'>
+              <li className='preview-item'>
+                <Button color='primary' onClick={toggle}>
                   Modal Default
                 </Button>
                 <Modal isOpen={modal} toggle={toggle}>
                   <ModalHeader
                     toggle={toggle}
                     close={
-                      <button className="close" onClick={toggle}>
-                        <Icon name="cross" />
+                      <button className='close' onClick={toggle}>
+                        <Icon name='cross' />
                       </button>
                     }
                   >
@@ -99,26 +111,27 @@ const ModalsPage = () => {
                   </ModalHeader>
                   <ModalBody>
                     <p>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem similique earum necessitatibus
-                      nesciunt! Quia id expedita asperiores voluptatem odit quis fugit sapiente assumenda sunt
-                      voluptatibus atque facere autem, omnis explicabo.
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem similique
+                      earum necessitatibus nesciunt! Quia id expedita asperiores voluptatem odit
+                      quis fugit sapiente assumenda sunt voluptatibus atque facere autem, omnis
+                      explicabo.
                     </p>
                   </ModalBody>
-                  <ModalFooter className="bg-light">
-                    <span className="sub-text">Modal Footer Text</span>
+                  <ModalFooter className='bg-light'>
+                    <span className='sub-text'>Modal Footer Text</span>
                   </ModalFooter>
                 </Modal>
               </li>
-              <li className="preview-item">
-                <Button color="primary" onClick={toggleSm}>
+              <li className='preview-item'>
+                <Button color='primary' onClick={toggleSm}>
                   Modal Small
                 </Button>
-                <Modal size="sm" isOpen={modalSm} toggle={toggleSm}>
+                <Modal size='sm' isOpen={modalSm} toggle={toggleSm}>
                   <ModalHeader
                     toggle={toggleSm}
                     close={
-                      <button className="close" onClick={toggleSm}>
-                        <Icon name="cross" />
+                      <button className='close' onClick={toggleSm}>
+                        <Icon name='cross' />
                       </button>
                     }
                   >
@@ -126,26 +139,27 @@ const ModalsPage = () => {
                   </ModalHeader>
                   <ModalBody>
                     <p>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem similique earum necessitatibus
-                      nesciunt! Quia id expedita asperiores voluptatem odit quis fugit sapiente assumenda sunt
-                      voluptatibus atque facere autem, omnis explicabo.
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem similique
+                      earum necessitatibus nesciunt! Quia id expedita asperiores voluptatem odit
+                      quis fugit sapiente assumenda sunt voluptatibus atque facere autem, omnis
+                      explicabo.
                     </p>
                   </ModalBody>
-                  <ModalFooter className="bg-light">
-                    <span className="sub-text">Modal Footer Text</span>
+                  <ModalFooter className='bg-light'>
+                    <span className='sub-text'>Modal Footer Text</span>
                   </ModalFooter>
                 </Modal>
               </li>
-              <li className="preview-item">
-                <Button color="primary" onClick={toggleLg}>
+              <li className='preview-item'>
+                <Button color='primary' onClick={toggleLg}>
                   Modal Large
                 </Button>
-                <Modal size="lg" isOpen={modalLg} toggle={toggleLg}>
+                <Modal size='lg' isOpen={modalLg} toggle={toggleLg}>
                   <ModalHeader
                     toggle={toggleLg}
                     close={
-                      <button className="close" onClick={toggleLg}>
-                        <Icon name="cross" />
+                      <button className='close' onClick={toggleLg}>
+                        <Icon name='cross' />
                       </button>
                     }
                   >
@@ -153,26 +167,27 @@ const ModalsPage = () => {
                   </ModalHeader>
                   <ModalBody>
                     <p>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem similique earum necessitatibus
-                      nesciunt! Quia id expedita asperiores voluptatem odit quis fugit sapiente assumenda sunt
-                      voluptatibus atque facere autem, omnis explicabo.
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem similique
+                      earum necessitatibus nesciunt! Quia id expedita asperiores voluptatem odit
+                      quis fugit sapiente assumenda sunt voluptatibus atque facere autem, omnis
+                      explicabo.
                     </p>
                   </ModalBody>
-                  <ModalFooter className="bg-light">
-                    <span className="sub-text">Modal Footer Text</span>
+                  <ModalFooter className='bg-light'>
+                    <span className='sub-text'>Modal Footer Text</span>
                   </ModalFooter>
                 </Modal>
               </li>
-              <li className="preview-item">
-                <Button color="primary" onClick={toggleTop}>
+              <li className='preview-item'>
+                <Button color='primary' onClick={toggleTop}>
                   Modal Top
                 </Button>
-                <Modal isOpen={modalTop} toggle={toggleTop} className="modal-dialog-top">
+                <Modal isOpen={modalTop} toggle={toggleTop} className='modal-dialog-top'>
                   <ModalHeader
                     toggle={toggleTop}
                     close={
-                      <button className="close" onClick={toggleTop}>
-                        <Icon name="cross" />
+                      <button className='close' onClick={toggleTop}>
+                        <Icon name='cross' />
                       </button>
                     }
                   >
@@ -180,26 +195,27 @@ const ModalsPage = () => {
                   </ModalHeader>
                   <ModalBody>
                     <p>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem similique earum necessitatibus
-                      nesciunt! Quia id expedita asperiores voluptatem odit quis fugit sapiente assumenda sunt
-                      voluptatibus atque facere autem, omnis explicabo.
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem similique
+                      earum necessitatibus nesciunt! Quia id expedita asperiores voluptatem odit
+                      quis fugit sapiente assumenda sunt voluptatibus atque facere autem, omnis
+                      explicabo.
                     </p>
                   </ModalBody>
-                  <ModalFooter className="bg-light">
-                    <span className="sub-text">Modal Footer Text</span>
+                  <ModalFooter className='bg-light'>
+                    <span className='sub-text'>Modal Footer Text</span>
                   </ModalFooter>
                 </Modal>
               </li>
-              <li className="preview-item">
-                <Button color="primary" onClick={toggleBtm}>
+              <li className='preview-item'>
+                <Button color='primary' onClick={toggleBtm}>
                   Modal Bottom
                 </Button>
-                <Modal isOpen={modalBtm} toggle={toggleBtm} className="modal-dialog-bottom">
+                <Modal isOpen={modalBtm} toggle={toggleBtm} className='modal-dialog-bottom'>
                   <ModalHeader
                     toggle={toggleBtm}
                     close={
-                      <button className="close" onClick={toggleBtm}>
-                        <Icon name="cross" />
+                      <button className='close' onClick={toggleBtm}>
+                        <Icon name='cross' />
                       </button>
                     }
                   >
@@ -207,26 +223,27 @@ const ModalsPage = () => {
                   </ModalHeader>
                   <ModalBody>
                     <p>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem similique earum necessitatibus
-                      nesciunt! Quia id expedita asperiores voluptatem odit quis fugit sapiente assumenda sunt
-                      voluptatibus atque facere autem, omnis explicabo.
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem similique
+                      earum necessitatibus nesciunt! Quia id expedita asperiores voluptatem odit
+                      quis fugit sapiente assumenda sunt voluptatibus atque facere autem, omnis
+                      explicabo.
                     </p>
                   </ModalBody>
-                  <ModalFooter className="bg-light">
-                    <span className="sub-text">Modal Footer Text</span>
+                  <ModalFooter className='bg-light'>
+                    <span className='sub-text'>Modal Footer Text</span>
                   </ModalFooter>
                 </Modal>
               </li>
-              <li className="preview-item">
-                <Button color="primary" onClick={toggleZoom}>
+              <li className='preview-item'>
+                <Button color='primary' onClick={toggleZoom}>
                   Modal Zoom
                 </Button>
-                <Modal isOpen={modalZoom} toggle={toggleZoom} modalClassName="zoom">
+                <Modal isOpen={modalZoom} toggle={toggleZoom} modalClassName='zoom'>
                   <ModalHeader
                     toggle={toggleZoom}
                     close={
-                      <button className="close" onClick={toggleZoom}>
-                        <Icon name="cross" />
+                      <button className='close' onClick={toggleZoom}>
+                        <Icon name='cross' />
                       </button>
                     }
                   >
@@ -234,19 +251,20 @@ const ModalsPage = () => {
                   </ModalHeader>
                   <ModalBody>
                     <p>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem similique earum necessitatibus
-                      nesciunt! Quia id expedita asperiores voluptatem odit quis fugit sapiente assumenda sunt
-                      voluptatibus atque facere autem, omnis explicabo.
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem similique
+                      earum necessitatibus nesciunt! Quia id expedita asperiores voluptatem odit
+                      quis fugit sapiente assumenda sunt voluptatibus atque facere autem, omnis
+                      explicabo.
                     </p>
                   </ModalBody>
-                  <ModalFooter className="bg-light">
-                    <span className="sub-text">Modal Footer Text</span>
+                  <ModalFooter className='bg-light'>
+                    <span className='sub-text'>Modal Footer Text</span>
                   </ModalFooter>
                 </Modal>
               </li>
             </ul>
           </PreviewCard>
-          <CodeBlock language="jsx">
+          <CodeBlock language='jsx'>
             {` const ModalExample = () => {
   const [isOpen , setIsOpen] = useState(false);
 
@@ -276,25 +294,25 @@ const ModalsPage = () => {
           </CodeBlock>
         </Block>
 
-        <Block size="lg">
+        <Block size='lg'>
           <BlockHead>
             <BlockHeadContent>
-              <BlockTitle tag="h5">Use-case Modal</BlockTitle>
+              <BlockTitle tag='h5'>Use-case Modal</BlockTitle>
               <p>Some use-case example of modals that helps in develop your projects.</p>
             </BlockHeadContent>
           </BlockHead>
           <PreviewCard>
-            <ul className="preview-list">
-              <li className="preview-item">
-                <Button color="primary" onClick={toggleForm}>
+            <ul className='preview-list'>
+              <li className='preview-item'>
+                <Button color='primary' onClick={toggleForm}>
                   Modal With Form
                 </Button>
                 <Modal isOpen={modalForm} toggle={toggleForm}>
                   <ModalHeader
                     toggle={toggleForm}
                     close={
-                      <button className="close" onClick={toggleForm}>
-                        <Icon name="cross" />
+                      <button className='close' onClick={toggleForm}>
+                        <Icon name='cross' />
                       </button>
                     }
                   >
@@ -302,123 +320,133 @@ const ModalsPage = () => {
                   </ModalHeader>
                   <ModalBody>
                     <form>
-                      <div className="form-group">
-                        <label className="form-label" htmlFor="full-name">
+                      <div className='form-group'>
+                        <label className='form-label' htmlFor='full-name'>
                           Full Name
                         </label>
-                        <div className="form-control-wrap">
-                          <input type="text" className="form-control" id="full-name" />
+                        <div className='form-control-wrap'>
+                          <input type='text' className='form-control' id='full-name' />
                         </div>
                       </div>
-                      <div className="form-group">
-                        <label className="form-label" htmlFor="email">
+                      <div className='form-group'>
+                        <label className='form-label' htmlFor='email'>
                           Email
                         </label>
-                        <div className="form-control-wrap">
-                          <input type="text" className="form-control" id="email" />
+                        <div className='form-control-wrap'>
+                          <input type='text' className='form-control' id='email' />
                         </div>
                       </div>
-                      <div className="form-group">
-                        <label className="form-label" htmlFor="phone-no">
+                      <div className='form-group'>
+                        <label className='form-label' htmlFor='phone-no'>
                           Phone No
                         </label>
-                        <div className="form-control-wrap">
-                          <input type="number" className="form-control" id="phone-no" defaultValue="0880" />
+                        <div className='form-control-wrap'>
+                          <input
+                            type='number'
+                            className='form-control'
+                            id='phone-no'
+                            defaultValue='0880'
+                          />
                         </div>
                       </div>
-                      <div className="form-group">
-                        <label className="form-label">Communication</label>
-                        <ul className="custom-control-group g-3 align-center">
+                      <div className='form-group'>
+                        <label className='form-label'>Communication</label>
+                        <ul className='custom-control-group g-3 align-center'>
                           <li>
-                            <div className="custom-control custom-checkbox">
+                            <div className='custom-control custom-checkbox'>
                               <input
-                                type="checkbox"
-                                className="form-control custom-control-input"
-                                id="fv-com-email"
-                                name="com"
-                                value="email"
+                                type='checkbox'
+                                className='form-control custom-control-input'
+                                id='fv-com-email'
+                                name='com'
+                                value='email'
                               />
-                              <label className="custom-control-label" htmlFor="fv-com-email">
+                              <label className='custom-control-label' htmlFor='fv-com-email'>
                                 Email
                               </label>
                             </div>
                           </li>
                           <li>
-                            <div className="custom-control custom-checkbox">
+                            <div className='custom-control custom-checkbox'>
                               <input
-                                type="checkbox"
-                                className="form-control custom-control-input"
-                                id="fv-com-sms"
-                                name="com"
-                                value="sms"
+                                type='checkbox'
+                                className='form-control custom-control-input'
+                                id='fv-com-sms'
+                                name='com'
+                                value='sms'
                               />
-                              <label className="custom-control-label" htmlFor="fv-com-sms">
+                              <label className='custom-control-label' htmlFor='fv-com-sms'>
                                 SMS
                               </label>
                             </div>
                           </li>
                           <li>
-                            <div className="custom-control custom-checkbox">
+                            <div className='custom-control custom-checkbox'>
                               <input
-                                type="checkbox"
-                                className="custom-control-input"
-                                id="fv-com-phone"
-                                name="com"
-                                value="phone"
+                                type='checkbox'
+                                className='custom-control-input'
+                                id='fv-com-phone'
+                                name='com'
+                                value='phone'
                               />
-                              <label className="custom-control-label" htmlFor="fv-com-phone">
-                                {" "}
-                                Phone{" "}
+                              <label className='custom-control-label' htmlFor='fv-com-phone'>
+                                {' '}
+                                Phone{' '}
                               </label>
                             </div>
                           </li>
                         </ul>
                       </div>
-                      <div className="form-group">
-                        <label className="form-label" htmlFor="amount">
+                      <div className='form-group'>
+                        <label className='form-label' htmlFor='amount'>
                           Amount
                         </label>
-                        <div className="form-control-wrap">
-                          <input type="number" className="form-control" id="amount" />
+                        <div className='form-control-wrap'>
+                          <input type='number' className='form-control' id='amount' />
                         </div>
                       </div>
-                      <div className="form-group">
-                        <Button color="primary" type="submit" onClick={(ev) => ev.preventDefault()} size="lg">
+                      <div className='form-group'>
+                        <Button
+                          color='primary'
+                          type='submit'
+                          onClick={(ev) => ev.preventDefault()}
+                          size='lg'
+                        >
                           Save Information
                         </Button>
                       </div>
                     </form>
                   </ModalBody>
-                  <ModalFooter className="bg-light">
-                    <span className="sub-text">Modal Footer Text</span>
+                  <ModalFooter className='bg-light'>
+                    <span className='sub-text'>Modal Footer Text</span>
                   </ModalFooter>
                 </Modal>
               </li>
-              <li className="preview-item">
-                <Button color="secondary" onClick={toggleTab}>
+              <li className='preview-item'>
+                <Button color='secondary' onClick={toggleTab}>
                   Modal With Tabs
                 </Button>
                 <Modal isOpen={modalTab} toggle={toggleTab}>
                   <ModalHeader
                     toggle={toggleTab}
                     close={
-                      <button className="close" onClick={toggleTab}>
-                        <Icon name="cross" />
+                      <button className='close' onClick={toggleTab}>
+                        <Icon name='cross' />
                       </button>
                     }
                   >
                     Update Profile
                   </ModalHeader>
                   <ModalBody>
-                    <Nav tabs className="mt-n3">
+                    <Nav tabs className='mt-n3'>
                       <NavItem>
                         <NavLink
-                          tag="a"
-                          href="#tab"
-                          className={classnames({ active: activeTab === "1" })}
+                          tag='a'
+                          href='#tab'
+                          className={classnames({ active: activeTab === '1' })}
                           onClick={(ev) => {
                             ev.preventDefault();
-                            setActiveTab("1");
+                            setActiveTab('1');
                           }}
                         >
                           Tab Title
@@ -426,12 +454,12 @@ const ModalsPage = () => {
                       </NavItem>
                       <NavItem>
                         <NavLink
-                          tag="a"
-                          href="#tab"
-                          className={classnames({ active: activeTab === "2" })}
+                          tag='a'
+                          href='#tab'
+                          className={classnames({ active: activeTab === '2' })}
                           onClick={(ev) => {
                             ev.preventDefault();
-                            setActiveTab("2");
+                            setActiveTab('2');
                           }}
                         >
                           Another title
@@ -439,63 +467,73 @@ const ModalsPage = () => {
                       </NavItem>
                     </Nav>
                     <TabContent activeTab={activeTab}>
-                      <TabPane tabId="1">
-                        <h6 className="title">Tab Title</h6>
+                      <TabPane tabId='1'>
+                        <h6 className='title'>Tab Title</h6>
                         <p>
-                          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Porro numquam distinctio ab
-                          cupiditate veniam a aperiam architecto perspiciatis quidem provident!
+                          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Porro numquam
+                          distinctio ab cupiditate veniam a aperiam architecto perspiciatis quidem
+                          provident!
                         </p>
                         <p>
-                          <strong>Debitis ullam impedit</strong>, dolore architecto porro doloremque eum magni dolorum.
+                          <strong>Debitis ullam impedit</strong>, dolore architecto porro doloremque
+                          eum magni dolorum.
                         </p>
                       </TabPane>
-                      <TabPane tabId="2">
-                        <h6 className="title">Another Tab</h6>
+                      <TabPane tabId='2'>
+                        <h6 className='title'>Another Tab</h6>
                         <p>
-                          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Porro numquam distinctio ab
-                          cupiditate veniam a aperiam architecto perspiciatis quidem provident!
+                          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Porro numquam
+                          distinctio ab cupiditate veniam a aperiam architecto perspiciatis quidem
+                          provident!
                         </p>
                         <p>
-                          <strong>Debitis ullam impedit</strong>, dolore architecto porro doloremque eum magni dolorum.
+                          <strong>Debitis ullam impedit</strong>, dolore architecto porro doloremque
+                          eum magni dolorum.
                         </p>
                       </TabPane>
                     </TabContent>
                   </ModalBody>
                 </Modal>
               </li>
-              <li className="preview-item">
-                <Button color="success" onClick={toggleSuccess}>
+              <li className='preview-item'>
+                <Button color='success' onClick={toggleSuccess}>
                   Modal Success
                 </Button>
                 <Modal isOpen={modalSuccess} toggle={toggleSuccess}>
-                  <ModalBody className="modal-body-lg text-center">
-                    <div className="nk-modal">
-                      <Icon className="nk-modal-icon icon-circle icon-circle-xxl ni ni-check bg-success"></Icon>
-                      <h4 className="nk-modal-title">Congratulations!</h4>
-                      <div className="nk-modal-text">
-                        <div className="caption-text">
-                          You’ve successfully bought <strong>0.5968</strong> BTC for <strong>200.00</strong> USD
+                  <ModalBody className='modal-body-lg text-center'>
+                    <div className='nk-modal'>
+                      <Icon className='nk-modal-icon icon-circle icon-circle-xxl ni ni-check bg-success'></Icon>
+                      <h4 className='nk-modal-title'>Congratulations!</h4>
+                      <div className='nk-modal-text'>
+                        <div className='caption-text'>
+                          You’ve successfully bought <strong>0.5968</strong> BTC for{' '}
+                          <strong>200.00</strong> USD
                         </div>
-                        <span className="sub-text-sm">
-                          Learn when you reciveve bitcoin in your wallet.{" "}
-                          <a href="#link" onClick={(ev) => ev.preventDefault()}>
-                            {" "}
+                        <span className='sub-text-sm'>
+                          Learn when you reciveve bitcoin in your wallet.{' '}
+                          <a href='#link' onClick={(ev) => ev.preventDefault()}>
+                            {' '}
                             Click here
                           </a>
                         </span>
                       </div>
-                      <div className="nk-modal-action">
-                        <Button color="primary" size="lg" className="btn-mw" onClick={toggleSuccess}>
+                      <div className='nk-modal-action'>
+                        <Button
+                          color='primary'
+                          size='lg'
+                          className='btn-mw'
+                          onClick={toggleSuccess}
+                        >
                           OK
                         </Button>
                       </div>
                     </div>
                   </ModalBody>
-                  <ModalFooter className="bg-light">
-                    <div className="text-center w-100">
+                  <ModalFooter className='bg-light'>
+                    <div className='text-center w-100'>
                       <p>
-                        Earn upto $25 for each friend your refer!{" "}
-                        <a href="#invite" onClick={(ev) => ev.preventDefault()}>
+                        Earn upto $25 for each friend your refer!{' '}
+                        <a href='#invite' onClick={(ev) => ev.preventDefault()}>
                           Invite friends
                         </a>
                       </p>
@@ -503,23 +541,31 @@ const ModalsPage = () => {
                   </ModalFooter>
                 </Modal>
               </li>
-              <li className="preview-item">
-                <Button color="danger" onClick={toggleModalFail}>
+              <li className='preview-item'>
+                <Button color='danger' onClick={toggleModalFail}>
                   Modal Danger
                 </Button>
                 <Modal isOpen={modalFail} toggle={toggleModalFail}>
-                  <ModalBody className="modal-body-lg text-center">
-                    <div className="nk-modal">
-                      <Icon className="nk-modal-icon icon-circle icon-circle-xxl ni ni-cross bg-danger"></Icon>
-                      <h4 className="nk-modal-title">Unable to Process!</h4>
-                      <div className="nk-modal-text">
-                        <p className="lead">
-                          We are sorry, we were unable to process your payment. Please try after sometimes.
+                  <ModalBody className='modal-body-lg text-center'>
+                    <div className='nk-modal'>
+                      <Icon className='nk-modal-icon icon-circle icon-circle-xxl ni ni-cross bg-danger'></Icon>
+                      <h4 className='nk-modal-title'>Unable to Process!</h4>
+                      <div className='nk-modal-text'>
+                        <p className='lead'>
+                          We are sorry, we were unable to process your payment. Please try after
+                          sometimes.
                         </p>
-                        <p className="text-soft">If you need help please contact us at (855) 485-7373.</p>
+                        <p className='text-soft'>
+                          If you need help please contact us at (855) 485-7373.
+                        </p>
                       </div>
-                      <div className="nk-modal-action mt-5">
-                        <Button color="light" size="lg" className="btn-mw" onClick={toggleModalFail}>
+                      <div className='nk-modal-action mt-5'>
+                        <Button
+                          color='light'
+                          size='lg'
+                          className='btn-mw'
+                          onClick={toggleModalFail}
+                        >
                           Return
                         </Button>
                       </div>

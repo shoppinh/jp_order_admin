@@ -1,19 +1,19 @@
-import React, { useEffect, useState, useRef } from "react";
-import InboxMessageHeader from "./InboxMessageHeader";
-import SimpleBar from "simplebar-react";
-import InboxReplyItem from "./InboxReply";
-import Tags from "@yaireo/tagify/dist/react.tagify";
-import { contacts, formTemplates } from "./InboxData";
-import { Button, Icon, TooltipComponent } from "../../../components/Component";
-import { UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from "reactstrap";
-import { currentTime, getDateStructured } from "../../../utils/Utils";
+import React, { useEffect, useState, useRef } from 'react';
+import InboxMessageHeader from './InboxMessageHeader';
+import SimpleBar from 'simplebar-react';
+import InboxReplyItem from './InboxReply';
+import Tags from '@yaireo/tagify/dist/react.tagify';
+import { contacts, formTemplates } from './InboxData';
+import { Button, Icon, TooltipComponent } from '../../../components/Component';
+import { UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { currentTime, getDateStructured } from '../../../utils/Utils';
 
 const tagifySettings = {
-  blacklist: ["xxx", "yyy", "zzz"],
+  blacklist: ['xxx', 'yyy', 'zzz'],
   maxTags: 6,
-  backspace: "edit",
+  backspace: 'edit',
   addTagOnBlur: false,
-  placeholder: "",
+  placeholder: '',
   dropdown: {
     enabled: 0, // a;ways show suggestions dropdown
   },
@@ -31,17 +31,17 @@ const InboxMessages = ({
   outerLabels,
 }) => {
   const [mailData, setMailData] = useState();
-  const [inboxText, setInboxText] = useState("");
+  const [inboxText, setInboxText] = useState('');
   const [templateList, setTemplateList] = useState(formTemplates);
   const [attachmentList, setAttachmentList] = useState([]);
-  const [tagifyOptions, setTagifyOptions] = useState([{ value: "info@softnio.com" }]);
+  const [tagifyOptions, setTagifyOptions] = useState([{ value: 'info@softnio.com' }]);
   const [ccTagify, setCCTagify] = useState({
     toggle: false,
-    value: [""],
+    value: [''],
   });
   const [bccTagify, setBCCTagify] = useState({
     toggle: false,
-    value: [""],
+    value: [''],
   });
 
   useEffect(() => {
@@ -75,7 +75,7 @@ const InboxMessages = ({
   };
 
   const sendInbox = () => {
-    if (inboxText !== "") {
+    if (inboxText !== '') {
       let defaultData = mailData;
       let defaultReplyItem = defaultData.message.reply;
       const replyItemModel = {
@@ -93,9 +93,9 @@ const InboxMessages = ({
         replyMessage: [inboxText],
       };
       defaultReplyItem.push(replyItemModel);
-      setInboxText("");
-      setBCCTagify({ toggle: false, value: [""] });
-      setCCTagify({ toggle: false, value: [""] });
+      setInboxText('');
+      setBCCTagify({ toggle: false, value: [''] });
+      setCCTagify({ toggle: false, value: [''] });
       setAttachmentList([]);
       setMailData({ ...defaultData });
       setTimeout(() => scrollToBottom());
@@ -103,29 +103,29 @@ const InboxMessages = ({
   };
 
   const onTagifyChange = (e) => {
-    if (e.detail.value !== "") {
+    if (e.detail.value !== '') {
       let arrayVal = JSON.parse(e.detail.value);
       setTagifyOptions(arrayVal);
     } else {
-      setTagifyOptions([""]);
+      setTagifyOptions(['']);
     }
   };
 
   const onCcChange = (e) => {
-    if (e.detail.value !== "") {
+    if (e.detail.value !== '') {
       let arrayVal = JSON.parse(e.detail.value);
       setCCTagify({ toggle: true, value: arrayVal });
     } else {
-      setCCTagify({ toggle: true, value: [""] });
+      setCCTagify({ toggle: true, value: [''] });
     }
   };
 
   const onBccChange = (e) => {
-    if (e.detail.value !== "") {
+    if (e.detail.value !== '') {
       let arrayVal = JSON.parse(e.detail.value);
       setBCCTagify({ toggle: true, value: arrayVal });
     } else {
-      setBCCTagify({ toggle: true, value: [""] });
+      setBCCTagify({ toggle: true, value: [''] });
     }
   };
 
@@ -135,7 +135,7 @@ const InboxMessages = ({
   };
 
   const forwardTo = () => {
-    setTagifyOptions([""]);
+    setTagifyOptions(['']);
     scrollToBottom();
   };
 
@@ -153,19 +153,19 @@ const InboxMessages = ({
   };
 
   const saveTemplate = () => {
-    if (inboxText !== "") {
+    if (inboxText !== '') {
       let defaultList = templateList;
       let newObject = {
         id: defaultList.length + 1,
         text: inboxText,
       };
       setTemplateList([...defaultList, newObject]);
-      setInboxText("");
+      setInboxText('');
     }
   };
 
   const onAttachmentClick = () => {
-    const inputEl = document.getElementById("attachmentInput");
+    const inputEl = document.getElementById('attachmentInput');
     inputEl.click();
     inputEl.onchange = onAttachmentChange;
   };
@@ -177,7 +177,7 @@ const InboxMessages = ({
   };
 
   const onImageClick = () => {
-    const inputEl = document.getElementById("imageInput");
+    const inputEl = document.getElementById('imageInput');
     inputEl.click();
     inputEl.onchange = onImageChange;
   };
@@ -185,9 +185,9 @@ const InboxMessages = ({
   const onImageChange = (ev) => {
     if (
       ev.target.files.length > 0 &&
-      (ev.target.files[0].type === "image/jpeg" ||
-        ev.target.files[0].type === "image/png" ||
-        ev.target.files[0].type === "image/jpg")
+      (ev.target.files[0].type === 'image/jpeg' ||
+        ev.target.files[0].type === 'image/png' ||
+        ev.target.files[0].type === 'image/jpg')
     ) {
       setAttachmentList([...attachmentList, { fileName: ev.target.files[0].name }]);
     }
@@ -220,58 +220,65 @@ const InboxMessages = ({
             mailData={mailData}
             setMailData={setMailData}
           />
-          <SimpleBar className="nk-ibx-reply nk-reply" scrollableNodeProps={{ ref: messagesEndRef }}>
-            <div className="nk-ibx-reply-head">
+          <SimpleBar
+            className='nk-ibx-reply nk-reply'
+            scrollableNodeProps={{ ref: messagesEndRef }}
+          >
+            <div className='nk-ibx-reply-head'>
               <div>
-                <h4 className="title">{mailData.message.subject ? mailData.message.subject : "(no subject)"}</h4>
-                <ul className="nk-ibx-tags g-1">
+                <h4 className='title'>
+                  {mailData.message.subject ? mailData.message.subject : '(no subject)'}
+                </h4>
+                <ul className='nk-ibx-tags g-1'>
                   {mailData.message.meta.tags.map((tagItem, index) => (
-                    <li className="btn-group is-tags" key={index}>
-                      <Button color={tagItem.color} size="xs" className="btn-dim">
+                    <li className='btn-group is-tags' key={index}>
+                      <Button color={tagItem.color} size='xs' className='btn-dim'>
                         {tagItem.text}
                       </Button>
                       <Button
                         color={tagItem.color}
-                        size="xs"
-                        className="btn-icon btn-dim"
+                        size='xs'
+                        className='btn-icon btn-dim'
                         onClick={() => removeTag(tagItem.text)}
                       >
-                        <Icon name="cross"></Icon>
+                        <Icon name='cross'></Icon>
                       </Button>
                     </li>
                   ))}
                 </ul>
               </div>
-              <ul className="d-flex g-1">
-                <li className="d-none d-sm-block">
+              <ul className='d-flex g-1'>
+                <li className='d-none d-sm-block'>
                   <TooltipComponent
-                    tag="a"
-                    containerClassName="btn btn-icon btn-trigger btn-tooltip"
-                    icon="printer"
-                    id="ibx-msg-print"
-                    direction="left"
-                    text="Print"
+                    tag='a'
+                    containerClassName='btn btn-icon btn-trigger btn-tooltip'
+                    icon='printer'
+                    id='ibx-msg-print'
+                    direction='left'
+                    text='Print'
                   />
                 </li>
-                <li className="me-n1">
-                  <div className="asterisk">
+                <li className='me-n1'>
+                  <div className='asterisk'>
                     <a
-                      href="#item"
+                      href='#item'
                       className={`btn btn-trigger btn-icon btn-tooltip ${
-                        mailData.message.meta.favourite ? "active" : ""
+                        mailData.message.meta.favourite ? 'active' : ''
                       }`}
                       onClick={(ev) => {
                         ev.preventDefault();
                         onFavoriteClick(mailData.id);
                       }}
                     >
-                      <Icon name={`${mailData.message.meta.favourite ? "star-fill" : "star"}`}></Icon>
+                      <Icon
+                        name={`${mailData.message.meta.favourite ? 'star-fill' : 'star'}`}
+                      ></Icon>
                     </a>
                   </div>
                 </li>
               </ul>
             </div>
-            <div className="nk-ibx-reply-group">
+            <div className='nk-ibx-reply-group'>
               {mailData.message.reply.map((replyItem, index) => (
                 <InboxReplyItem
                   reply={replyItem}
@@ -282,104 +289,122 @@ const InboxMessages = ({
                 />
               ))}
             </div>
-            <div className="nk-ibx-reply-form nk-reply-form">
-              <div className="nk-reply-form-header">
-                <div className="nk-reply-form-group">
-                  <div className="nk-reply-form-dropdown">
+            <div className='nk-ibx-reply-form nk-reply-form'>
+              <div className='nk-reply-form-header'>
+                <div className='nk-reply-form-group'>
+                  <div className='nk-reply-form-dropdown'>
                     <UncontrolledDropdown>
                       <DropdownToggle
-                        tag="a"
-                        href="#item"
+                        tag='a'
+                        href='#item'
                         onClick={(ev) => ev.preventDefault()}
-                        className="btn btn-sm btn-trigger btn-icon"
+                        className='btn btn-sm btn-trigger btn-icon'
                       >
-                        <Icon name="curve-up-left"></Icon>
+                        <Icon name='curve-up-left'></Icon>
                       </DropdownToggle>
-                      <DropdownMenu className="dropdown-menu-md">
-                        <ul className="link-list-opt no-bdr">
+                      <DropdownMenu className='dropdown-menu-md'>
+                        <ul className='link-list-opt no-bdr'>
                           <li>
-                            <DropdownItem tag="a" href="#item" onClick={(ev) => ev.preventDefault()}>
-                              <Icon name="reply-fill"></Icon> <span>Reply to Abu Bin Ishtiyak</span>
+                            <DropdownItem
+                              tag='a'
+                              href='#item'
+                              onClick={(ev) => ev.preventDefault()}
+                            >
+                              <Icon name='reply-fill'></Icon> <span>Reply to Abu Bin Ishtiyak</span>
                             </DropdownItem>
                           </li>
                           <li>
-                            <DropdownItem tag="a" href="#item" onClick={(ev) => ev.preventDefault()}>
-                              <Icon name="forward-arrow-fill"></Icon> <span>Forword</span>
+                            <DropdownItem
+                              tag='a'
+                              href='#item'
+                              onClick={(ev) => ev.preventDefault()}
+                            >
+                              <Icon name='forward-arrow-fill'></Icon> <span>Forword</span>
                             </DropdownItem>
                           </li>
-                          <li className="divider"></li>
+                          <li className='divider'></li>
                           <li>
-                            <DropdownItem tag="a" href="#item" onClick={(ev) => ev.preventDefault()}>
-                              <Icon name="edit-fill"></Icon> <span>Edit Subject</span>
+                            <DropdownItem
+                              tag='a'
+                              href='#item'
+                              onClick={(ev) => ev.preventDefault()}
+                            >
+                              <Icon name='edit-fill'></Icon> <span>Edit Subject</span>
                             </DropdownItem>
                           </li>
                         </ul>
                       </DropdownMenu>
                     </UncontrolledDropdown>
                   </div>
-                  <div className="nk-reply-form-title d-sm-none">Reply</div>
-                  <div className="nk-reply-form-input-group">
-                    <div className="nk-reply-form-input nk-reply-form-input-to">
-                      <label className="label">To</label>
+                  <div className='nk-reply-form-title d-sm-none'>Reply</div>
+                  <div className='nk-reply-form-input-group'>
+                    <div className='nk-reply-form-input nk-reply-form-input-to'>
+                      <label className='label'>To</label>
                       <Tags
-                        className="input-mail"
-                        mode="textarea"
+                        className='input-mail'
+                        mode='textarea'
                         value={tagifyOptions}
                         onChange={(e) => onTagifyChange(e)}
                         settings={settings}
                         showDropdown={false}
                       />
                     </div>
-                    <div className={`nk-reply-form-input nk-reply-form-input-cc ${ccTagify.toggle ? "expanded" : ""}`}>
-                      <label className="label">Cc</label>
+                    <div
+                      className={`nk-reply-form-input nk-reply-form-input-cc ${
+                        ccTagify.toggle ? 'expanded' : ''
+                      }`}
+                    >
+                      <label className='label'>Cc</label>
                       <Tags
-                        className="input-mail"
-                        mode="textarea"
+                        className='input-mail'
+                        mode='textarea'
                         value={ccTagify.value}
                         onChange={(e) => onCcChange(e)}
                         settings={settings}
                         showDropdown={false}
                       />
                       <a
-                        className="toggle-opt active"
-                        href="#item"
+                        className='toggle-opt active'
+                        href='#item'
                         onClick={(ev) => {
                           ev.preventDefault();
                           setCCTagify({ ...ccTagify, toggle: !ccTagify.toggle });
                         }}
                       >
-                        <Icon name="cross"></Icon>
+                        <Icon name='cross'></Icon>
                       </a>
                     </div>
                     <div
-                      className={`nk-reply-form-input nk-reply-form-input-bcc ${bccTagify.toggle ? "expanded" : ""}`}
+                      className={`nk-reply-form-input nk-reply-form-input-bcc ${
+                        bccTagify.toggle ? 'expanded' : ''
+                      }`}
                     >
-                      <label className="label">Bcc</label>
+                      <label className='label'>Bcc</label>
                       <Tags
-                        className="input-mail"
-                        mode="textarea"
+                        className='input-mail'
+                        mode='textarea'
                         value={bccTagify.value}
                         onChange={(e) => onBccChange(e)}
                         settings={settings}
                         showDropdown={false}
                       />
                       <a
-                        className="toggle-opt active"
-                        href="#item"
+                        className='toggle-opt active'
+                        href='#item'
                         onClick={(ev) => {
                           ev.preventDefault();
                           setBCCTagify({ ...bccTagify, toggle: !bccTagify.toggle });
                         }}
                       >
-                        <Icon name="cross"></Icon>
+                        <Icon name='cross'></Icon>
                       </a>
                     </div>
                   </div>
-                  <ul className="nk-reply-form-nav">
+                  <ul className='nk-reply-form-nav'>
                     <li>
                       <a
-                        className="toggle-opt"
-                        href="#item"
+                        className='toggle-opt'
+                        href='#item'
                         onClick={(ev) => {
                           ev.preventDefault();
                           setCCTagify({ ...ccTagify, toggle: !ccTagify.toggle });
@@ -390,8 +415,8 @@ const InboxMessages = ({
                     </li>
                     <li>
                       <a
-                        className="toggle-opt"
-                        href="#item"
+                        className='toggle-opt'
+                        href='#item'
                         onClick={(ev) => {
                           ev.preventDefault();
                           setBCCTagify({ ...bccTagify, toggle: !bccTagify.toggle });
@@ -403,76 +428,80 @@ const InboxMessages = ({
                   </ul>
                 </div>
               </div>
-              <div className="nk-reply-form-editor">
-                <div className="nk-reply-form-field">
+              <div className='nk-reply-form-editor'>
+                <div className='nk-reply-form-field'>
                   <textarea
-                    className="form-control form-control-simple no-resize"
-                    placeholder="Hello"
+                    className='form-control form-control-simple no-resize'
+                    placeholder='Hello'
                     value={inboxText}
                     onChange={(e) => setInboxText(e.target.value)}
                   ></textarea>
                 </div>
               </div>
-              <div className="nk-reply-form-attachment">
+              <div className='nk-reply-form-attachment'>
                 {attachmentList.map((item, index) => (
                   <div
                     key={index}
-                    className="nk-reply-form-attachment-list p-1 align-center justify-between m-2 d-flex"
+                    className='nk-reply-form-attachment-list p-1 align-center justify-between m-2 d-flex'
                   >
                     <span>{item.fileName}</span>
                     <a
-                      className="toggle-opt"
-                      href="remove"
+                      className='toggle-opt'
+                      href='remove'
                       onClick={(ev) => {
                         ev.preventDefault();
                         removeAttachment(item.fileName);
                       }}
                     >
-                      <Icon name="cross"></Icon>
+                      <Icon name='cross'></Icon>
                     </a>
                   </div>
                 ))}
               </div>
-              <div className="nk-reply-form-tools">
-                <ul className="nk-reply-form-actions g-1">
-                  <li className="me-2">
-                    <Button color="primary" type="submit" onClick={() => sendInbox()}>
+              <div className='nk-reply-form-tools'>
+                <ul className='nk-reply-form-actions g-1'>
+                  <li className='me-2'>
+                    <Button color='primary' type='submit' onClick={() => sendInbox()}>
                       Send
                     </Button>
                   </li>
                   <li>
                     <UncontrolledDropdown>
                       <DropdownToggle
-                        tag="a"
-                        className="btn btn-icon btn-sm btn-tooltip"
-                        href="#toggle"
+                        tag='a'
+                        className='btn btn-icon btn-sm btn-tooltip'
+                        href='#toggle'
                         onClick={(ev) => ev.preventDefault()}
                       >
-                        <Icon name="hash"></Icon>
+                        <Icon name='hash'></Icon>
                       </DropdownToggle>
-                      <DropdownMenu className="dropdown-menu-md">
-                        <ul className="link-list-opt no-bdr link-list-template">
-                          <li className="opt-head">
+                      <DropdownMenu className='dropdown-menu-md'>
+                        <ul className='link-list-opt no-bdr link-list-template'>
+                          <li className='opt-head'>
                             <span>Quick Insert</span>
                           </li>
                           {templateList.map((item) => (
                             <li key={item.id}>
                               <DropdownItem
-                                href="#item"
-                                tag="a"
+                                href='#item'
+                                tag='a'
                                 onClick={(ev) => {
                                   ev.preventDefault();
                                   setInboxText(inboxText + item.text);
                                 }}
                               >
-                                <span className="text-ellipsis">{item.text}</span>
+                                <span className='text-ellipsis'>{item.text}</span>
                               </DropdownItem>
                             </li>
                           ))}
-                          <li className="divider"></li>
+                          <li className='divider'></li>
                           <li onClick={() => saveTemplate()}>
-                            <DropdownItem tag="a" href="#item" onClick={(ev) => ev.preventDefault()}>
-                              <Icon name="file-plus"></Icon>
+                            <DropdownItem
+                              tag='a'
+                              href='#item'
+                              onClick={(ev) => ev.preventDefault()}
+                            >
+                              <Icon name='file-plus'></Icon>
                               <span>Save as Template</span>
                             </DropdownItem>
                           </li>
@@ -482,26 +511,31 @@ const InboxMessages = ({
                   </li>
                   <li onClick={() => onAttachmentClick()}>
                     <TooltipComponent
-                      tag="a"
-                      containerClassName="btn btn-icon btn-sm"
-                      icon="clip-v"
-                      id="ibx-msg-attachment"
-                      direction="top"
-                      text="Upload Attachment"
+                      tag='a'
+                      containerClassName='btn btn-icon btn-sm'
+                      icon='clip-v'
+                      id='ibx-msg-attachment'
+                      direction='top'
+                      text='Upload Attachment'
                     />
-                    <input type="file" id="attachmentInput" style={{ display: "none" }}></input>
+                    <input type='file' id='attachmentInput' style={{ display: 'none' }}></input>
                   </li>
                   <li onClick={() => onImageClick()}>
                     <TooltipComponent
-                      tag="a"
-                      containerClassName="btn btn-icon btn-sm"
-                      icon="img"
-                      id="ibx-msg-images"
-                      direction="top"
-                      text="Upload Images"
+                      tag='a'
+                      containerClassName='btn btn-icon btn-sm'
+                      icon='img'
+                      id='ibx-msg-images'
+                      direction='top'
+                      text='Upload Images'
                     />
                   </li>
-                  <input type="file" id="imageInput" accept=".png, .jpg, .jpeg" style={{ display: "none" }}></input>
+                  <input
+                    type='file'
+                    id='imageInput'
+                    accept='.png, .jpg, .jpeg'
+                    style={{ display: 'none' }}
+                  ></input>
                 </ul>
               </div>
             </div>

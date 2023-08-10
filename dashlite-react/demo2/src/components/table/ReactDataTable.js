@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import DataTable from "react-data-table-component";
-import exportFromJSON from "export-from-json";
-import CopyToClipboard from "react-copy-to-clipboard";
-import { Col, Modal, ModalBody, Row, Button } from "reactstrap";
-import { DataTablePagination } from "../Component";
+import React, { useEffect, useState } from 'react';
+import DataTable from 'react-data-table-component';
+import exportFromJSON from 'export-from-json';
+import CopyToClipboard from 'react-copy-to-clipboard';
+import { Col, Modal, ModalBody, Row, Button } from 'reactstrap';
+import { DataTablePagination } from '../Component';
 
 const Export = ({ data }) => {
   const [modal, setModal] = useState(false);
@@ -14,7 +14,7 @@ const Export = ({ data }) => {
     }
   }, [modal]);
 
-  const fileName = "user-data";
+  const fileName = 'user-data';
 
   const exportCSV = () => {
     const exportType = exportFromJSON.types.csv;
@@ -32,28 +32,36 @@ const Export = ({ data }) => {
 
   return (
     <React.Fragment>
-      <div className="dt-export-buttons d-flex align-center">
-        <div className="dt-export-title d-none d-md-inline-block">Export</div>
-        <div className="dt-buttons btn-group flex-wrap">
+      <div className='dt-export-buttons d-flex align-center'>
+        <div className='dt-export-title d-none d-md-inline-block'>Export</div>
+        <div className='dt-buttons btn-group flex-wrap'>
           <CopyToClipboard text={JSON.stringify(data)}>
-            <Button className="buttons-copy buttons-html5" onClick={() => copyToClipboard()}>
+            <Button className='buttons-copy buttons-html5' onClick={() => copyToClipboard()}>
               <span>Copy</span>
             </Button>
-          </CopyToClipboard>{" "}
-          <button className="btn btn-secondary buttons-csv buttons-html5" type="button" onClick={() => exportCSV()}>
+          </CopyToClipboard>{' '}
+          <button
+            className='btn btn-secondary buttons-csv buttons-html5'
+            type='button'
+            onClick={() => exportCSV()}
+          >
             <span>CSV</span>
-          </button>{" "}
-          <button className="btn btn-secondary buttons-excel buttons-html5" type="button" onClick={() => exportExcel()}>
+          </button>{' '}
+          <button
+            className='btn btn-secondary buttons-excel buttons-html5'
+            type='button'
+            onClick={() => exportExcel()}
+          >
             <span>Excel</span>
-          </button>{" "}
+          </button>{' '}
         </div>
       </div>
-      <Modal isOpen={modal} className="modal-dialog-centered text-center" size="sm">
-        <ModalBody className="text-center m-2">
+      <Modal isOpen={modal} className='modal-dialog-centered text-center' size='sm'>
+        <ModalBody className='text-center m-2'>
           <h5>Copied to clipboard</h5>
         </ModalBody>
-        <div className="p-3 bg-light">
-          <div className="text-center">Copied {data.length} rows to clipboard</div>
+        <div className='p-3 bg-light'>
+          <div className='text-center'>Copied {data.length} rows to clipboard</div>
         </div>
       </Modal>
     </React.Fragment>
@@ -62,46 +70,55 @@ const Export = ({ data }) => {
 
 const ExpandableRowComponent = ({ data }) => {
   return (
-    <ul className="dtr-details p-2 border-bottom ms-1">
-      <li className="d-block d-sm-none">
-        <span className="dtr-title">Company</span> <span className="dtr-data">{data.company}</span>
+    <ul className='dtr-details p-2 border-bottom ms-1'>
+      <li className='d-block d-sm-none'>
+        <span className='dtr-title'>Company</span> <span className='dtr-data'>{data.company}</span>
       </li>
-      <li className="d-block d-sm-none">
-        <span className="dtr-title ">Gender</span> <span className="dtr-data">{data.gender}</span>
-      </li>
-      <li>
-        <span className="dtr-title">Start Date</span> <span className="dtr-data">{data.startDate}</span>
+      <li className='d-block d-sm-none'>
+        <span className='dtr-title '>Gender</span> <span className='dtr-data'>{data.gender}</span>
       </li>
       <li>
-        <span className="dtr-title">Salary</span> <span className="dtr-data">{data.salary}</span>
+        <span className='dtr-title'>Start Date</span>{' '}
+        <span className='dtr-data'>{data.startDate}</span>
+      </li>
+      <li>
+        <span className='dtr-title'>Salary</span> <span className='dtr-data'>{data.salary}</span>
       </li>
     </ul>
   );
 };
 
 const CustomCheckbox = React.forwardRef(({ onClick, ...rest }, ref) => (
-  <div className="custom-control custom-control-sm custom-checkbox notext">
+  <div className='custom-control custom-control-sm custom-checkbox notext'>
     <input
       id={rest.name}
-      type="checkbox"
-      className="custom-control-input"
+      type='checkbox'
+      className='custom-control-input'
       ref={ref}
       onClick={onClick}
       {...rest}
     />
-    <label className="custom-control-label" htmlFor={rest.name} />
+    <label className='custom-control-label' htmlFor={rest.name} />
   </div>
 ));
 
-const ReactDataTable = ({ data, columns, pagination, actions, className, selectableRows, expandableRows }) => {
+const ReactDataTable = ({
+  data,
+  columns,
+  pagination,
+  actions,
+  className,
+  selectableRows,
+  expandableRows,
+}) => {
   const [tableData, setTableData] = useState(data);
-  const [searchText, setSearchText] = useState("");
+  const [searchText, setSearchText] = useState('');
   const [rowsPerPageS, setRowsPerPage] = useState(10);
   const [mobileView, setMobileView] = useState();
 
   useEffect(() => {
     let defaultData = tableData;
-    if (searchText !== "") {
+    if (searchText !== '') {
       defaultData = data.filter((item) => {
         return item.name.toLowerCase().includes(searchText.toLowerCase());
       });
@@ -121,48 +138,48 @@ const ReactDataTable = ({ data, columns, pagination, actions, className, selecta
   };
 
   useEffect(() => {
-    window.addEventListener("load", viewChange);
-    window.addEventListener("resize", viewChange);
+    window.addEventListener('load', viewChange);
+    window.addEventListener('resize', viewChange);
     return () => {
-      window.removeEventListener("resize", viewChange);
+      window.removeEventListener('resize', viewChange);
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <div className={`dataTables_wrapper dt-bootstrap4 no-footer ${className ? className : ""}`}>
-      <Row className={`justify-between g-2 ${actions ? "with-export" : ""}`}>
-        <Col className="col-7 text-start" sm="4">
-          <div id="DataTables_Table_0_filter" className="dataTables_filter">
+    <div className={`dataTables_wrapper dt-bootstrap4 no-footer ${className ? className : ''}`}>
+      <Row className={`justify-between g-2 ${actions ? 'with-export' : ''}`}>
+        <Col className='col-7 text-start' sm='4'>
+          <div id='DataTables_Table_0_filter' className='dataTables_filter'>
             <label>
               <input
-                type="search"
-                className="form-control form-control-sm"
-                placeholder="Search by name"
+                type='search'
+                className='form-control form-control-sm'
+                placeholder='Search by name'
                 onChange={(ev) => setSearchText(ev.target.value)}
               />
             </label>
           </div>
         </Col>
-        <Col className="col-5 text-end" sm="8">
-          <div className="datatable-filter">
-            <div className="d-flex justify-content-end g-2">
+        <Col className='col-5 text-end' sm='8'>
+          <div className='datatable-filter'>
+            <div className='d-flex justify-content-end g-2'>
               {actions && <Export data={data} />}
-              <div className="dataTables_length" id="DataTables_Table_0_length">
+              <div className='dataTables_length' id='DataTables_Table_0_length'>
                 <label>
-                  <span className="d-none d-sm-inline-block">Show</span>
-                  <div className="form-control-select">
-                    {" "}
+                  <span className='d-none d-sm-inline-block'>Show</span>
+                  <div className='form-control-select'>
+                    {' '}
                     <select
-                      name="DataTables_Table_0_length"
-                      className="custom-select custom-select-sm form-control form-control-sm"
+                      name='DataTables_Table_0_length'
+                      className='custom-select custom-select-sm form-control form-control-sm'
                       onChange={(e) => setRowsPerPage(e.target.value)}
                       value={rowsPerPageS}
                     >
-                      <option value="10">10</option>
-                      <option value="25">25</option>
-                      <option value="40">40</option>
-                      <option value="50">50</option>
-                    </select>{" "}
+                      <option value='10'>10</option>
+                      <option value='25'>25</option>
+                      <option value='40'>40</option>
+                      <option value='50'>50</option>
+                    </select>{' '}
                   </div>
                 </label>
               </div>
@@ -178,7 +195,7 @@ const ReactDataTable = ({ data, columns, pagination, actions, className, selecta
         selectableRowsComponent={CustomCheckbox}
         expandableRowsComponent={ExpandableRowComponent}
         expandableRows={mobileView}
-        noDataComponent={<div className="p-2">There are no records found</div>}
+        noDataComponent={<div className='p-2'>There are no records found</div>}
         sortIcon={
           <div>
             <span>&darr;</span>
@@ -186,7 +203,13 @@ const ReactDataTable = ({ data, columns, pagination, actions, className, selecta
           </div>
         }
         pagination={pagination}
-        paginationComponent={({ currentPage, rowsPerPage, rowCount, onChangePage, onChangeRowsPerPage }) => (
+        paginationComponent={({
+          currentPage,
+          rowsPerPage,
+          rowCount,
+          onChangePage,
+          onChangeRowsPerPage,
+        }) => (
           <DataTablePagination
             customItemPerPage={rowsPerPageS}
             itemPerPage={rowsPerPage}

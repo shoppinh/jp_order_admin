@@ -1,28 +1,34 @@
-import React, { useState } from "react";
-import { Carousel, CarouselItem, CarouselControl, CarouselIndicators, CarouselCaption } from "reactstrap";
+import React, { useState } from 'react';
+import {
+  Carousel,
+  CarouselItem,
+  CarouselControl,
+  CarouselIndicators,
+  CarouselCaption,
+} from 'reactstrap';
 
-import SlideA from "../../../images/slides/slide-a.jpg";
-import SlideB from "../../../images/slides/slide-b.jpg";
-import SlideC from "../../../images/slides/slide-c.jpg";
+import SlideA from '../../../images/slides/slide-a.jpg';
+import SlideB from '../../../images/slides/slide-b.jpg';
+import SlideC from '../../../images/slides/slide-c.jpg';
 
 const items = [
   {
     src: SlideA,
-    altText: "Slide 1",
-    captionHead: "First slide label",
-    captionText: "Nulla vitae elit libero, a pharetra augue mollis interdum.",
+    altText: 'Slide 1',
+    captionHead: 'First slide label',
+    captionText: 'Nulla vitae elit libero, a pharetra augue mollis interdum.',
   },
   {
     src: SlideB,
-    altText: "Slide 2",
-    captionHead: "Second slide label",
-    captionText: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    altText: 'Slide 2',
+    captionHead: 'Second slide label',
+    captionText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
   },
   {
     src: SlideC,
-    altText: "Slide 3",
-    captionHead: "Third slide label",
-    captionText: "Praesent commodo cursus magna, vel scelerisque nisl consectetur.",
+    altText: 'Slide 3',
+    captionHead: 'Third slide label',
+    captionText: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
   },
 ];
 
@@ -50,7 +56,7 @@ const BasicCarousel = (props) => {
   const slides = items.map((item) => {
     return (
       <CarouselItem
-        className="text-white"
+        className='text-white'
         onExiting={() => setAnimating(true)}
         onExited={() => setAnimating(false)}
         key={item.src}
@@ -65,8 +71,8 @@ const BasicCarousel = (props) => {
     <Carousel activeIndex={activeIndex} next={next} previous={previous}>
       <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={goToIndex} />
       {slides}
-      <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous} />
-      <CarouselControl direction="next" directionText="Next" onClickHandler={next} />
+      <CarouselControl direction='prev' directionText='Previous' onClickHandler={previous} />
+      <CarouselControl direction='next' directionText='Next' onClickHandler={next} />
     </Carousel>
   );
 };

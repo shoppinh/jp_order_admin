@@ -1,6 +1,6 @@
-import React from "react";
-import Head from "../../../layout/head/Head";
-import Content from "../../../layout/content/Content";
+import React from 'react';
+import Head from '../../../layout/head/Head';
+import Content from '../../../layout/content/Content';
 import {
   Block,
   BlockHead,
@@ -10,51 +10,51 @@ import {
   BackTo,
   PreviewCard,
   CodeBlock,
-} from "../../../components/Component";
-import { Row } from "reactstrap";
-import MultipleListDnd from "../../../components/partials/dnd/MultipleListDnd";
-import SingleListDnd from "../../../components/partials/dnd/SingleListDnd";
-import DragHandleDnd from "../../../components/partials/dnd/HandleDnd";
+} from '../../../components/Component';
+import { Row } from 'reactstrap';
+import MultipleListDnd from '../../../components/partials/dnd/MultipleListDnd';
+import SingleListDnd from '../../../components/partials/dnd/SingleListDnd';
+import DragHandleDnd from '../../../components/partials/dnd/HandleDnd';
 
 const BeautifulDnd = () => {
   return (
     <React.Fragment>
-      <Head title="React Beautiful Dnd"></Head>
-      <Content page="component">
-        <BlockHead size="lg" wide="sm">
+      <Head title='React Beautiful Dnd'></Head>
+      <Content page='component'>
+        <BlockHead size='lg' wide='sm'>
           <BlockHeadContent>
-            <BackTo link="/components" icon="arrow-left">
+            <BackTo link='/components' icon='arrow-left'>
               Components
             </BackTo>
-            <BlockTitle tag="h2" className="fw-normal">
+            <BlockTitle tag='h2' className='fw-normal'>
               React Beautiful Dnd
             </BlockTitle>
             <BlockDes>
-              <p className="lead">
-                React beautoful Dnd is a pure JavaScript plugin that is beautiful and accessible drag and drop for lists
-                with. Click{" "}
-                <a href="https://react-beautiful-dnd.netlify.app/" target="_blank" rel="noreferrer">
+              <p className='lead'>
+                React beautoful Dnd is a pure JavaScript plugin that is beautiful and accessible
+                drag and drop for lists with. Click{' '}
+                <a href='https://react-beautiful-dnd.netlify.app/' target='_blank' rel='noreferrer'>
                   here
-                </a>{" "}
+                </a>{' '}
                 for examples and documentation.
               </p>
             </BlockDes>
           </BlockHeadContent>
         </BlockHead>
 
-        <Block size="lg">
+        <Block size='lg'>
           <BlockHead>
             <BlockHeadContent>
-              <BlockTitle tag="h5">Basic Dnd</BlockTitle>
+              <BlockTitle tag='h5'>Basic Dnd</BlockTitle>
               <BlockDes>We need to move div options between these two containers.</BlockDes>
             </BlockHeadContent>
           </BlockHead>
           <PreviewCard>
-            <Row className="g-gs">
+            <Row className='g-gs'>
               <MultipleListDnd />
             </Row>
           </PreviewCard>
-          <CodeBlock language="jsx">
+          <CodeBlock language='jsx'>
             {`import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
     const [dndSet1, setDndSet1] = useState(dndDataSet1);
     const [dndSet2, setDndSet2] = useState(dndDataSet2);
@@ -162,18 +162,18 @@ const BeautifulDnd = () => {
           </CodeBlock>
         </Block>
 
-        <Block size="lg">
+        <Block size='lg'>
           <BlockHead>
             <BlockHeadContent>
-              <BlockTitle tag="h5">Basic Dnd with Single column</BlockTitle>
+              <BlockTitle tag='h5'>Basic Dnd with Single column</BlockTitle>
             </BlockHeadContent>
           </BlockHead>
           <PreviewCard>
-            <Row className="g-gs">
+            <Row className='g-gs'>
               <SingleListDnd />
             </Row>
           </PreviewCard>
-          <CodeBlock language="jsx">
+          <CodeBlock language='jsx'>
             {`import React, { useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { dndDataSet1 } from "./Data";
@@ -225,21 +225,21 @@ const SingleListDnd = () => {
           </CodeBlock>
         </Block>
 
-        <Block size="lg">
+        <Block size='lg'>
           <BlockHead>
             <BlockHeadContent>
-              <BlockTitle tag="h5">Drag Handle</BlockTitle>
+              <BlockTitle tag='h5'>Drag Handle</BlockTitle>
               <BlockDes>
                 Drag with <strong>handles</strong> to copy option from one container to another.
               </BlockDes>
             </BlockHeadContent>
           </BlockHead>
           <PreviewCard>
-            <Row className="g-gs">
+            <Row className='g-gs'>
               <DragHandleDnd />
             </Row>
           </PreviewCard>
-          <CodeBlock language="jsx">
+          <CodeBlock language='jsx'>
             {`import React, { useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { dndDataSet1, dndDataSet2 } from "./Data";

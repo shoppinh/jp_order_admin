@@ -1,19 +1,19 @@
-import React from "react";
-import { basicData } from "./TableData";
-import classNames from "classnames";
+import React from 'react';
+import { basicData } from './TableData';
+import classNames from 'classnames';
 
 const Table = ({ headColor, striped, border, hover, responsive }) => {
   const tableClass = classNames({
     table: true,
-    "table-bordered": border,
-    "table-borderless": !border,
-    "table-striped": striped,
-    "table-hover": hover,
+    'table-bordered': border,
+    'table-borderless': !border,
+    'table-striped': striped,
+    'table-hover': hover,
   });
   return (
-    <div className={responsive ? "table-responsive" : ""}>
+    <div className={responsive ? 'table-responsive' : ''}>
       <table className={tableClass}>
-        <thead className={`${headColor ? `table-${headColor}` : ""}`}>
+        <thead className={`${headColor ? `table-${headColor}` : ''}`}>
           <tr>
             {basicData.header.map((item, idx) => {
               return <th key={idx}>{item}</th>;

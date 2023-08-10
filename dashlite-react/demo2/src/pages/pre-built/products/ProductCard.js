@@ -1,15 +1,15 @@
-import React, { useContext, useState, useEffect } from "react";
-import Head from "../../../layout/head/Head";
-import Content from "../../../layout/content/Content";
-import Dropzone from "react-dropzone";
-import ProductH from "../../../images/product/h.png";
-import ProductLGB from "../../../images/product/lg-b.jpg";
-import ProductLGC from "../../../images/product/lg-c.jpg";
-import ProductLGD from "../../../images/product/lg-d.jpg";
-import ProductLGE from "../../../images/product/lg-e.jpg";
-import ProductLGF from "../../../images/product/lg-f.jpg";
-import SimpleBar from "simplebar-react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState, useEffect } from 'react';
+import Head from '../../../layout/head/Head';
+import Content from '../../../layout/content/Content';
+import Dropzone from 'react-dropzone';
+import ProductH from '../../../images/product/h.png';
+import ProductLGB from '../../../images/product/lg-b.jpg';
+import ProductLGC from '../../../images/product/lg-c.jpg';
+import ProductLGD from '../../../images/product/lg-d.jpg';
+import ProductLGE from '../../../images/product/lg-e.jpg';
+import ProductLGF from '../../../images/product/lg-f.jpg';
+import SimpleBar from 'simplebar-react';
+import { Link } from 'react-router-dom';
 import {
   BlockHead,
   BlockDes,
@@ -22,11 +22,18 @@ import {
   Row,
   Col,
   PaginationComponent,
-} from "../../../components/Component";
-import { useForm } from "react-hook-form";
-import { Card, DropdownItem, UncontrolledDropdown, DropdownMenu, DropdownToggle, Badge } from "reactstrap";
-import { ProductContext } from "./ProductContext";
-import { productCardData } from "./ProductData";
+} from '../../../components/Component';
+import { useForm } from 'react-hook-form';
+import {
+  Card,
+  DropdownItem,
+  UncontrolledDropdown,
+  DropdownMenu,
+  DropdownToggle,
+  Badge,
+} from 'reactstrap';
+import { ProductContext } from './ProductContext';
+import { productCardData } from './ProductData';
 
 const ProductCard = () => {
   const { contextData } = useContext(ProductContext);
@@ -34,32 +41,32 @@ const ProductCard = () => {
   const [data, setData] = contextData;
 
   const [sm, updateSm] = useState(false);
-  const [formData,setFormData] = useState({
-    name: "",
+  const [formData, setFormData] = useState({
+    name: '',
     img: null,
-    title: "",
+    title: '',
     prevPrice: 0,
     newPrice: 0,
-    type: "",
+    type: '',
     new: false,
     hot: false,
     like: false,
     cart: false,
   });
   const [view, setView] = useState(false);
-  const [filter, setFilter] = useState("");
+  const [filter, setFilter] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [itemPerPage] = useState(8);
   const [files, setFiles] = useState([]);
 
   const resetForm = () => {
     setFormData({
-      name: "",
+      name: '',
       img: null,
-      title: "",
+      title: '',
       prevPrice: 0,
       newPrice: 0,
-      type: "",
+      type: '',
       new: false,
       hot: false,
       like: false,
@@ -68,14 +75,16 @@ const ProductCard = () => {
     reset({});
   };
 
-    //scroll off when sidebar shows
-    useEffect(() => {
-      view ? document.body.classList.add("toggle-shown") : document.body.classList.remove("toggle-shown");
-    }, [view])
+  //scroll off when sidebar shows
+  useEffect(() => {
+    view
+      ? document.body.classList.add('toggle-shown')
+      : document.body.classList.remove('toggle-shown');
+  }, [view]);
 
   // Changing state value when searching name
   useEffect(() => {
-    if (filter !== "") {
+    if (filter !== '') {
       const filteredObject = productCardData.filter((item) => {
         return item.name.toLowerCase().includes(filter.toLowerCase());
       });
@@ -119,7 +128,7 @@ const ProductCard = () => {
   };
 
   useEffect(() => {
-    reset(formData)
+    reset(formData);
   }, [formData]);
 
   // filter text
@@ -146,67 +155,84 @@ const ProductCard = () => {
   // Change Page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  const { reset, register, handleSubmit, formState: { errors } } = useForm();
+  const {
+    reset,
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   return (
     <React.Fragment>
-      <Head title="Product List"></Head>
+      <Head title='Product List'></Head>
       <Content>
-        <BlockHead size="sm">
+        <BlockHead size='sm'>
           <BlockBetween>
             <BlockHeadContent>
               <BlockTitle>Products</BlockTitle>
             </BlockHeadContent>
             <BlockHeadContent>
-              <div className="toggle-wrap nk-block-tools-toggle">
+              <div className='toggle-wrap nk-block-tools-toggle'>
                 <a
-                  href="#more"
-                  className="btn btn-icon btn-trigger toggle-expand me-n1"
+                  href='#more'
+                  className='btn btn-icon btn-trigger toggle-expand me-n1'
                   onClick={(ev) => {
                     ev.preventDefault();
                     updateSm(!sm);
                   }}
                 >
-                  <Icon name="more-v"></Icon>
+                  <Icon name='more-v'></Icon>
                 </a>
-                <div className="toggle-expand-content" style={{ display: sm ? "block" : "none" }}>
-                  <ul className="nk-block-tools g-3">
+                <div className='toggle-expand-content' style={{ display: sm ? 'block' : 'none' }}>
+                  <ul className='nk-block-tools g-3'>
                     <li>
-                      <div className="form-control-wrap">
-                        <div className="form-icon form-icon-right">
-                          <Icon name="search"></Icon>
+                      <div className='form-control-wrap'>
+                        <div className='form-icon form-icon-right'>
+                          <Icon name='search'></Icon>
                         </div>
                         <input
-                          type="text"
-                          className="form-control"
-                          id="default-04"
+                          type='text'
+                          className='form-control'
+                          id='default-04'
                           onChange={onFilterChange}
-                          placeholder="Quick search by name"
+                          placeholder='Quick search by name'
                         />
                       </div>
                     </li>
                     <li>
                       <UncontrolledDropdown>
                         <DropdownToggle
-                          color="transparent"
-                          className="dropdown-toggle dropdown-indicator btn btn-outline-light btn-white"
+                          color='transparent'
+                          className='dropdown-toggle dropdown-indicator btn btn-outline-light btn-white'
                         >
                           Status
                         </DropdownToggle>
                         <DropdownMenu end>
-                          <ul className="link-list-opt no-bdr">
+                          <ul className='link-list-opt no-bdr'>
                             <li>
-                              <DropdownItem tag="a" href="#dropdownitem" onClick={(ev) => ev.preventDefault()}>
+                              <DropdownItem
+                                tag='a'
+                                href='#dropdownitem'
+                                onClick={(ev) => ev.preventDefault()}
+                              >
                                 <span>New Items</span>
                               </DropdownItem>
                             </li>
                             <li>
-                              <DropdownItem tag="a" href="#dropdownitem" onClick={(ev) => ev.preventDefault()}>
+                              <DropdownItem
+                                tag='a'
+                                href='#dropdownitem'
+                                onClick={(ev) => ev.preventDefault()}
+                              >
                                 <span>Featured</span>
                               </DropdownItem>
                             </li>
                             <li>
-                              <DropdownItem tag="a" href="#dropdownitem" onClick={(ev) => ev.preventDefault()}>
+                              <DropdownItem
+                                tag='a'
+                                href='#dropdownitem'
+                                onClick={(ev) => ev.preventDefault()}
+                              >
                                 <span>Out of Stock</span>
                               </DropdownItem>
                             </li>
@@ -214,12 +240,20 @@ const ProductCard = () => {
                         </DropdownMenu>
                       </UncontrolledDropdown>
                     </li>
-                    <li className="nk-block-tools-opt">
-                      <Button className="toggle btn-icon d-md-none" color="primary" onClick={toggle}>
-                        <Icon name="plus"></Icon>
+                    <li className='nk-block-tools-opt'>
+                      <Button
+                        className='toggle btn-icon d-md-none'
+                        color='primary'
+                        onClick={toggle}
+                      >
+                        <Icon name='plus'></Icon>
                       </Button>
-                      <Button className="toggle d-none d-md-inline-flex" color="primary" onClick={toggle}>
-                        <Icon name="plus"></Icon>
+                      <Button
+                        className='toggle d-none d-md-inline-flex'
+                        color='primary'
+                        onClick={toggle}
+                      >
+                        <Icon name='plus'></Icon>
                         <span>Add Product</span>
                       </Button>
                     </li>
@@ -230,53 +264,59 @@ const ProductCard = () => {
           </BlockBetween>
         </BlockHead>
         <Block>
-          <Row className="g-gs">
+          <Row className='g-gs'>
             {currentItems.length > 0 ? (
               currentItems.map((item) => {
                 return (
                   <Col xxl={3} lg={4} sm={6} key={item.id}>
-                    <Card className="product-card">
-                      <div className="product-thumb">
+                    <Card className='product-card'>
+                      <div className='product-thumb'>
                         <Link to={`${process.env.PUBLIC_URL}/product-details/${item.id}`}>
-                          <img className="card-img-top" src={item.img} alt="" />
+                          <img className='card-img-top' src={item.img} alt='' />
                         </Link>
-                        <ul className="product-badges">
+                        <ul className='product-badges'>
                           {item.new && (
                             <li>
-                              <Badge color="success">New</Badge>
+                              <Badge color='success'>New</Badge>
                             </li>
                           )}
                           {item.hot && (
                             <li>
-                              <Badge color="danger">New</Badge>
+                              <Badge color='danger'>New</Badge>
                             </li>
                           )}
                         </ul>
-                        <ul className="product-actions">
+                        <ul className='product-actions'>
                           <li>
-                            <a href="#cart" onClick={(ev) => ev.preventDefault()}>
-                              <Icon name="cart"></Icon>
+                            <a href='#cart' onClick={(ev) => ev.preventDefault()}>
+                              <Icon name='cart'></Icon>
                             </a>
                           </li>
                           <li>
-                            <a href="#like" onClick={(ev) => ev.preventDefault()}>
-                              <Icon name="heart"></Icon>
+                            <a href='#like' onClick={(ev) => ev.preventDefault()}>
+                              <Icon name='heart'></Icon>
                             </a>
                           </li>
                         </ul>
                       </div>
-                      <div className="card-inner text-center">
-                        <ul className="product-tags">
+                      <div className='card-inner text-center'>
+                        <ul className='product-tags'>
                           <li>
-                            <Link to={`${process.env.PUBLIC_URL}/product-details/${item.id}`}>{item.name}</Link>
+                            <Link to={`${process.env.PUBLIC_URL}/product-details/${item.id}`}>
+                              {item.name}
+                            </Link>
                           </li>
                         </ul>
-                        <h5 className="product-title">
-                          <Link to={`${process.env.PUBLIC_URL}/product-details/${item.id}`}>{item.title}</Link>
+                        <h5 className='product-title'>
+                          <Link to={`${process.env.PUBLIC_URL}/product-details/${item.id}`}>
+                            {item.title}
+                          </Link>
                         </h5>
-                        <div className="product-price text-primary h5">
-                          {item.prevPrice && <small className="text-muted del fs-13px">${item.prevPrice}</small>} $
-                          {item.newPrice}
+                        <div className='product-price text-primary h5'>
+                          {item.prevPrice && (
+                            <small className='text-muted del fs-13px'>${item.prevPrice}</small>
+                          )}{' '}
+                          ${item.newPrice}
                         </div>
                       </div>
                     </Card>
@@ -284,11 +324,11 @@ const ProductCard = () => {
                 );
               })
             ) : (
-              <div className="ms-2">No product found</div>
+              <div className='ms-2'>No product found</div>
             )}
           </Row>
           {currentItems.length > 0 && (
-            <div className="mt-3">
+            <div className='mt-3'>
               <PaginationComponent
                 itemPerPage={itemPerPage}
                 totalItems={data.length}
@@ -300,11 +340,13 @@ const ProductCard = () => {
         </Block>
 
         <SimpleBar
-          className={`nk-add-product toggle-slide toggle-slide-right toggle-screen-any ${view ? "content-active" : ""}`}
+          className={`nk-add-product toggle-slide toggle-slide-right toggle-screen-any ${
+            view ? 'content-active' : ''
+          }`}
         >
           <BlockHead>
             <BlockHeadContent>
-              <BlockTitle tag="h5">Add Product</BlockTitle>
+              <BlockTitle tag='h5'>Add Product</BlockTitle>
               <BlockDes>
                 <p>Add new information for a product.</p>
               </BlockDes>
@@ -312,103 +354,115 @@ const ProductCard = () => {
           </BlockHead>
           <Block>
             <form onSubmit={handleSubmit(onFormSubmit)}>
-              <Row className="g-3">
-                <Col size="12">
-                  <div className="form-group">
-                    <label className="form-label" htmlFor="product-title">
+              <Row className='g-3'>
+                <Col size='12'>
+                  <div className='form-group'>
+                    <label className='form-label' htmlFor='product-title'>
                       Product Name
                     </label>
-                    <div className="form-control-wrap">
+                    <div className='form-control-wrap'>
                       <input
-                        type="text"
-                        {...register('name', { required: "This field is required" })}
-                        className="form-control"
-                        value={formData.name} 
+                        type='text'
+                        {...register('name', { required: 'This field is required' })}
+                        className='form-control'
+                        value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        />
-                      {errors.name && <span className="invalid">{errors.name.message}</span>}
+                      />
+                      {errors.name && <span className='invalid'>{errors.name.message}</span>}
                     </div>
                   </div>
                 </Col>
-                <Col md="6">
-                  <div className="form-group">
-                    <label className="form-label" htmlFor="regular-price">
+                <Col md='6'>
+                  <div className='form-group'>
+                    <label className='form-label' htmlFor='regular-price'>
                       Product Title
                     </label>
-                    <div className="form-control-wrap">
+                    <div className='form-control-wrap'>
                       <input
-                        type="text"
-                        {...register('title', { required: "This field is required" })}
+                        type='text'
+                        {...register('title', { required: 'This field is required' })}
                         value={formData.title}
                         onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                        className="form-control" />
-                      {errors.title && <span className="invalid">{errors.title.message}</span>}
+                        className='form-control'
+                      />
+                      {errors.title && <span className='invalid'>{errors.title.message}</span>}
                     </div>
                   </div>
                 </Col>
-                <Col md="6">
-                  <div className="form-group">
-                    <label className="form-label" htmlFor="sale-price">
+                <Col md='6'>
+                  <div className='form-group'>
+                    <label className='form-label' htmlFor='sale-price'>
                       Previous Value
                     </label>
-                    <div className="form-control-wrap">
+                    <div className='form-control-wrap'>
                       <input
-                        type="number"
-                        {...register('prevPrice', { required: "This field is required" })}
+                        type='number'
+                        {...register('prevPrice', { required: 'This field is required' })}
                         value={formData.prevPrice}
                         onChange={(e) => setFormData({ ...formData, prevPrice: e.target.value })}
-                        className="form-control" />
-                      {errors.prevPrice && <span className="invalid">{errors.prevPrice.message}</span>}
+                        className='form-control'
+                      />
+                      {errors.prevPrice && (
+                        <span className='invalid'>{errors.prevPrice.message}</span>
+                      )}
                     </div>
                   </div>
                 </Col>
-                <Col md="6">
-                  <div className="form-group">
-                    <label className="form-label" htmlFor="stock">
+                <Col md='6'>
+                  <div className='form-group'>
+                    <label className='form-label' htmlFor='stock'>
                       New Price
                     </label>
-                    <div className="form-control-wrap">
+                    <div className='form-control-wrap'>
                       <input
-                        type="number"
-                        {...register('newPrice', { required: "This field is required" })}
+                        type='number'
+                        {...register('newPrice', { required: 'This field is required' })}
                         value={formData.newPrice}
                         onChange={(e) => setFormData({ ...formData, newPrice: e.target.value })}
-                        className="form-control" />
-                      {errors.newPrice && <span className="invalid">{errors.newPrice.message}</span>}
+                        className='form-control'
+                      />
+                      {errors.newPrice && (
+                        <span className='invalid'>{errors.newPrice.message}</span>
+                      )}
                     </div>
                   </div>
                 </Col>
-                <Col md="6">
-                  <div className="form-group">
-                    <label className="form-label" htmlFor="SKU">
+                <Col md='6'>
+                  <div className='form-group'>
+                    <label className='form-label' htmlFor='SKU'>
                       Type
                     </label>
-                    <div className="form-control-wrap">
+                    <div className='form-control-wrap'>
                       <input
-                        type="text"
-                        className="form-control"
-                        {...register('type', { required: "This field is required" })}
-                        value={formData.type} 
+                        type='text'
+                        className='form-control'
+                        {...register('type', { required: 'This field is required' })}
+                        value={formData.type}
                         onChange={(e) => setFormData({ ...formData, type: e.target.value })}
-                        />
-                      {errors.type && <span className="invalid">{errors.type.message}</span>}
+                      />
+                      {errors.type && <span className='invalid'>{errors.type.message}</span>}
                     </div>
                   </div>
                 </Col>
-                <Col size="12">
+                <Col size='12'>
                   <Dropzone onDrop={(acceptedFiles) => handleDropChange(acceptedFiles)}>
                     {({ getRootProps, getInputProps }) => (
                       <section>
-                        <div {...getRootProps()} className="dropzone upload-zone small bg-lighter my-2 dz-clickable">
+                        <div
+                          {...getRootProps()}
+                          className='dropzone upload-zone small bg-lighter my-2 dz-clickable'
+                        >
                           <input {...getInputProps()} />
-                          {files.length === 0 && <p>Drag 'n' drop some files here, or click to select files</p>}
+                          {files.length === 0 && (
+                            <p>Drag 'n' drop some files here, or click to select files</p>
+                          )}
                           {files.map((file) => (
                             <div
                               key={file.name}
-                              className="dz-preview dz-processing dz-image-preview dz-error dz-complete"
+                              className='dz-preview dz-processing dz-image-preview dz-error dz-complete'
                             >
-                              <div className="dz-image">
-                                <img src={file.preview} alt="preview" />
+                              <div className='dz-image'>
+                                <img src={file.preview} alt='preview' />
                               </div>
                             </div>
                           ))}
@@ -417,9 +471,9 @@ const ProductCard = () => {
                     )}
                   </Dropzone>
                 </Col>
-                <Col size="12">
-                  <Button color="primary">
-                    <Icon className="plus"></Icon>
+                <Col size='12'>
+                  <Button color='primary'>
+                    <Icon className='plus'></Icon>
                     <span>Add Product</span>
                   </Button>
                 </Col>
@@ -427,7 +481,7 @@ const ProductCard = () => {
             </form>
           </Block>
         </SimpleBar>
-        {view && <div className="toggle-overlay" onClick={toggle}></div>}
+        {view && <div className='toggle-overlay' onClick={toggle}></div>}
       </Content>
     </React.Fragment>
   );

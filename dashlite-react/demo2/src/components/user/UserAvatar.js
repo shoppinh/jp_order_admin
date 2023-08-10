@@ -1,6 +1,6 @@
-import React from "react";
-import classNames from "classnames";
-import Icon from "../icon/Icon";
+import React from 'react';
+import classNames from 'classnames';
+import Icon from '../icon/Icon';
 
 // Aviable sizes {xs,sm,md,lg,xl}
 /* Aviable theme {blue-dim, blue, azure-dim, azure, indigo-dim, indigo, purple-dim, purple, pink-dim, pink, orange-dim, orange, teal-dim, teal, 
@@ -8,7 +8,7 @@ import Icon from "../icon/Icon";
 
 const UserAvatar = ({ className, size, theme, icon, text, image, imageAlt, ...props }) => {
   const classes = classNames({
-    "user-avatar": true,
+    'user-avatar': true,
     [`${className}`]: className,
     [`user-avatar-${size}`]: size,
     [`bg-${theme}`]: theme,

@@ -1,16 +1,22 @@
-import React, { useEffect, useState } from "react";
-import Tags from "@yaireo/tagify/dist/react.tagify";
-import { formTemplates } from "./InboxData";
-import { Icon, Button, TooltipComponent } from "../../../components/Component";
-import { Modal, DropdownItem, DropdownMenu, DropdownToggle, UncontrolledDropdown } from "reactstrap";
-import { getDateStructured, currentTime } from "../../../utils/Utils";
+import React, { useEffect, useState } from 'react';
+import Tags from '@yaireo/tagify/dist/react.tagify';
+import { formTemplates } from './InboxData';
+import { Icon, Button, TooltipComponent } from '../../../components/Component';
+import {
+  Modal,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  UncontrolledDropdown,
+} from 'reactstrap';
+import { getDateStructured, currentTime } from '../../../utils/Utils';
 
 const tagifySettings = {
-  blacklist: ["xxx", "yyy", "zzz"],
+  blacklist: ['xxx', 'yyy', 'zzz'],
   maxTags: 6,
-  backspace: "edit",
+  backspace: 'edit',
   addTagOnBlur: false,
-  placeholder: "",
+  placeholder: '',
   dropdown: {
     enabled: 0, // shows suggestions dropdown
   },
@@ -34,11 +40,11 @@ const InboxForm = ({
   const [tagifyOptions, setTagifyOptions] = useState([composeMail]);
   const [ccTagify, setCCTagify] = useState({
     toggle: false,
-    value: [""],
+    value: [''],
   });
   const [bccTagify, setBCCTagify] = useState({
     toggle: false,
-    value: [""],
+    value: [''],
   });
 
   useEffect(() => {
@@ -82,8 +88,8 @@ const InboxForm = ({
         ],
       },
     };
-    setInboxText("");
-    setInboxSubject("");
+    setInboxText('');
+    setInboxSubject('');
     setAttachmentList([]);
     if (editOnOpen) {
       let item = defaultData.findIndex((item) => item.id === currentItem.id);
@@ -95,13 +101,13 @@ const InboxForm = ({
   };
 
   const sendInbox = () => {
-    if (tagifyOptions[0] !== "") {
-      addMailFunc("sent");
+    if (tagifyOptions[0] !== '') {
+      addMailFunc('sent');
     }
   };
 
   const addToDraft = () => {
-    if (inboxSubject !== "" || inboxText !== "") {
+    if (inboxSubject !== '' || inboxText !== '') {
       if (editOnOpen) {
         let defaultData = mailData;
         let findIndex = defaultData.findIndex((el) => el.id === currentItem.id);
@@ -133,52 +139,52 @@ const InboxForm = ({
         defaultData[findIndex] = dataModal;
         setMailData([...defaultData]);
       } else {
-        addMailFunc("draft");
+        addMailFunc('draft');
       }
     }
   };
 
   const onTagifyChange = (e) => {
-    if (e.detail.value !== "") {
+    if (e.detail.value !== '') {
       let arrayVal = JSON.parse(e.detail.value);
       setTagifyOptions(arrayVal);
     } else {
-      setTagifyOptions([""]);
+      setTagifyOptions(['']);
     }
   };
 
   const onCcChange = (e) => {
-    if (e.detail.value !== "") {
+    if (e.detail.value !== '') {
       let arrayVal = JSON.parse(e.detail.value);
       setCCTagify({ toggle: true, value: arrayVal });
     } else {
-      setCCTagify({ toggle: true, value: [""] });
+      setCCTagify({ toggle: true, value: [''] });
     }
   };
 
   const onBccChange = (e) => {
-    if (e.detail.value !== "") {
+    if (e.detail.value !== '') {
       let arrayVal = JSON.parse(e.detail.value);
       setBCCTagify({ toggle: true, value: arrayVal });
     } else {
-      setBCCTagify({ toggle: true, value: [""] });
+      setBCCTagify({ toggle: true, value: [''] });
     }
   };
 
   const saveTemplate = () => {
-    if (inboxText !== "") {
+    if (inboxText !== '') {
       let defaultList = templateList;
       let newObject = {
         id: defaultList.length + 1,
         text: inboxText,
       };
       setTemplateList([...defaultList, newObject]);
-      setInboxText("");
+      setInboxText('');
     }
   };
 
   const onAttachmentClick = () => {
-    const inputEl = document.getElementById("attachmentInput");
+    const inputEl = document.getElementById('attachmentInput');
     inputEl.click();
     inputEl.onchange = onAttachmentChange;
   };
@@ -190,7 +196,7 @@ const InboxForm = ({
   };
 
   const onImageClick = () => {
-    const inputEl = document.getElementById("imageInput");
+    const inputEl = document.getElementById('imageInput');
     inputEl.click();
     inputEl.onchange = onImageChange;
   };
@@ -198,9 +204,9 @@ const InboxForm = ({
   const onImageChange = (ev) => {
     if (
       ev.target.files.length > 0 &&
-      (ev.target.files[0].type === "image/jpeg" ||
-        ev.target.files[0].type === "image/png" ||
-        ev.target.files[0].type === "image/jpg")
+      (ev.target.files[0].type === 'image/jpeg' ||
+        ev.target.files[0].type === 'image/png' ||
+        ev.target.files[0].type === 'image/jpg')
     ) {
       setAttachmentList([...attachmentList, { fileName: ev.target.files[0].name }]);
     }
@@ -225,85 +231,93 @@ const InboxForm = ({
   };
 
   return (
-    <Modal isOpen={composeState} className="modal-lg" toggle={() => toggleModal()}>
-      <div className="modal-header">
-        <h6 className="modal-title">Compose Message</h6>
+    <Modal isOpen={composeState} className='modal-lg' toggle={() => toggleModal()}>
+      <div className='modal-header'>
+        <h6 className='modal-title'>Compose Message</h6>
         <a
-          href="#cancel"
+          href='#cancel'
           onClick={(ev) => {
             ev.preventDefault();
             addToDraft();
             toggleModal();
           }}
-          className="close"
+          className='close'
         >
-          <Icon name="cross-sm"></Icon>
+          <Icon name='cross-sm'></Icon>
         </a>
       </div>
-      <div className="modal-body p-0">
-        <div className="nk-reply-form-header">
-          <div className="nk-reply-form-group">
-            <div className="nk-reply-form-title d-sm-none">Reply</div>
-            <div className="nk-reply-form-input-group">
-              <div className="nk-reply-form-input nk-reply-form-input-to">
-                <label className="label">To</label>
+      <div className='modal-body p-0'>
+        <div className='nk-reply-form-header'>
+          <div className='nk-reply-form-group'>
+            <div className='nk-reply-form-title d-sm-none'>Reply</div>
+            <div className='nk-reply-form-input-group'>
+              <div className='nk-reply-form-input nk-reply-form-input-to'>
+                <label className='label'>To</label>
                 <Tags
-                  className="input-mail"
-                  mode="textarea"
+                  className='input-mail'
+                  mode='textarea'
                   value={tagifyOptions}
                   onChange={(e) => onTagifyChange(e)}
                   settings={settings}
                   showDropdown={false}
                 />
               </div>
-              <div className={`nk-reply-form-input nk-reply-form-input-cc ${ccTagify.toggle ? "expanded" : ""}`}>
-                <label className="label">Cc</label>
+              <div
+                className={`nk-reply-form-input nk-reply-form-input-cc ${
+                  ccTagify.toggle ? 'expanded' : ''
+                }`}
+              >
+                <label className='label'>Cc</label>
                 <Tags
-                  className="input-mail"
-                  mode="textarea"
+                  className='input-mail'
+                  mode='textarea'
                   value={ccTagify.value}
                   onChange={(e) => onCcChange(e)}
                   settings={settings}
                   showDropdown={false}
                 />
                 <a
-                  className="toggle-opt active"
-                  href="#item"
+                  className='toggle-opt active'
+                  href='#item'
                   onClick={(ev) => {
                     ev.preventDefault();
                     setCCTagify({ ...ccTagify, toggle: !ccTagify.toggle });
                   }}
                 >
-                  <Icon name="cross"></Icon>
+                  <Icon name='cross'></Icon>
                 </a>
               </div>
-              <div className={`nk-reply-form-input nk-reply-form-input-bcc ${bccTagify.toggle ? "expanded" : ""}`}>
-                <label className="label">Bcc</label>
+              <div
+                className={`nk-reply-form-input nk-reply-form-input-bcc ${
+                  bccTagify.toggle ? 'expanded' : ''
+                }`}
+              >
+                <label className='label'>Bcc</label>
                 <Tags
-                  className="input-mail"
-                  mode="textarea"
+                  className='input-mail'
+                  mode='textarea'
                   value={bccTagify.value}
                   onChange={(e) => onBccChange(e)}
                   settings={settings}
                   showDropdown={false}
                 />
                 <a
-                  className="toggle-opt active"
-                  href="#item"
+                  className='toggle-opt active'
+                  href='#item'
                   onClick={(ev) => {
                     ev.preventDefault();
                     setBCCTagify({ ...bccTagify, toggle: !bccTagify.toggle });
                   }}
                 >
-                  <Icon name="cross"></Icon>
+                  <Icon name='cross'></Icon>
                 </a>
               </div>
             </div>
-            <ul className="nk-reply-form-nav">
+            <ul className='nk-reply-form-nav'>
               <li>
                 <a
-                  className="toggle-opt"
-                  href="#item"
+                  className='toggle-opt'
+                  href='#item'
                   onClick={(ev) => {
                     ev.preventDefault();
                     setCCTagify({ ...ccTagify, toggle: !ccTagify.toggle });
@@ -314,8 +328,8 @@ const InboxForm = ({
               </li>
               <li>
                 <a
-                  className="toggle-opt"
-                  href="#item"
+                  className='toggle-opt'
+                  href='#item'
                   onClick={(ev) => {
                     ev.preventDefault();
                     setBCCTagify({ ...bccTagify, toggle: !bccTagify.toggle });
@@ -327,69 +341,72 @@ const InboxForm = ({
             </ul>
           </div>
         </div>
-        <div className="nk-reply-form-editor">
-          <div className="nk-reply-form-field">
+        <div className='nk-reply-form-editor'>
+          <div className='nk-reply-form-field'>
             <input
-              type="text"
-              className="form-control form-control-simple"
-              placeholder="Subject"
+              type='text'
+              className='form-control form-control-simple'
+              placeholder='Subject'
               value={inboxSubject}
               onChange={(e) => setInboxSubject(e.target.value)}
             />
           </div>
-          <div className="nk-reply-form-field">
+          <div className='nk-reply-form-field'>
             <textarea
-              className="form-control form-control-simple no-resize ex-large"
-              placeholder="Hello"
+              className='form-control form-control-simple no-resize ex-large'
+              placeholder='Hello'
               value={inboxText}
               onChange={(e) => setInboxText(e.target.value)}
             ></textarea>
           </div>
         </div>
-        <div className="nk-reply-form-attachment">
+        <div className='nk-reply-form-attachment'>
           {attachmentList.map((item, key) => (
-            <div key={key} className="nk-reply-form-attachment-list p-1 align-center justify-between m-2 d-flex">
+            <div
+              key={key}
+              className='nk-reply-form-attachment-list p-1 align-center justify-between m-2 d-flex'
+            >
               <span>{item.fileName}</span>
               <a
-                className="toggle-opt"
-                href="remove"
+                className='toggle-opt'
+                href='remove'
                 onClick={(ev) => {
                   ev.preventDefault();
                   removeAttachment(item.fileName);
                 }}
               >
-                <Icon name="cross"></Icon>
+                <Icon name='cross'></Icon>
               </a>
             </div>
           ))}
         </div>
-        <div className="nk-reply-form-tools">
-          <ul className="nk-reply-form-actions g-1">
-            <li className="me-2">
-              <Button color="primary" type="submit" onClick={() => sendInbox()}>
+        <div className='nk-reply-form-tools'>
+          <ul className='nk-reply-form-actions g-1'>
+            <li className='me-2'>
+              <Button color='primary' type='submit' onClick={() => sendInbox()}>
                 Send
               </Button>
             </li>
             <li>
               <UncontrolledDropdown>
                 <DropdownToggle
-                  tag="a"
-                  className="btn btn-icon btn-sm btn-tooltip"
-                  href="#toggle"
+                  tag='a'
+                  className='btn btn-icon btn-sm btn-tooltip'
+                  href='#toggle'
                   onClick={(ev) => ev.preventDefault()}
                 >
-                  <Icon name="hash"></Icon>
+                  <Icon name='hash'></Icon>
                 </DropdownToggle>
                 <DropdownMenu>
-                  <ul className="link-list-opt no-bdr link-list-template">
-                    <li className="opt-head">
+                  <ul className='link-list-opt no-bdr link-list-template'>
+                    <li className='opt-head'>
                       <span>Quick Insert</span>
                     </li>
                     {templateList.map((item) => (
                       <li key={item.id}>
                         <DropdownItem
-                          href="#item"
-                          tag="a"
+                          href='#item'
+                          tag='a'
                           onClick={(ev) => {
                             ev.preventDefault();
                             setInboxText(inboxText + item.text);
@@ -399,10 +416,10 @@ const InboxForm = ({
                         </DropdownItem>
                       </li>
                     ))}
-                    <li className="divider"></li>
+                    <li className='divider'></li>
                     <li onClick={() => saveTemplate()}>
-                      <DropdownItem tag="a" href="#item" onClick={(ev) => ev.preventDefault()}>
-                        <Icon name="file-plus"></Icon>
+                      <DropdownItem tag='a' href='#item' onClick={(ev) => ev.preventDefault()}>
+                        <Icon name='file-plus'></Icon>
                         <span>Save as Template</span>
                       </DropdownItem>
                     </li>
@@ -412,36 +429,41 @@ const InboxForm = ({
             </li>
             <li onClick={() => onAttachmentClick()}>
               <TooltipComponent
-                tag="a"
-                containerClassName="btn btn-icon btn-sm"
-                icon="clip-v"
-                id="ibx-msg-attachment"
-                direction="top"
-                text="Upload Attachment"
+                tag='a'
+                containerClassName='btn btn-icon btn-sm'
+                icon='clip-v'
+                id='ibx-msg-attachment'
+                direction='top'
+                text='Upload Attachment'
               />
-              <input type="file" id="attachmentInput" style={{ display: "none" }}></input>
+              <input type='file' id='attachmentInput' style={{ display: 'none' }}></input>
             </li>
             <li onClick={() => onImageClick()}>
               <TooltipComponent
-                tag="a"
-                containerClassName="btn btn-icon btn-sm"
-                icon="img"
-                id="ibx-msg-images"
-                direction="top"
-                text="Upload Images"
+                tag='a'
+                containerClassName='btn btn-icon btn-sm'
+                icon='img'
+                id='ibx-msg-images'
+                direction='top'
+                text='Upload Images'
               />
             </li>
-            <input type="file" id="imageInput" accept=".png, .jpg, .jpeg" style={{ display: "none" }}></input>
+            <input
+              type='file'
+              id='imageInput'
+              accept='.png, .jpg, .jpeg'
+              style={{ display: 'none' }}
+            ></input>
           </ul>
-          <ul className="nk-reply-form-actions g-1">
+          <ul className='nk-reply-form-actions g-1'>
             <li onClick={() => onDeleteClick()}>
               <TooltipComponent
-                tag="a"
-                containerClassName="btn-trigger btn btn-icon"
-                icon="trash"
-                id="ibx-msg-dlt"
-                direction="top"
-                text="Delete"
+                tag='a'
+                containerClassName='btn-trigger btn btn-icon'
+                icon='trash'
+                id='ibx-msg-dlt'
+                direction='top'
+                text='Delete'
               />
             </li>
           </ul>

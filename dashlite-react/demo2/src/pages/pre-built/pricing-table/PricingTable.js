@@ -1,7 +1,7 @@
-import React from "react";
-import { Badge, Button } from "reactstrap";
-import Content from "../../../layout/content/Content";
-import Head from "../../../layout/head/Head";
+import React from 'react';
+import { Badge, Button } from 'reactstrap';
+import Content from '../../../layout/content/Content';
+import Head from '../../../layout/head/Head';
 import {
   BlockBetween,
   BlockDes,
@@ -11,20 +11,20 @@ import {
   BlockTitle,
   Col,
   Row,
-} from "../../../components/Component";
-import { Card } from "reactstrap";
-import { pricingTableDataV1, pricingTableDataV2 } from "./PricingTableData";
+} from '../../../components/Component';
+import { Card } from 'reactstrap';
+import { pricingTableDataV1, pricingTableDataV2 } from './PricingTableData';
 
 const PricingTable = () => {
   return (
     <React.Fragment>
-      <Head title="Pricing Table"></Head>
+      <Head title='Pricing Table'></Head>
       <Content>
-        <BlockHead size="sm">
-          <BlockBetween className="g-3">
+        <BlockHead size='sm'>
+          <BlockBetween className='g-3'>
             <BlockContent>
               <BlockTitle>Pricing Table</BlockTitle>
-              <BlockDes className="text-soft">
+              <BlockDes className='text-soft'>
                 <p>Choose your pricing plan and start enjoying our service.</p>
               </BlockDes>
             </BlockContent>
@@ -32,54 +32,55 @@ const PricingTable = () => {
         </BlockHead>
 
         <Block>
-          <Row className="g-gs">
+          <Row className='g-gs'>
             {pricingTableDataV1.map((item) => {
               return (
                 <Col md={6} xxl={3} key={item.id}>
-                  <Card className={`pricing ${item.tags ? "recommend" : ""}`}>
+                  <Card className={`pricing ${item.tags ? 'recommend' : ''}`}>
                     {item.tags && (
-                      <Badge color="primary" className="pricing-badge">
+                      <Badge color='primary' className='pricing-badge'>
                         Recommend
                       </Badge>
                     )}
-                    <div className="pricing-head">
-                      <div className="pricing-title">
-                        <h4 className="card-title title">{item.title}</h4>
-                        <p className="sub-text">{item.caption}</p>
+                    <div className='pricing-head'>
+                      <div className='pricing-title'>
+                        <h4 className='card-title title'>{item.title}</h4>
+                        <p className='sub-text'>{item.caption}</p>
                       </div>
-                      <div className="card-text">
+                      <div className='card-text'>
                         <Row>
                           <Col size={6}>
-                            <span className="h4 fw-500">{item.interest}%</span>
-                            <span className="sub-text">Daily Interest</span>
+                            <span className='h4 fw-500'>{item.interest}%</span>
+                            <span className='sub-text'>Daily Interest</span>
                           </Col>
                           <Col size={6}>
-                            <span className="h4 fw-500">{item.return}</span>
-                            <span className="sub-text">Term Days</span>
+                            <span className='h4 fw-500'>{item.return}</span>
+                            <span className='sub-text'>Term Days</span>
                           </Col>
                         </Row>
                       </div>
                     </div>
-                    <div className="pricing-body">
-                      <ul className="pricing-features">
+                    <div className='pricing-body'>
+                      <ul className='pricing-features'>
                         <li>
-                          <span className="w-50">Min Deposit</span> -{" "}
-                          <span className="ms-auto">${item.minDeposit}</span>
+                          <span className='w-50'>Min Deposit</span> -{' '}
+                          <span className='ms-auto'>${item.minDeposit}</span>
                         </li>
                         <li>
-                          <span className="w-50">Max Deposit</span> -{" "}
-                          <span className="ms-auto">${item.maxDeposit}</span>
+                          <span className='w-50'>Max Deposit</span> -{' '}
+                          <span className='ms-auto'>${item.maxDeposit}</span>
                         </li>
                         <li>
-                          <span className="w-50">Deposit Return</span> - <span className="ms-auto">{item.return}</span>
+                          <span className='w-50'>Deposit Return</span> -{' '}
+                          <span className='ms-auto'>{item.return}</span>
                         </li>
                         <li>
-                          <span className="w-50">Total Return</span> -{" "}
-                          <span className="ms-auto">{item.totalReturn}%</span>
+                          <span className='w-50'>Total Return</span> -{' '}
+                          <span className='ms-auto'>{item.totalReturn}%</span>
                         </li>
                       </ul>
-                      <div className="pricing-action">
-                        <Button color="light" outline>
+                      <div className='pricing-action'>
+                        <Button color='light' outline>
                           Choose this plan
                         </Button>
                       </div>
@@ -91,43 +92,43 @@ const PricingTable = () => {
           </Row>
         </Block>
 
-        <Block size="lg">
+        <Block size='lg'>
           <BlockHead>
-            <BlockBetween className="g-3">
+            <BlockBetween className='g-3'>
               <BlockContent>
                 <BlockTitle>Pricing Table V2</BlockTitle>
-                <BlockDes className="text-soft">
+                <BlockDes className='text-soft'>
                   <p>Choose your pricing plan and start enjoying our service.</p>
                 </BlockDes>
               </BlockContent>
             </BlockBetween>
           </BlockHead>
-          <Row className="g-gs">
+          <Row className='g-gs'>
             {pricingTableDataV2.map((item) => {
               return (
                 <Col md={6} xxl={3} key={item.id}>
-                  <Card className={`pricing text-center ${item.tags ? "recommend" : ""}`}>
+                  <Card className={`pricing text-center ${item.tags ? 'recommend' : ''}`}>
                     {item.tags && (
-                      <Badge color="primary" className="pricing-badge">
+                      <Badge color='primary' className='pricing-badge'>
                         Recommend
                       </Badge>
                     )}
-                    <div className="pricing-body">
-                      <div className="pricing-media">
-                        <img src={item.logo} alt="" />
+                    <div className='pricing-body'>
+                      <div className='pricing-media'>
+                        <img src={item.logo} alt='' />
                       </div>
-                      <div className="pricing-title w-220px mx-auto">
-                        <h5 className="title">{item.title}</h5>
-                        <span className="sub-text">{item.desc}</span>
+                      <div className='pricing-title w-220px mx-auto'>
+                        <h5 className='title'>{item.title}</h5>
+                        <span className='sub-text'>{item.desc}</span>
                       </div>
-                      <div className="pricing-amount">
-                        <div className="amount">
+                      <div className='pricing-amount'>
+                        <div className='amount'>
                           ${item.amount} <span>/yr</span>
                         </div>
-                        <span className="bill">{item.userNumber} User, Billed Yearly</span>
+                        <span className='bill'>{item.userNumber} User, Billed Yearly</span>
                       </div>
-                      <div className="pricing-action">
-                        <Button color="primary">Select Plan</Button>
+                      <div className='pricing-action'>
+                        <Button color='primary'>Select Plan</Button>
                       </div>
                     </div>
                   </Card>

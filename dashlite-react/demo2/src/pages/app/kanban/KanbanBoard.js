@@ -1,6 +1,6 @@
-import React from "react";
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
-import { KanbanColumn } from "./KanbanPartials";
+import React from 'react';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import { KanbanColumn } from './KanbanPartials';
 
 const KanbanBoard = ({ columns, setColumns }) => {
   const handleOnDragEnd = (result) => {
@@ -13,7 +13,7 @@ const KanbanBoard = ({ columns, setColumns }) => {
       return;
     }
 
-    if (type === "column") {
+    if (type === 'column') {
       const newColumnOrder = Array.from(columns.columnOrder);
       newColumnOrder.splice(source.index, 1);
       newColumnOrder.splice(destination.index, 0, draggableId);
@@ -78,18 +78,26 @@ const KanbanBoard = ({ columns, setColumns }) => {
 
   return (
     <DragDropContext onDragEnd={handleOnDragEnd}>
-      <Droppable droppableId="all-columns" direction="horizontal" type="column">
+      <Droppable droppableId='all-columns' direction='horizontal' type='column'>
         {(provided) => (
           <div
-            className="kanban-container"
-            id="kanban-container"
+            className='kanban-container'
+            id='kanban-container'
             style={{ width: `${columns.columnOrder.length * 320}px` }}
             {...provided.droppableProps}
             ref={provided.innerRef}
           >
             {columns.columnOrder.map((columnId, index) => {
               const column = columns.columns[columnId];
-              return <KanbanColumn data={columns} setData={setColumns} column={column} key={index} index={index} />;
+              return (
+                <KanbanColumn
+                  data={columns}
+                  setData={setColumns}
+                  column={column}
+                  key={index}
+                  index={index}
+                />
+              );
             })}
             {provided.placeholder}
           </div>

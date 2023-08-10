@@ -1,6 +1,6 @@
-import React from "react";
-import { Pagination, PaginationLink, PaginationItem } from "reactstrap";
-import Icon from "../icon/Icon";
+import React from 'react';
+import { Pagination, PaginationLink, PaginationItem } from 'reactstrap';
+import Icon from '../icon/Icon';
 
 const PaginationComponent = ({ itemPerPage, totalItems, paginate, currentPage }) => {
   const pageNumbers = [];
@@ -10,17 +10,37 @@ const PaginationComponent = ({ itemPerPage, totalItems, paginate, currentPage })
   }
 
   const paginationNumber = () => {
-    if(pageNumbers.length <= 5){
+    if (pageNumbers.length <= 5) {
       return pageNumbers;
-    }else if(pageNumbers.length >= 5 && currentPage <= 4){
-      return [1,2,3,4,5,'...',pageNumbers[pageNumbers.length - 1]];
-    }else if(pageNumbers.length >= 5 && currentPage >= pageNumbers[pageNumbers.length - 4]){
-      return [1,'...',pageNumbers[pageNumbers.length - 5],pageNumbers[pageNumbers.length - 4],pageNumbers[pageNumbers.length - 3],pageNumbers[pageNumbers.length - 2],pageNumbers[pageNumbers.length - 1]];
-    }else if(pageNumbers.length > 5 && currentPage > 4 && currentPage < pageNumbers[pageNumbers.length - 4]){
-      return [1,'...',currentPage-1,currentPage,currentPage+1,'...',pageNumbers[pageNumbers.length - 1]];
+    } else if (pageNumbers.length >= 5 && currentPage <= 4) {
+      return [1, 2, 3, 4, 5, '...', pageNumbers[pageNumbers.length - 1]];
+    } else if (pageNumbers.length >= 5 && currentPage >= pageNumbers[pageNumbers.length - 4]) {
+      return [
+        1,
+        '...',
+        pageNumbers[pageNumbers.length - 5],
+        pageNumbers[pageNumbers.length - 4],
+        pageNumbers[pageNumbers.length - 3],
+        pageNumbers[pageNumbers.length - 2],
+        pageNumbers[pageNumbers.length - 1],
+      ];
+    } else if (
+      pageNumbers.length > 5 &&
+      currentPage > 4 &&
+      currentPage < pageNumbers[pageNumbers.length - 4]
+    ) {
+      return [
+        1,
+        '...',
+        currentPage - 1,
+        currentPage,
+        currentPage + 1,
+        '...',
+        pageNumbers[pageNumbers.length - 1],
+      ];
     }
   };
-  
+
   let paginationItms = paginationNumber();
 
   const firstPage = () => {
@@ -40,69 +60,73 @@ const PaginationComponent = ({ itemPerPage, totalItems, paginate, currentPage })
   };
 
   return (
-    <Pagination aria-label="Page navigation example">
+    <Pagination aria-label='Page navigation example'>
       <PaginationItem disabled={currentPage - 1 === 0 ? true : false}>
         <PaginationLink
-          className="page-link-first"
+          className='page-link-first'
           onClick={(ev) => {
             ev.preventDefault();
             firstPage();
           }}
-          href="#first"
+          href='#first'
         >
-          <Icon name="chevrons-left" />
+          <Icon name='chevrons-left' />
         </PaginationLink>
       </PaginationItem>
       <PaginationItem disabled={currentPage - 1 === 0 ? true : false}>
         <PaginationLink
-          className="page-link-prev"
+          className='page-link-prev'
           onClick={(ev) => {
             ev.preventDefault();
             prevPage();
           }}
-          href="#prev"
+          href='#prev'
         >
-          <Icon name="chevron-left" />
+          <Icon name='chevron-left' />
         </PaginationLink>
       </PaginationItem>
       {paginationItms.map((item) => {
         return (
-          <PaginationItem  disabled={isNaN(item)} className={`d-none d-sm-block ${currentPage === item ? "active" : ""}`} key={item}>
+          <PaginationItem
+            disabled={isNaN(item)}
+            className={`d-none d-sm-block ${currentPage === item ? 'active' : ''}`}
+            key={item}
+          >
             <PaginationLink
-                  tag="a"
-                  href="#pageitem"
+              tag='a'
+              href='#pageitem'
               onClick={(ev) => {
                 ev.preventDefault();
-                    paginate(item);
+                paginate(item);
               }}
             >
-                  {item}
+              {item}
             </PaginationLink>
           </PaginationItem>
         );
       })}
       <PaginationItem disabled={pageNumbers[pageNumbers.length - 1] === currentPage}>
         <PaginationLink
-          className="page-link-next"
+          className='page-link-next'
           onClick={(ev) => {
             ev.preventDefault();
             nextPage();
           }}
-          href="#next"
+          href='#next'
         >
-          <Icon name="chevron-right" />
+          <Icon name='chevron-right' />
         </PaginationLink>
       </PaginationItem>
       <PaginationItem disabled={pageNumbers[pageNumbers.length - 1] === currentPage}>
         <PaginationLink
-          className="page-link-next"
+          className='page-link-next'
           onClick={(ev) => {
             ev.preventDefault();
             lastPage();
           }}
-          href="#last"
+          href='#last'
         >
-          <Icon name="chevrons-right" />
+          <Icon name='chevrons-right' />
         </PaginationLink>
       </PaginationItem>
     </Pagination>

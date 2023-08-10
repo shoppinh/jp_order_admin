@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
-import { Icon, UserAvatar } from "../../../components/Component";
-import SimpleBar from "simplebar-react";
-import { Input, Button } from "reactstrap";
-import { ChatItem, ContactItem } from "./ChatPartials";
-import { findUpper } from "../../../utils/Utils";
-import { chatData } from "./ChatData";
-import { ChatContext } from "./ChatContext";
+import React, { useContext } from 'react';
+import { Icon, UserAvatar } from '../../../components/Component';
+import SimpleBar from 'simplebar-react';
+import { Input, Button } from 'reactstrap';
+import { ChatItem, ContactItem } from './ChatPartials';
+import { findUpper } from '../../../utils/Utils';
+import { chatData } from './ChatData';
+import { ChatContext } from './ChatContext';
 
 export const ChatAsideBody = ({
   onInputChange,
@@ -25,44 +25,48 @@ export const ChatAsideBody = ({
   const defaultChat = filteredChatList.filter((item) => item.group !== true);
 
   return (
-    <SimpleBar className="nk-chat-aside-body">
-      <div className="nk-chat-aside-search">
-        <div className="form-group">
-          <div className="form-control-wrap">
-            <div className="form-icon form-icon-left">
-              <Icon name="search"></Icon>
+    <SimpleBar className='nk-chat-aside-body'>
+      <div className='nk-chat-aside-search'>
+        <div className='form-group'>
+          <div className='form-control-wrap'>
+            <div className='form-icon form-icon-left'>
+              <Icon name='search'></Icon>
             </div>
             <Input
-              type="text"
-              className="form-round"
-              id="default-03"
-              placeholder="Search by name"
+              type='text'
+              className='form-round'
+              id='default-03'
+              placeholder='Search by name'
               onChange={(e) => onInputChange(e)}
             />
           </div>
         </div>
       </div>
-      <div className="nk-chat-aside-panel nk-chat-fav">
-        <h6 className="title overline-title-alt">Favorites</h6>
-        <ul className="fav-list">
+      <div className='nk-chat-aside-panel nk-chat-fav'>
+        <h6 className='title overline-title-alt'>Favorites</h6>
+        <ul className='fav-list'>
           <li>
             <Button
-              color="light"
+              color='light'
               outline
-              size="lg"
-              className="btn-icon btn-white btn-round"
+              size='lg'
+              className='btn-icon btn-white btn-round'
               onClick={() => setFavState(!favState)}
             >
-              <Icon name={favState ? "cross" : "plus"}></Icon>
+              <Icon name={favState ? 'cross' : 'plus'}></Icon>
             </Button>
           </li>
           {favData.map((user, idx) => {
             return (
               user.fav === true && (
                 <li key={idx} onClick={() => setSelectedId(user.id)}>
-                  <a href="#dropdown" onClick={(ev) => ev.preventDefault()}>
+                  <a href='#dropdown' onClick={(ev) => ev.preventDefault()}>
                     <UserAvatar image={user.image} theme={user.theme} text={findUpper(user.name)}>
-                      <span className={`status dot dot-lg dot-${user.active === true ? "success" : "gray"}`}></span>
+                      <span
+                        className={`status dot dot-lg dot-${
+                          user.active === true ? 'success' : 'gray'
+                        }`}
+                      ></span>
                     </UserAvatar>
                   </a>
                 </li>
@@ -72,44 +76,44 @@ export const ChatAsideBody = ({
         </ul>
       </div>
       {favState && (
-        <SimpleBar className="nk-chat-aside-body">
-          <div className="nk-chat-aside-search">
-            <div className="form-group">
-              <div className="form-control-wrap">
-                <div className="form-icon form-icon-left">
-                  <Icon name="search"></Icon>
+        <SimpleBar className='nk-chat-aside-body'>
+          <div className='nk-chat-aside-search'>
+            <div className='form-group'>
+              <div className='form-control-wrap'>
+                <div className='form-icon form-icon-left'>
+                  <Icon name='search'></Icon>
                 </div>
                 <Input
-                  type="text"
-                  className="form-round"
-                  id="default-03"
-                  placeholder="Search by name"
+                  type='text'
+                  className='form-round'
+                  id='default-03'
+                  placeholder='Search by name'
                   onChange={(e) => favInputSearchChange(e)}
                 />
               </div>
             </div>
           </div>
-          <div className="nk-chat-aside-panel nk-chat-contact">
-            <ul className="contacts-list">
+          <div className='nk-chat-aside-panel nk-chat-contact'>
+            <ul className='contacts-list'>
               {favFilter.length === 0 ? (
                 favFilterText ? (
-                  <div className="ms-3">No user found</div>
+                  <div className='ms-3'>No user found</div>
                 ) : (
                   favData.slice(0, 3).map((contact, idx) => {
                     return (
                       contact.fav === false && (
                         <li key={idx} onClick={() => favAction(contact.id)}>
-                          <div className="user-card">
-                            <a href="#card" onClick={(ev) => ev.preventDefault()}>
+                          <div className='user-card'>
+                            <a href='#card' onClick={(ev) => ev.preventDefault()}>
                               <UserAvatar
                                 text={findUpper(contact.name)}
                                 theme={contact.theme}
                                 image={contact.image}
                               ></UserAvatar>
-                              <div className="user-name">{contact.name}</div>
+                              <div className='user-name'>{contact.name}</div>
                             </a>
-                            <div className="user-actions">
-                              <a href="#start-chat" onClick={(ev) => ev.preventDefault()}>
+                            <div className='user-actions'>
+                              <a href='#start-chat' onClick={(ev) => ev.preventDefault()}>
                                 Start Chat
                               </a>
                             </div>
@@ -124,17 +128,17 @@ export const ChatAsideBody = ({
                   return (
                     contact.fav === false && (
                       <li key={idx} onClick={() => favAction(contact.id)}>
-                        <div className="user-card">
-                          <a href="#card" onClick={(ev) => ev.preventDefault()}>
+                        <div className='user-card'>
+                          <a href='#card' onClick={(ev) => ev.preventDefault()}>
                             <UserAvatar
                               text={findUpper(contact.name)}
                               theme={contact.theme}
                               image={contact.image}
                             ></UserAvatar>
-                            <div className="user-name">{contact.name}</div>
+                            <div className='user-name'>{contact.name}</div>
                           </a>
-                          <div className="user-actions">
-                            <a href="#start-chat" onClick={(ev) => ev.preventDefault()}>
+                          <div className='user-actions'>
+                            <a href='#start-chat' onClick={(ev) => ev.preventDefault()}>
                               Start Chat
                             </a>
                           </div>
@@ -148,12 +152,12 @@ export const ChatAsideBody = ({
           </div>
         </SimpleBar>
       )}
-      <div className="nk-chat-list">
-        <h6 className="title overline-title-alt">{filterTab}</h6>
-        <ul className="chat-list">
+      <div className='nk-chat-list'>
+        <h6 className='title overline-title-alt'>{filterTab}</h6>
+        <ul className='chat-list'>
           {defaultChat.length !== 0 ? (
             filteredChatList.map((item, idx) => {
-              if (filterTab === "messages") {
+              if (filterTab === 'messages') {
                 return (
                   item.convo.length > 0 &&
                   !item.group &&
@@ -167,7 +171,7 @@ export const ChatAsideBody = ({
                     ></ChatItem>
                   )
                 );
-              } else if (filterTab === "archive") {
+              } else if (filterTab === 'archive') {
                 return (
                   item.convo.length > 0 &&
                   item.archive &&
@@ -181,7 +185,7 @@ export const ChatAsideBody = ({
                     ></ChatItem>
                   )
                 );
-              } else if (filterTab === "unread") {
+              } else if (filterTab === 'unread') {
                 return (
                   item.convo.length > 0 &&
                   item.unread &&
@@ -212,7 +216,7 @@ export const ChatAsideBody = ({
               }
             })
           ) : (
-            <p className="m-3">No user found</p>
+            <p className='m-3'>No user found</p>
           )}
         </ul>
       </div>
@@ -232,26 +236,26 @@ export const ChannelAsideBody = ({
   const defaultChat = filteredChatList.filter((item) => item.group === true);
 
   return (
-    <SimpleBar className="nk-chat-aside-body">
-      <div className="nk-chat-aside-search">
-        <div className="form-group">
-          <div className="form-control-wrap">
-            <div className="form-icon form-icon-left">
-              <Icon name="search"></Icon>
+    <SimpleBar className='nk-chat-aside-body'>
+      <div className='nk-chat-aside-search'>
+        <div className='form-group'>
+          <div className='form-control-wrap'>
+            <div className='form-icon form-icon-left'>
+              <Icon name='search'></Icon>
             </div>
             <Input
-              type="text"
-              className="form-round"
-              id="default-03"
-              placeholder="Search by name"
+              type='text'
+              className='form-round'
+              id='default-03'
+              placeholder='Search by name'
               onChange={(e) => onInputChange(e)}
             />
           </div>
         </div>
       </div>
-      <div className="nk-chat-aside-panel nk-chat-channel">
-        <h6 className="title overline-title-alt">All Channels</h6>
-        <ul className="channel-list">
+      <div className='nk-chat-aside-panel nk-chat-channel'>
+        <h6 className='title overline-title-alt'>All Channels</h6>
+        <ul className='channel-list'>
           {chatData.map((item, idx) => {
             return (
               item.channel && (
@@ -263,9 +267,9 @@ export const ChannelAsideBody = ({
                   }}
                 >
                   <a
-                    href="#name"
+                    href='#name'
                     onClick={(ev) => ev.preventDefault()}
-                    className={selectedId === item.id ? "active" : ""}
+                    className={selectedId === item.id ? 'active' : ''}
                   >
                     # {item.name}
                   </a>
@@ -275,12 +279,12 @@ export const ChannelAsideBody = ({
           })}
         </ul>
       </div>
-      <div className="nk-chat-list">
-        <h6 className="title overline-title-alt">Teams / Groups</h6>
-        <ul className="chat-list">
+      <div className='nk-chat-list'>
+        <h6 className='title overline-title-alt'>Teams / Groups</h6>
+        <ul className='chat-list'>
           {defaultChat.length !== 0 ? (
             filteredChatList.map((item, idx) => {
-              if (filterTab === "messages") {
+              if (filterTab === 'messages') {
                 return (
                   item.convo.length > 0 &&
                   item.group &&
@@ -295,7 +299,7 @@ export const ChannelAsideBody = ({
                     ></ChatItem>
                   )
                 );
-              } else if (filterTab === "archive") {
+              } else if (filterTab === 'archive') {
                 return (
                   item.convo.length > 0 &&
                   !item.channel &&
@@ -310,7 +314,7 @@ export const ChannelAsideBody = ({
                     ></ChatItem>
                   )
                 );
-              } else if (filterTab === "unread") {
+              } else if (filterTab === 'unread') {
                 return (
                   item.convo.length > 0 &&
                   !item.channel &&
@@ -342,7 +346,7 @@ export const ChannelAsideBody = ({
               }
             })
           ) : (
-            <p className="m-3">No group found</p>
+            <p className='m-3'>No group found</p>
           )}
         </ul>
       </div>
@@ -350,51 +354,57 @@ export const ChannelAsideBody = ({
   );
 };
 
-export const ContactAsideBody = (onInputChange, filterData, filterText, contactData, setSelectedId) => {
+export const ContactAsideBody = (
+  onInputChange,
+  filterData,
+  filterText,
+  contactData,
+  setSelectedId
+) => {
   return (
-    <SimpleBar className="nk-chat-aside-body">
-      <div className="nk-chat-aside-search">
-        <div className="form-group">
-          <div className="form-control-wrap">
-            <div className="form-icon form-icon-left">
-              <Icon name="search"></Icon>
+    <SimpleBar className='nk-chat-aside-body'>
+      <div className='nk-chat-aside-search'>
+        <div className='form-group'>
+          <div className='form-control-wrap'>
+            <div className='form-icon form-icon-left'>
+              <Icon name='search'></Icon>
             </div>
             <input
-              type="text"
-              className="form-round form-control"
-              id="default-03"
-              placeholder="Search by name"
+              type='text'
+              className='form-round form-control'
+              id='default-03'
+              placeholder='Search by name'
               onChange={(e) => onInputChange(e)}
             />
           </div>
         </div>
       </div>
-      <div className="nk-chat-aside-panel nk-chat-contact">
+      <div className='nk-chat-aside-panel nk-chat-contact'>
         {filterData.length === 0 ? (
           filterText ? (
-            <div className="ms-5">No user</div>
+            <div className='ms-5'>No user</div>
           ) : (
             contactData.map((item, idx) => {
               return <ContactItem key={idx} item={item}></ContactItem>;
             })
           )
         ) : (
-          <ul className="contacts-list">
+          <ul className='contacts-list'>
             {filterData.map((contact, idx) => {
               return (
                 <React.Fragment>
                   <li key={idx} setSelectedId={setSelectedId(contact.id)}>
-                    <div className="user-card">
-                      <a href="#name" onClick={(ev) => ev.preventDefault()}>
+                    <div className='user-card'>
+                      <a href='#name' onClick={(ev) => ev.preventDefault()}>
                         <UserAvatar
                           text={findUpper(contact.name)}
                           theme={contact.theme}
                           image={contact.image}
                         ></UserAvatar>
-                        <div className="user-name">{contact.name}</div>
+                        <div className='user-name'>{contact.name}</div>
                       </a>
-                      <div className="user-actions">
-                        <a href="#start-chat" onClick={(ev) => ev.preventDefault()}>
+                      <div className='user-actions'>
+                        <a href='#start-chat' onClick={(ev) => ev.preventDefault()}>
                           Start Chat
                         </a>
                       </div>

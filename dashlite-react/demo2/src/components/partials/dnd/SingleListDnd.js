@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { dndDataSet1 } from "./Data";
+import React, { useState } from 'react';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { dndDataSet1 } from './Data';
 
 const SingleListDnd = () => {
   const [dndSet1, setDndSet1] = useState(dndDataSet1);
@@ -20,10 +20,10 @@ const SingleListDnd = () => {
   };
   return (
     <DragDropContext onDragEnd={handleOnDragEnd}>
-      <Droppable droppableId="droppable1">
+      <Droppable droppableId='droppable1'>
         {(provided) => (
-          <div ref={provided.innerRef} className="col-sm-12">
-            <div className="card card-bordered p-4 h-100">
+          <div ref={provided.innerRef} className='col-sm-12'>
+            <div className='card card-bordered p-4 h-100'>
               {dndSet1.map((item, index) => (
                 <Draggable draggableId={item.id} key={item.id} index={index}>
                   {(provided) => (
@@ -31,7 +31,7 @@ const SingleListDnd = () => {
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
-                      className="p-3 bg-white border border-light round-lg mb-3"
+                      className='p-3 bg-white border border-light round-lg mb-3'
                     >
                       {item.text}
                     </div>

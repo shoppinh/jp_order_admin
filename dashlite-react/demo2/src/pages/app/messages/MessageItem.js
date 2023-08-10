@@ -1,20 +1,28 @@
-import React, { useEffect, useState, useRef } from "react";
-import { Modal, ModalBody, DropdownMenu, DropdownToggle, UncontrolledDropdown, DropdownItem,Badge  } from "reactstrap";
-import { Button, Icon, TooltipComponent, UserAvatar } from "../../../components/Component";
-import { ReplyItem, MetaItem } from "./MessagePartials";
-import { currentTime, findUpper, todaysDate, monthNames } from "../../../utils/Utils";
-import { assignMembers } from "./MessageData";
-import SimpleBar from "simplebar-react";
-import classNames from "classnames";
-import MessageProfileSidebar from "./MessageProfile";
+import React, { useEffect, useState, useRef } from 'react';
+import {
+  Modal,
+  ModalBody,
+  DropdownMenu,
+  DropdownToggle,
+  UncontrolledDropdown,
+  DropdownItem,
+  Badge,
+} from 'reactstrap';
+import { Button, Icon, TooltipComponent, UserAvatar } from '../../../components/Component';
+import { ReplyItem, MetaItem } from './MessagePartials';
+import { currentTime, findUpper, todaysDate, monthNames } from '../../../utils/Utils';
+import { assignMembers } from './MessageData';
+import SimpleBar from 'simplebar-react';
+import classNames from 'classnames';
+import MessageProfileSidebar from './MessageProfile';
 
 const MessageItem = ({ id, onClosed, mobileView, setMobileView, data }) => {
   const [itemData] = useState(data);
   const [sidebar, setSideBar] = useState(false);
   const [item, setItem] = useState({});
-  const [formTab, setFormTab] = useState("1");
+  const [formTab, setFormTab] = useState('1');
   const [assignModal, setAssignModal] = useState(false);
-  const [textInput, setTextInput] = useState("");
+  const [textInput, setTextInput] = useState('');
 
   const messagesEndRef = useRef(null);
 
@@ -35,9 +43,9 @@ const MessageItem = ({ id, onClosed, mobileView, setMobileView, data }) => {
 
   useEffect(() => {
     resizeFunc();
-    window.addEventListener("resize", resizeFunc);
+    window.addEventListener('resize', resizeFunc);
     return () => {
-      window.removeEventListener("resize", resizeFunc);
+      window.removeEventListener('resize', resizeFunc);
     };
   }, []);
 
@@ -67,113 +75,127 @@ const MessageItem = ({ id, onClosed, mobileView, setMobileView, data }) => {
   const onFormSubmit = (e, note) => {
     let defaultObject = item;
     var htmlMarkup = [];
-    if (textInput.trim() !== "") {
-      var text = textInput.replace(/\r/g, "").split(/\n/);
+    if (textInput.trim() !== '') {
+      var text = textInput.replace(/\r/g, '').split(/\n/);
       text.forEach((item) => {
         htmlMarkup.push(item);
       });
       const replyObject = {
         replyId: `rep_${item.reply.length + 1}`,
-        name: "Illias Hossain",
+        name: 'Illias Hossain',
         note: note,
-        theme: "purple",
-        date: `${monthNames[todaysDate.getMonth()]} ${todaysDate.getDate()}, ${todaysDate.getFullYear()}`,
+        theme: 'purple',
+        date: `${
+          monthNames[todaysDate.getMonth()]
+        } ${todaysDate.getDate()}, ${todaysDate.getFullYear()}`,
         time: `${currentTime()}`,
         replyMarkup: htmlMarkup,
       };
       defaultObject.reply.push(replyObject);
       setItem({ ...defaultObject });
-      setTextInput("");
+      setTextInput('');
     }
     setTimeout(() => scrollToBottom());
   };
 
   const chatBodyClass = classNames({
-    "nk-msg-body": true,
-    "bg-white": true,
-    "show-message": mobileView,
-    "profile-shown": sidebar,
+    'nk-msg-body': true,
+    'bg-white': true,
+    'show-message': mobileView,
+    'profile-shown': sidebar,
   });
 
   return (
     <React.Fragment>
       {Object.keys(item).length > 0 && (
         <div className={chatBodyClass}>
-          <div className="nk-msg-head">
-            <h4 className="title d-none d-lg-block">{item.messageTitle}</h4>
-            <div className="nk-msg-head-meta">
-              <div className="d-none d-lg-block">
-                <ul className="nk-msg-tags">
+          <div className='nk-msg-head'>
+            <h4 className='title d-none d-lg-block'>{item.messageTitle}</h4>
+            <div className='nk-msg-head-meta'>
+              <div className='d-none d-lg-block'>
+                <ul className='nk-msg-tags'>
                   <li>
-                    <span className="label-tag">
-                      <Icon name="flag-fill"></Icon> <span>Technical Problem</span>
+                    <span className='label-tag'>
+                      <Icon name='flag-fill'></Icon> <span>Technical Problem</span>
                     </span>
                   </li>
                 </ul>
               </div>
-              <div className="d-lg-none">
-                <Button className="btn-icon btn-trigger nk-msg-hide ms-n1" onClick={() => setMobileView(false)}>
-                  <Icon name="arrow-left"></Icon>
+              <div className='d-lg-none'>
+                <Button
+                  className='btn-icon btn-trigger nk-msg-hide ms-n1'
+                  onClick={() => setMobileView(false)}
+                >
+                  <Icon name='arrow-left'></Icon>
                 </Button>
               </div>
-              <ul className="nk-msg-actions">
+              <ul className='nk-msg-actions'>
                 {item.closed ? (
                   <li>
-                    <Badge className="badge-dim badge-sm" color="success">
-                      <Icon name="check"></Icon>
+                    <Badge className='badge-dim badge-sm' color='success'>
+                      <Icon name='check'></Icon>
                       <span>Closed</span>
                     </Badge>
                   </li>
                 ) : (
                   <li>
-                    <Button outline size="sm" color="light" className="btn-dim" onClick={() => onClosed(id)}>
-                      <Icon name="check"></Icon>
+                    <Button
+                      outline
+                      size='sm'
+                      color='light'
+                      className='btn-dim'
+                      onClick={() => onClosed(id)}
+                    >
+                      <Icon name='check'></Icon>
                       <span>Mark as Closed</span>
                     </Button>
                   </li>
                 )}
 
-                <li className="d-lg-none">
+                <li className='d-lg-none'>
                   <Button
-                    size="sm"
-                    color="white"
-                    className="btn btn-icon btn-light profile-toggle"
+                    size='sm'
+                    color='white'
+                    className='btn btn-icon btn-light profile-toggle'
                     onClick={() => toggleSidebar()}
                   >
-                    <Icon name="info-i"></Icon>
+                    <Icon name='info-i'></Icon>
                   </Button>
                 </li>
                 <li>
                   <UncontrolledDropdown>
-                    <DropdownToggle tag="a" className="btn btn-icon btn-sm btn-white btn-light dropdown-toggle">
-                      <Icon name="more-h"></Icon>
+                    <DropdownToggle
+                      tag='a'
+                      className='btn btn-icon btn-sm btn-white btn-light dropdown-toggle'
+                    >
+                      <Icon name='more-h'></Icon>
                     </DropdownToggle>
                     <DropdownMenu end>
-                      <ul className="link-list-opt no-bdr">
+                      <ul className='link-list-opt no-bdr'>
                         <li>
                           <DropdownItem
-                            tag="a"
-                            href="#dropdown"
+                            tag='a'
+                            href='#dropdown'
                             onClick={(ev) => {
                               ev.preventDefault();
                               toggleAssignModal();
                             }}
                           >
-                            <Icon name="user-add"></Icon>
+                            <Icon name='user-add'></Icon>
                             <span>Assign To Member</span>
                           </DropdownItem>
                         </li>
                         {!item.closed && (
                           <li>
                             <DropdownItem
-                              tag="a"
-                              href="#dropdown"
+                              tag='a'
+                              href='#dropdown'
                               onClick={(ev) => {
                                 ev.preventDefault();
                                 onClosed(id);
                               }}
                             >
-                              <Icon name="done"></Icon>
+                              <Icon name='done'></Icon>
                               <span>Mark as Close</span>
                             </DropdownItem>
                           </li>
@@ -185,38 +207,46 @@ const MessageItem = ({ id, onClosed, mobileView, setMobileView, data }) => {
               </ul>
             </div>
             <a
-              href="#toggle"
+              href='#toggle'
               onClick={(ev) => {
                 ev.preventDefault();
                 toggleSidebar();
               }}
-              className={`nk-msg-profile-toggle profile-toggle ${sidebar ? "active" : ""}`}
+              className={`nk-msg-profile-toggle profile-toggle ${sidebar ? 'active' : ''}`}
             >
-              <Icon name="arrow-left"></Icon>
+              <Icon name='arrow-left'></Icon>
             </a>
           </div>
           {/*nk-msg-head*/}
-          <SimpleBar className="nk-msg-reply nk-reply" scrollableNodeProps={{ ref: messagesEndRef }}>
-            <div className="nk-msg-head py-4 d-lg-none">
-              <h4 className="title">{item.messageTitle}</h4>
-              <ul className="nk-msg-tags">
+          <SimpleBar
+            className='nk-msg-reply nk-reply'
+            scrollableNodeProps={{ ref: messagesEndRef }}
+          >
+            <div className='nk-msg-head py-4 d-lg-none'>
+              <h4 className='title'>{item.messageTitle}</h4>
+              <ul className='nk-msg-tags'>
                 <li>
-                  <span className="label-tag">
-                    <Icon name="flag-fill"></Icon> <span>Technical Problem</span>
+                  <span className='label-tag'>
+                    <Icon name='flag-fill'></Icon> <span>Technical Problem</span>
                   </span>
                 </li>
               </ul>
             </div>
-            <div className="nk-reply-item">
-              <div className="nk-reply-header">
-                <div className="user-card">
-                  <UserAvatar size="sm" theme={item.theme} text={findUpper(item.name)} image={item.image} />
-                  <div className="user-name">{item.name}</div>
+            <div className='nk-reply-item'>
+              <div className='nk-reply-header'>
+                <div className='user-card'>
+                  <UserAvatar
+                    size='sm'
+                    theme={item.theme}
+                    text={findUpper(item.name)}
+                    image={item.image}
+                  />
+                  <div className='user-name'>{item.name}</div>
                 </div>
-                <div className="date-time">{item.date}</div>
+                <div className='date-time'>{item.date}</div>
               </div>
-              <div className="nk-reply-body">
-                <div className="nk-reply-entry entry">
+              <div className='nk-reply-body'>
+                <div className='nk-reply-entry entry'>
                   {item.messageMarkup.map((messageItem, idx) => {
                     return <p key={idx}>{messageItem}</p>;
                   })}
@@ -228,76 +258,81 @@ const MessageItem = ({ id, onClosed, mobileView, setMobileView, data }) => {
                 if (!replyItem.meta === true) {
                   return <ReplyItem item={replyItem} key={replyItem.replyId}></ReplyItem>;
                 } else {
-                  return <MetaItem item={replyItem.meta.metaMarkup} key={replyItem.meta.metaId}></MetaItem>;
+                  return (
+                    <MetaItem
+                      item={replyItem.meta.metaMarkup}
+                      key={replyItem.meta.metaId}
+                    ></MetaItem>
+                  );
                 }
               })}
-            <div className="nk-reply-form">
-              <div className="nk-reply-form-header">
-                <ul className="nav nav-tabs-s2 nav-tabs nav-tabs-sm">
-                  <li className="nav-item">
+            <div className='nk-reply-form'>
+              <div className='nk-reply-form-header'>
+                <ul className='nav nav-tabs-s2 nav-tabs nav-tabs-sm'>
+                  <li className='nav-item'>
                     <a
-                      className={`nav-link ${formTab === "1" ? "active" : ""}`}
+                      className={`nav-link ${formTab === '1' ? 'active' : ''}`}
                       onClick={(ev) => {
                         ev.preventDefault();
-                        setFormTab("1");
+                        setFormTab('1');
                       }}
-                      href="#tab"
+                      href='#tab'
                     >
                       Reply
                     </a>
                   </li>
-                  <li className="nav-item">
+                  <li className='nav-item'>
                     <a
-                      className={`nav-link ${formTab === "2" ? "active" : ""}`}
+                      className={`nav-link ${formTab === '2' ? 'active' : ''}`}
                       onClick={(ev) => {
                         ev.preventDefault();
-                        setFormTab("2");
+                        setFormTab('2');
                       }}
-                      href="#tab"
+                      href='#tab'
                     >
                       Private Note
                     </a>
                   </li>
                 </ul>
-                <div className="nk-reply-form-title">
-                  <div className="title">Reply as:</div>
-                  <div className="user-avatar xs bg-purple">
+                <div className='nk-reply-form-title'>
+                  <div className='title'>Reply as:</div>
+                  <div className='user-avatar xs bg-purple'>
                     <span>IH</span>
                   </div>
                 </div>
               </div>
-              <div className="tab-content">
-                <div className={`tab-pane ${formTab === "1" ? "active" : ""}`}>
-                  <div className="nk-reply-form-editor">
-                    <div className="nk-reply-form-field">
+              <div className='tab-content'>
+                <div className={`tab-pane ${formTab === '1' ? 'active' : ''}`}>
+                  <div className='nk-reply-form-editor'>
+                    <div className='nk-reply-form-field'>
                       <textarea
-                        className="form-control form-control-simple no-resize"
-                        placeholder="Hello"
+                        className='form-control form-control-simple no-resize'
+                        placeholder='Hello'
                         value={textInput}
                         onChange={(e) => onTextChange(e)}
                       />
                     </div>
-                    <div className="nk-reply-form-tools">
-                      <ul className="nk-reply-form-actions g-1">
-                        <li className="me-2">
-                          <Button color="primary" type="submit" onClick={(e) => onFormSubmit(e)}>
+                    <div className='nk-reply-form-tools'>
+                      <ul className='nk-reply-form-actions g-1'>
+                        <li className='me-2'>
+                          <Button color='primary' type='submit' onClick={(e) => onFormSubmit(e)}>
                             Reply
                           </Button>
                         </li>
                         <li>
                           <UncontrolledDropdown>
-                            <DropdownToggle tag="a" className="btn btn-icon btn-sm btn-tooltip">
-                              <Icon name="hash"></Icon>
+                            <DropdownToggle tag='a' className='btn btn-icon btn-sm btn-tooltip'>
+                              <Icon name='hash'></Icon>
                             </DropdownToggle>
-                            <DropdownMenu end className="dropdown-menu">
-                              <ul className="link-list-opt no-bdr link-list-template">
-                                <li className="opt-head">
+                            <DropdownMenu end className='dropdown-menu'>
+                              <ul className='link-list-opt no-bdr link-list-template'>
+                                <li className='opt-head'>
                                   <span>Quick Insert</span>
                                 </li>
                                 <li>
                                   <DropdownItem
-                                    tag="a"
-                                    href="#dropdown"
+                                    tag='a'
+                                    href='#dropdown'
                                     onClick={(ev) => {
                                       ev.preventDefault();
                                     }}
@@ -307,8 +342,8 @@ const MessageItem = ({ id, onClosed, mobileView, setMobileView, data }) => {
                                 </li>
                                 <li>
                                   <DropdownItem
-                                    tag="a"
-                                    href="#dropdown"
+                                    tag='a'
+                                    href='#dropdown'
                                     onClick={(ev) => {
                                       ev.preventDefault();
                                     }}
@@ -318,7 +353,7 @@ const MessageItem = ({ id, onClosed, mobileView, setMobileView, data }) => {
                                 </li>
                                 <li>
                                   <DropdownItem
-                                    href="#dropdown"
+                                    href='#dropdown'
                                     onClick={(ev) => {
                                       ev.preventDefault();
                                     }}
@@ -326,28 +361,28 @@ const MessageItem = ({ id, onClosed, mobileView, setMobileView, data }) => {
                                     <span>Thank you message</span>
                                   </DropdownItem>
                                 </li>
-                                <li className="divider" />
+                                <li className='divider' />
                                 <li>
                                   <DropdownItem
-                                    tag="a"
-                                    href="#dropdown"
+                                    tag='a'
+                                    href='#dropdown'
                                     onClick={(ev) => {
                                       ev.preventDefault();
                                     }}
                                   >
-                                    <Icon name="file-plus"></Icon>
+                                    <Icon name='file-plus'></Icon>
                                     <span>Save as Template</span>
                                   </DropdownItem>
                                 </li>
                                 <li>
                                   <DropdownItem
-                                    tag="a"
-                                    href="#dropdown"
+                                    tag='a'
+                                    href='#dropdown'
                                     onClick={(ev) => {
                                       ev.preventDefault();
                                     }}
                                   >
-                                    <Icon name="notes-alt"></Icon>
+                                    <Icon name='notes-alt'></Icon>
                                     <span>Manage Template</span>
                                   </DropdownItem>
                                 </li>
@@ -357,36 +392,44 @@ const MessageItem = ({ id, onClosed, mobileView, setMobileView, data }) => {
                         </li>
                         <li>
                           <TooltipComponent
-                            icon="clip-v"
-                            direction="top"
-                            text="Upload Attachment"
-                            id="upload-tooltip"
+                            icon='clip-v'
+                            direction='top'
+                            text='Upload Attachment'
+                            id='upload-tooltip'
                           ></TooltipComponent>
                         </li>
                         <li>
                           <TooltipComponent
-                            icon="happy"
-                            direction="top"
-                            text="Insert Emoji"
-                            id="emoji-tooltip"
+                            icon='happy'
+                            direction='top'
+                            text='Insert Emoji'
+                            id='emoji-tooltip'
                           ></TooltipComponent>
                         </li>
                         <li>
-                          <TooltipComponent icon="img" direction="top" text="Upload Images" id="img-tooltip">
-                            <Icon name="img"></Icon>
+                          <TooltipComponent
+                            icon='img'
+                            direction='top'
+                            text='Upload Images'
+                            id='img-tooltip'
+                          >
+                            <Icon name='img'></Icon>
                           </TooltipComponent>
                         </li>
                       </ul>
                       <UncontrolledDropdown>
-                        <DropdownToggle tag="a" className="dropdown-toggle btn-trigger btn btn-icon me-n2">
-                          <Icon name="more-v"></Icon>
+                        <DropdownToggle
+                          tag='a'
+                          className='dropdown-toggle btn-trigger btn btn-icon me-n2'
+                        >
+                          <Icon name='more-v'></Icon>
                         </DropdownToggle>
                         <DropdownMenu end>
-                          <ul className="link-list-opt no-bdr">
+                          <ul className='link-list-opt no-bdr'>
                             <li>
                               <DropdownItem
-                                tag="a"
-                                href="#dropdown"
+                                tag='a'
+                                href='#dropdown'
                                 onClick={(ev) => {
                                   ev.preventDefault();
                                 }}
@@ -396,8 +439,8 @@ const MessageItem = ({ id, onClosed, mobileView, setMobileView, data }) => {
                             </li>
                             <li>
                               <DropdownItem
-                                tag="a"
-                                href="#dropdown"
+                                tag='a'
+                                href='#dropdown'
                                 onClick={(ev) => {
                                   ev.preventDefault();
                                 }}
@@ -413,46 +456,53 @@ const MessageItem = ({ id, onClosed, mobileView, setMobileView, data }) => {
                   </div>
                   {/* .nk-reply-form-editor */}
                 </div>
-                <div className={`tab-pane ${formTab === "2" ? "active" : ""}`}>
-                  <div className="nk-reply-form-editor">
-                    <div className="nk-reply-form-field">
+                <div className={`tab-pane ${formTab === '2' ? 'active' : ''}`}>
+                  <div className='nk-reply-form-editor'>
+                    <div className='nk-reply-form-field'>
                       <textarea
-                        className="form-control form-control-simple no-resize"
-                        placeholder="Hello"
+                        className='form-control form-control-simple no-resize'
+                        placeholder='Hello'
                         value={textInput}
                         onChange={(e) => onTextChange(e)}
                       />
                     </div>
-                    <div className="nk-reply-form-tools">
-                      <ul className="nk-reply-form-actions g-1">
-                        <li className="me-2">
-                          <Button color="primary" onClick={(e) => onFormSubmit(e, "note")} type="submit">
+                    <div className='nk-reply-form-tools'>
+                      <ul className='nk-reply-form-actions g-1'>
+                        <li className='me-2'>
+                          <Button
+                            color='primary'
+                            onClick={(e) => onFormSubmit(e, 'note')}
+                            type='submit'
+                          >
                             Add Note
                           </Button>
                         </li>
                         <li>
                           <a
-                            className="btn btn-icon btn-sm"
-                            title="Upload Attachment"
-                            href="#copy"
+                            className='btn btn-icon btn-sm'
+                            title='Upload Attachment'
+                            href='#copy'
                             onClick={(ev) => {
                               ev.preventDefault();
                             }}
                           >
-                            <Icon name="clip-v"></Icon>
+                            <Icon name='clip-v'></Icon>
                           </a>
                         </li>
                       </ul>
                       <UncontrolledDropdown>
-                        <DropdownToggle tag="a" className="dropdown-toggle btn-trigger btn btn-icon me-n2">
-                          <Icon name="more-v"></Icon>
+                        <DropdownToggle
+                          tag='a'
+                          className='dropdown-toggle btn-trigger btn btn-icon me-n2'
+                        >
+                          <Icon name='more-v'></Icon>
                         </DropdownToggle>
                         <DropdownMenu end>
-                          <ul className="link-list-opt no-bdr">
+                          <ul className='link-list-opt no-bdr'>
                             <li>
                               <DropdownItem
-                                tag="a"
-                                href="#dropdown"
+                                tag='a'
+                                href='#dropdown'
                                 onClick={(ev) => {
                                   ev.preventDefault();
                                 }}
@@ -462,8 +512,8 @@ const MessageItem = ({ id, onClosed, mobileView, setMobileView, data }) => {
                             </li>
                             <li>
                               <DropdownItem
-                                tag="a"
-                                href="#dropdown"
+                                tag='a'
+                                href='#dropdown'
                                 onClick={(ev) => {
                                   ev.preventDefault();
                                 }}
@@ -486,38 +536,51 @@ const MessageItem = ({ id, onClosed, mobileView, setMobileView, data }) => {
           <MessageProfileSidebar sidebar={sidebar} profile={item} />
 
           {sidebar && (
-            <div className={window.innerWidth < 1550 ? "nk-msg-profile-overlay" : ""} onClick={() => toggleSidebar()} />
+            <div
+              className={window.innerWidth < 1550 ? 'nk-msg-profile-overlay' : ''}
+              onClick={() => toggleSidebar()}
+            />
           )}
         </div>
       )}
 
       {/*Assign Members Modal*/}
-      <Modal isOpen={assignModal} toggle={toggleAssignModal} className="modal-dialog-centered" size="xs">
+      <Modal
+        isOpen={assignModal}
+        toggle={toggleAssignModal}
+        className='modal-dialog-centered'
+        size='xs'
+      >
         <ModalBody>
           <a
-            href="#cancel"
+            href='#cancel'
             onClick={(ev) => {
               ev.preventDefault();
               toggleAssignModal();
             }}
-            className="close"
+            className='close'
           >
-            <Icon name="cross-sm"></Icon>
+            <Icon name='cross-sm'></Icon>
           </a>
-          <div className="nk-modal-head">
-            <h4 className="nk-modal-title title">Assign users to this message</h4>
-            <div className="m-2">
-              <ul className="link-list-plain">
+          <div className='nk-modal-head'>
+            <h4 className='nk-modal-title title'>Assign users to this message</h4>
+            <div className='m-2'>
+              <ul className='link-list-plain'>
                 {assignMembers.map((user, index) => {
                   return (
                     <li
-                      className="d-flex flex-row mb-1 pt-2"
-                      style={{ cursor: "pointer" }}
+                      className='d-flex flex-row mb-1 pt-2'
+                      style={{ cursor: 'pointer' }}
                       onClick={toggleAssignModal}
                       key={index}
                     >
-                      <UserAvatar text={findUpper(user.name)} theme={user.theme} className="sm" image={null} />
-                      <div className="m-1 ms-2 fs-15px">{user.name}</div>
+                      <UserAvatar
+                        text={findUpper(user.name)}
+                        theme={user.theme}
+                        className='sm'
+                        image={null}
+                      />
+                      <div className='m-1 ms-2 fs-15px'>{user.name}</div>
                     </li>
                   );
                 })}

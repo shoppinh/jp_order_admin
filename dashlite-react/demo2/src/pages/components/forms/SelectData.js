@@ -1,33 +1,33 @@
 export const defaultOptions = [
-  { value: "chocolate", label: "Chocolate" },
-  { value: "strawberry", label: "Strawberry" },
-  { value: "vanilla", label: "Vanilla" },
+  { value: 'chocolate', label: 'Chocolate' },
+  { value: 'strawberry', label: 'Strawberry' },
+  { value: 'vanilla', label: 'Vanilla' },
 ];
 
 export const colourData = [
-  { value: "red", label: "Red" },
-  { value: "blue", label: "Blue" },
-  { value: "green", label: "Green" },
-  { value: "yellow", label: "Yellow" },
-  { value: "white", label: "White" },
+  { value: 'red', label: 'Red' },
+  { value: 'blue', label: 'Blue' },
+  { value: 'green', label: 'Green' },
+  { value: 'yellow', label: 'Yellow' },
+  { value: 'white', label: 'White' },
 ];
 
 export const groupedData = [
   {
-    label: "Flavours",
+    label: 'Flavours',
     options: [
-      { value: "chocolate", label: "Chocolate" },
-      { value: "strawberry", label: "Strawberry" },
-      { value: "vanilla", label: "Vanilla" },
+      { value: 'chocolate', label: 'Chocolate' },
+      { value: 'strawberry', label: 'Strawberry' },
+      { value: 'vanilla', label: 'Vanilla' },
     ],
   },
   {
-    label: "Colors",
+    label: 'Colors',
     options: [
-      { value: "red", label: "Red" },
-      { value: "blue", label: "Blue" },
-      { value: "green", label: "Green" },
+      { value: 'red', label: 'Red' },
+      { value: 'blue', label: 'Blue' },
+      { value: 'green', label: 'Green' },
     ],
   },
-  { label: "UnGrouped", value: "value_3" },
+  { label: 'UnGrouped', value: 'value_3' },
 ];

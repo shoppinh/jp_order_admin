@@ -1,12 +1,6 @@
-import Router from "./route/Index";
-
-import ThemeProvider from "./layout/provider/Theme";
+import Router from './route/Index';
 
 const App = () => {
-  return (
-    <ThemeProvider>
-      <Router />
-    </ThemeProvider>
-  );
+  return <Router />;
 };
 export default App;

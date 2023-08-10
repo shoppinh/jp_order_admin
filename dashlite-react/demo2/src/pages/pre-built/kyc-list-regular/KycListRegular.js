@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from "react";
-import Content from "../../../layout/content/Content";
-import Head from "../../../layout/head/Head";
+import React, { useState, useEffect } from 'react';
+import Content from '../../../layout/content/Content';
+import Head from '../../../layout/head/Head';
 import {
   Modal,
   ModalBody,
   UncontrolledDropdown,
   DropdownMenu,
   DropdownToggle,
-  
   DropdownItem,
   Badge,
-} from "reactstrap";
+} from 'reactstrap';
 import {
   Button,
   Block,
@@ -31,30 +30,30 @@ import {
   DataTableItem,
   PaginationComponent,
   RSelect,
-} from "../../../components/Component";
-import { kycData, filterStatus, filterDoc, bulkActionKycOptions } from "./KycData";
-import { findUpper } from "../../../utils/Utils";
-import { Link } from "react-router-dom";
+} from '../../../components/Component';
+import { kycData, filterStatus, filterDoc, bulkActionKycOptions } from './KycData';
+import { findUpper } from '../../../utils/Utils';
+import { Link } from 'react-router-dom';
 
 const KycListRegular = () => {
   const [onSearch, setonSearch] = useState(true);
-  const [onSearchText, setSearchText] = useState("");
+  const [onSearchText, setSearchText] = useState('');
   const [tablesm, updateTableSm] = useState(false);
   const [data, setData] = useState(kycData);
   const [viewModal, setViewModal] = useState(false);
   const [detail, setDetail] = useState({});
-  const [actionText, setActionText] = useState("");
+  const [actionText, setActionText] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [itemPerPage, setItemPerPage] = useState(10);
-  const [sort, setSortState] = useState("");
+  const [sort, setSortState] = useState('');
 
   // Sorting data
   const sortFunc = (params) => {
     let defaultData = data;
-    if (params === "asc") {
+    if (params === 'asc') {
       let sortedData = defaultData.sort((a, b) => a.name.localeCompare(b.name));
       setData([...sortedData]);
-    } else if (params === "dsc") {
+    } else if (params === 'dsc') {
       let sortedData = defaultData.sort((a, b) => b.name.localeCompare(a.name));
       setData([...sortedData]);
     }
@@ -62,7 +61,7 @@ const KycListRegular = () => {
 
   // Changing state value when searching name
   useEffect(() => {
-    if (onSearchText !== "") {
+    if (onSearchText !== '') {
       const filteredObject = kycData.filter((item) => {
         return item.name.toLowerCase().includes(onSearchText.toLowerCase());
       });
@@ -102,13 +101,13 @@ const KycListRegular = () => {
 
   // function to fire actions after dropdowm select
   const onActionClick = (e) => {
-    if (actionText === "Reject") {
+    if (actionText === 'Reject') {
       let newData = data.map((item) => {
-        if (item.check === true) item.status = "Rejected";
+        if (item.check === true) item.status = 'Rejected';
         return item;
       });
       setData([...newData]);
-    } else if (actionText === "Delete") {
+    } else if (actionText === 'Delete') {
       let newData;
       newData = data.filter((item) => item.check !== true);
       setData([...newData]);
@@ -119,7 +118,7 @@ const KycListRegular = () => {
   const onApproveClick = (id) => {
     let newData = data;
     let index = newData.findIndex((item) => item.id === id);
-    newData[index].status = "Approved";
+    newData[index].status = 'Approved';
     setData([...newData]);
   };
 
@@ -127,7 +126,7 @@ const KycListRegular = () => {
   const onRejectClick = (id) => {
     let newData = data;
     let index = newData.findIndex((item) => item.id === id);
-    newData[index].status = "Rejected";
+    newData[index].status = 'Rejected';
     setData([...newData]);
   };
 
@@ -150,138 +149,153 @@ const KycListRegular = () => {
 
   return (
     <React.Fragment>
-      <Head title="KYC Lists - Regular"></Head>
+      <Head title='KYC Lists - Regular'></Head>
       <Content>
-        <BlockHead size="sm">
+        <BlockHead size='sm'>
           <BlockBetween>
             <BlockHeadContent>
               <BlockTitle page>KYC Documents</BlockTitle>
-              <BlockDes className="text-soft">
+              <BlockDes className='text-soft'>
                 <p>You have total {data.length} KYC documents.</p>
               </BlockDes>
             </BlockHeadContent>
             <BlockHeadContent>
-              <Button color="light" outline className="bg-white d-none d-sm-inline-flex">
-                <Icon name="download-cloud"></Icon>
+              <Button color='light' outline className='bg-white d-none d-sm-inline-flex'>
+                <Icon name='download-cloud'></Icon>
                 <span>Export</span>
               </Button>
-              <Button color="light" outline className="btn-icon bg-white d-inline-flex d-sm-none">
-                <Icon name="download-cloud"></Icon>
+              <Button color='light' outline className='btn-icon bg-white d-inline-flex d-sm-none'>
+                <Icon name='download-cloud'></Icon>
               </Button>
             </BlockHeadContent>
           </BlockBetween>
         </BlockHead>
 
         <Block>
-          <DataTable className="card-stretch">
-            <div className="card-inner position-relative card-tools-toggle">
-              <div className="card-title-group">
-                <div className="card-tools">
-                  <div className="form-inline flex-nowrap gx-3">
-                    <div className="form-wrap">
+          <DataTable className='card-stretch'>
+            <div className='card-inner position-relative card-tools-toggle'>
+              <div className='card-title-group'>
+                <div className='card-tools'>
+                  <div className='form-inline flex-nowrap gx-3'>
+                    <div className='form-wrap'>
                       <RSelect
                         options={bulkActionKycOptions}
-                        className="w-130px"
-                        placeholder="Bulk Action"
+                        className='w-130px'
+                        placeholder='Bulk Action'
                         onChange={(e) => onActionText(e)}
                       />
                     </div>
-                    <div className="btn-wrap">
-                      <span className="d-none d-md-block">
+                    <div className='btn-wrap'>
+                      <span className='d-none d-md-block'>
                         <Button
-                          color="light"
+                          color='light'
                           outline
-                          disabled={actionText === "" ? true : false}
-                          className="btn-dim"
+                          disabled={actionText === '' ? true : false}
+                          className='btn-dim'
                           onClick={() => onActionClick()}
                         >
                           Apply
                         </Button>
                       </span>
-                      <span className="d-md-none">
+                      <span className='d-md-none'>
                         <Button
-                          color="light"
+                          color='light'
                           outline
-                          disabled={actionText === "" ? true : false}
-                          className="btn-dim btn-icon"
+                          disabled={actionText === '' ? true : false}
+                          className='btn-dim btn-icon'
                           onClick={() => onActionClick()}
                         >
-                          <Icon name="arrow-right"></Icon>
+                          <Icon name='arrow-right'></Icon>
                         </Button>
                       </span>
                     </div>
                   </div>
                 </div>
-                <div className="card-tools me-n1">
-                  <ul className="btn-toolbar gx-1">
+                <div className='card-tools me-n1'>
+                  <ul className='btn-toolbar gx-1'>
                     <li>
                       <Button
                         onClick={(ev) => {
                           ev.preventDefault();
                           toggle();
                         }}
-                        className="btn-icon search-toggle toggle-search"
+                        className='btn-icon search-toggle toggle-search'
                       >
-                        <Icon name="search"></Icon>
+                        <Icon name='search'></Icon>
                       </Button>
                     </li>
-                    <li className="btn-toolbar-sep"></li>
+                    <li className='btn-toolbar-sep'></li>
                     <li>
-                      <div className="toggle-wrap">
+                      <div className='toggle-wrap'>
                         <Button
-                          className={`btn-icon btn-trigger toggle ${tablesm ? "active" : ""}`}
+                          className={`btn-icon btn-trigger toggle ${tablesm ? 'active' : ''}`}
                           onClick={() => updateTableSm(true)}
                         >
-                          <Icon name="menu-right"></Icon>
+                          <Icon name='menu-right'></Icon>
                         </Button>
-                        <div className={`toggle-content ${tablesm ? "content-active" : ""}`}>
-                          <ul className="btn-toolbar gx-1">
-                            <li className="toggle-close">
-                              <Button className="btn-icon btn-trigger toggle" onClick={() => updateTableSm(false)}>
-                                <Icon name="arrow-left"></Icon>
+                        <div className={`toggle-content ${tablesm ? 'content-active' : ''}`}>
+                          <ul className='btn-toolbar gx-1'>
+                            <li className='toggle-close'>
+                              <Button
+                                className='btn-icon btn-trigger toggle'
+                                onClick={() => updateTableSm(false)}
+                              >
+                                <Icon name='arrow-left'></Icon>
                               </Button>
                             </li>
                             <li>
                               <UncontrolledDropdown>
-                                <DropdownToggle tag="a" className="btn btn-trigger btn-icon dropdown-toggle">
-                                  <div className="dot dot-primary"></div>
-                                  <Icon name="filter-alt"></Icon>
+                                <DropdownToggle
+                                  tag='a'
+                                  className='btn btn-trigger btn-icon dropdown-toggle'
+                                >
+                                  <div className='dot dot-primary'></div>
+                                  <Icon name='filter-alt'></Icon>
                                 </DropdownToggle>
                                 <DropdownMenu
                                   end
-                                  className="filter-wg dropdown-menu-xl"
-                                  style={{ overflow: "visible" }}
+                                  className='filter-wg dropdown-menu-xl'
+                                  style={{ overflow: 'visible' }}
                                 >
-                                  <div className="dropdown-head">
-                                    <span className="sub-title dropdown-title">Advanced Filter</span>
+                                  <div className='dropdown-head'>
+                                    <span className='sub-title dropdown-title'>
+                                      Advanced Filter
+                                    </span>
                                   </div>
-                                  <div className="dropdown-body dropdown-body-rg">
-                                    <Row className="gx-6 gy-3">
-                                      <Col size="6">
-                                        <div className="form-group">
-                                          <label className="overline-title overline-title-alt">Doc Type</label>
-                                          <RSelect options={filterDoc} placeholder="Any Type" />
+                                  <div className='dropdown-body dropdown-body-rg'>
+                                    <Row className='gx-6 gy-3'>
+                                      <Col size='6'>
+                                        <div className='form-group'>
+                                          <label className='overline-title overline-title-alt'>
+                                            Doc Type
+                                          </label>
+                                          <RSelect options={filterDoc} placeholder='Any Type' />
                                         </div>
                                       </Col>
-                                      <Col size="6">
-                                        <div className="form-group">
-                                          <label className="overline-title overline-title-alt">Status</label>
-                                          <RSelect options={filterStatus} placeholder="Any Status" />
+                                      <Col size='6'>
+                                        <div className='form-group'>
+                                          <label className='overline-title overline-title-alt'>
+                                            Status
+                                          </label>
+                                          <RSelect
+                                            options={filterStatus}
+                                            placeholder='Any Status'
+                                          />
                                         </div>
                                       </Col>
-                                      <Col size="12">
-                                        <div className="form-group">
-                                          <Button type="button" color="secondary">
+                                      <Col size='12'>
+                                        <div className='form-group'>
+                                          <Button type='button' color='secondary'>
                                             Filter
                                           </Button>
                                         </div>
                                       </Col>
                                     </Row>
                                   </div>
-                                  <div className="dropdown-foot between">
+                                  <div className='dropdown-foot between'>
                                     <a
-                                      className="clickable"
-                                      href="#reset"
+                                      className='clickable'
+                                      href='#reset'
                                       onClick={(ev) => {
                                         ev.preventDefault();
                                       }}
@@ -289,7 +303,7 @@ const KycListRegular = () => {
                                       Reset Filter
                                     </a>
                                     <a
-                                      href="#save"
+                                      href='#save'
                                       onClick={(ev) => {
                                         ev.preventDefault();
                                       }}
@@ -302,18 +316,21 @@ const KycListRegular = () => {
                             </li>
                             <li>
                               <UncontrolledDropdown>
-                                <DropdownToggle tag="a" className="btn btn-trigger btn-icon dropdown-toggle">
-                                  <Icon name="setting"></Icon>
+                                <DropdownToggle
+                                  tag='a'
+                                  className='btn btn-trigger btn-icon dropdown-toggle'
+                                >
+                                  <Icon name='setting'></Icon>
                                 </DropdownToggle>
-                                <DropdownMenu end className="dropdown-menu-xs">
-                                  <ul className="link-check">
+                                <DropdownMenu end className='dropdown-menu-xs'>
+                                  <ul className='link-check'>
                                     <li>
                                       <span>Show</span>
                                     </li>
-                                    <li className={itemPerPage === 10 ? "active" : ""}>
+                                    <li className={itemPerPage === 10 ? 'active' : ''}>
                                       <DropdownItem
-                                        tag="a"
-                                        href="#dropdownitem"
+                                        tag='a'
+                                        href='#dropdownitem'
                                         onClick={(ev) => {
                                           ev.preventDefault();
                                           setItemPerPage(10);
@@ -322,10 +339,10 @@ const KycListRegular = () => {
                                         10
                                       </DropdownItem>
                                     </li>
-                                    <li className={itemPerPage === 15 ? "active" : ""}>
+                                    <li className={itemPerPage === 15 ? 'active' : ''}>
                                       <DropdownItem
-                                        tag="a"
-                                        href="#dropdownitem"
+                                        tag='a'
+                                        href='#dropdownitem'
                                         onClick={(ev) => {
                                           ev.preventDefault();
                                           setItemPerPage(15);
@@ -335,31 +352,31 @@ const KycListRegular = () => {
                                       </DropdownItem>
                                     </li>
                                   </ul>
-                                  <ul className="link-check">
+                                  <ul className='link-check'>
                                     <li>
                                       <span>Order</span>
                                     </li>
-                                    <li className={sort === "dsc" ? "active" : ""}>
+                                    <li className={sort === 'dsc' ? 'active' : ''}>
                                       <DropdownItem
-                                        tag="a"
-                                        href="#dropdownitem"
+                                        tag='a'
+                                        href='#dropdownitem'
                                         onClick={(ev) => {
                                           ev.preventDefault();
-                                          setSortState("dsc");
-                                          sortFunc("dsc");
+                                          setSortState('dsc');
+                                          sortFunc('dsc');
                                         }}
                                       >
                                         DESC
                                       </DropdownItem>
                                     </li>
-                                    <li className={sort === "asc" ? "active" : ""}>
+                                    <li className={sort === 'asc' ? 'active' : ''}>
                                       <DropdownItem
-                                        tag="a"
-                                        href="#dropdownitem"
+                                        tag='a'
+                                        href='#dropdownitem'
                                         onClick={(ev) => {
                                           ev.preventDefault();
-                                          setSortState("asc");
-                                          sortFunc("asc");
+                                          setSortState('asc');
+                                          sortFunc('asc');
                                         }}
                                       >
                                         ASC
@@ -376,27 +393,27 @@ const KycListRegular = () => {
                   </ul>
                 </div>
               </div>
-              <div className={`card-search search-wrap ${!onSearch && "active"}`}>
-                <div className="card-body">
-                  <div className="search-content">
+              <div className={`card-search search-wrap ${!onSearch && 'active'}`}>
+                <div className='card-body'>
+                  <div className='search-content'>
                     <Button
                       onClick={() => {
-                        setSearchText("");
+                        setSearchText('');
                         toggle();
                       }}
-                      className="search-back btn-icon toggle-search"
+                      className='search-back btn-icon toggle-search'
                     >
-                      <Icon name="arrow-left"></Icon>
+                      <Icon name='arrow-left'></Icon>
                     </Button>
                     <input
-                      type="text"
-                      className="border-transparent form-focus-none form-control"
-                      placeholder="Search by user or email"
+                      type='text'
+                      className='border-transparent form-focus-none form-control'
+                      placeholder='Search by user or email'
                       value={onSearchText}
                       onChange={(e) => onFilterChange(e)}
                     />
-                    <Button className="search-submit btn-icon">
-                      <Icon name="search"></Icon>
+                    <Button className='search-submit btn-icon'>
+                      <Icon name='search'></Icon>
                     </Button>
                   </div>
                 </div>
@@ -404,73 +421,76 @@ const KycListRegular = () => {
             </div>
             <DataTableBody>
               <DataTableHead>
-                <DataTableRow className="nk-tb-col-check">
-                  <div className="custom-control custom-control-sm custom-checkbox notext">
+                <DataTableRow className='nk-tb-col-check'>
+                  <div className='custom-control custom-control-sm custom-checkbox notext'>
                     <input
-                      type="checkbox"
-                      className="custom-control-input"
-                      id="uid_1"
+                      type='checkbox'
+                      className='custom-control-input'
+                      id='uid_1'
                       onChange={(e) => selectorCheck(e)}
                     />
-                    <label className="custom-control-label" htmlFor="uid_1"></label>
+                    <label className='custom-control-label' htmlFor='uid_1'></label>
                   </div>
                 </DataTableRow>
                 <DataTableRow>
                   <span>User</span>
                 </DataTableRow>
-                <DataTableRow size="mb">
+                <DataTableRow size='mb'>
                   <span>Doc Type</span>
                 </DataTableRow>
-                <DataTableRow size="md">
+                <DataTableRow size='md'>
                   <span>Documents</span>
                 </DataTableRow>
-                <DataTableRow size="lg">
+                <DataTableRow size='lg'>
                   <span>Submitted</span>
                 </DataTableRow>
-                <DataTableRow size="md">
+                <DataTableRow size='md'>
                   <span>Status</span>
                 </DataTableRow>
-                <DataTableRow size="lg">
+                <DataTableRow size='lg'>
                   <span>Checked by</span>
                 </DataTableRow>
-                <DataTableRow className="nk-tb-col-tools">&nbsp;</DataTableRow>
+                <DataTableRow className='nk-tb-col-tools'>&nbsp;</DataTableRow>
               </DataTableHead>
 
               {currentItems.length > 0
                 ? currentItems.map((item) => {
                     return (
                       <DataTableItem key={item.id}>
-                        <DataTableRow className="nk-tb-col-check">
-                          <div className="custom-control custom-control-sm custom-checkbox notext">
+                        <DataTableRow className='nk-tb-col-check'>
+                          <div className='custom-control custom-control-sm custom-checkbox notext'>
                             <input
-                              type="checkbox"
-                              className="custom-control-input"
+                              type='checkbox'
+                              className='custom-control-input'
                               defaultChecked={item.check}
-                              id={item.id + "uid1"}
+                              id={item.id + 'uid1'}
                               key={Math.random()}
                               onChange={(e) => onSelectChange(e, item.id)}
                             />
-                            <label className="custom-control-label" htmlFor={item.id + "uid1"}></label>
+                            <label
+                              className='custom-control-label'
+                              htmlFor={item.id + 'uid1'}
+                            ></label>
                           </div>
                         </DataTableRow>
                         <DataTableRow>
                           <Link to={`${process.env.PUBLIC_URL}/kyc-details-regular/${item.id}`}>
-                            <div className="user-card">
+                            <div className='user-card'>
                               <UserAvatar
                                 theme={item.avatarBg}
                                 text={findUpper(item.name)}
                                 image={item.image}
                               ></UserAvatar>
-                              <div className="user-info">
-                                <span className="tb-lead">
-                                  {item.name}{" "}
+                              <div className='user-info'>
+                                <span className='tb-lead'>
+                                  {item.name}{' '}
                                   <span
                                     className={`dot dot-${
-                                      item.status === "Approved"
-                                        ? "success"
-                                        : item.status === "Pending"
-                                        ? "info"
-                                        : "danger"
+                                      item.status === 'Approved'
+                                        ? 'success'
+                                        : item.status === 'Pending'
+                                        ? 'info'
+                                        : 'danger'
                                     } d-md-none ms-1`}
                                   ></span>
                                 </span>
@@ -479,166 +499,192 @@ const KycListRegular = () => {
                             </div>
                           </Link>
                         </DataTableRow>
-                        <DataTableRow size="mb">
-                          <span className="tb-lead-sub">{item.doc}</span>
+                        <DataTableRow size='mb'>
+                          <span className='tb-lead-sub'>{item.doc}</span>
                         </DataTableRow>
-                        <DataTableRow size="md">
-                          <ul className="list-inline list-download">
+                        <DataTableRow size='md'>
+                          <ul className='list-inline list-download'>
                             {item.front && (
                               <li>
-                                Front Side{" "}
+                                Front Side{' '}
                                 <a
-                                  href="#download"
+                                  href='#download'
                                   onClick={(ev) => {
                                     ev.preventDefault();
                                   }}
-                                  className="popup"
+                                  className='popup'
                                 >
-                                  <Icon name="download"></Icon>
+                                  <Icon name='download'></Icon>
                                 </a>
                               </li>
                             )}
                             {item.back && (
                               <li>
-                                Back Side{" "}
+                                Back Side{' '}
                                 <a
-                                  href="#download"
+                                  href='#download'
                                   onClick={(ev) => {
                                     ev.preventDefault();
                                   }}
-                                  className="popup"
+                                  className='popup'
                                 >
-                                  <Icon name="download"></Icon>
+                                  <Icon name='download'></Icon>
                                 </a>
                               </li>
                             )}
                           </ul>
                         </DataTableRow>
-                        <DataTableRow size="lg">
-                          <span className="tb-date">{item.date}</span>
+                        <DataTableRow size='lg'>
+                          <span className='tb-date'>{item.date}</span>
                         </DataTableRow>
-                        <DataTableRow size="md">
+                        <DataTableRow size='md'>
                           <span
                             className={`tb-status text-${
-                              item.status === "Approved" ? "success" : item.status === "Pending" ? "info" : "danger"
+                              item.status === 'Approved'
+                                ? 'success'
+                                : item.status === 'Pending'
+                                ? 'info'
+                                : 'danger'
                             }`}
                           >
                             {item.status}
                           </span>
-                          {item.status !== "Pending" && (
+                          {item.status !== 'Pending' && (
                             <TooltipComponent
-                              icon="info"
-                              direction="top"
-                              id={item.id + "pendingless"}
+                              icon='info'
+                              direction='top'
+                              id={item.id + 'pendingless'}
                               text={`${item.status} at Dec 18, 2019 01:02 am`}
                             ></TooltipComponent>
                           )}
-                          {!item.status === "Pending" && (
+                          {!item.status === 'Pending' && (
                             <span>
-                              <TooltipComponent icon="info" direction="top" text={item.date} id={item.id} />
+                              <TooltipComponent
+                                icon='info'
+                                direction='top'
+                                text={item.date}
+                                id={item.id}
+                              />
                             </span>
                           )}
                         </DataTableRow>
-                        <DataTableRow size="lg">
-                          <div className="user-card">
-                            <UserAvatar theme="orange-dim" size="xs" text={findUpper(item.checked)}></UserAvatar>
-                            <div className="user-name">
-                              <span className="tb-lead">{item.checked} </span>
+                        <DataTableRow size='lg'>
+                          <div className='user-card'>
+                            <UserAvatar
+                              theme='orange-dim'
+                              size='xs'
+                              text={findUpper(item.checked)}
+                            ></UserAvatar>
+                            <div className='user-name'>
+                              <span className='tb-lead'>{item.checked} </span>
                             </div>
                           </div>
                         </DataTableRow>
-                        <DataTableRow className="nk-tb-col-tools">
-                          <ul className="nk-tb-actions gx-1">
+                        <DataTableRow className='nk-tb-col-tools'>
+                          <ul className='nk-tb-actions gx-1'>
                             <li
-                              className="nk-tb-action-hidden"
+                              className='nk-tb-action-hidden'
                               onClick={() => {
                                 loadDetail(item.id);
                                 setViewModal(true);
                               }}
                             >
                               <TooltipComponent
-                                tag="a"
-                                containerClassName="btn btn-trigger btn-icon"
-                                id={"view" + item.id}
-                                icon="eye-fill"
-                                direction="top"
-                                text="Quick View"
+                                tag='a'
+                                containerClassName='btn btn-trigger btn-icon'
+                                id={'view' + item.id}
+                                icon='eye-fill'
+                                direction='top'
+                                text='Quick View'
                               />
                             </li>
-                            {item.status === "Rejected" ? null : item.status === "Approved" ? (
-                              <li className="nk-tb-action-hidden" onClick={() => onRejectClick(item.id)}>
+                            {item.status === 'Rejected' ? null : item.status === 'Approved' ? (
+                              <li
+                                className='nk-tb-action-hidden'
+                                onClick={() => onRejectClick(item.id)}
+                              >
                                 <TooltipComponent
-                                  tag="a"
-                                  containerClassName="btn btn-trigger btn-icon"
-                                  id={"reject" + item.id}
-                                  icon="cross-fill-c"
-                                  direction="top"
-                                  text="Reject"
+                                  tag='a'
+                                  containerClassName='btn btn-trigger btn-icon'
+                                  id={'reject' + item.id}
+                                  icon='cross-fill-c'
+                                  direction='top'
+                                  text='Reject'
                                 />
                               </li>
                             ) : (
                               <React.Fragment>
-                                <li className="nk-tb-action-hidden" onClick={() => onApproveClick(item.id)}>
+                                <li
+                                  className='nk-tb-action-hidden'
+                                  onClick={() => onApproveClick(item.id)}
+                                >
                                   <TooltipComponent
-                                    tag="a"
-                                    containerClassName="btn btn-trigger btn-icon"
-                                    id={"approve" + item.id}
-                                    icon="check-fill-c"
-                                    direction="top"
-                                    text="Approve"
+                                    tag='a'
+                                    containerClassName='btn btn-trigger btn-icon'
+                                    id={'approve' + item.id}
+                                    icon='check-fill-c'
+                                    direction='top'
+                                    text='Approve'
                                   />
                                 </li>
-                                <li className="nk-tb-action-hidden" onClick={() => onRejectClick(item.id)}>
+                                <li
+                                  className='nk-tb-action-hidden'
+                                  onClick={() => onRejectClick(item.id)}
+                                >
                                   <TooltipComponent
-                                    tag="a"
-                                    containerClassName="btn btn-trigger btn-icon"
-                                    id={"reject" + item.id}
-                                    icon="cross-fill-c"
-                                    direction="top"
-                                    text="Reject"
+                                    tag='a'
+                                    containerClassName='btn btn-trigger btn-icon'
+                                    id={'reject' + item.id}
+                                    icon='cross-fill-c'
+                                    direction='top'
+                                    text='Reject'
                                   />
                                 </li>
                               </React.Fragment>
                             )}
                             <li>
                               <UncontrolledDropdown>
-                                <DropdownToggle tag="a" className="dropdown-toggle btn btn-icon btn-trigger">
-                                  <Icon name="more-h"></Icon>
+                                <DropdownToggle
+                                  tag='a'
+                                  className='dropdown-toggle btn btn-icon btn-trigger'
+                                >
+                                  <Icon name='more-h'></Icon>
                                 </DropdownToggle>
                                 <DropdownMenu end>
-                                  <ul className="link-list-opt no-bdr">
+                                  <ul className='link-list-opt no-bdr'>
                                     <li>
                                       <DropdownItem
-                                        tag="a"
-                                        href="#view"
+                                        tag='a'
+                                        href='#view'
                                         onClick={(ev) => {
                                           ev.preventDefault();
                                           loadDetail(item.id);
                                           setViewModal(true);
                                         }}
                                       >
-                                        <Icon name="eye"></Icon>
+                                        <Icon name='eye'></Icon>
                                         <span>Quick View</span>
                                       </DropdownItem>
                                     </li>
                                     <li>
-                                    <Link
+                                      <Link
                                         to={`${process.env.PUBLIC_URL}/kyc-details-regular/${item.id}`}
                                       >
-                                        <Icon name="focus"></Icon>
+                                        <Icon name='focus'></Icon>
                                         <span>View Details</span>
                                       </Link>
                                     </li>
-                                    {item.status === "Rejected" ? null : item.status === "Approved" ? (
+                                    {item.status === 'Rejected' ? null : item.status ===
+                                      'Approved' ? (
                                       <li onClick={() => onRejectClick(item.id)}>
                                         <DropdownItem
-                                          tag="a"
-                                          href="#reject"
+                                          tag='a'
+                                          href='#reject'
                                           onClick={(ev) => {
                                             ev.preventDefault();
                                           }}
                                         >
-                                          <Icon name="na"></Icon>
+                                          <Icon name='na'></Icon>
                                           <span>Reject User</span>
                                         </DropdownItem>
                                       </li>
@@ -646,25 +692,25 @@ const KycListRegular = () => {
                                       <React.Fragment>
                                         <li onClick={() => onApproveClick(item.id)}>
                                           <DropdownItem
-                                            tag="a"
-                                            href="#approve"
+                                            tag='a'
+                                            href='#approve'
                                             onClick={(ev) => {
                                               ev.preventDefault();
                                             }}
                                           >
-                                            <Icon name="check-thick"></Icon>
+                                            <Icon name='check-thick'></Icon>
                                             <span>Approve</span>
                                           </DropdownItem>
                                         </li>
                                         <li onClick={() => onRejectClick(item.id)}>
                                           <DropdownItem
-                                            tag="a"
-                                            href="#suspend"
+                                            tag='a'
+                                            href='#suspend'
                                             onClick={(ev) => {
                                               ev.preventDefault();
                                             }}
                                           >
-                                            <Icon name="na"></Icon>
+                                            <Icon name='na'></Icon>
                                             <span>Suspend User</span>
                                           </DropdownItem>
                                         </li>
@@ -681,7 +727,7 @@ const KycListRegular = () => {
                   })
                 : null}
             </DataTableBody>
-            <div className="card-inner">
+            <div className='card-inner'>
               {currentItems.length > 0 ? (
                 <PaginationComponent
                   noDown
@@ -691,8 +737,8 @@ const KycListRegular = () => {
                   currentPage={currentPage}
                 />
               ) : (
-                <div className="text-center">
-                  <span className="text-silent">No data found</span>
+                <div className='text-center'>
+                  <span className='text-silent'>No data found</span>
                 </div>
               )}
             </div>
@@ -700,53 +746,64 @@ const KycListRegular = () => {
         </Block>
       </Content>
 
-      <Modal isOpen={viewModal} toggle={() => setViewModal(false)} className="modal-dialog-centered" size="lg">
+      <Modal
+        isOpen={viewModal}
+        toggle={() => setViewModal(false)}
+        className='modal-dialog-centered'
+        size='lg'
+      >
         <ModalBody>
           <a
-            href="#cancel"
+            href='#cancel'
             onClick={(ev) => {
               ev.preventDefault();
               setViewModal(false);
             }}
-            className="close"
+            className='close'
           >
-            <Icon name="cross-sm"></Icon>
+            <Icon name='cross-sm'></Icon>
           </a>
-          <div className="nk-modal-head">
-            <h4 className="nk-modal-title title">
-              KYC Details <small className="text-primary"> {detail.id}</small>
+          <div className='nk-modal-head'>
+            <h4 className='nk-modal-title title'>
+              KYC Details <small className='text-primary'> {detail.id}</small>
             </h4>
           </div>
-          <div className="nk-tnx-details mt-sm-3">
-            <Row className="gy-3">
+          <div className='nk-tnx-details mt-sm-3'>
+            <Row className='gy-3'>
               <Col lg={6}>
-                <span className="sub-text"> ID</span>
-                <span className="caption-text">{detail.id}</span>
+                <span className='sub-text'> ID</span>
+                <span className='caption-text'>{detail.id}</span>
               </Col>
               <Col lg={6}>
-                <span className="sub-text">Applicant Name </span>
-                <span className="caption-text text-break">{detail.name}</span>
+                <span className='sub-text'>Applicant Name </span>
+                <span className='caption-text text-break'>{detail.name}</span>
               </Col>
               <Col lg={6}>
-                <span className="sub-text">Document Type </span>
-                <span className="caption-text">{detail.doc}</span>
+                <span className='sub-text'>Document Type </span>
+                <span className='caption-text'>{detail.doc}</span>
               </Col>
               <Col lg={6}>
-                <span className="sub-text">Status</span>
+                <span className='sub-text'>Status</span>
                 <Badge
-                  color={detail.status === "Approved" ? "success" : detail.status === "Pending" ? "info" : "danger"}
-                  size="md"
+                  color={
+                    detail.status === 'Approved'
+                      ? 'success'
+                      : detail.status === 'Pending'
+                      ? 'info'
+                      : 'danger'
+                  }
+                  size='md'
                 >
                   {detail.status}
                 </Badge>
               </Col>
               <Col lg={6}>
-                <span className="sub-text">Date</span>
-                <span className="caption-text"> {detail.date}</span>
+                <span className='sub-text'>Date</span>
+                <span className='caption-text'> {detail.date}</span>
               </Col>
               <Col lg={6}>
-                <span className="sub-text">Checked By</span>
-                <span className="caption-text"> {detail.checked}</span>
+                <span className='sub-text'>Checked By</span>
+                <span className='caption-text'> {detail.checked}</span>
               </Col>
             </Row>
           </div>

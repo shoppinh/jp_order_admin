@@ -1,6 +1,12 @@
-import React, { useState } from "react";
-import { Icon, TooltipComponent } from "../../../components/Component";
-import { UncontrolledDropdown, DropdownMenu, DropdownToggle, DropdownItem, UncontrolledTooltip } from "reactstrap";
+import React, { useState } from 'react';
+import { Icon, TooltipComponent } from '../../../components/Component';
+import {
+  UncontrolledDropdown,
+  DropdownMenu,
+  DropdownToggle,
+  DropdownItem,
+  UncontrolledTooltip,
+} from 'reactstrap';
 
 const InboxMessageHeader = ({
   msgId,
@@ -55,73 +61,80 @@ const InboxMessageHeader = ({
   };
 
   return (
-    <div className="nk-ibx-head">
-      <div className="nk-ibx-head-actions">
-        <ul className="nk-ibx-head-tools g-1">
-          <li className="ms-n2" onClick={() => toggleMessageView()}>
-            <a href="#item" onClick={(ev) => ev.preventDefault()} className="btn btn-icon btn-trigger nk-ibx-hide">
-              <Icon name="arrow-left"></Icon>
+    <div className='nk-ibx-head'>
+      <div className='nk-ibx-head-actions'>
+        <ul className='nk-ibx-head-tools g-1'>
+          <li className='ms-n2' onClick={() => toggleMessageView()}>
+            <a
+              href='#item'
+              onClick={(ev) => ev.preventDefault()}
+              className='btn btn-icon btn-trigger nk-ibx-hide'
+            >
+              <Icon name='arrow-left'></Icon>
             </a>
           </li>
           <li onClick={() => onArchiveClick(msgId)}>
             <TooltipComponent
-              tag="a"
-              containerClassName="btn btn-icon btn-trigger"
-              icon="archived"
-              id="ibx-msg-archive"
-              direction="top"
-              text="Archive"
+              tag='a'
+              containerClassName='btn btn-icon btn-trigger'
+              icon='archived'
+              id='ibx-msg-archive'
+              direction='top'
+              text='Archive'
             />
           </li>
-          <li className="d-none d-sm-block" onClick={() => onSpamClick(msgId)}>
+          <li className='d-none d-sm-block' onClick={() => onSpamClick(msgId)}>
             <TooltipComponent
-              tag="a"
-              containerClassName="btn btn-icon btn-trigger"
-              icon="report"
-              id="ibx-msg-spam"
-              direction="top"
-              text="Spam"
+              tag='a'
+              containerClassName='btn btn-icon btn-trigger'
+              icon='report'
+              id='ibx-msg-spam'
+              direction='top'
+              text='Spam'
             />
           </li>
           <li onClick={() => deleteInbox(msgId)}>
             <TooltipComponent
-              tag="a"
-              containerClassName="btn btn-icon btn-trigger"
-              icon="trash"
-              id="ibx-msg-trash"
-              direction="top"
-              text="Delete"
+              tag='a'
+              containerClassName='btn btn-icon btn-trigger'
+              icon='trash'
+              id='ibx-msg-trash'
+              direction='top'
+              text='Delete'
             />
           </li>
           <li>
             <UncontrolledDropdown>
               <DropdownToggle
-                tag="a"
+                tag='a'
                 onClick={(ev) => ev.preventDefault()}
-                className="btn btn-icon btn-trigger"
-                color="transparent"
-                id="dropdownToggleLabel"
+                className='btn btn-icon btn-trigger'
+                color='transparent'
+                id='dropdownToggleLabel'
               >
-                <Icon name="label"></Icon>
-                <UncontrolledTooltip autohide={false} placement="top" target="dropdownToggleLabel">
+                <Icon name='label'></Icon>
+                <UncontrolledTooltip autohide={false} placement='top' target='dropdownToggleLabel'>
                   Label
                 </UncontrolledTooltip>
               </DropdownToggle>
               <DropdownMenu>
-                <ul className="link-tidy no-bdr sm">
+                <ul className='link-tidy no-bdr sm'>
                   {outerLabels.map((labelItem, index) => {
                     let findLabel = localLabel.find((item) => item.text === labelItem.text);
                     return (
                       <li key={index}>
-                        <div className="custom-control custom-control-sm custom-checkbox">
+                        <div className='custom-control custom-control-sm custom-checkbox'>
                           <input
-                            type="checkbox"
-                            className="custom-control-input"
+                            type='checkbox'
+                            className='custom-control-input'
                             checked={findLabel ? true : false}
                             id={`check-${labelItem.text}`}
                             onChange={(e) => changeTagsOnCheck(e.target.checked, labelItem)}
                           />
-                          <label className="custom-control-label" htmlFor={`check-${labelItem.text}`}>
+                          <label
+                            className='custom-control-label'
+                            htmlFor={`check-${labelItem.text}`}
+                          >
                             <div className={`dot dot-md dot-${labelItem.color} me-1`}></div>
                             {labelItem.text}
                           </label>
@@ -136,30 +149,30 @@ const InboxMessageHeader = ({
           <li>
             <UncontrolledDropdown>
               <DropdownToggle
-                tag="a"
-                href="#toggle"
+                tag='a'
+                href='#toggle'
                 onClick={(ev) => ev.preventDefault()}
-                className="dropdown-toggle btn btn-icon btn-trigger"
+                className='dropdown-toggle btn btn-icon btn-trigger'
               >
-                <Icon name="more-v"></Icon>
+                <Icon name='more-v'></Icon>
               </DropdownToggle>
               <DropdownMenu>
-                <ul className="link-list-opt no-bdr">
+                <ul className='link-list-opt no-bdr'>
                   <li>
-                    <DropdownItem tag="a" href="#item" onClick={(ev) => ev.preventDefault()}>
-                      <Icon name="eye"></Icon>
+                    <DropdownItem tag='a' href='#item' onClick={(ev) => ev.preventDefault()}>
+                      <Icon name='eye'></Icon>
                       <span>Move to</span>
                     </DropdownItem>
                   </li>
                   <li>
-                    <DropdownItem tag="a" href="#item" onClick={(ev) => ev.preventDefault()}>
-                      <Icon name="trash"></Icon>
+                    <DropdownItem tag='a' href='#item' onClick={(ev) => ev.preventDefault()}>
+                      <Icon name='trash'></Icon>
                       <span>Delete</span>
                     </DropdownItem>
                   </li>
                   <li>
-                    <DropdownItem tag="a" href="#item" onClick={(ev) => ev.preventDefault()}>
-                      <Icon name="archived"></Icon>
+                    <DropdownItem tag='a' href='#item' onClick={(ev) => ev.preventDefault()}>
+                      <Icon name='archived'></Icon>
                       <span>Archive</span>
                     </DropdownItem>
                   </li>
@@ -170,61 +183,61 @@ const InboxMessageHeader = ({
         </ul>
       </div>
       <div>
-        <ul className="nk-ibx-head-tools g-1">
-          <li className="d-none d-sm-block" onClick={() => prevMessage()}>
+        <ul className='nk-ibx-head-tools g-1'>
+          <li className='d-none d-sm-block' onClick={() => prevMessage()}>
             <TooltipComponent
-              tag="a"
-              containerClassName="btn btn-icon btn-trigger btn-tooltip"
-              icon="arrow-left"
-              id="ibx-msg-prev"
-              direction="top"
-              text="Prev"
+              tag='a'
+              containerClassName='btn btn-icon btn-trigger btn-tooltip'
+              icon='arrow-left'
+              id='ibx-msg-prev'
+              direction='top'
+              text='Prev'
             />
           </li>
-          <li className="d-none d-sm-block" onClick={() => nextMessage()}>
+          <li className='d-none d-sm-block' onClick={() => nextMessage()}>
             <TooltipComponent
-              tag="a"
-              containerClassName="btn btn-icon btn-trigger btn-tooltip"
-              icon="arrow-right"
-              id="ibx-msg-next"
-              direction="top"
-              text="Next"
+              tag='a'
+              containerClassName='btn btn-icon btn-trigger btn-tooltip'
+              icon='arrow-right'
+              id='ibx-msg-next'
+              direction='top'
+              text='Next'
             />
           </li>
           <li>
             <a
-              href="#item"
+              href='#item'
               onClick={(ev) => {
                 ev.preventDefault();
                 toggleSearch();
               }}
-              className="btn btn-trigger btn-icon search-toggle toggle-search"
+              className='btn btn-trigger btn-icon search-toggle toggle-search'
             >
-              <Icon name="search"></Icon>
+              <Icon name='search'></Icon>
             </a>
           </li>
         </ul>
       </div>
-      <div className={`search-wrap ${searchToggle ? "active" : ""}`}>
-        <div className="search-content">
+      <div className={`search-wrap ${searchToggle ? 'active' : ''}`}>
+        <div className='search-content'>
           <a
-            href="#item"
+            href='#item'
             onClick={(ev) => {
               ev.preventDefault();
               toggleSearch();
             }}
-            className="search-back btn btn-icon toggle-search"
+            className='search-back btn btn-icon toggle-search'
           >
-            <Icon name="arrow-left"></Icon>
+            <Icon name='arrow-left'></Icon>
           </a>
           <input
-            type="text"
-            className="form-control border-transparent form-focus-none"
-            placeholder="Search by user or message"
+            type='text'
+            className='form-control border-transparent form-focus-none'
+            placeholder='Search by user or message'
             //onChange={(e) => onSearchChange(e)}
           />
-          <button className="search-submit btn btn-icon">
-            <Icon name="search"></Icon>
+          <button className='search-submit btn btn-icon'>
+            <Icon name='search'></Icon>
           </button>
         </div>
       </div>

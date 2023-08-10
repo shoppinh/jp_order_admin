@@ -1,14 +1,14 @@
-import React, { useState } from "react";
-import Head from "../../../layout/head/Head";
-import Content from "../../../layout/content/Content";
+import React, { useState } from 'react';
+import Head from '../../../layout/head/Head';
+import Content from '../../../layout/content/Content';
 import {
   DropdownMenu,
   DropdownToggle,
   UncontrolledDropdown,
   Progress,
   DropdownItem,
-  Badge
-} from "reactstrap";
+  Badge,
+} from 'reactstrap';
 import {
   Block,
   BlockHead,
@@ -24,10 +24,10 @@ import {
   DataTableHead,
   DataTableRow,
   DataTableItem,
-} from "../../../components/Component";
-import { projectData } from "./ProjectData";
-import { findUpper, setDeadline, setDeadlineDays, calcPercentage } from "../../../utils/Utils";
-import FormModal from "./FormModal";
+} from '../../../components/Component';
+import { projectData } from './ProjectData';
+import { findUpper, setDeadline, setDeadlineDays, calcPercentage } from '../../../utils/Utils';
+import FormModal from './FormModal';
 
 export const ProjectListPage = () => {
   const [sm, updateSm] = useState(false);
@@ -38,20 +38,20 @@ export const ProjectListPage = () => {
   const [editId, setEditedId] = useState();
   const [data, setData] = useState(projectData);
   const [formData, setFormData] = useState({
-    title: "",
-    subtitle: "",
-    description: "",
-    lead: "",
+    title: '',
+    subtitle: '',
+    description: '',
+    lead: '',
     tasks: 0,
     team: [],
     totalTask: 0,
     date: new Date(),
   });
   const [editFormData, setEditFormData] = useState({
-    title: "",
-    subtitle: "",
-    description: "",
-    lead: "",
+    title: '',
+    subtitle: '',
+    description: '',
+    lead: '',
     tasks: 0,
     team: [],
     totalTask: 0,
@@ -63,10 +63,10 @@ export const ProjectListPage = () => {
   // function to reset the form
   const resetForm = () => {
     setFormData({
-      title: "",
-      subtitle: "",
-      description: "",
-      lead: "",
+      title: '',
+      subtitle: '',
+      description: '',
+      lead: '',
       tasks: 0,
       totalTask: 0,
       team: [],
@@ -75,12 +75,12 @@ export const ProjectListPage = () => {
   };
 
   const closeModal = () => {
-    setModal({ add: false })
+    setModal({ add: false });
     resetForm();
   };
 
   const closeEditModal = () => {
-    setModal({ edit: false })
+    setModal({ edit: false });
     resetForm();
   };
 
@@ -89,7 +89,7 @@ export const ProjectListPage = () => {
     const { title, subtitle, description, tasks, totalTask } = sData;
     let submittedData = {
       id: data.length + 1,
-      avatarClass: "pink",
+      avatarClass: 'pink',
       title: title,
       subtitle: subtitle,
       desc: description,
@@ -204,37 +204,40 @@ export const ProjectListPage = () => {
 
   return (
     <React.Fragment>
-      <Head title="Project List"></Head>
+      <Head title='Project List'></Head>
       <Content>
-        <BlockHead size="sm">
+        <BlockHead size='sm'>
           <BlockBetween>
             <BlockHeadContent>
               <BlockTitle page> Projects</BlockTitle>
-              <BlockDes className="text-soft">You have total {data.length} projects</BlockDes>
+              <BlockDes className='text-soft'>You have total {data.length} projects</BlockDes>
             </BlockHeadContent>
             <BlockHeadContent>
-              <div className="toggle-wrap nk-block-tools-toggle">
+              <div className='toggle-wrap nk-block-tools-toggle'>
                 <Button
-                  className={`btn-icon btn-trigger toggle-expand me-n1 ${sm ? "active" : ""}`}
+                  className={`btn-icon btn-trigger toggle-expand me-n1 ${sm ? 'active' : ''}`}
                   onClick={() => updateSm(!sm)}
                 >
-                  <Icon name="menu-alt-r"></Icon>
+                  <Icon name='menu-alt-r'></Icon>
                 </Button>
-                <div className="toggle-expand-content" style={{ display: sm ? "block" : "none" }}>
-                  <ul className="nk-block-tools g-3">
+                <div className='toggle-expand-content' style={{ display: sm ? 'block' : 'none' }}>
+                  <ul className='nk-block-tools g-3'>
                     <li>
                       <UncontrolledDropdown>
-                        <DropdownToggle tag="a" className="dropdown-toggle btn btn-white btn-dim btn-outline-light">
-                          <Icon name="filter-alt" className="d-none d-sm-inline"></Icon>
+                        <DropdownToggle
+                          tag='a'
+                          className='dropdown-toggle btn btn-white btn-dim btn-outline-light'
+                        >
+                          <Icon name='filter-alt' className='d-none d-sm-inline'></Icon>
                           <span>Filtered By</span>
-                          <Icon name="chevron-right" className="dd-indc"></Icon>
+                          <Icon name='chevron-right' className='dd-indc'></Icon>
                         </DropdownToggle>
                         <DropdownMenu end>
-                          <ul className="link-list-opt no-bdr">
+                          <ul className='link-list-opt no-bdr'>
                             <li>
                               <DropdownItem
-                                tag="a"
-                                href="#dropdownitem"
+                                tag='a'
+                                href='#dropdownitem'
                                 onClick={(ev) => {
                                   ev.preventDefault();
                                 }}
@@ -244,8 +247,8 @@ export const ProjectListPage = () => {
                             </li>
                             <li>
                               <DropdownItem
-                                tag="a"
-                                href="#dropdownitem"
+                                tag='a'
+                                href='#dropdownitem'
                                 onClick={(ev) => {
                                   ev.preventDefault();
                                 }}
@@ -255,8 +258,8 @@ export const ProjectListPage = () => {
                             </li>
                             <li>
                               <DropdownItem
-                                tag="a"
-                                href="#dropdownitem"
+                                tag='a'
+                                href='#dropdownitem'
                                 onClick={(ev) => {
                                   ev.preventDefault();
                                 }}
@@ -268,9 +271,9 @@ export const ProjectListPage = () => {
                         </DropdownMenu>
                       </UncontrolledDropdown>
                     </li>
-                    <li className="nk-block-tools-opt" onClick={() => setModal({ add: true })}>
-                      <Button color="primary">
-                        <Icon name="plus"></Icon>
+                    <li className='nk-block-tools-opt' onClick={() => setModal({ add: true })}>
+                      <Button color='primary'>
+                        <Icon name='plus'></Icon>
                         <span>Add Project</span>
                       </Button>
                     </li>
@@ -281,68 +284,71 @@ export const ProjectListPage = () => {
           </BlockBetween>
         </BlockHead>
         <Block>
-          <div className="nk-tb-list is-separate nk-tb-ulist">
-            <DataTableHead className="nk-tb-item nk-tb-head">
-              <DataTableRow className="nk-tb-col-check">
-                <div className="custom-control custom-control-sm custom-checkbox notext">
+          <div className='nk-tb-list is-separate nk-tb-ulist'>
+            <DataTableHead className='nk-tb-item nk-tb-head'>
+              <DataTableRow className='nk-tb-col-check'>
+                <div className='custom-control custom-control-sm custom-checkbox notext'>
                   <input
-                    type="checkbox"
-                    className="custom-control-input"
-                    id="pid-all"
+                    type='checkbox'
+                    className='custom-control-input'
+                    id='pid-all'
                     onChange={(e) => selectorCheck(e)}
                   />
-                  <label className="custom-control-label" htmlFor="pid-all"></label>
+                  <label className='custom-control-label' htmlFor='pid-all'></label>
                 </div>
               </DataTableRow>
               <DataTableRow>
-                <span className="sub-text">Project Name</span>
+                <span className='sub-text'>Project Name</span>
               </DataTableRow>
-              <DataTableRow size="xxl">
-                <span className="sub-text">Client</span>
+              <DataTableRow size='xxl'>
+                <span className='sub-text'>Client</span>
               </DataTableRow>
-              <DataTableRow size="lg">
-                <span className="sub-text">Project Lead</span>
+              <DataTableRow size='lg'>
+                <span className='sub-text'>Project Lead</span>
               </DataTableRow>
-              <DataTableRow size="lg">
-                <span className="sub-text">Team</span>
+              <DataTableRow size='lg'>
+                <span className='sub-text'>Team</span>
               </DataTableRow>
-              <DataTableRow size="xxl">
-                <span className="sub-text">Status</span>
+              <DataTableRow size='xxl'>
+                <span className='sub-text'>Status</span>
               </DataTableRow>
-              <DataTableRow size="md">
-                <span className="sub-text">Progress</span>
+              <DataTableRow size='md'>
+                <span className='sub-text'>Progress</span>
               </DataTableRow>
-              <DataTableRow size="mb">
-                <span className="sub-text">Deadline</span>
+              <DataTableRow size='mb'>
+                <span className='sub-text'>Deadline</span>
               </DataTableRow>
-              <DataTableRow className="nk-tb-col-tools text-end">
+              <DataTableRow className='nk-tb-col-tools text-end'>
                 <UncontrolledDropdown>
-                  <DropdownToggle tag="a" className="btn btn-xs btn-trigger btn-icon dropdown-toggle me-n1">
-                    <Icon name="more-h"></Icon>
+                  <DropdownToggle
+                    tag='a'
+                    className='btn btn-xs btn-trigger btn-icon dropdown-toggle me-n1'
+                  >
+                    <Icon name='more-h'></Icon>
                   </DropdownToggle>
                   <DropdownMenu end>
-                    <ul className="link-list-opt no-bdr">
+                    <ul className='link-list-opt no-bdr'>
                       <li onClick={() => selectorCompleteProject()}>
                         <DropdownItem
-                          tag="a"
-                          href="#markasdone"
+                          tag='a'
+                          href='#markasdone'
                           onClick={(ev) => {
                             ev.preventDefault();
                           }}
                         >
-                          <Icon name="check-round-cut"></Icon>
+                          <Icon name='check-round-cut'></Icon>
                           <span>Mark As Done</span>
                         </DropdownItem>
                       </li>
                       <li onClick={() => selectorDeleteProject()}>
                         <DropdownItem
-                          tag="a"
-                          href="#remove"
+                          tag='a'
+                          href='#remove'
                           onClick={(ev) => {
                             ev.preventDefault();
                           }}
                         >
-                          <Icon name="trash"></Icon>
+                          <Icon name='trash'></Icon>
                           <span>Remove Projects</span>
                         </DropdownItem>
                       </li>
@@ -356,46 +362,53 @@ export const ProjectListPage = () => {
                   var days = setDeadlineDays(item.deadline);
                   return (
                     <DataTableItem key={item.id}>
-                      <DataTableRow className="nk-tb-col-check">
-                        <div className="custom-control custom-control-sm custom-checkbox notext">
+                      <DataTableRow className='nk-tb-col-check'>
+                        <div className='custom-control custom-control-sm custom-checkbox notext'>
                           <input
-                            type="checkbox"
-                            className="custom-control-input"
+                            type='checkbox'
+                            className='custom-control-input'
                             defaultChecked={item.checked}
-                            id={item.id + "pid-all"}
+                            id={item.id + 'pid-all'}
                             key={Math.random()}
                             onChange={(e) => onSelectChange(e, item.id)}
                           />
-                          <label className="custom-control-label" htmlFor={item.id + "pid-all"}></label>
+                          <label
+                            className='custom-control-label'
+                            htmlFor={item.id + 'pid-all'}
+                          ></label>
                         </div>
                       </DataTableRow>
                       <DataTableRow>
                         <a
-                          href="#title"
+                          href='#title'
                           onClick={(ev) => {
                             ev.preventDefault();
                           }}
-                          className="project-title"
+                          className='project-title'
                         >
-                          <UserAvatar className="sq" theme={item.avatarClass} text={findUpper(item.title)} />
-                          <div className="project-info">
-                            <h6 className="title">{item.title}</h6>
+                          <UserAvatar
+                            className='sq'
+                            theme={item.avatarClass}
+                            text={findUpper(item.title)}
+                          />
+                          <div className='project-info'>
+                            <h6 className='title'>{item.title}</h6>
                           </div>
                         </a>
                       </DataTableRow>
-                      <DataTableRow size="xxl">
+                      <DataTableRow size='xxl'>
                         <span>{item.subtitle}</span>
                       </DataTableRow>
-                      <DataTableRow size="lg">
+                      <DataTableRow size='lg'>
                         <span>{item.lead}</span>
                       </DataTableRow>
-                      <DataTableRow size="lg">
-                        <ul className="project-users g-1">
+                      <DataTableRow size='lg'>
+                        <ul className='project-users g-1'>
                           {item.team.slice(0, 2).map((member, idx) => {
                             return (
                               <li key={idx}>
                                 <UserAvatar
-                                  className="sm"
+                                  className='sm'
                                   text={findUpper(member.label)}
                                   theme={member.theme}
                                   image={member.image}
@@ -405,73 +418,82 @@ export const ProjectListPage = () => {
                           })}
                           {item.team.length > 2 && (
                             <li>
-                              <UserAvatar theme="light" className="sm" text={`+${item.team.length - 2}`} />
+                              <UserAvatar
+                                theme='light'
+                                className='sm'
+                                text={`+${item.team.length - 2}`}
+                              />
                             </li>
                           )}
                         </ul>
                       </DataTableRow>
-                      <DataTableRow size="xxl">
-                        <span>{days === 0 ? "Closed" : "Open"}</span>
+                      <DataTableRow size='xxl'>
+                        <span>{days === 0 ? 'Closed' : 'Open'}</span>
                       </DataTableRow>
-                      <DataTableRow size="md">
-                        <div className="project-list-progress">
+                      <DataTableRow size='md'>
+                        <div className='project-list-progress'>
                           <Progress
-                            className="progress-pill progress-md bg-light"
+                            className='progress-pill progress-md bg-light'
                             value={days === 0 ? 100 : calcPercentage(item.totalTask, item.tasks)}
                           ></Progress>
-                          <div className="project-progress-percent">
+                          <div className='project-progress-percent'>
                             {days === 0 ? 100 : calcPercentage(item.totalTask, item.tasks)}%
                           </div>
                         </div>
                       </DataTableRow>
-                      <DataTableRow size="mb">
+                      <DataTableRow size='mb'>
                         <Badge
-                          className="badge-dim"
+                          className='badge-dim'
                           color={
                             days > 10
-                              ? "light"
+                              ? 'light'
                               : days <= 10 && days >= 2
-                              ? "warning"
+                              ? 'warning'
                               : days === 1
-                              ? "danger"
-                              : days <= 0 && "success"
+                              ? 'danger'
+                              : days <= 0 && 'success'
                           }
                         >
-                          <Icon name="clock"></Icon>
-                          <span>{days <= 0 ? "Done" : days === 1 ? "Due Tomorrow" : days + " Days Left"}</span>
+                          <Icon name='clock'></Icon>
+                          <span>
+                            {days <= 0 ? 'Done' : days === 1 ? 'Due Tomorrow' : days + ' Days Left'}
+                          </span>
                         </Badge>
                       </DataTableRow>
-                      <DataTableRow className="nk-tb-col-tools text-end">
-                        <ul className="nk-tb-actions gx-1">
+                      <DataTableRow className='nk-tb-col-tools text-end'>
+                        <ul className='nk-tb-actions gx-1'>
                           <li>
                             <UncontrolledDropdown>
-                              <DropdownToggle tag="a" className="text-soft dropdown-toggle btn btn-icon btn-trigger">
-                                <Icon name="more-h"></Icon>
+                              <DropdownToggle
+                                tag='a'
+                                className='text-soft dropdown-toggle btn btn-icon btn-trigger'
+                              >
+                                <Icon name='more-h'></Icon>
                               </DropdownToggle>
                               <DropdownMenu end>
-                                <ul className="link-list-opt no-bdr">
+                                <ul className='link-list-opt no-bdr'>
                                   <li onClick={() => onEditClick(item.id)}>
                                     <DropdownItem
-                                      tag="a"
-                                      href="#edit"
+                                      tag='a'
+                                      href='#edit'
                                       onClick={(ev) => {
                                         ev.preventDefault();
                                       }}
                                     >
-                                      <Icon name="edit"></Icon>
+                                      <Icon name='edit'></Icon>
                                       <span>Edit</span>
                                     </DropdownItem>
                                   </li>
                                   {days !== 0 && (
                                     <li onClick={() => completeProject(item.id)}>
                                       <DropdownItem
-                                        tag="a"
-                                        href="#markasdone"
+                                        tag='a'
+                                        href='#markasdone'
                                         onClick={(ev) => {
                                           ev.preventDefault();
                                         }}
                                       >
-                                        <Icon name="check-round-cut"></Icon>
+                                        <Icon name='check-round-cut'></Icon>
                                         <span>Mark As Done</span>
                                       </DropdownItem>
                                     </li>
@@ -496,15 +518,29 @@ export const ProjectListPage = () => {
                 currentPage={currentPage}
               />
             ) : (
-              <div className="text-center">
-                <span className="text-silent">No projects found</span>
+              <div className='text-center'>
+                <span className='text-silent'>No projects found</span>
               </div>
             )}
           </PreviewAltCard>
         </Block>
 
-        <FormModal modal={modal.add} modalType="add" formData={formData} setFormData={setFormData} closeModal={closeModal} onSubmit={onFormSubmit} />
-        <FormModal modal={modal.edit} modalType="edit" formData={editFormData} setFormData={setEditFormData} closeModal={closeEditModal} onSubmit={onEditSubmit} />
+        <FormModal
+          modal={modal.add}
+          modalType='add'
+          formData={formData}
+          setFormData={setFormData}
+          closeModal={closeModal}
+          onSubmit={onFormSubmit}
+        />
+        <FormModal
+          modal={modal.edit}
+          modalType='edit'
+          formData={editFormData}
+          setFormData={setEditFormData}
+          closeModal={closeEditModal}
+          onSubmit={onEditSubmit}
+        />
       </Content>
     </React.Fragment>
   );

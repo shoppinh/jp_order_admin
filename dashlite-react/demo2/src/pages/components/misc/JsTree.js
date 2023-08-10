@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import TreeView from "react-jstree-table";
-import Head from "../../../layout/head/Head";
-import Content from "../../../layout/content/Content";
+import React, { useState } from 'react';
+import TreeView from 'react-jstree-table';
+import Head from '../../../layout/head/Head';
+import Content from '../../../layout/content/Content';
 import {
   Block,
   BlockHead,
@@ -11,8 +11,8 @@ import {
   BackTo,
   PreviewCard,
   CodeBlock,
-} from "../../../components/Component";
-import { jsTreeData, jsTreeData2, jsTreeData3, jsTreeData4 } from "./Data";
+} from '../../../components/Component';
+import { jsTreeData, jsTreeData2, jsTreeData3, jsTreeData4 } from './Data';
 
 const JsTreePreview = () => {
   const [state] = useState({
@@ -30,24 +30,29 @@ const JsTreePreview = () => {
 
   return (
     <React.Fragment>
-      <Head title="jsTree"></Head>
-      <Content page="component">
-        <BlockHead size="lg" wide="sm">
+      <Head title='jsTree'></Head>
+      <Content page='component'>
+        <BlockHead size='lg' wide='sm'>
           <BlockHeadContent>
-            <BackTo link="/components" icon="arrow-left">
+            <BackTo link='/components' icon='arrow-left'>
               Components
             </BackTo>
-            <BlockTitle tag="h2" className="fw-normal">
+            <BlockTitle tag='h2' className='fw-normal'>
               jsTree
             </BlockTitle>
             <BlockDes>
-              <p className="lead">
-                React jsTree table is a react wrapper for the jsTree plugin, that provides interactive trees. jsTree is
-                easily extendable, themable and configurable, it supports HTML & JSON data sources and AJAX loading.
+              <p className='lead'>
+                React jsTree table is a react wrapper for the jsTree plugin, that provides
+                interactive trees. jsTree is easily extendable, themable and configurable, it
+                supports HTML & JSON data sources and AJAX loading.
               </p>
-              <p className="lead">
-                For more info please visit{" "}
-                <a href="https://www.npmjs.com/package/react-jstree-table" target="_blank" rel="noreferrer">
+              <p className='lead'>
+                For more info please visit{' '}
+                <a
+                  href='https://www.npmjs.com/package/react-jstree-table'
+                  target='_blank'
+                  rel='noreferrer'
+                >
                   React JsTree Table
                 </a>
                 .
@@ -56,19 +61,20 @@ const JsTreePreview = () => {
           </BlockHeadContent>
         </BlockHead>
 
-        <Block size="lg">
+        <Block size='lg'>
           <BlockHead>
             <BlockHeadContent>
-              <BlockTitle tag="h5">Basic</BlockTitle>
+              <BlockTitle tag='h5'>Basic</BlockTitle>
               <BlockDes>
-                Just import <code>TreeView</code> component from <code>react-jstree-table</code> plugin.
+                Just import <code>TreeView</code> component from <code>react-jstree-table</code>{' '}
+                plugin.
               </BlockDes>
             </BlockHeadContent>
           </BlockHead>
           <PreviewCard>
             <TreeView treeData={state.data} treeSearchData={state.data}></TreeView>
           </PreviewCard>
-          <CodeBlock language="jsx">
+          <CodeBlock language='jsx'>
             {` // Json Object that needs to be passed
               core: {
                 data: [
@@ -113,20 +119,20 @@ const JsTreePreview = () => {
           </CodeBlock>
         </Block>
 
-        <Block size="lg">
+        <Block size='lg'>
           <BlockHead>
             <BlockHeadContent>
-              <BlockTitle tag="h5">Custom Icon</BlockTitle>
+              <BlockTitle tag='h5'>Custom Icon</BlockTitle>
               <BlockDes>
-                Custom icons can be passed in the <code>json structure</code> with each node, use the <code>icon</code>{" "}
-                property.
+                Custom icons can be passed in the <code>json structure</code> with each node, use
+                the <code>icon</code> property.
               </BlockDes>
             </BlockHeadContent>
           </BlockHead>
           <PreviewCard>
             <TreeView treeData={state2.data} treeSearchData={state2.data}></TreeView>
           </PreviewCard>
-          <CodeBlock language="jsx">
+          <CodeBlock language='jsx'>
             {` // Json Object that needs to be passed
   core: {
     data: [
@@ -173,20 +179,20 @@ const JsTreePreview = () => {
           </CodeBlock>
         </Block>
 
-        <Block size="lg">
+        <Block size='lg'>
           <BlockHead>
             <BlockHeadContent>
-              <BlockTitle tag="h5">Drag and Drop</BlockTitle>
+              <BlockTitle tag='h5'>Drag and Drop</BlockTitle>
               <BlockDes>
-                Add <code>dnd</code> plugin to the core <code>json structure</code>. Further details can be found{" "}
-                <a href="https://www.jstree.com/plugins/">here</a>
+                Add <code>dnd</code> plugin to the core <code>json structure</code>. Further details
+                can be found <a href='https://www.jstree.com/plugins/'>here</a>
               </BlockDes>
             </BlockHeadContent>
           </BlockHead>
           <PreviewCard>
             <TreeView treeData={state3.data} treeSearchData={state3.data}></TreeView>
           </PreviewCard>
-          <CodeBlock language="jsx">
+          <CodeBlock language='jsx'>
             {` // Json Object that needs to be passed
 
 {
@@ -235,15 +241,16 @@ const JsTreePreview = () => {
           </CodeBlock>
         </Block>
 
-        <Block size="lg">
+        <Block size='lg'>
           <BlockHead>
             <BlockHeadContent>
-              <BlockTitle tag="h5">CheckBox</BlockTitle>
+              <BlockTitle tag='h5'>CheckBox</BlockTitle>
               <BlockDes>
                 <p>
-                  To activate checkbox option with full row selection, you just need to include <code>wholerow</code>{" "}
-                  and <code>checkbox</code> in plugins option. For more information please check{" "}
-                  <a href="https://www.jstree.com/plugins/">jsTree Plugin Page</a>
+                  To activate checkbox option with full row selection, you just need to include{' '}
+                  <code>wholerow</code> and <code>checkbox</code> in plugins option. For more
+                  information please check{' '}
+                  <a href='https://www.jstree.com/plugins/'>jsTree Plugin Page</a>
                 </p>
               </BlockDes>
             </BlockHeadContent>
@@ -251,7 +258,7 @@ const JsTreePreview = () => {
           <PreviewCard>
             <TreeView treeData={state4.data} treeSearchData={state4.data}></TreeView>
           </PreviewCard>
-          <CodeBlock language="jsx">
+          <CodeBlock language='jsx'>
             {` // Json Object that needs to be passed
 
 {

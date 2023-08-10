@@ -1,8 +1,8 @@
-import React, { useState, forwardRef } from "react";
-import Head from "../../../layout/head/Head";
-import Content from "../../../layout/content/Content";
-import DatePicker from "react-datepicker";
-import {  Label, Row, Col } from "reactstrap";
+import React, { useState, forwardRef } from 'react';
+import Head from '../../../layout/head/Head';
+import Content from '../../../layout/content/Content';
+import DatePicker from 'react-datepicker';
+import { Label, Row, Col } from 'reactstrap';
 import {
   Block,
   BlockHead,
@@ -13,14 +13,14 @@ import {
   PreviewCard,
   CodeBlock,
   Icon,
-} from "../../../components/Component";
+} from '../../../components/Component';
 
 const ExampleCustomInput = forwardRef(({ value, onClick, onChange }, ref) => (
   <div onClick={onClick} ref={ref}>
-    <div className="form-icon form-icon-left">
-      <Icon name="calendar"></Icon>
+    <div className='form-icon form-icon-left'>
+      <Icon name='calendar'></Icon>
     </div>
-    <input className="form-control date-picker" type="text" value={value} onChange={onChange} />
+    <input className='form-control date-picker' type='text' value={value} onChange={onChange} />
   </div>
 ));
 
@@ -44,66 +44,71 @@ const DateTimePicker = () => {
 
   return (
     <React.Fragment>
-      <Head title="Date & Time Picker"></Head>
-      <Content page="component">
-        <BlockHead size="lg" wide="sm">
+      <Head title='Date & Time Picker'></Head>
+      <Content page='component'>
+        <BlockHead size='lg' wide='sm'>
           <BlockHeadContent>
-            <BackTo link="/components" icon="arrow-left">
+            <BackTo link='/components' icon='arrow-left'>
               Components
             </BackTo>
-            <BlockTitle tag="h2" className="fw-normal">
+            <BlockTitle tag='h2' className='fw-normal'>
               Date & Time Picker
             </BlockTitle>
             <BlockDes>
-            <p className="lead">
-                Examples and usage guidelines for date and time picker for forms. For further preview, visit the{" "}
-                <a href="https://reactdatepicker.com/" target="_blank" rel="noreferrer">
+              <p className='lead'>
+                Examples and usage guidelines for date and time picker for forms. For further
+                preview, visit the{' '}
+                <a href='https://reactdatepicker.com/' target='_blank' rel='noreferrer'>
                   React Datepicker
-                </a>{" "}
+                </a>{' '}
                 library.
               </p>
             </BlockDes>
           </BlockHeadContent>
         </BlockHead>
 
-        <Block size="lg">
+        <Block size='lg'>
           <BlockHead>
             <BlockHeadContent>
-              <BlockTitle tag="h5">Date Picker</BlockTitle>
+              <BlockTitle tag='h5'>Date Picker</BlockTitle>
               <BlockDes>
-                To use the date picker component, import it such as{" "}
+                To use the date picker component, import it such as{' '}
                 <code>import DatePicker from "react-datepicker"</code>.
               </BlockDes>
             </BlockHeadContent>
           </BlockHead>
           <PreviewCard>
-            <Row className="gy-4">
-              <Col sm="6">
-                <div className="form-group">
+            <Row className='gy-4'>
+              <Col sm='6'>
+                <div className='form-group'>
                   <Label>Datepicker</Label>
-                  <div className="form-control-wrap">
-                    <DatePicker selected={startDate} onChange={setStartDate} className="form-control date-picker" />{" "}
+                  <div className='form-control-wrap'>
+                    <DatePicker
+                      selected={startDate}
+                      onChange={setStartDate}
+                      className='form-control date-picker'
+                    />{' '}
                   </div>
-                  <div className="form-note">
+                  <div className='form-note'>
                     Date Format <code>mm/dd/yyyy</code>
                   </div>
                 </div>
               </Col>
-              <Col sm="6">
-                <div className="form-group">
+              <Col sm='6'>
+                <div className='form-group'>
                   <Label>Date Picker With Icon</Label>
-                  <div className="form-control-wrap">
-                    <div className="form-icon form-icon-left">
-                      <Icon name="calendar"></Icon>
+                  <div className='form-control-wrap'>
+                    <div className='form-icon form-icon-left'>
+                      <Icon name='calendar'></Icon>
                     </div>
                     <DatePicker
                       selected={startIconDate}
-                      className="form-control date-picker"
+                      className='form-control date-picker'
                       onChange={setStartIconDate}
                       customInput={<ExampleCustomInput />}
                     />
                   </div>
-                  <div className="form-note">
+                  <div className='form-note'>
                     Date Format <code>mm/dd/yyyy</code>
                   </div>
                 </div>
@@ -113,36 +118,36 @@ const DateTimePicker = () => {
         </Block>
 
         <Block>
-          <CodeBlock language="jsx">{`<DatePicker selected={startDate} className="form-control date-picker" />`}</CodeBlock>
+          <CodeBlock language='jsx'>{`<DatePicker selected={startDate} className="form-control date-picker" />`}</CodeBlock>
         </Block>
 
         <Block>
           <BlockHead>
             <BlockHeadContent>
-              <BlockTitle tag="h5">Date Range Picker</BlockTitle>
+              <BlockTitle tag='h5'>Date Range Picker</BlockTitle>
               <BlockDes>
-                To use the time component, add extra props to <code>{"<DatePicker />"}</code> component such as{" "}
-                <code>selectsRange || startDate || endDate</code>.
+                To use the time component, add extra props to <code>{'<DatePicker />'}</code>{' '}
+                component such as <code>selectsRange || startDate || endDate</code>.
               </BlockDes>
             </BlockHeadContent>
           </BlockHead>
           <PreviewCard>
-            <Row className="gy-4">
+            <Row className='gy-4'>
               <Col sm={6}>
-                <div className="form-group">
+                <div className='form-group'>
                   <Label>Datepicker Range Multiple Input</Label>
-                  <div className="form-control-wrap">
-                    <div className="input-daterange date-picker-range input-group">
-                    <DatePicker
+                  <div className='form-control-wrap'>
+                    <div className='input-daterange date-picker-range input-group'>
+                      <DatePicker
                         selected={rangeStart}
                         onChange={setRangeStart}
                         selectsStart
                         startDate={rangeStart}
                         endDate={rangeEnd}
-                        wrapperClassName="start-m"
-                        className="form-control"
-                      />{" "}
-                      <div className="input-group-addon">TO</div>
+                        wrapperClassName='start-m'
+                        className='form-control'
+                      />{' '}
+                      <div className='input-group-addon'>TO</div>
                       <DatePicker
                         selected={rangeEnd}
                         onChange={setRangeEnd}
@@ -150,30 +155,30 @@ const DateTimePicker = () => {
                         endDate={rangeEnd}
                         selectsEnd
                         minDate={rangeStart}
-                        wrapperClassName="end-m"
-                        className="form-control"
+                        wrapperClassName='end-m'
+                        className='form-control'
                       />
                     </div>
                   </div>
-                  <div className="form-note">
+                  <div className='form-note'>
                     Date Format <code>mm/dd/yyyy</code>
                   </div>
                 </div>
               </Col>
               <Col sm={6}>
-                <div className="form-group">
+                <div className='form-group'>
                   <Label>Datepicker Range Single Input</Label>
-                  <div className="form-control-wrap">
+                  <div className='form-control-wrap'>
                     <DatePicker
                       selected={rangeDate.start}
                       startDate={rangeDate.start}
                       onChange={onRangeChange}
                       endDate={rangeDate.end}
                       selectsRange
-                      className="form-control date-picker"
-                    />{" "}
+                      className='form-control date-picker'
+                    />{' '}
                   </div>
-                  <div className="form-note">
+                  <div className='form-note'>
                     Date Format <code>mm/dd/yyyy</code>
                   </div>
                 </div>
@@ -183,7 +188,7 @@ const DateTimePicker = () => {
         </Block>
 
         <Block>
-          <CodeBlock language="jsx">{` <DatePicker
+          <CodeBlock language='jsx'>{` <DatePicker
     selected={rangeDate.start}
     startDate={rangeDate.start}
     onChange={onRangeChange}
@@ -193,31 +198,31 @@ const DateTimePicker = () => {
 />`}</CodeBlock>
         </Block>
 
-        <Block size="lg">
+        <Block size='lg'>
           <BlockHead>
             <BlockHeadContent>
-              <BlockTitle tag="h5">Time Picker</BlockTitle>
+              <BlockTitle tag='h5'>Time Picker</BlockTitle>
               <BlockDes>
-                To use the time component, add extra props to <code>{"<DatePicker />"}</code> component such as{" "}
-                <code>showTimeSelect || showTimeSelectOnly || timeInterval</code>.
+                To use the time component, add extra props to <code>{'<DatePicker />'}</code>{' '}
+                component such as <code>showTimeSelect || showTimeSelectOnly || timeInterval</code>.
               </BlockDes>
             </BlockHeadContent>
           </BlockHead>
           <PreviewCard>
-            <Row className="gy-4">
-              <Col sm="6">
-                <div className="form-group">
+            <Row className='gy-4'>
+              <Col sm='6'>
+                <div className='form-group'>
                   <Label>Timepicker</Label>
-                  <div className="form-control-wrap has-timepicker focused">
+                  <div className='form-control-wrap has-timepicker focused'>
                     <DatePicker
                       selected={startTime}
                       onChange={(date) => setStartTime(date)}
                       showTimeSelect
                       showTimeSelectOnly
                       timeIntervals={15}
-                      timeCaption="Time"
-                      dateFormat="h:mm aa"
-                      className="form-control date-picker"
+                      timeCaption='Time'
+                      dateFormat='h:mm aa'
+                      className='form-control date-picker'
                     />
                   </div>
                 </div>
@@ -226,7 +231,7 @@ const DateTimePicker = () => {
           </PreviewCard>
         </Block>
         <Block>
-          <CodeBlock language="jsx">{` <DatePicker
+          <CodeBlock language='jsx'>{` <DatePicker
     selected={startTime}
     onChange={(date) => setStartTime(date)}
     showTimeSelect
@@ -238,50 +243,51 @@ const DateTimePicker = () => {
 />`}</CodeBlock>
         </Block>
 
-        <Block size="lg">
+        <Block size='lg'>
           <BlockHead>
             <BlockHeadContent>
-              <BlockTitle tag="h5">Month & Year Picker</BlockTitle>
+              <BlockTitle tag='h5'>Month & Year Picker</BlockTitle>
               <BlockDes>
-                To use the time component, add extra props to <code>{"<DatePicker />"}</code> component such as{" "}
+                To use the time component, add extra props to <code>{'<DatePicker />'}</code>{' '}
+                component such as{' '}
                 <code>showMonthYearPicker || showFullMonthYearPicker || showYearPicker</code>.
               </BlockDes>
             </BlockHeadContent>
           </BlockHead>
           <PreviewCard>
-            <Row className="gy-4">
-              <Col sm="6">
-                <div className="form-group">
+            <Row className='gy-4'>
+              <Col sm='6'>
+                <div className='form-group'>
                   <Label>Month Picker</Label>
-                  <div className="form-control-wrap">
+                  <div className='form-control-wrap'>
                     <DatePicker
                       selected={month}
                       onChange={(date) => setMonth(date)}
-                      dateFormat="MM/yyyy"
+                      dateFormat='MM/yyyy'
                       showMonthYearPicker
                       showFullMonthYearPicker
-                      className="form-control date-picker"
+                      className='form-control date-picker'
                     />
                   </div>
-                  <div className="form-note">
+                  <div className='form-note'>
                     Date Format <code>mm/yyyy</code>
                   </div>
                 </div>
               </Col>
-              <Col sm="6">
-                <div className="form-group">
+              <Col sm='6'>
+                <div className='form-group'>
                   <Label>Year Picker</Label>
-                  <div className="form-control-wrap">
+                  <div className='form-control-wrap'>
                     <DatePicker
                       selected={year}
                       onChange={(date) => setYear(date)}
-                      dateFormat="yyyy"
+                      dateFormat='yyyy'
                       showYearPicker
                       yearItemNumber={15}
-                      className="form-control date-picker"
+                      className='form-control date-picker'
                     />
                   </div>
-                  <div className="form-note">
+                  <div className='form-note'>
                     Date Format <code>yyyy</code>
                   </div>
                 </div>
@@ -290,7 +296,7 @@ const DateTimePicker = () => {
           </PreviewCard>
         </Block>
         <Block>
-          <CodeBlock language="jsx">{` <DatePicker
+          <CodeBlock language='jsx'>{` <DatePicker
   selected={year}
   onChange={(date) => setYear(date)}
   dateFormat="yyyy"

@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import Content from "../../../layout/content/Content";
-import Head from "../../../layout/head/Head";
-import CalenderApp from "../../../components/partials/calender/Calender";
-import DatePicker from "react-datepicker";
-import { Modal, ModalBody,  ModalHeader, Button } from "reactstrap";
+import React, { useState, useEffect } from 'react';
+import Content from '../../../layout/content/Content';
+import Head from '../../../layout/head/Head';
+import CalenderApp from '../../../components/partials/calender/Calender';
+import DatePicker from 'react-datepicker';
+import { Modal, ModalBody, ModalHeader, Button } from 'reactstrap';
 import {
   Block,
   BlockBetween,
@@ -15,44 +15,49 @@ import {
   PreviewAltCard,
   Row,
   RSelect,
-} from "../../../components/Component";
-import { eventOptions, events } from "../../../components/partials/calender/CalenderData";
-import { useForm } from "react-hook-form";
-import { setDateForPicker } from "../../../utils/Utils";
+} from '../../../components/Component';
+import { eventOptions, events } from '../../../components/partials/calender/CalenderData';
+import { useForm } from 'react-hook-form';
+import { setDateForPicker } from '../../../utils/Utils';
 
 const Calender = () => {
   const [modal, setModal] = useState(false);
   const [mockEvents, updateEvent] = useState(events);
   const [formData, setFormData] = useState({
-    title: "",
-    description: "",
+    title: '',
+    description: '',
     startDate: new Date(),
     startTime: new Date(),
     endTime: new Date(),
     endDate: new Date(),
-    theme:{
-      value: "fc-event-primary",
-      label: "Company",
-    }
+    theme: {
+      value: 'fc-event-primary',
+      label: 'Company',
+    },
   });
-  const [theme, settheme] = useState("");
+  const [theme, settheme] = useState('');
   const toggle = () => {
     setModal(!modal);
   };
-  const { reset, register, handleSubmit, formState: { errors } } = useForm();
+  const {
+    reset,
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const resetForm = () => {
     setFormData({
-      title: "",
-      description: "",
+      title: '',
+      description: '',
       startDate: new Date(),
       startTime: new Date(),
       endTime: new Date(),
       endDate: new Date(),
-      theme:{
-        value: "fc-event-primary",
-        label: "Company",
-      }
+      theme: {
+        value: 'fc-event-primary',
+        label: 'Company',
+      },
     });
   };
 
@@ -62,7 +67,7 @@ const Calender = () => {
   };
   const handleFormSubmit = (form) => {
     let newEvent = {
-      id: "default-event-id-" + Math.floor(Math.random() * 9999999),
+      id: 'default-event-id-' + Math.floor(Math.random() * 9999999),
       title: formData.title,
       start: setDateForPicker(formData.startDate),
       end: setDateForPicker(formData.endDate),
@@ -72,8 +77,8 @@ const Calender = () => {
     };
     updateEvent([...mockEvents, newEvent]);
     settheme({
-      value: "fc-event-primary",
-      label: "Company",
+      value: 'fc-event-primary',
+      label: 'Company',
     });
     toggle();
     resetForm();
@@ -92,21 +97,21 @@ const Calender = () => {
   };
 
   useEffect(() => {
-    reset(formData)
+    reset(formData);
   }, [formData]);
 
   return (
     <React.Fragment>
-      <Head title="Calender" />
+      <Head title='Calender' />
       <Content>
-        <BlockHead size="sm">
+        <BlockHead size='sm'>
           <BlockBetween>
             <BlockHeadContent>
               <BlockTitle page>Calendar</BlockTitle>
             </BlockHeadContent>
             <BlockHeadContent>
-              <Button color="primary" onClick={toggle}>
-                <Icon name="plus" />
+              <Button color='primary' onClick={toggle}>
+                <Icon name='plus' />
                 <span>Add Event</span>
               </Button>
             </BlockHeadContent>
@@ -118,109 +123,110 @@ const Calender = () => {
           </PreviewAltCard>
         </Block>
       </Content>
-      <Modal isOpen={modal} toggle={() => onFormCancel()} className="modal-md">
+      <Modal isOpen={modal} toggle={() => onFormCancel()} className='modal-md'>
         <ModalHeader toggle={() => onFormCancel()}>Add Event</ModalHeader>
         <ModalBody>
-          <form className="form-validate is-alter" onSubmit={handleSubmit(handleFormSubmit)}>
-            <Row className="gx-4 gy-3">
-              <Col size="12">
-                <div className="form-group">
-                  <label className="form-label" htmlFor="event-title">
+          <form className='form-validate is-alter' onSubmit={handleSubmit(handleFormSubmit)}>
+            <Row className='gx-4 gy-3'>
+              <Col size='12'>
+                <div className='form-group'>
+                  <label className='form-label' htmlFor='event-title'>
                     Event Title
                   </label>
-                  <div className="form-control-wrap">
+                  <div className='form-control-wrap'>
                     <input
-                      type="text"
-                      id="event-title"
+                      type='text'
+                      id='event-title'
                       {...register('title', { required: true })}
                       value={formData.title}
                       onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                      className="form-control" />
-                    {errors.title && <p className="invalid">This field is required</p>}
+                      className='form-control'
+                    />
+                    {errors.title && <p className='invalid'>This field is required</p>}
                   </div>
                 </div>
               </Col>
-              <Col sm="6">
-                <div className="form-group">
-                  <label className="form-label">Start Date &amp; Time</label>
-                  <Row className="gx-2">
-                    <div className="w-55">
-                      <div className="form-control-wrap">
+              <Col sm='6'>
+                <div className='form-group'>
+                  <label className='form-label'>Start Date &amp; Time</label>
+                  <Row className='gx-2'>
+                    <div className='w-55'>
+                      <div className='form-control-wrap'>
                         <DatePicker
                           selected={formData.startDate}
                           onChange={(date) => setFormData({ ...formData, startDate: date })}
-                          className="form-control date-picker"
+                          className='form-control date-picker'
                         />
                       </div>
                     </div>
-                    <div className="w-45">
-                      <div className="form-control-wrap has-timepicker">
+                    <div className='w-45'>
+                      <div className='form-control-wrap has-timepicker'>
                         <DatePicker
                           selected={formData.startTime}
                           onChange={(date) => setFormData({ ...formData, startTime: date })}
                           showTimeSelect
                           showTimeSelectOnly
                           timeIntervals={15}
-                          timeCaption="Time"
-                          dateFormat="h:mm aa"
-                          className="form-control date-picker"
+                          timeCaption='Time'
+                          dateFormat='h:mm aa'
+                          className='form-control date-picker'
                         />
                       </div>
                     </div>
                   </Row>
                 </div>
               </Col>
-              <Col sm="6">
-                <div className="form-group">
-                  <label className="form-label">End Date &amp; Time</label>
-                  <Row className="gx-2">
-                    <div className="w-55">
-                      <div className="form-control-wrap">
+              <Col sm='6'>
+                <div className='form-group'>
+                  <label className='form-label'>End Date &amp; Time</label>
+                  <Row className='gx-2'>
+                    <div className='w-55'>
+                      <div className='form-control-wrap'>
                         <DatePicker
                           selected={formData.endDate}
                           onChange={(date) => setFormData({ ...formData, endDate: date })}
-                          className="form-control date-picker"
+                          className='form-control date-picker'
                         />
                       </div>
                     </div>
-                    <div className="w-45">
-                      <div className="form-control-wrap has-timepicker">
+                    <div className='w-45'>
+                      <div className='form-control-wrap has-timepicker'>
                         <DatePicker
                           selected={formData.endTime}
                           onChange={(date) => setFormData({ ...formData, endTime: date })}
                           showTimeSelect
                           showTimeSelectOnly
                           timeIntervals={15}
-                          timeCaption="Time"
-                          dateFormat="h:mm aa"
-                          className="form-control date-picker"
+                          timeCaption='Time'
+                          dateFormat='h:mm aa'
+                          className='form-control date-picker'
                         />
                       </div>
                     </div>
                   </Row>
                 </div>
               </Col>
-              <Col size="12">
-                <div className="form-group">
-                  <label className="form-label" htmlFor="event-description">
+              <Col size='12'>
+                <div className='form-group'>
+                  <label className='form-label' htmlFor='event-description'>
                     Event Description
                   </label>
-                  <div className="form-control-wrap">
+                  <div className='form-control-wrap'>
                     <textarea
-                      className="form-control"
-                      id="event-description"
+                      className='form-control'
+                      id='event-description'
                       {...register('description', { required: true })}
                       onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                      ></textarea>
+                    ></textarea>
 
-                    {errors.description && <p className="invalid">This field is required</p>}
+                    {errors.description && <p className='invalid'>This field is required</p>}
                   </div>
                 </div>
               </Col>
-              <Col size="12">
-                <div className="form-group">
-                  <label className="form-label">Event Category</label>
-                  <div className="form-control-wrap">
+              <Col size='12'>
+                <div className='form-group'>
+                  <label className='form-label'>Event Category</label>
+                  <div className='form-control-wrap'>
                     <RSelect
                       options={eventOptions}
                       value={formData.theme}
@@ -229,15 +235,15 @@ const Calender = () => {
                   </div>
                 </div>
               </Col>
-              <Col size="12">
-                <ul className="d-flex justify-content-between gx-4 mt-1">
+              <Col size='12'>
+                <ul className='d-flex justify-content-between gx-4 mt-1'>
                   <li>
-                    <Button type="submit" color="primary">
+                    <Button type='submit' color='primary'>
                       Add Event
                     </Button>
                   </li>
                   <li>
-                    <Button color="danger" className="btn-dim" onClick={() => onFormCancel()}>
+                    <Button color='danger' className='btn-dim' onClick={() => onFormCancel()}>
                       Discard
                     </Button>
                   </li>

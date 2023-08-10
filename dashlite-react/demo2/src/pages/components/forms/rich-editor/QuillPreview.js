@@ -1,7 +1,10 @@
-import React from "react";
-import Head from "../../../../layout/head/Head";
-import Content from "../../../../layout/content/Content";
-import { QuillComponent, QuillComponentMinimal } from "../../../../components/partials/rich-editor/QuillComponent";
+import React from 'react';
+import Head from '../../../../layout/head/Head';
+import Content from '../../../../layout/content/Content';
+import {
+  QuillComponent,
+  QuillComponentMinimal,
+} from '../../../../components/partials/rich-editor/QuillComponent';
 import {
   Block,
   BlockHead,
@@ -11,37 +14,41 @@ import {
   BackTo,
   PreviewCard,
   CodeBlock,
-} from "../../../../components/Component";
+} from '../../../../components/Component';
 
 const QuillPreview = () => {
   return (
     <React.Fragment>
-      <Head title="Quill" />
-      <Content page="component">
-        <BlockHead size="lg" wide="sm">
+      <Head title='Quill' />
+      <Content page='component'>
+        <BlockHead size='lg' wide='sm'>
           <BlockHeadContent>
-            <BackTo link="/components" icon="arrow-left">
+            <BackTo link='/components' icon='arrow-left'>
               Components
             </BackTo>
-            <BlockTitle tag="h2" className="fw-normal">
+            <BlockTitle tag='h2' className='fw-normal'>
               Quill Editor
             </BlockTitle>
             <BlockDes>
-              <p className="lead">
-                Using the{" "}
-                <a href="https://www.npmjs.com/package/react-quilljs" rel="noreferrer" target="_blank">
+              <p className='lead'>
+                Using the{' '}
+                <a
+                  href='https://www.npmjs.com/package/react-quilljs'
+                  rel='noreferrer'
+                  target='_blank'
+                >
                   React Quilljs
-                </a>{" "}
+                </a>{' '}
                 plugin, you can simply make some awesome rich text editor.
               </p>
             </BlockDes>
           </BlockHeadContent>
         </BlockHead>
 
-        <Block size="lg">
+        <Block size='lg'>
           <BlockHead>
             <BlockHeadContent>
-              <BlockTitle tag="h5">Basic</BlockTitle>
+              <BlockTitle tag='h5'>Basic</BlockTitle>
               <BlockDes>
                 <p>A basic demostration of quilljs rich text editor.</p>
               </BlockDes>
@@ -59,10 +66,10 @@ const QuillPreview = () => {
           </CodeBlock>
         </Block>
 
-        <Block size="lg">
+        <Block size='lg'>
           <BlockHead>
             <BlockHeadContent>
-              <BlockTitle tag="h5">Minimal Editor</BlockTitle>
+              <BlockTitle tag='h5'>Minimal Editor</BlockTitle>
               <p>A minimal demostration of quilljs rich text editor.</p>
             </BlockHeadContent>
           </BlockHead>

@@ -1,9 +1,12 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { createInjectorsEnhancer } from "redux-injectors";
-import createSagaMiddleware from "redux-saga";
-import throttle from "lodash.throttle";
-import { loadState, saveState } from "./localStorage";
-import { createReducer } from "./reducers";
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import { createInjectorsEnhancer } from 'redux-injectors';
+import createSagaMiddleware from 'redux-saga';
+import { loadState, saveState } from './localStorage';
+import throttle from 'lodash.throttle';
+import { createReducer } from './reducers';
+import { loadDocumentCookieState, saveDocumentCookieState } from './cookieHandle';
+
+// const persistedState = loadState();
 
 export function configureAppStore() {
   const reduxSagaMonitorOptions = {};
@@ -22,50 +25,87 @@ export function configureAppStore() {
 
   const store = configureStore({
     reducer: createReducer(),
-    middleware: (getDefaultMiddleware) => [
+    middleware: [
       ...getDefaultMiddleware({
         serializableCheck: {
           // Ignore these field paths in all actions
-          ignoredActionPaths: ["payload.callback", "payload.file", "payload.formData"],
+          ignoredActionPaths: ['payload.callback'],
         },
       }),
       ...middlewares,
     ],
-    /* istanbul ignore next line */
     devTools:
-      process.env.NODE_ENV !== "production" || (process.env.PUBLIC_URL || "").length > 0
-        ? {
-            shouldHotReload: false,
-          }
-        : false,
+      /* istanbul ignore next line */
+      process.env.NODE_ENV !== 'production' || process.env.PUBLIC_URL.length > 0,
     enhancers,
     // preloadedState: persistedState
   });
 
   store.subscribe(
     throttle(() => {
-      const persistedStateCache = loadState();
-      const state = store.getState();
+      const persistedStateCache = loadState() || {};
+      const persistedSessionData = persistedStateCache?.session?.data;
+      const currentStore = store.getState() || {};
+      const { session, theme, device } = currentStore;
+      const storeAuth = session?.data.auth;
+      const loadData = (key) => ({
+        data: { ...(currentStore[key] ? currentStore[key]?.data : persistedStateCache[key]?.data) },
+      });
+      const sharedCookie = loadDocumentCookieState();
+      const cookieAuth = sharedCookie?.auth;
+      let sessionCache = {};
+      if (!persistedSessionData?.auth?.rememberMe) {
+        if (storeAuth && Object.keys(storeAuth || {}).length > 0) {
+          if (!storeAuth.isLogout) {
+            sessionCache = {
+              auth: {
+                ...storeAuth,
+              },
+            };
+          } else {
+            sessionCache = {
+              auth: {},
+            };
+          }
+        } else {
+          // handle refresh not clear and restore
+          sessionCache = {
+            auth: {
+              ...cookieAuth,
+            },
+          };
+        }
+      } else {
+        sessionCache = {
+          auth: {},
+        };
+      }
+
+      // saveSessionStorage(sessionCache);
+      saveDocumentCookieState(sessionCache);
 
       saveState({
-        system: {
+        checkout: loadData('checkout'),
+        product: loadData('product'),
+        theme: {
+          ...theme,
+        },
+        // order: loadData('order'),
+        session: {
           data: {
-            cache: {
-              ...(state.system && state.system?.data && state.system?.data?.cache
-                ? state.system.data.cache
-                : persistedStateCache?.system?.data?.cache),
-            },
+            ...(session
+              ? {
+                  ...session.data,
+                  auth: {
+                    ...(storeAuth?.rememberMe ? storeAuth : {}),
+                  },
+                }
+              : persistedSessionData),
           },
         },
-        qrScan: {
-          data: {
-            ...(state.qrScan && state.qrScan?.data ? state.qrScan.data : persistedStateCache?.qrScan?.data),
-          },
-        },
-        profile: {
-          data: {
-            ...(state.profile && state.profile?.data ? state.profile.data : persistedStateCache?.profile?.data),
-          },
+        config: loadData('config'),
+        device: {
+          ...device,
         },
       });
     }, 1000)

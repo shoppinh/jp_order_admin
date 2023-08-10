@@ -1,20 +1,20 @@
-import React, { useState } from "react";
-import DatePicker from "react-datepicker";
-import Select from "react-select";
-import { ModalBody,  Col } from "reactstrap";
-import { Icon, Button, RSelect } from "../../../components/Component";
-import { getDateStructured } from "../../../utils/Utils";
-import { useForm } from "react-hook-form";
-import { ColorOptions } from "../../../components/partials/color-select-menu/ColorMenu";
-import { tagSet, teamList, themes } from "./KanbanData";
+import React, { useState } from 'react';
+import DatePicker from 'react-datepicker';
+import Select from 'react-select';
+import { ModalBody, Col } from 'reactstrap';
+import { Icon, Button, RSelect } from '../../../components/Component';
+import { getDateStructured } from '../../../utils/Utils';
+import { useForm } from 'react-hook-form';
+import { ColorOptions } from '../../../components/partials/color-select-menu/ColorMenu';
+import { tagSet, teamList, themes } from './KanbanData';
 
 export const KanbanTaskForm = ({ toggle, data, setData, taskToBoard, editTask }) => {
   const [formData, setFormData] = useState({
-    title: editTask ? editTask.title : "",
-    desc: editTask ? editTask.desc : "",
-    category: editTask ? editTask.meta.category : "",
+    title: editTask ? editTask.title : '',
+    desc: editTask ? editTask.desc : '',
+    category: editTask ? editTask.meta.category : '',
     date: new Date(),
-    due: "",
+    due: '',
     board: null,
     tags: editTask ? editTask.meta.tags : [tagSet[0]],
     users: editTask ? editTask.meta.users : [teamList[0]],
@@ -34,7 +34,11 @@ export const KanbanTaskForm = ({ toggle, data, setData, taskToBoard, editTask })
   });
 
   const submitForm = (returnVal) => {
-    let board = taskToBoard ? taskToBoard : formData.board === null ? boardOptions[0] : formData.board;
+    let board = taskToBoard
+      ? taskToBoard
+      : formData.board === null
+      ? boardOptions[0]
+      : formData.board;
     if (editTask) {
       let defaultTask = {
         task: {
@@ -81,7 +85,11 @@ export const KanbanTaskForm = ({ toggle, data, setData, taskToBoard, editTask })
         },
       };
 
-      setData({ columnOrder: data.columnOrder, task: defaultTask.task, columns: defaultColumns.columns });
+      setData({
+        columnOrder: data.columnOrder,
+        task: defaultTask.task,
+        columns: defaultColumns.columns,
+      });
     }
 
     toggle();
@@ -98,29 +106,33 @@ export const KanbanTaskForm = ({ toggle, data, setData, taskToBoard, editTask })
     setData({ ...defaultData });
   };
 
-  const {  register, handleSubmit, formState: { errors } } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   return (
     <ModalBody>
       <a
-        href="#cancel"
+        href='#cancel'
         onClick={(ev) => {
           ev.preventDefault();
           toggle();
         }}
-        className="close"
+        className='close'
       >
-        <Icon name="cross-sm"></Icon>
+        <Icon name='cross-sm'></Icon>
       </a>
-      <div className="p-2">
-        <h5 className="title">{editTask ? "Update" : "Add"} Task</h5>
-        <div className="mt-4">
-          <form className="row gy-4" onSubmit={handleSubmit(submitForm)}>
-            <Col sm="6">
-              <div className="form-group">
-                <label className="form-label">Task Title</label>
+      <div className='p-2'>
+        <h5 className='title'>{editTask ? 'Update' : 'Add'} Task</h5>
+        <div className='mt-4'>
+          <form className='row gy-4' onSubmit={handleSubmit(submitForm)}>
+            <Col sm='6'>
+              <div className='form-group'>
+                <label className='form-label'>Task Title</label>
                 <input
-                  type="text"
-                  {...register('title', { required: "This field is required" })}
+                  type='text'
+                  {...register('title', { required: 'This field is required' })}
                   value={formData.title}
                   onChange={(e) =>
                     setFormData({
@@ -128,29 +140,34 @@ export const KanbanTaskForm = ({ toggle, data, setData, taskToBoard, editTask })
                       title: e.target.value,
                     })
                   }
-                  className="form-control" />
-                {errors.title && <span className="invalid">{errors.title.message}</span>}
+                  className='form-control'
+                />
+                {errors.title && <span className='invalid'>{errors.title.message}</span>}
               </div>
             </Col>
-            <Col sm="6">
-              <div className="form-group">
-                <label className="form-label">Select Board</label>
+            <Col sm='6'>
+              <div className='form-group'>
+                <label className='form-label'>Select Board</label>
                 <RSelect
-                  defaultValue={taskToBoard ? boardOptions.find((item) => item.id === taskToBoard.id) : boardOptions[0]}
+                  defaultValue={
+                    taskToBoard
+                      ? boardOptions.find((item) => item.id === taskToBoard.id)
+                      : boardOptions[0]
+                  }
                   isDisabled={taskToBoard ? true : false}
                   options={boardOptions}
-                  placeholder="Select a board"
+                  placeholder='Select a board'
                   onChange={(e) => {
                     setFormData({ ...formData, board: e });
                   }}
                 />
               </div>
             </Col>
-            <Col className="col-12">
-              <div className="form-group">
-                <label className="form-label">Task Description</label>
+            <Col className='col-12'>
+              <div className='form-group'>
+                <label className='form-label'>Task Description</label>
                 <textarea
-                  {...register('desc', { required: "This field is required" })}
+                  {...register('desc', { required: 'This field is required' })}
                   value={formData.desc}
                   onChange={(e) =>
                     setFormData({
@@ -158,16 +175,17 @@ export const KanbanTaskForm = ({ toggle, data, setData, taskToBoard, editTask })
                       desc: e.target.value,
                     })
                   }
-                  className="form-control no-resize" />
-                {errors.desc && <span className="invalid">{errors.desc.message}</span>}
+                  className='form-control no-resize'
+                />
+                {errors.desc && <span className='invalid'>{errors.desc.message}</span>}
               </div>
             </Col>
-            <Col sm="6">
-              <div className="form-group">
-                <label className="form-label">Task Category</label>
+            <Col sm='6'>
+              <div className='form-group'>
+                <label className='form-label'>Task Category</label>
                 <input
-                  type="text"
-                  {...register('category', { required: "This field is required" })}
+                  type='text'
+                  {...register('category', { required: 'This field is required' })}
                   value={formData.category}
                   onChange={(e) =>
                     setFormData({
@@ -175,23 +193,24 @@ export const KanbanTaskForm = ({ toggle, data, setData, taskToBoard, editTask })
                       category: e.target.value,
                     })
                   }
-                  className="form-control" />
-                {errors.category && <span className="invalid">{errors.category.message}</span>}
+                  className='form-control'
+                />
+                {errors.category && <span className='invalid'>{errors.category.message}</span>}
               </div>
             </Col>
-            <Col sm="6">
-              <div className="form-group">
-                <label className="form-label">Date</label>
+            <Col sm='6'>
+              <div className='form-group'>
+                <label className='form-label'>Date</label>
                 <DatePicker
                   selected={formData.date}
                   onChange={(date) => setFormData({ ...formData, date: date })}
-                  className="form-control date-picker"
+                  className='form-control date-picker'
                 />
               </div>
             </Col>
-            <Col sm="6">
-              <div className="form-group">
-                <label className="form-label">Task Tags</label>
+            <Col sm='6'>
+              <div className='form-group'>
+                <label className='form-label'>Task Tags</label>
                 <RSelect
                   options={tagSet}
                   isMulti
@@ -200,9 +219,9 @@ export const KanbanTaskForm = ({ toggle, data, setData, taskToBoard, editTask })
                 />
               </div>
             </Col>
-            <Col sm="6">
-              <div className="form-group">
-                <label className="form-label">Users Assigned</label>
+            <Col sm='6'>
+              <div className='form-group'>
+                <label className='form-label'>Users Assigned</label>
                 <RSelect
                   options={teamList}
                   isMulti
@@ -211,12 +230,12 @@ export const KanbanTaskForm = ({ toggle, data, setData, taskToBoard, editTask })
                 />
               </div>
             </Col>
-            <Col className="col-12">
-              <ul className="d-flex justify-content-between mt-3">
-                <ul className="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
+            <Col className='col-12'>
+              <ul className='d-flex justify-content-between mt-3'>
+                <ul className='align-center flex-wrap flex-sm-nowrap gx-4 gy-2'>
                   <li>
-                    <Button color="primary" size="md" type="submit">
-                      {editTask ? "Update" : "Add"} Task
+                    <Button color='primary' size='md' type='submit'>
+                      {editTask ? 'Update' : 'Add'} Task
                     </Button>
                   </li>
                   <li>
@@ -225,7 +244,7 @@ export const KanbanTaskForm = ({ toggle, data, setData, taskToBoard, editTask })
                         ev.preventDefault();
                         toggle();
                       }}
-                      className="link link-light"
+                      className='link link-light'
                     >
                       Cancel
                     </Button>
@@ -234,7 +253,7 @@ export const KanbanTaskForm = ({ toggle, data, setData, taskToBoard, editTask })
                 {editTask && (
                   <ul>
                     <li>
-                      <Button color="danger" size="md" onClick={() => deleteTask()}>
+                      <Button color='danger' size='md' onClick={() => deleteTask()}>
                         Delete Task
                       </Button>
                     </li>
@@ -251,7 +270,7 @@ export const KanbanTaskForm = ({ toggle, data, setData, taskToBoard, editTask })
 
 export const KanbanBoardForm = ({ toggle, data, setData, editBoard }) => {
   const [formData, setFormData] = useState({
-    title: editBoard ? editBoard.text : "",
+    title: editBoard ? editBoard.text : '',
     color: editBoard ? themes.find((item) => item.value === editBoard.theme) : themes[0],
   });
 
@@ -263,7 +282,7 @@ export const KanbanBoardForm = ({ toggle, data, setData, editBoard }) => {
           ...data.columns,
           [editBoard.id]: {
             id: editBoard.id,
-            text: formData.title === "" ? editBoard.text : returnVal.title,
+            text: formData.title === '' ? editBoard.text : returnVal.title,
             theme: formData.color.value,
             tasks: editBoard.tasks,
           },
@@ -275,8 +294,8 @@ export const KanbanBoardForm = ({ toggle, data, setData, editBoard }) => {
         ...data,
         columns: {
           ...data.columns,
-          ["column-" + returnVal.title]: {
-            id: "column-" + returnVal.title,
+          ['column-' + returnVal.title]: {
+            id: 'column-' + returnVal.title,
             text: returnVal.title,
             theme: formData.color.value,
             tasks: [],
@@ -285,35 +304,39 @@ export const KanbanBoardForm = ({ toggle, data, setData, editBoard }) => {
         columnOrder: [...data.columnOrder, `column-${returnVal.title}`],
       };
       setData(defaultVal);
-      let container = document.getElementById("kanban-container");
+      let container = document.getElementById('kanban-container');
       container.scrollTo(container.offsetWidth, 0);
     }
     toggle();
   };
 
-  const {  register, handleSubmit, formState: { errors } } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   return (
     <ModalBody>
       <a
-        href="#cancel"
+        href='#cancel'
         onClick={(ev) => {
           ev.preventDefault();
           toggle();
         }}
-        className="close"
+        className='close'
       >
-        <Icon name="cross-sm"></Icon>
+        <Icon name='cross-sm'></Icon>
       </a>
-      <div className="p-2">
-        <h5 className="title">{editBoard ? "Update" : "Add"} Board</h5>
-        <div className="mt-4">
-          <form className="row gy-4" onSubmit={handleSubmit(submitForm)}>
-            <Col className="col-12">
-              <div className="form-group">
-                <label className="form-label">Board Title</label>
+      <div className='p-2'>
+        <h5 className='title'>{editBoard ? 'Update' : 'Add'} Board</h5>
+        <div className='mt-4'>
+          <form className='row gy-4' onSubmit={handleSubmit(submitForm)}>
+            <Col className='col-12'>
+              <div className='form-group'>
+                <label className='form-label'>Board Title</label>
                 <input
-                  type="text"
-                  {...register('title', { required: "This field is required" })}
+                  type='text'
+                  {...register('title', { required: 'This field is required' })}
                   value={formData.title}
                   onChange={(e) =>
                     setFormData({
@@ -321,17 +344,18 @@ export const KanbanBoardForm = ({ toggle, data, setData, editBoard }) => {
                       title: e.target.value,
                     })
                   }
-                  className="form-control" />
-                {errors.title && <span className="invalid">{errors.title.message}</span>}
+                  className='form-control'
+                />
+                {errors.title && <span className='invalid'>{errors.title.message}</span>}
               </div>
             </Col>
-            <Col className="col-12">
-              <div className="form-group">
-                <label className="form-label">Select Color</label>
-                <div className="form-control-select">
+            <Col className='col-12'>
+              <div className='form-group'>
+                <label className='form-label'>Select Color</label>
+                <div className='form-control-select'>
                   <Select
-                    className="react-select-container"
-                    classNamePrefix="react-select"
+                    className='react-select-container'
+                    classNamePrefix='react-select'
                     formatOptionLabel={ColorOptions}
                     defaultValue={formData.color}
                     options={themes}
@@ -342,11 +366,11 @@ export const KanbanBoardForm = ({ toggle, data, setData, editBoard }) => {
                 </div>
               </div>
             </Col>
-            <Col className="col-12">
-              <ul className="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
+            <Col className='col-12'>
+              <ul className='align-center flex-wrap flex-sm-nowrap gx-4 gy-2'>
                 <li>
-                  <Button color="primary" size="md" type="submit">
-                    {editBoard ? "Update" : "Add"} Board
+                  <Button color='primary' size='md' type='submit'>
+                    {editBoard ? 'Update' : 'Add'} Board
                   </Button>
                 </li>
                 <li>
@@ -355,7 +379,7 @@ export const KanbanBoardForm = ({ toggle, data, setData, editBoard }) => {
                       ev.preventDefault();
                       toggle();
                     }}
-                    className="link link-light"
+                    className='link link-light'
                   >
                     Cancel
                   </Button>

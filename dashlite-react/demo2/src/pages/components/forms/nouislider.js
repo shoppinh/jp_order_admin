@@ -1,6 +1,6 @@
-import React from "react";
-import Head from "../../../layout/head/Head";
-import Content from "../../../layout/content/Content";
+import React from 'react';
+import Head from '../../../layout/head/Head';
+import Content from '../../../layout/content/Content';
 import {
   Block,
   BlockHead,
@@ -11,52 +11,57 @@ import {
   PreviewCard,
   CodeBlock,
   PreviewTable,
-} from "../../../components/Component";
-import Nouislider from "nouislider-react";
-import { Row, Col } from "reactstrap";
+} from '../../../components/Component';
+import Nouislider from 'nouislider-react';
+import { Row, Col } from 'reactstrap';
 
 const NouiSlider = () => {
   return (
     <React.Fragment>
-      <Head title="noUiSlider" />
-      <Content page="component">
-        <BlockHead size="lg" wide="sm">
+      <Head title='noUiSlider' />
+      <Content page='component'>
+        <BlockHead size='lg' wide='sm'>
           <BlockHeadContent>
-            <BackTo link="/components" icon="arrow-left">
+            <BackTo link='/components' icon='arrow-left'>
               Components
             </BackTo>
-            <BlockTitle tag="h2" className="fw-normal">
+            <BlockTitle tag='h2' className='fw-normal'>
               noUislider - React
             </BlockTitle>
             <BlockDes>
-              <p className="lead">
-                Examples and usage guidelines for range sliders with{" "}
-                <a href="https://www.npmjs.com/package/nouislider-react/" target="_blank" rel="noreferrer">
+              <p className='lead'>
+                Examples and usage guidelines for range sliders with{' '}
+                <a
+                  href='https://www.npmjs.com/package/nouislider-react/'
+                  target='_blank'
+                  rel='noreferrer'
+                >
                   noUislider
-                </a>{" "}
+                </a>{' '}
                 package. All the props referrence are in that page.
               </p>
             </BlockDes>
           </BlockHeadContent>
         </BlockHead>
 
-        <Block size="lg">
+        <Block size='lg'>
           <BlockHead>
             <BlockHeadContent>
-              <BlockTitle tag="h5">Basic Configuration</BlockTitle>
+              <BlockTitle tag='h5'>Basic Configuration</BlockTitle>
               <p>
-                For slider use <code>{`<Nouislider/>`}</code> component from <code>{`nouislider-react`}</code>.
+                For slider use <code>{`<Nouislider/>`}</code> component from{' '}
+                <code>{`nouislider-react`}</code>.
               </p>
             </BlockHeadContent>
           </BlockHead>
           <PreviewCard>
-            <Row className="gy-4">
-              <Col sm="6">
-                <div className="form-group">
-                  <label className="form-label">Default Range Slider</label>
-                  <div className="form-control-wrap">
+            <Row className='gy-4'>
+              <Col sm='6'>
+                <div className='form-group'>
+                  <label className='form-label'>Default Range Slider</label>
+                  <div className='form-control-wrap'>
                     <Nouislider
-                      className="form-range-slider"
+                      className='form-range-slider'
                       accessibility
                       connect={[true, false]}
                       start={10}
@@ -68,12 +73,12 @@ const NouiSlider = () => {
                   </div>
                 </div>
               </Col>
-              <Col sm="6">
-                <div className="form-group">
-                  <label className="form-label">Range Connect Upper</label>
-                  <div className="form-control-wrap">
+              <Col sm='6'>
+                <div className='form-group'>
+                  <label className='form-label'>Range Connect Upper</label>
+                  <div className='form-control-wrap'>
                     <Nouislider
-                      className="form-range-slider"
+                      className='form-range-slider'
                       accessibility
                       connect={[false, true]}
                       start={10}
@@ -85,12 +90,12 @@ const NouiSlider = () => {
                   </div>
                 </div>
               </Col>
-              <Col sm="6">
-                <div className="form-group">
-                  <label className="form-label">Range Slider Step (10)</label>
-                  <div className="form-control-wrap">
+              <Col sm='6'>
+                <div className='form-group'>
+                  <label className='form-label'>Range Slider Step (10)</label>
+                  <div className='form-control-wrap'>
                     <Nouislider
-                      className="form-range-slider"
+                      className='form-range-slider'
                       accessibility
                       connect={[true, false]}
                       start={10}
@@ -103,12 +108,12 @@ const NouiSlider = () => {
                   </div>
                 </div>
               </Col>
-              <Col sm="6">
-                <div className="form-group">
-                  <label className="form-label">Range Multiple Slider</label>
-                  <div className="form-control-wrap">
+              <Col sm='6'>
+                <div className='form-group'>
+                  <label className='form-label'>Range Multiple Slider</label>
+                  <div className='form-control-wrap'>
                     <Nouislider
-                      className="form-range-slider"
+                      className='form-range-slider'
                       accessibility
                       connect={true}
                       start={[10, 50]}
@@ -140,24 +145,25 @@ const NouiSlider = () => {
           </CodeBlock>
         </Block>
 
-        <Block size="lg">
+        <Block size='lg'>
           <BlockHead>
             <BlockHeadContent>
-              <BlockTitle tag="h5">Vertical Slider</BlockTitle>
+              <BlockTitle tag='h5'>Vertical Slider</BlockTitle>
               <p>
-                For vertical slider, just add <code>orientation</code> props to <code>"vertical"</code>
+                For vertical slider, just add <code>orientation</code> props to{' '}
+                <code>"vertical"</code>
               </p>
             </BlockHeadContent>
           </BlockHead>
           <PreviewCard>
-            <Row className="gy-4">
-              <Col sm="3" className="col-6">
-                <div className="form-group">
-                  <label className="form-label">Default Range Slider</label>
-                  <div className="form-control-wrap">
+            <Row className='gy-4'>
+              <Col sm='3' className='col-6'>
+                <div className='form-group'>
+                  <label className='form-label'>Default Range Slider</label>
+                  <div className='form-control-wrap'>
                     <Nouislider
-                      className="form-range-slider"
-                      orientation="vertical"
+                      className='form-range-slider'
+                      orientation='vertical'
                       accessibility
                       connect={[true, false]}
                       start={10}
@@ -169,13 +175,13 @@ const NouiSlider = () => {
                   </div>
                 </div>
               </Col>
-              <Col sm="3" className="col-6">
-                <div className="form-group">
-                  <label className="form-label">Range Connect Upper</label>
-                  <div className="form-control-wrap">
+              <Col sm='3' className='col-6'>
+                <div className='form-group'>
+                  <label className='form-label'>Range Connect Upper</label>
+                  <div className='form-control-wrap'>
                     <Nouislider
-                      className="form-range-slider"
-                      orientation="vertical"
+                      className='form-range-slider'
+                      orientation='vertical'
                       accessibility
                       connect={[false, true]}
                       start={10}
@@ -187,13 +193,13 @@ const NouiSlider = () => {
                   </div>
                 </div>
               </Col>
-              <Col sm="3" className="col-6">
-                <div className="form-group">
-                  <label className="form-label">Range Slider Step (10)</label>
-                  <div className="form-control-wrap">
+              <Col sm='3' className='col-6'>
+                <div className='form-group'>
+                  <label className='form-label'>Range Slider Step (10)</label>
+                  <div className='form-control-wrap'>
                     <Nouislider
-                      className="form-range-slider"
-                      orientation="vertical"
+                      className='form-range-slider'
+                      orientation='vertical'
                       accessibility
                       connect={[true, false]}
                       start={10}
@@ -206,13 +212,13 @@ const NouiSlider = () => {
                   </div>
                 </div>
               </Col>
-              <Col sm="3" className="col-6">
-                <div className="form-group">
-                  <label className="form-label">Range Multiple Slider</label>
-                  <div className="form-control-wrap">
+              <Col sm='3' className='col-6'>
+                <div className='form-group'>
+                  <label className='form-label'>Range Multiple Slider</label>
+                  <div className='form-control-wrap'>
                     <Nouislider
-                      className="form-range-slider"
-                      orientation="vertical"
+                      className='form-range-slider'
+                      orientation='vertical'
                       accessibility
                       connect={true}
                       start={[10, 50]}
@@ -245,20 +251,20 @@ const NouiSlider = () => {
           </CodeBlock>
         </Block>
 
-        <Block size="lg">
+        <Block size='lg'>
           <BlockHead>
             <BlockHeadContent>
-              <BlockTitle tag="h5">Advanced Configuration</BlockTitle>
+              <BlockTitle tag='h5'>Advanced Configuration</BlockTitle>
             </BlockHeadContent>
           </BlockHead>
           <PreviewCard>
-            <Row className="g-4">
-              <Col sm="6">
-                <div className="form-group">
-                  <label className="form-label">Tooltip Slider</label>
-                  <div className="form-control-wrap">
+            <Row className='g-4'>
+              <Col sm='6'>
+                <div className='form-group'>
+                  <label className='form-label'>Tooltip Slider</label>
+                  <div className='form-control-wrap'>
                     <Nouislider
-                      className="form-range-slider"
+                      className='form-range-slider'
                       accessibility
                       tooltips={true}
                       connect={[true, false]}
@@ -271,12 +277,12 @@ const NouiSlider = () => {
                   </div>
                 </div>
               </Col>
-              <Col sm="6">
-                <div className="form-group">
-                  <label className="form-label">Maximum Distance Slider</label>
-                  <div className="form-control-wrap">
+              <Col sm='6'>
+                <div className='form-group'>
+                  <label className='form-label'>Maximum Distance Slider</label>
+                  <div className='form-control-wrap'>
                     <Nouislider
-                      className="form-range-slider"
+                      className='form-range-slider'
                       accessibility
                       tooltips={true}
                       connect={true}
@@ -290,12 +296,12 @@ const NouiSlider = () => {
                   </div>
                 </div>
               </Col>
-              <Col sm="6">
-                <div className="form-group">
-                  <label className="form-label">Minimum Distance Slider</label>
-                  <div className="form-control-wrap">
+              <Col sm='6'>
+                <div className='form-group'>
+                  <label className='form-label'>Minimum Distance Slider</label>
+                  <div className='form-control-wrap'>
                     <Nouislider
-                      className="form-range-slider"
+                      className='form-range-slider'
                       accessibility
                       tooltips={true}
                       connect={true}
@@ -313,10 +319,10 @@ const NouiSlider = () => {
           </PreviewCard>
 
           <PreviewTable>
-            <thead className="table-light">
+            <thead className='table-light'>
               <tr>
-                <th className="overline-title w-300px">Props Reference</th>
-                <th className="overline-title">Details</th>
+                <th className='overline-title w-300px'>Props Reference</th>
+                <th className='overline-title'>Details</th>
               </tr>
             </thead>
             <tbody>
@@ -325,8 +331,8 @@ const NouiSlider = () => {
                   <code>limit={`{number}`}</code>
                 </td>
                 <td>
-                  Use <code>{`{number}`}</code> with <code>limit</code> props to specify the minimum limit in between
-                  the sliders.
+                  Use <code>{`{number}`}</code> with <code>limit</code> props to specify the minimum
+                  limit in between the sliders.
                 </td>
               </tr>
               <tr>
@@ -334,8 +340,8 @@ const NouiSlider = () => {
                   <code>margin={`{number}`}</code>
                 </td>
                 <td>
-                  Use <code>{`{number}`}</code> with <code>margin</code> props to specify the maximum limit in between
-                  the sliders.
+                  Use <code>{`{number}`}</code> with <code>margin</code> props to specify the
+                  maximum limit in between the sliders.
                 </td>
               </tr>
               <tr>
@@ -343,8 +349,8 @@ const NouiSlider = () => {
                   <code>step={`{number}`}</code>
                 </td>
                 <td>
-                  Use <code>{`{number}`}</code> with <code>step</code> props to specify the number with which to
-                  increament or decreament.
+                  Use <code>{`{number}`}</code> with <code>step</code> props to specify the number
+                  with which to increament or decreament.
                 </td>
               </tr>
               <tr>
@@ -352,7 +358,8 @@ const NouiSlider = () => {
                   <code>tooltip={`{boolean}`}</code>
                 </td>
                 <td>
-                  Use <code>{`{boolean}`}</code> with <code>tooltip</code> props to specify if tooltip is required.
+                  Use <code>{`{boolean}`}</code> with <code>tooltip</code> props to specify if
+                  tooltip is required.
                 </td>
               </tr>
             </tbody>

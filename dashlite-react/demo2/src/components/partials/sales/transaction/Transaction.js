@@ -1,19 +1,31 @@
-import React, { useEffect, useState } from "react";
-import { transactionData } from "./TransactionData";
-import { CardTitle, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, Badge } from "reactstrap";
-import Icon from "../../../icon/Icon";
-import UserAvatar from "../../../user/UserAvatar";
-import { DataTableBody, DataTableHead, DataTableItem, DataTableRow } from "../../../table/DataTable";
+import React, { useEffect, useState } from 'react';
+import { transactionData } from './TransactionData';
+import {
+  CardTitle,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+  Badge,
+} from 'reactstrap';
+import Icon from '../../../icon/Icon';
+import UserAvatar from '../../../user/UserAvatar';
+import {
+  DataTableBody,
+  DataTableHead,
+  DataTableItem,
+  DataTableRow,
+} from '../../../table/DataTable';
 
 const TransactionTable = () => {
   const [data, setData] = useState(transactionData);
-  const [trans, setTrans] = useState("");
+  const [trans, setTrans] = useState('');
   useEffect(() => {
     let filteredData;
-    if (trans === "Due") {
-      filteredData = transactionData.filter((item) => item.status === "Due");
-    } else if (trans === "Paid") {
-      filteredData = transactionData.filter((item) => item.status === "Paid");
+    if (trans === 'Due') {
+      filteredData = transactionData.filter((item) => item.status === 'Due');
+    } else if (trans === 'Paid') {
+      filteredData = transactionData.filter((item) => item.status === 'Paid');
     } else {
       filteredData = transactionData;
     }
@@ -23,15 +35,15 @@ const TransactionTable = () => {
   const DropdownTrans = () => {
     return (
       <UncontrolledDropdown>
-        <DropdownToggle tag="a" className="text-soft dropdown-toggle btn btn-icon btn-trigger">
-          <Icon name="more-h"></Icon>
+        <DropdownToggle tag='a' className='text-soft dropdown-toggle btn btn-icon btn-trigger'>
+          <Icon name='more-h'></Icon>
         </DropdownToggle>
         <DropdownMenu end>
-          <ul className="link-list-plain">
+          <ul className='link-list-plain'>
             <li>
               <DropdownItem
-                tag="a"
-                href="#view"
+                tag='a'
+                href='#view'
                 onClick={(ev) => {
                   ev.preventDefault();
                 }}
@@ -41,8 +53,8 @@ const TransactionTable = () => {
             </li>
             <li>
               <DropdownItem
-                tag="a"
-                href="#invoice"
+                tag='a'
+                href='#invoice'
                 onClick={(ev) => {
                   ev.preventDefault();
                 }}
@@ -52,8 +64,8 @@ const TransactionTable = () => {
             </li>
             <li>
               <DropdownItem
-                tag="a"
-                href="#print"
+                tag='a'
+                href='#print'
                 onClick={(ev) => {
                   ev.preventDefault();
                 }}
@@ -68,27 +80,27 @@ const TransactionTable = () => {
   };
   return (
     <React.Fragment>
-      <div className="card-inner">
-        <div className="card-title-group">
+      <div className='card-inner'>
+        <div className='card-title-group'>
           <CardTitle>
-            <h6 className="title">
-              <span className="me-2">Transaction</span>{" "}
+            <h6 className='title'>
+              <span className='me-2'>Transaction</span>{' '}
               <a
-                href="#history"
+                href='#history'
                 onClick={(ev) => {
                   ev.preventDefault();
                 }}
-                className="link d-none d-sm-inline"
+                className='link d-none d-sm-inline'
               >
                 See History
               </a>
             </h6>
           </CardTitle>
-          <div className="card-tools">
-            <ul className="card-tools-nav">
-              <li className={trans === "Paid" ? "active" : ""} onClick={() => setTrans("Paid")}>
+          <div className='card-tools'>
+            <ul className='card-tools-nav'>
+              <li className={trans === 'Paid' ? 'active' : ''} onClick={() => setTrans('Paid')}>
                 <a
-                  href="#paid"
+                  href='#paid'
                   onClick={(ev) => {
                     ev.preventDefault();
                   }}
@@ -96,9 +108,9 @@ const TransactionTable = () => {
                   <span>Paid</span>
                 </a>
               </li>
-              <li className={trans === "Due" ? "active" : ""} onClick={() => setTrans("Due")}>
+              <li className={trans === 'Due' ? 'active' : ''} onClick={() => setTrans('Due')}>
                 <a
-                  href="#pending"
+                  href='#pending'
                   onClick={(ev) => {
                     ev.preventDefault();
                   }}
@@ -106,9 +118,9 @@ const TransactionTable = () => {
                   <span>Pending</span>
                 </a>
               </li>
-              <li className={trans === "" ? "active" : ""} onClick={() => setTrans("")}>
+              <li className={trans === '' ? 'active' : ''} onClick={() => setTrans('')}>
                 <a
-                  href="#all"
+                  href='#all'
                   onClick={(ev) => {
                     ev.preventDefault();
                   }}
@@ -120,25 +132,25 @@ const TransactionTable = () => {
           </div>
         </div>
       </div>
-      <DataTableBody className="border-top" bodyclass="nk-tb-orders">
+      <DataTableBody className='border-top' bodyclass='nk-tb-orders'>
         <DataTableHead>
           <DataTableRow>
             <span>Order No.</span>
           </DataTableRow>
-          <DataTableRow size="sm">
+          <DataTableRow size='sm'>
             <span>Customer</span>
           </DataTableRow>
-          <DataTableRow size="md">
+          <DataTableRow size='md'>
             <span>Date</span>
           </DataTableRow>
-          <DataTableRow size="lg">
+          <DataTableRow size='lg'>
             <span>Ref</span>
           </DataTableRow>
           <DataTableRow>
             <span>Amount</span>
           </DataTableRow>
           <DataTableRow>
-            <span className="d-none d-sm-inline">Status</span>
+            <span className='d-none d-sm-inline'>Status</span>
           </DataTableRow>
           <DataTableRow>
             <span>&nbsp;</span>
@@ -148,40 +160,49 @@ const TransactionTable = () => {
           return (
             <DataTableItem key={idx}>
               <DataTableRow>
-                <span className="tb-lead">
-                  <a href="#order">{item.order}</a>
+                <span className='tb-lead'>
+                  <a href='#order'>{item.order}</a>
                 </span>
               </DataTableRow>
-              <DataTableRow size="sm">
-                <div className="user-card">
-                  <UserAvatar size="sm" theme={item.theme} text={item.initial} image={item.img}></UserAvatar>
-                  <div className="user-name">
-                    <span className="tb-lead">{item.name}</span>
+              <DataTableRow size='sm'>
+                <div className='user-card'>
+                  <UserAvatar
+                    size='sm'
+                    theme={item.theme}
+                    text={item.initial}
+                    image={item.img}
+                  ></UserAvatar>
+                  <div className='user-name'>
+                    <span className='tb-lead'>{item.name}</span>
                   </div>
                 </div>
               </DataTableRow>
-              <DataTableRow size="md">
-                <span className="tb-sub">{item.date}</span>
+              <DataTableRow size='md'>
+                <span className='tb-sub'>{item.date}</span>
               </DataTableRow>
-              <DataTableRow size="lg">
-                <span className="tb-sub text-primary">{item.ref}</span>
+              <DataTableRow size='lg'>
+                <span className='tb-sub text-primary'>{item.ref}</span>
               </DataTableRow>
               <DataTableRow>
-                <span className="tb-sub tb-amount">
+                <span className='tb-sub tb-amount'>
                   {item.amount} <span>USD</span>
                 </span>
               </DataTableRow>
               <DataTableRow>
                 <Badge
-                  className="badge-dot badge-dot-xs"
+                  className='badge-dot badge-dot-xs'
                   color={
-                    item.status === "Paid" ? "success" : item.status === "Due" ? "warning" : "danger"
+                    item.status === 'Paid'
+                      ? 'success'
+                      : item.status === 'Due'
+                      ? 'warning'
+                      : 'danger'
                   }
                 >
                   {item.status}
                 </Badge>
               </DataTableRow>
-              <DataTableRow className="nk-tb-col-action">
+              <DataTableRow className='nk-tb-col-action'>
                 <DropdownTrans />
               </DataTableRow>
             </DataTableItem>

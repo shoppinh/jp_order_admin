@@ -1,10 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
-import {
-  DropdownMenu,
-  DropdownToggle,
-  UncontrolledDropdown,
-  DropdownItem,
-} from "reactstrap";
+import React, { useContext, useEffect, useState } from 'react';
+import { DropdownMenu, DropdownToggle, UncontrolledDropdown, DropdownItem } from 'reactstrap';
 import {
   Block,
   BlockBetween,
@@ -25,15 +20,15 @@ import {
   DataTableItem,
   TooltipComponent,
   RSelect,
-} from "../../../components/Component";
-import Content from "../../../layout/content/Content";
-import Head from "../../../layout/head/Head";
-import { filterRole, filterStatus, userData } from "./UserData";
-import { bulkActionOptions, findUpper } from "../../../utils/Utils";
-import { Link } from "react-router-dom";
-import { UserContext } from "./UserContext";
-import EditModal from "./EditModal";
-import AddModal from "./AddModal";
+} from '../../../components/Component';
+import Content from '../../../layout/content/Content';
+import Head from '../../../layout/head/Head';
+import { filterRole, filterStatus, userData } from './UserData';
+import { bulkActionOptions, findUpper } from '../../../utils/Utils';
+import { Link } from 'react-router-dom';
+import { UserContext } from './UserContext';
+import EditModal from './EditModal';
+import AddModal from './AddModal';
 
 const UserListRegularPage = () => {
   const { contextData } = useContext(UserContext);
@@ -42,38 +37,38 @@ const UserListRegularPage = () => {
   const [sm, updateSm] = useState(false);
   const [tablesm, updateTableSm] = useState(false);
   const [onSearch, setonSearch] = useState(true);
-  const [onSearchText, setSearchText] = useState("");
+  const [onSearchText, setSearchText] = useState('');
   const [modal, setModal] = useState({
     edit: false,
     add: false,
   });
   const [editId, setEditedId] = useState();
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
+    name: '',
+    email: '',
     balance: 0,
-    phone: "",
-    status: "Active",
+    phone: '',
+    status: 'Active',
   });
   const [editFormData, setEditFormData] = useState({
-    name: "",
-    email: "",
+    name: '',
+    email: '',
     balance: 0,
-    phone: "",
-    status: "",
+    phone: '',
+    status: '',
   });
-  const [actionText, setActionText] = useState("");
+  const [actionText, setActionText] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [itemPerPage, setItemPerPage] = useState(10);
-  const [sort, setSortState] = useState("");
+  const [sort, setSortState] = useState('');
 
   // Sorting data
   const sortFunc = (params) => {
     let defaultData = data;
-    if (params === "asc") {
+    if (params === 'asc') {
       let sortedData = defaultData.sort((a, b) => a.name.localeCompare(b.name));
       setData([...sortedData]);
-    } else if (params === "dsc") {
+    } else if (params === 'dsc') {
       let sortedData = defaultData.sort((a, b) => b.name.localeCompare(a.name));
       setData([...sortedData]);
     }
@@ -91,7 +86,7 @@ const UserListRegularPage = () => {
 
   // Changing state value when searching name
   useEffect(() => {
-    if (onSearchText !== "") {
+    if (onSearchText !== '') {
       const filteredObject = userData.filter((item) => {
         return (
           item.name.toLowerCase().includes(onSearchText.toLowerCase()) ||
@@ -125,21 +120,21 @@ const UserListRegularPage = () => {
   // function to reset the form
   const resetForm = () => {
     setFormData({
-      name: "",
-      email: "",
-      balance:0,
-      phone: "",
-      status: "Active",
+      name: '',
+      email: '',
+      balance: 0,
+      phone: '',
+      status: 'Active',
     });
   };
 
   const closeModal = () => {
-    setModal({ add: false })
+    setModal({ add: false });
     resetForm();
   };
 
   const closeEditModal = () => {
-    setModal({ edit: false })
+    setModal({ edit: false });
     resetForm();
   };
 
@@ -148,17 +143,17 @@ const UserListRegularPage = () => {
     const { name, email, balance, phone } = submitData;
     let submittedData = {
       id: data.length + 1,
-      avatarBg: "purple",
+      avatarBg: 'purple',
       name: name,
-      role: "Customer",
+      role: 'Customer',
       email: email,
       balance: balance,
       phone: phone,
-      emailStatus: "success",
-      kycStatus: "alert",
-      lastLogin: "10 Feb 2020",
+      emailStatus: 'success',
+      kycStatus: 'alert',
+      lastLogin: '10 Feb 2020',
       status: formData.status,
-      country: "Bangladesh",
+      country: 'Bangladesh',
     };
     setData([submittedData, ...data]);
     resetForm();
@@ -215,7 +210,7 @@ const UserListRegularPage = () => {
   const suspendUser = (id) => {
     let newData = data;
     let index = newData.findIndex((item) => item.id === id);
-    newData[index].status = "Suspend";
+    newData[index].status = 'Suspend';
     setData([...newData]);
   };
 
@@ -231,13 +226,13 @@ const UserListRegularPage = () => {
 
   // function which fires on applying selected action
   const onActionClick = (e) => {
-    if (actionText === "suspend") {
+    if (actionText === 'suspend') {
       let newData = data.map((item) => {
-        if (item.checked === true) item.status = "Suspend";
+        if (item.checked === true) item.status = 'Suspend';
         return item;
       });
       setData([...newData]);
-    } else if (actionText === "delete") {
+    } else if (actionText === 'delete') {
       let newData;
       newData = data.filter((item) => item.checked !== true);
       setData([...newData]);
@@ -257,37 +252,41 @@ const UserListRegularPage = () => {
 
   return (
     <React.Fragment>
-      <Head title="User List - Regular"></Head>
+      <Head title='User List - Regular'></Head>
       <Content>
-        <BlockHead size="sm">
+        <BlockHead size='sm'>
           <BlockBetween>
             <BlockHeadContent>
-              <BlockTitle tag="h3" page>
+              <BlockTitle tag='h3' page>
                 Users Lists
               </BlockTitle>
-              <BlockDes className="text-soft">
+              <BlockDes className='text-soft'>
                 <p>You have total 2,595 users.</p>
               </BlockDes>
             </BlockHeadContent>
             <BlockHeadContent>
-              <div className="toggle-wrap nk-block-tools-toggle">
+              <div className='toggle-wrap nk-block-tools-toggle'>
                 <Button
-                  className={`btn-icon btn-trigger toggle-expand me-n1 ${sm ? "active" : ""}`}
+                  className={`btn-icon btn-trigger toggle-expand me-n1 ${sm ? 'active' : ''}`}
                   onClick={() => updateSm(!sm)}
                 >
-                  <Icon name="menu-alt-r"></Icon>
+                  <Icon name='menu-alt-r'></Icon>
                 </Button>
-                <div className="toggle-expand-content" style={{ display: sm ? "block" : "none" }}>
-                  <ul className="nk-block-tools g-3">
+                <div className='toggle-expand-content' style={{ display: sm ? 'block' : 'none' }}>
+                  <ul className='nk-block-tools g-3'>
                     <li>
-                      <Button color="light" outline className="btn-white">
-                        <Icon name="download-cloud"></Icon>
+                      <Button color='light' outline className='btn-white'>
+                        <Icon name='download-cloud'></Icon>
                         <span>Export</span>
                       </Button>
                     </li>
-                    <li className="nk-block-tools-opt">
-                      <Button color="primary" className="btn-icon" onClick={() => setModal({ add: true })}>
-                        <Icon name="plus"></Icon>
+                    <li className='nk-block-tools-opt'>
+                      <Button
+                        color='primary'
+                        className='btn-icon'
+                        onClick={() => setModal({ add: true })}
+                      >
+                        <Icon name='plus'></Icon>
                       </Button>
                     </li>
                   </ul>
@@ -298,161 +297,177 @@ const UserListRegularPage = () => {
         </BlockHead>
 
         <Block>
-          <DataTable className="card-stretch">
-            <div className="card-inner position-relative card-tools-toggle">
-              <div className="card-title-group">
-                <div className="card-tools">
-                  <div className="form-inline flex-nowrap gx-3">
-                    <div className="form-wrap">
+          <DataTable className='card-stretch'>
+            <div className='card-inner position-relative card-tools-toggle'>
+              <div className='card-title-group'>
+                <div className='card-tools'>
+                  <div className='form-inline flex-nowrap gx-3'>
+                    <div className='form-wrap'>
                       <RSelect
                         options={bulkActionOptions}
-                        className="w-130px"
-                        placeholder="Bulk Action"
+                        className='w-130px'
+                        placeholder='Bulk Action'
                         onChange={(e) => onActionText(e)}
                       />
                     </div>
-                    <div className="btn-wrap">
-                      <span className="d-none d-md-block">
+                    <div className='btn-wrap'>
+                      <span className='d-none d-md-block'>
                         <Button
-                          disabled={actionText !== "" ? false : true}
-                          color="light"
+                          disabled={actionText !== '' ? false : true}
+                          color='light'
                           outline
-                          className="btn-dim"
+                          className='btn-dim'
                           onClick={(e) => onActionClick(e)}
                         >
                           Apply
                         </Button>
                       </span>
-                      <span className="d-md-none">
+                      <span className='d-md-none'>
                         <Button
-                          color="light"
+                          color='light'
                           outline
-                          disabled={actionText !== "" ? false : true}
-                          className="btn-dim btn-icon"
+                          disabled={actionText !== '' ? false : true}
+                          className='btn-dim btn-icon'
                           onClick={(e) => onActionClick(e)}
                         >
-                          <Icon name="arrow-right"></Icon>
+                          <Icon name='arrow-right'></Icon>
                         </Button>
                       </span>
                     </div>
                   </div>
                 </div>
-                <div className="card-tools me-n1">
-                  <ul className="btn-toolbar gx-1">
+                <div className='card-tools me-n1'>
+                  <ul className='btn-toolbar gx-1'>
                     <li>
                       <a
-                        href="#search"
+                        href='#search'
                         onClick={(ev) => {
                           ev.preventDefault();
                           toggle();
                         }}
-                        className="btn btn-icon search-toggle toggle-search"
+                        className='btn btn-icon search-toggle toggle-search'
                       >
-                        <Icon name="search"></Icon>
+                        <Icon name='search'></Icon>
                       </a>
                     </li>
-                    <li className="btn-toolbar-sep"></li>
+                    <li className='btn-toolbar-sep'></li>
                     <li>
-                      <div className="toggle-wrap">
+                      <div className='toggle-wrap'>
                         <Button
-                          className={`btn-icon btn-trigger toggle ${tablesm ? "active" : ""}`}
+                          className={`btn-icon btn-trigger toggle ${tablesm ? 'active' : ''}`}
                           onClick={() => updateTableSm(true)}
                         >
-                          <Icon name="menu-right"></Icon>
+                          <Icon name='menu-right'></Icon>
                         </Button>
-                        <div className={`toggle-content ${tablesm ? "content-active" : ""}`}>
-                          <ul className="btn-toolbar gx-1">
-                            <li className="toggle-close">
-                              <Button className="btn-icon btn-trigger toggle" onClick={() => updateTableSm(false)}>
-                                <Icon name="arrow-left"></Icon>
+                        <div className={`toggle-content ${tablesm ? 'content-active' : ''}`}>
+                          <ul className='btn-toolbar gx-1'>
+                            <li className='toggle-close'>
+                              <Button
+                                className='btn-icon btn-trigger toggle'
+                                onClick={() => updateTableSm(false)}
+                              >
+                                <Icon name='arrow-left'></Icon>
                               </Button>
                             </li>
                             <li>
                               <UncontrolledDropdown>
-                                <DropdownToggle tag="a" className="btn btn-trigger btn-icon dropdown-toggle">
-                                  <div className="dot dot-primary"></div>
-                                  <Icon name="filter-alt"></Icon>
+                                <DropdownToggle
+                                  tag='a'
+                                  className='btn btn-trigger btn-icon dropdown-toggle'
+                                >
+                                  <div className='dot dot-primary'></div>
+                                  <Icon name='filter-alt'></Icon>
                                 </DropdownToggle>
                                 <DropdownMenu
                                   end
-                                  className="filter-wg dropdown-menu-xl"
-                                  style={{ overflow: "visible" }}
+                                  className='filter-wg dropdown-menu-xl'
+                                  style={{ overflow: 'visible' }}
                                 >
-                                  <div className="dropdown-head">
-                                    <span className="sub-title dropdown-title">Filter Users</span>
-                                    <div className="dropdown">
+                                  <div className='dropdown-head'>
+                                    <span className='sub-title dropdown-title'>Filter Users</span>
+                                    <div className='dropdown'>
                                       <a
-                                        href="#more"
+                                        href='#more'
                                         onClick={(ev) => {
                                           ev.preventDefault();
                                         }}
-                                        className="btn btn-sm btn-icon"
+                                        className='btn btn-sm btn-icon'
                                       >
-                                        <Icon name="more-h"></Icon>
+                                        <Icon name='more-h'></Icon>
                                       </a>
                                     </div>
                                   </div>
-                                  <div className="dropdown-body dropdown-body-rg">
-                                    <Row className="gx-6 gy-3">
-                                      <Col size="6">
-                                        <div className="custom-control custom-control-sm custom-checkbox">
+                                  <div className='dropdown-body dropdown-body-rg'>
+                                    <Row className='gx-6 gy-3'>
+                                      <Col size='6'>
+                                        <div className='custom-control custom-control-sm custom-checkbox'>
                                           <input
-                                            type="checkbox"
-                                            className="custom-control-input"
-                                            id="hasBalance"
+                                            type='checkbox'
+                                            className='custom-control-input'
+                                            id='hasBalance'
                                           />
-                                          <label className="custom-control-label" htmlFor="hasBalance">
-                                            {" "}
+                                          <label
+                                            className='custom-control-label'
+                                            htmlFor='hasBalance'
+                                          >
+                                            {' '}
                                             Have Balance
                                           </label>
                                         </div>
                                       </Col>
-                                      <Col size="6">
-                                        <div className="custom-control custom-control-sm custom-checkbox">
+                                      <Col size='6'>
+                                        <div className='custom-control custom-control-sm custom-checkbox'>
                                           <input
-                                            type="checkbox"
-                                            className="custom-control-input"
-                                            id="hasKYC"
+                                            type='checkbox'
+                                            className='custom-control-input'
+                                            id='hasKYC'
                                           />
-                                          <label className="custom-control-label" htmlFor="hasKYC">
-                                            {" "}
+                                          <label className='custom-control-label' htmlFor='hasKYC'>
+                                            {' '}
                                             KYC Verified
                                           </label>
                                         </div>
                                       </Col>
-                                      <Col size="6">
-                                        <div className="form-group">
-                                          <label className="overline-title overline-title-alt">Role</label>
-                                          <RSelect options={filterRole} placeholder="Any Role" />
+                                      <Col size='6'>
+                                        <div className='form-group'>
+                                          <label className='overline-title overline-title-alt'>
+                                            Role
+                                          </label>
+                                          <RSelect options={filterRole} placeholder='Any Role' />
                                         </div>
                                       </Col>
-                                      <Col size="6">
-                                        <div className="form-group">
-                                          <label className="overline-title overline-title-alt">Status</label>
-                                          <RSelect options={filterStatus} placeholder="Any Status" />
+                                      <Col size='6'>
+                                        <div className='form-group'>
+                                          <label className='overline-title overline-title-alt'>
+                                            Status
+                                          </label>
+                                          <RSelect
+                                            options={filterStatus}
+                                            placeholder='Any Status'
+                                          />
                                         </div>
                                       </Col>
-                                      <Col size="12">
-                                        <div className="form-group">
-                                          <button type="button" className="btn btn-secondary">
+                                      <Col size='12'>
+                                        <div className='form-group'>
+                                          <button type='button' className='btn btn-secondary'>
                                             Filter
                                           </button>
                                         </div>
                                       </Col>
                                     </Row>
                                   </div>
-                                  <div className="dropdown-foot between">
+                                  <div className='dropdown-foot between'>
                                     <a
-                                      href="#reset"
+                                      href='#reset'
                                       onClick={(ev) => {
                                         ev.preventDefault();
                                       }}
-                                      className="clickable"
+                                      className='clickable'
                                     >
                                       Reset Filter
                                     </a>
                                     <a
-                                      href="#save"
+                                      href='#save'
                                       onClick={(ev) => {
                                         ev.preventDefault();
                                       }}
@@ -465,18 +480,21 @@ const UserListRegularPage = () => {
                             </li>
                             <li>
                               <UncontrolledDropdown>
-                                <DropdownToggle color="tranparent" className="btn btn-trigger btn-icon dropdown-toggle">
-                                  <Icon name="setting"></Icon>
+                                <DropdownToggle
+                                  color='tranparent'
+                                  className='btn btn-trigger btn-icon dropdown-toggle'
+                                >
+                                  <Icon name='setting'></Icon>
                                 </DropdownToggle>
-                                <DropdownMenu end className="dropdown-menu-xs">
-                                  <ul className="link-check">
+                                <DropdownMenu end className='dropdown-menu-xs'>
+                                  <ul className='link-check'>
                                     <li>
                                       <span>Show</span>
                                     </li>
-                                    <li className={itemPerPage === 10 ? "active" : ""}>
+                                    <li className={itemPerPage === 10 ? 'active' : ''}>
                                       <DropdownItem
-                                        tag="a"
-                                        href="#dropdownitem"
+                                        tag='a'
+                                        href='#dropdownitem'
                                         onClick={(ev) => {
                                           ev.preventDefault();
                                           setItemPerPage(10);
@@ -485,10 +503,10 @@ const UserListRegularPage = () => {
                                         10
                                       </DropdownItem>
                                     </li>
-                                    <li className={itemPerPage === 15 ? "active" : ""}>
+                                    <li className={itemPerPage === 15 ? 'active' : ''}>
                                       <DropdownItem
-                                        tag="a"
-                                        href="#dropdownitem"
+                                        tag='a'
+                                        href='#dropdownitem'
                                         onClick={(ev) => {
                                           ev.preventDefault();
                                           setItemPerPage(15);
@@ -498,31 +516,31 @@ const UserListRegularPage = () => {
                                       </DropdownItem>
                                     </li>
                                   </ul>
-                                  <ul className="link-check">
+                                  <ul className='link-check'>
                                     <li>
                                       <span>Order</span>
                                     </li>
-                                    <li className={sort === "dsc" ? "active" : ""}>
+                                    <li className={sort === 'dsc' ? 'active' : ''}>
                                       <DropdownItem
-                                        tag="a"
-                                        href="#dropdownitem"
+                                        tag='a'
+                                        href='#dropdownitem'
                                         onClick={(ev) => {
                                           ev.preventDefault();
-                                          setSortState("dsc");
-                                          sortFunc("dsc");
+                                          setSortState('dsc');
+                                          sortFunc('dsc');
                                         }}
                                       >
                                         DESC
                                       </DropdownItem>
                                     </li>
-                                    <li className={sort === "asc" ? "active" : ""}>
+                                    <li className={sort === 'asc' ? 'active' : ''}>
                                       <DropdownItem
-                                        tag="a"
-                                        href="#dropdownitem"
+                                        tag='a'
+                                        href='#dropdownitem'
                                         onClick={(ev) => {
                                           ev.preventDefault();
-                                          setSortState("asc");
-                                          sortFunc("asc");
+                                          setSortState('asc');
+                                          sortFunc('asc');
                                         }}
                                       >
                                         ASC
@@ -539,27 +557,27 @@ const UserListRegularPage = () => {
                   </ul>
                 </div>
               </div>
-              <div className={`card-search search-wrap ${!onSearch && "active"}`}>
-                <div className="card-body">
-                  <div className="search-content">
+              <div className={`card-search search-wrap ${!onSearch && 'active'}`}>
+                <div className='card-body'>
+                  <div className='search-content'>
                     <Button
-                      className="search-back btn-icon toggle-search active"
+                      className='search-back btn-icon toggle-search active'
                       onClick={() => {
-                        setSearchText("");
+                        setSearchText('');
                         toggle();
                       }}
                     >
-                      <Icon name="arrow-left"></Icon>
+                      <Icon name='arrow-left'></Icon>
                     </Button>
                     <input
-                      type="text"
-                      className="border-transparent form-focus-none form-control"
-                      placeholder="Search by user or email"
+                      type='text'
+                      className='border-transparent form-focus-none form-control'
+                      placeholder='Search by user or email'
                       value={onSearchText}
                       onChange={(e) => onFilterChange(e)}
                     />
-                    <Button className="search-submit btn-icon">
-                      <Icon name="search"></Icon>
+                    <Button className='search-submit btn-icon'>
+                      <Icon name='search'></Icon>
                     </Button>
                   </div>
                 </div>
@@ -567,73 +585,73 @@ const UserListRegularPage = () => {
             </div>
             <DataTableBody>
               <DataTableHead>
-                <DataTableRow className="nk-tb-col-check">
-                  <div className="custom-control custom-control-sm custom-checkbox notext">
+                <DataTableRow className='nk-tb-col-check'>
+                  <div className='custom-control custom-control-sm custom-checkbox notext'>
                     <input
-                      type="checkbox"
-                      className="custom-control-input"
+                      type='checkbox'
+                      className='custom-control-input'
                       onChange={(e) => selectorCheck(e)}
-                      id="uid"
+                      id='uid'
                     />
-                    <label className="custom-control-label" htmlFor="uid"></label>
+                    <label className='custom-control-label' htmlFor='uid'></label>
                   </div>
                 </DataTableRow>
                 <DataTableRow>
-                  <span className="sub-text">User</span>
+                  <span className='sub-text'>User</span>
                 </DataTableRow>
-                <DataTableRow size="mb">
-                  <span className="sub-text">Balance</span>
+                <DataTableRow size='mb'>
+                  <span className='sub-text'>Balance</span>
                 </DataTableRow>
-                <DataTableRow size="md">
-                  <span className="sub-text">Phone</span>
+                <DataTableRow size='md'>
+                  <span className='sub-text'>Phone</span>
                 </DataTableRow>
-                <DataTableRow size="lg">
-                  <span className="sub-text">Verified</span>
+                <DataTableRow size='lg'>
+                  <span className='sub-text'>Verified</span>
                 </DataTableRow>
-                <DataTableRow size="lg">
-                  <span className="sub-text">Last Login</span>
+                <DataTableRow size='lg'>
+                  <span className='sub-text'>Last Login</span>
                 </DataTableRow>
-                <DataTableRow size="md">
-                  <span className="sub-text">Status</span>
+                <DataTableRow size='md'>
+                  <span className='sub-text'>Status</span>
                 </DataTableRow>
-                <DataTableRow className="nk-tb-col-tools text-end">
+                <DataTableRow className='nk-tb-col-tools text-end'>
                   <UncontrolledDropdown>
                     <DropdownToggle
-                      color="tranparent"
-                      className="btn btn-xs btn-outline-light btn-icon dropdown-toggle"
+                      color='tranparent'
+                      className='btn btn-xs btn-outline-light btn-icon dropdown-toggle'
                     >
-                      <Icon name="plus"></Icon>
+                      <Icon name='plus'></Icon>
                     </DropdownToggle>
-                    <DropdownMenu end className="dropdown-menu-xs">
-                      <ul className="link-tidy sm no-bdr">
+                    <DropdownMenu end className='dropdown-menu-xs'>
+                      <ul className='link-tidy sm no-bdr'>
                         <li>
-                          <div className="custom-control custom-control-sm custom-checkbox">
-                            <input type="checkbox" className="custom-control-input" id="bl" />
-                            <label className="custom-control-label" htmlFor="bl">
+                          <div className='custom-control custom-control-sm custom-checkbox'>
+                            <input type='checkbox' className='custom-control-input' id='bl' />
+                            <label className='custom-control-label' htmlFor='bl'>
                               Balance
                             </label>
                           </div>
                         </li>
                         <li>
-                          <div className="custom-control custom-control-sm custom-checkbox">
-                            <input type="checkbox" className="custom-control-input" id="ph" />
-                            <label className="custom-control-label" htmlFor="ph">
+                          <div className='custom-control custom-control-sm custom-checkbox'>
+                            <input type='checkbox' className='custom-control-input' id='ph' />
+                            <label className='custom-control-label' htmlFor='ph'>
                               Phone
                             </label>
                           </div>
                         </li>
                         <li>
-                          <div className="custom-control custom-control-sm custom-checkbox">
-                            <input type="checkbox" className="custom-control-input" id="vri" />
-                            <label className="custom-control-label" htmlFor="vri">
+                          <div className='custom-control custom-control-sm custom-checkbox'>
+                            <input type='checkbox' className='custom-control-input' id='vri' />
+                            <label className='custom-control-label' htmlFor='vri'>
                               Verified
                             </label>
                           </div>
                         </li>
                         <li>
-                          <div className="custom-control custom-control-sm custom-checkbox">
-                            <input type="checkbox" className="custom-control-input" id="st" />
-                            <label className="custom-control-label" htmlFor="st">
+                          <div className='custom-control custom-control-sm custom-checkbox'>
+                            <input type='checkbox' className='custom-control-input' id='st' />
+                            <label className='custom-control-label' htmlFor='st'>
                               Status
                             </label>
                           </div>
@@ -648,37 +666,40 @@ const UserListRegularPage = () => {
                 ? currentItems.map((item) => {
                     return (
                       <DataTableItem key={item.id}>
-                        <DataTableRow className="nk-tb-col-check">
-                          <div className="custom-control custom-control-sm custom-checkbox notext">
+                        <DataTableRow className='nk-tb-col-check'>
+                          <div className='custom-control custom-control-sm custom-checkbox notext'>
                             <input
-                              type="checkbox"
-                              className="custom-control-input"
+                              type='checkbox'
+                              className='custom-control-input'
                               defaultChecked={item.checked}
-                              id={item.id + "uid1"}
+                              id={item.id + 'uid1'}
                               key={Math.random()}
                               onChange={(e) => onSelectChange(e, item.id)}
                             />
-                            <label className="custom-control-label" htmlFor={item.id + "uid1"}></label>
+                            <label
+                              className='custom-control-label'
+                              htmlFor={item.id + 'uid1'}
+                            ></label>
                           </div>
                         </DataTableRow>
                         <DataTableRow>
                           <Link to={`${process.env.PUBLIC_URL}/user-details-regular/${item.id}`}>
-                            <div className="user-card">
+                            <div className='user-card'>
                               <UserAvatar
                                 theme={item.avatarBg}
                                 text={findUpper(item.name)}
                                 image={item.image}
                               ></UserAvatar>
-                              <div className="user-info">
-                                <span className="tb-lead">
-                                  {item.name}{" "}
+                              <div className='user-info'>
+                                <span className='tb-lead'>
+                                  {item.name}{' '}
                                   <span
                                     className={`dot dot-${
-                                      item.status === "Active"
-                                        ? "success"
-                                        : item.status === "Pending"
-                                        ? "warning"
-                                        : "danger"
+                                      item.status === 'Active'
+                                        ? 'success'
+                                        : item.status === 'Pending'
+                                        ? 'warning'
+                                        : 'danger'
                                     } d-md-none ms-1`}
                                   ></span>
                                 </span>
@@ -687,127 +708,140 @@ const UserListRegularPage = () => {
                             </div>
                           </Link>
                         </DataTableRow>
-                        <DataTableRow size="mb">
-                          <span className="tb-amount">
-                            {item.balance} <span className="currency">USD</span>
+                        <DataTableRow size='mb'>
+                          <span className='tb-amount'>
+                            {item.balance} <span className='currency'>USD</span>
                           </span>
                         </DataTableRow>
-                        <DataTableRow size="md">
+                        <DataTableRow size='md'>
                           <span>{item.phone}</span>
                         </DataTableRow>
-                        <DataTableRow size="lg">
-                          <ul className="list-status">
+                        <DataTableRow size='lg'>
+                          <ul className='list-status'>
                             <li>
                               <Icon
                                 className={`text-${
-                                  item.emailStatus === "success"
-                                    ? "success"
-                                    : item.emailStatus === "pending"
-                                    ? "info"
-                                    : "secondary"
+                                  item.emailStatus === 'success'
+                                    ? 'success'
+                                    : item.emailStatus === 'pending'
+                                    ? 'info'
+                                    : 'secondary'
                                 }`}
                                 name={`${
-                                  item.emailStatus === "success"
-                                    ? "check-circle"
-                                    : item.emailStatus === "alert"
-                                    ? "alert-circle"
-                                    : "alarm-alt"
+                                  item.emailStatus === 'success'
+                                    ? 'check-circle'
+                                    : item.emailStatus === 'alert'
+                                    ? 'alert-circle'
+                                    : 'alarm-alt'
                                 }`}
-                              ></Icon>{" "}
+                              ></Icon>{' '}
                               <span>Email</span>
                             </li>
                             <li>
                               <Icon
                                 className={`text-${
-                                  item.kycStatus === "success"
-                                    ? "success"
-                                    : item.kycStatus === "pending"
-                                    ? "info"
-                                    : item.kycStatus === "warning"
-                                    ? "warning"
-                                    : "secondary"
+                                  item.kycStatus === 'success'
+                                    ? 'success'
+                                    : item.kycStatus === 'pending'
+                                    ? 'info'
+                                    : item.kycStatus === 'warning'
+                                    ? 'warning'
+                                    : 'secondary'
                                 }`}
                                 name={`${
-                                  item.kycStatus === "success"
-                                    ? "check-circle"
-                                    : item.kycStatus === "pending"
-                                    ? "alarm-alt"
-                                    : "alert-circle"
+                                  item.kycStatus === 'success'
+                                    ? 'check-circle'
+                                    : item.kycStatus === 'pending'
+                                    ? 'alarm-alt'
+                                    : 'alert-circle'
                                 }`}
-                              ></Icon>{" "}
+                              ></Icon>{' '}
                               <span>KYC</span>
                             </li>
                           </ul>
                         </DataTableRow>
-                        <DataTableRow size="lg">
+                        <DataTableRow size='lg'>
                           <span>{item.lastLogin}</span>
                         </DataTableRow>
-                        <DataTableRow size="md">
+                        <DataTableRow size='md'>
                           <span
                             className={`tb-status text-${
-                              item.status === "Active" ? "success" : item.status === "Pending" ? "warning" : "danger"
+                              item.status === 'Active'
+                                ? 'success'
+                                : item.status === 'Pending'
+                                ? 'warning'
+                                : 'danger'
                             }`}
                           >
                             {item.status}
                           </span>
                         </DataTableRow>
-                        <DataTableRow className="nk-tb-col-tools">
-                          <ul className="nk-tb-actions gx-1">
-                            <li className="nk-tb-action-hidden" onClick={() => onEditClick(item.id)}>
+                        <DataTableRow className='nk-tb-col-tools'>
+                          <ul className='nk-tb-actions gx-1'>
+                            <li
+                              className='nk-tb-action-hidden'
+                              onClick={() => onEditClick(item.id)}
+                            >
                               <TooltipComponent
-                                tag="a"
-                                containerClassName="btn btn-trigger btn-icon"
-                                id={"edit" + item.id}
-                                icon="edit-alt-fill"
-                                direction="top"
-                                text="Edit"
+                                tag='a'
+                                containerClassName='btn btn-trigger btn-icon'
+                                id={'edit' + item.id}
+                                icon='edit-alt-fill'
+                                direction='top'
+                                text='Edit'
                               />
                             </li>
-                            {item.status !== "Suspend" && (
+                            {item.status !== 'Suspend' && (
                               <React.Fragment>
-                                <li className="nk-tb-action-hidden" onClick={() => suspendUser(item.id)}>
+                                <li
+                                  className='nk-tb-action-hidden'
+                                  onClick={() => suspendUser(item.id)}
+                                >
                                   <TooltipComponent
-                                    tag="a"
-                                    containerClassName="btn btn-trigger btn-icon"
-                                    id={"suspend" + item.id}
-                                    icon="user-cross-fill"
-                                    direction="top"
-                                    text="Suspend"
+                                    tag='a'
+                                    containerClassName='btn btn-trigger btn-icon'
+                                    id={'suspend' + item.id}
+                                    icon='user-cross-fill'
+                                    direction='top'
+                                    text='Suspend'
                                   />
                                 </li>
                               </React.Fragment>
                             )}
                             <li>
                               <UncontrolledDropdown>
-                                <DropdownToggle tag="a" className="dropdown-toggle btn btn-icon btn-trigger">
-                                  <Icon name="more-h"></Icon>
+                                <DropdownToggle
+                                  tag='a'
+                                  className='dropdown-toggle btn btn-icon btn-trigger'
+                                >
+                                  <Icon name='more-h'></Icon>
                                 </DropdownToggle>
                                 <DropdownMenu end>
-                                  <ul className="link-list-opt no-bdr">
+                                  <ul className='link-list-opt no-bdr'>
                                     <li onClick={() => onEditClick(item.id)}>
                                       <DropdownItem
-                                        tag="a"
-                                        href="#edit"
+                                        tag='a'
+                                        href='#edit'
                                         onClick={(ev) => {
                                           ev.preventDefault();
                                         }}
                                       >
-                                        <Icon name="edit"></Icon>
+                                        <Icon name='edit'></Icon>
                                         <span>Edit</span>
                                       </DropdownItem>
                                     </li>
-                                    {item.status !== "Suspend" && (
+                                    {item.status !== 'Suspend' && (
                                       <React.Fragment>
-                                        <li className="divider"></li>
+                                        <li className='divider'></li>
                                         <li onClick={() => suspendUser(item.id)}>
                                           <DropdownItem
-                                            tag="a"
-                                            href="#suspend"
+                                            tag='a'
+                                            href='#suspend'
                                             onClick={(ev) => {
                                               ev.preventDefault();
                                             }}
                                           >
-                                            <Icon name="na"></Icon>
+                                            <Icon name='na'></Icon>
                                             <span>Suspend User</span>
                                           </DropdownItem>
                                         </li>
@@ -824,7 +858,7 @@ const UserListRegularPage = () => {
                   })
                 : null}
             </DataTableBody>
-            <div className="card-inner">
+            <div className='card-inner'>
               {currentItems.length > 0 ? (
                 <PaginationComponent
                   itemPerPage={itemPerPage}
@@ -833,17 +867,30 @@ const UserListRegularPage = () => {
                   currentPage={currentPage}
                 />
               ) : (
-                <div className="text-center">
-                  <span className="text-silent">No data found</span>
+                <div className='text-center'>
+                  <span className='text-silent'>No data found</span>
                 </div>
               )}
             </div>
           </DataTable>
         </Block>
-        
-        <AddModal modal={modal.add} formData={formData} setFormData={setFormData} closeModal={closeModal} onSubmit={onFormSubmit} filterStatus={filterStatus} />
-        <EditModal modal={modal.edit} formData={editFormData} setFormData={setEditFormData} closeModal={closeEditModal} onSubmit={onEditSubmit} filterStatus={filterStatus} />
-        
+
+        <AddModal
+          modal={modal.add}
+          formData={formData}
+          setFormData={setFormData}
+          closeModal={closeModal}
+          onSubmit={onFormSubmit}
+          filterStatus={filterStatus}
+        />
+        <EditModal
+          modal={modal.edit}
+          formData={editFormData}
+          setFormData={setEditFormData}
+          closeModal={closeEditModal}
+          onSubmit={onEditSubmit}
+          filterStatus={filterStatus}
+        />
       </Content>
     </React.Fragment>
   );

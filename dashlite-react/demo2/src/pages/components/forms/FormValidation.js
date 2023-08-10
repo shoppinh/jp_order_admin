@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Block,
   BlockDes,
@@ -7,62 +7,62 @@ import {
   BlockHeadContent,
   BlockTitle,
   BackTo,
-} from "../../../components/Component";
-import Content from "../../../layout/content/Content";
-import Head from "../../../layout/head/Head";
-import FormValidationComponent from "../../../components/partials/form/FormValidation";
+} from '../../../components/Component';
+import Content from '../../../layout/content/Content';
+import Head from '../../../layout/head/Head';
+import FormValidationComponent from '../../../components/partials/form/FormValidation';
 
 const FormValidation = () => {
   return (
     <React.Fragment>
-      <Head title="Form Validation"></Head>
-      <Content page="component">
-        <BlockHead size="lg" wide="sm">
+      <Head title='Form Validation'></Head>
+      <Content page='component'>
+        <BlockHead size='lg' wide='sm'>
           <BlockHeadContent>
-            <BackTo link="/components" icon="arrow-left">
+            <BackTo link='/components' icon='arrow-left'>
               Components
             </BackTo>
-            <BlockTitle tag="h2" className="fw-normal">
+            <BlockTitle tag='h2' className='fw-normal'>
               Form Validation
             </BlockTitle>
             <BlockDes>
-              <p className="lead">
-                With validation using the react-hook-form package, you can simply add validation on clientside before
-                submit form. Look up the{" "}
-                <a target="_blank" rel="noreferrer" href="https://react-hook-form.com/">
+              <p className='lead'>
+                With validation using the react-hook-form package, you can simply add validation on
+                clientside before submit form. Look up the{' '}
+                <a target='_blank' rel='noreferrer' href='https://react-hook-form.com/'>
                   documentation
-                </a>{" "}
+                </a>{' '}
                 for further details
               </p>
             </BlockDes>
           </BlockHeadContent>
         </BlockHead>
 
-        <Block size="lg">
+        <Block size='lg'>
           <BlockHead>
             <BlockHeadContent>
-              <BlockTitle tag="h5">Validation - Regular Style</BlockTitle>
+              <BlockTitle tag='h5'>Validation - Regular Style</BlockTitle>
               <BlockDes>
                 <p>Below example helps you to build your own form nice way.</p>
               </BlockDes>
             </BlockHeadContent>
           </BlockHead>
           <PreviewCard>
-            <FormValidationComponent id="form-1" />
+            <FormValidationComponent id='form-1' />
           </PreviewCard>
         </Block>
 
-        <Block size="lg">
+        <Block size='lg'>
           <BlockHead>
             <BlockHeadContent>
-              <BlockTitle tag="h5">Validation - Alternate Style</BlockTitle>
+              <BlockTitle tag='h5'>Validation - Alternate Style</BlockTitle>
               <BlockDes>
                 <p>Below example helps you to build your own form nice way.</p>
               </BlockDes>
             </BlockHeadContent>
           </BlockHead>
           <PreviewCard>
-            <FormValidationComponent id="form-2" alter />
+            <FormValidationComponent id='form-2' alter />
           </PreviewCard>
         </Block>
       </Content>

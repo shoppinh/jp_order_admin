@@ -1,64 +1,64 @@
-import User from "../../../images/avatar/b-sm.jpg";
-import User2 from "../../../images/avatar/c-sm.jpg";
-import User3 from "../../../images/avatar/a-sm.jpg";
-import User4 from "../../../images/avatar/d-sm.jpg";
-import PlanS1 from "../../../images/icons/plan-s1.svg";
-import PlanS2 from "../../../images/icons/plan-s2.svg";
-import PlanS3 from "../../../images/icons/plan-s3.svg";
+import User from '../../../images/avatar/b-sm.jpg';
+import User2 from '../../../images/avatar/c-sm.jpg';
+import User3 from '../../../images/avatar/a-sm.jpg';
+import User4 from '../../../images/avatar/d-sm.jpg';
+import PlanS1 from '../../../images/icons/plan-s1.svg';
+import PlanS2 from '../../../images/icons/plan-s2.svg';
+import PlanS3 from '../../../images/icons/plan-s3.svg';
 
 const data = {
-  navigation : [
+  navigation: [
     {
       id: 0,
-      text: "Home",
-      icon: "home-alt",
-      link: "/",
+      text: 'Home',
+      icon: 'home-alt',
+      link: '/',
     },
     {
       id: 1,
-      text: "Files",
-      icon: "file-docs",
-      link: "/files",
-      sub: ["New Files", "This Month", "Older Files"],
+      text: 'Files',
+      icon: 'file-docs',
+      link: '/files',
+      sub: ['New Files', 'This Month', 'Older Files'],
     },
     {
       id: 2,
-      text: "Starred",
-      icon: "star",
-      link: "/starred",
+      text: 'Starred',
+      icon: 'star',
+      link: '/starred',
     },
     {
       id: 3,
-      text: "Shared",
-      icon: "share-alt",
-      link: "/shared",
+      text: 'Shared',
+      icon: 'share-alt',
+      link: '/shared',
     },
     {
       id: 4,
-      text: "Recovery",
-      icon: "trash",
-      link: "/recovery",
+      text: 'Recovery',
+      icon: 'trash',
+      link: '/recovery',
     },
     {
       id: 5,
-      text: "Settings",
-      icon: "setting",
-      link: "/settings",
+      text: 'Settings',
+      icon: 'setting',
+      link: '/settings',
     },
   ],
   users: [
-    { id:'uid001', name: "Illiash Hossain", theme: "purple" },
-    { id:'uid002', name: "Abu Bin", theme: "blue" },
-    { id:'uid003', name: "Hao Limae", theme: "purple", displayPicture: User },
-    { id:'uid004', name: "Kimberly May", theme: "purple", displayPicture: User2 },
-    { id:'uid005', name: "Courier Kay", theme: "purple", displayPicture: User4 },
+    { id: 'uid001', name: 'Illiash Hossain', theme: 'purple' },
+    { id: 'uid002', name: 'Abu Bin', theme: 'blue' },
+    { id: 'uid003', name: 'Hao Limae', theme: 'purple', displayPicture: User },
+    { id: 'uid004', name: 'Kimberly May', theme: 'purple', displayPicture: User2 },
+    { id: 'uid005', name: 'Courier Kay', theme: 'purple', displayPicture: User4 },
   ],
-  plans:[
+  plans: [
     {
       id: 'planid01',
-      title: "Starter",
+      title: 'Starter',
       logo: PlanS1,
-      desc: "If you are a small business amn please select this plan",
+      desc: 'If you are a small business amn please select this plan',
       amount: 99,
       memory: 25,
       userNumber: 1,
@@ -66,9 +66,9 @@ const data = {
     },
     {
       id: 'planid02',
-      title: "Pro",
+      title: 'Pro',
       logo: PlanS2,
-      desc: "If you are a small business amn please select this plan",
+      desc: 'If you are a small business amn please select this plan',
       amount: 299,
       userNumber: 5,
       memory: 50,
@@ -76,9 +76,9 @@ const data = {
     },
     {
       id: 'planid03',
-      title: "Enterprise",
+      title: 'Enterprise',
       logo: PlanS3,
-      desc: "If you are a small business amn please select this plan",
+      desc: 'If you are a small business amn please select this plan',
       amount: 599,
       userNumber: 20,
       memory: 75,
@@ -86,119 +86,119 @@ const data = {
     },
     {
       id: 'planid04',
-      title: "Premium",
+      title: 'Premium',
       logo: PlanS1,
-      desc: "If you are a small business amn please select this plan",
+      desc: 'If you are a small business amn please select this plan',
       amount: 999,
       memory: 100,
-      userNumber: "Unlimited",
+      userNumber: 'Unlimited',
       tags: false,
     },
   ],
-  folderTypes : [
+  folderTypes: [
     {
       id: 1,
-      value: "general",
-      label: "General",
+      value: 'general',
+      label: 'General',
     },
     {
       id: 2,
-      value: "shared",
-      label: "Shared",
+      value: 'shared',
+      label: 'Shared',
     },
     {
       id: 3,
-      value: "secure",
-      label: "Secure",
+      value: 'secure',
+      label: 'Secure',
     },
   ],
-  dateFormat:[
+  dateFormat: [
     {
       id: 0,
-      label: "MM/DD/YYYY",
-      value: "MM/DD/YYYY",
+      label: 'MM/DD/YYYY',
+      value: 'MM/DD/YYYY',
     },
     {
       id: 1,
-      label: "DD/MM/YYYY",
-      value: "DD/MM/YYYY",
+      label: 'DD/MM/YYYY',
+      value: 'DD/MM/YYYY',
     },
     {
       id: 2,
-      label: "YYYY/MM/DD",
-      value: "YYYY/MM/DD",
+      label: 'YYYY/MM/DD',
+      value: 'YYYY/MM/DD',
     },
   ],
-  languageOptions : [
+  languageOptions: [
     {
       id: 0,
-      label: "English (United States)",
-      value: "English (United States)",
+      label: 'English (United States)',
+      value: 'English (United States)',
     },
     {
       id: 1,
-      label: "English (United Kingdom)",
-      value: "English (United Kingdom)",
+      label: 'English (United Kingdom)',
+      value: 'English (United Kingdom)',
     },
     {
       id: 2,
-      label: "French",
-      value: "French",
+      label: 'French',
+      value: 'French',
     },
     {
       id: 3,
-      label: "Spanish",
-      value: "Spanish",
+      label: 'Spanish',
+      value: 'Spanish',
     },
     {
       id: 4,
-      label: "Chinese",
-      value: "Chinese",
+      label: 'Chinese',
+      value: 'Chinese',
     },
     {
       id: 5,
-      label: "Bangla",
-      value: "Bangla",
+      label: 'Bangla',
+      value: 'Bangla',
     },
   ],
-  timezoneFormat : [
+  timezoneFormat: [
     {
       id: 0,
-      label: "Bangladesh (GMT +6)",
-      value: "Bangladesh (GMT +6)",
+      label: 'Bangladesh (GMT +6)',
+      value: 'Bangladesh (GMT +6)',
     },
     {
       id: 1,
-      label: "United Kingdom (GMT +0)",
-      value: "United Kingdom (GMT +0)",
+      label: 'United Kingdom (GMT +0)',
+      value: 'United Kingdom (GMT +0)',
     },
     {
       id: 2,
-      label: "Spain (GMT +1)",
-      value: "Spain (GMT +1)",
+      label: 'Spain (GMT +1)',
+      value: 'Spain (GMT +1)',
     },
     {
       id: 6,
-      label: "China (GMT +8)",
-      value: "China (GMT +8)",
+      label: 'China (GMT +8)',
+      value: 'China (GMT +8)',
     },
     {
       id: 4,
-      label: "Australia (GMT +9)",
-      value: "Australia (GMT +9)",
+      label: 'Australia (GMT +9)',
+      value: 'Australia (GMT +9)',
     },
     {
       id: 3,
-      label: "Brazil (GMT -3)",
-      value: "Brazil (GMT -3)",
+      label: 'Brazil (GMT -3)',
+      value: 'Brazil (GMT -3)',
     },
     {
       id: 5,
-      label: "United States (GMT -8)",
-      value: "United States (GMT -8)",
+      label: 'United States (GMT -8)',
+      value: 'United States (GMT -8)',
     },
   ],
-}
+};
 export default data;
 
 export const files = [
@@ -212,7 +212,7 @@ export const files = [
     size: 87,
     type: 'folder',
     starred: true,
-    access:['uid001', 'uid003', 'uid005']
+    access: ['uid001', 'uid003', 'uid005'],
   },
   {
     id: 'folder002',
@@ -224,7 +224,7 @@ export const files = [
     size: 93,
     type: 'folder',
     starred: false,
-    access:['uid001', 'uid003', 'uid004', 'uid005']
+    access: ['uid001', 'uid003', 'uid004', 'uid005'],
   },
   {
     id: 'folder003',
@@ -236,7 +236,7 @@ export const files = [
     size: 93,
     type: 'folder',
     starred: false,
-    deleted: '02:07 PM, 03 Mar'
+    deleted: '02:07 PM, 03 Mar',
   },
   {
     id: 'folder004',
@@ -248,7 +248,7 @@ export const files = [
     size: 93,
     type: 'folder',
     starred: true,
-    access:['uid001', 'uid003', 'uid004', 'uid005']
+    access: ['uid001', 'uid003', 'uid004', 'uid005'],
   },
   {
     id: 'folder005',
@@ -271,8 +271,8 @@ export const files = [
     size: 41.5,
     type: 'file',
     starred: true,
-    access:['uid001', 'uid003', 'uid004', 'uid005'],
-    folder:0,
+    access: ['uid001', 'uid003', 'uid004', 'uid005'],
+    folder: 0,
   },
   {
     id: 'file002',
@@ -284,8 +284,8 @@ export const files = [
     size: 41.5,
     type: 'file',
     starred: false,
-    access:['uid001', 'uid003', 'uid004', 'uid005'],
-    folder:0,
+    access: ['uid001', 'uid003', 'uid004', 'uid005'],
+    folder: 0,
   },
   {
     id: 'file003',
@@ -297,9 +297,9 @@ export const files = [
     size: 41.5,
     type: 'file',
     starred: false,
-    access:['uid001', 'uid003', 'uid004', 'uid005'],
-    folder:0,
-    deleted: '02:07 PM, 03 Mar'
+    access: ['uid001', 'uid003', 'uid004', 'uid005'],
+    folder: 0,
+    deleted: '02:07 PM, 03 Mar',
   },
   {
     id: 'file004',
@@ -311,8 +311,8 @@ export const files = [
     size: 41.5,
     type: 'file',
     starred: false,
-    access:['uid001', 'uid003', 'uid004', 'uid005'],
-    folder:0,
+    access: ['uid001', 'uid003', 'uid004', 'uid005'],
+    folder: 0,
   },
   {
     id: 'file005',
@@ -324,8 +324,8 @@ export const files = [
     size: 41.5,
     type: 'file',
     starred: false,
-    folder:0,
-    deleted: '02:07 PM, 03 Mar'
+    folder: 0,
+    deleted: '02:07 PM, 03 Mar',
   },
   {
     id: 'file006',
@@ -337,7 +337,7 @@ export const files = [
     size: 41.5,
     type: 'file',
     starred: false,
-    folder:0,
+    folder: 0,
   },
   {
     id: 'file007',
@@ -349,8 +349,8 @@ export const files = [
     size: 41.5,
     type: 'file',
     starred: false,
-    access:['uid001', 'uid003', 'uid004', 'uid005'],
-    folder:0,
+    access: ['uid001', 'uid003', 'uid004', 'uid005'],
+    folder: 0,
   },
   {
     id: 'file008',
@@ -362,7 +362,7 @@ export const files = [
     size: 41.5,
     type: 'file',
     starred: false,
-    folder:0,
+    folder: 0,
   },
   {
     id: 'file009',
@@ -374,7 +374,7 @@ export const files = [
     size: 41.5,
     type: 'file',
     starred: false,
-    folder:0,
+    folder: 0,
   },
   {
     id: 'file010',
@@ -386,8 +386,8 @@ export const files = [
     size: 41.5,
     type: 'file',
     starred: false,
-    access:['uid001', 'uid003', 'uid004', 'uid005'],
-    folder:0,
+    access: ['uid001', 'uid003', 'uid004', 'uid005'],
+    folder: 0,
   },
   {
     id: 'file011',
@@ -399,9 +399,9 @@ export const files = [
     size: 41.5,
     type: 'file',
     starred: false,
-    access:['uid001', 'uid003', 'uid004', 'uid005'],
-    folder:0,
-    deleted: '02:07 PM, 03 Mar'
+    access: ['uid001', 'uid003', 'uid004', 'uid005'],
+    folder: 0,
+    deleted: '02:07 PM, 03 Mar',
   },
   {
     id: 'file012',
@@ -413,9 +413,9 @@ export const files = [
     size: 41.5,
     type: 'file',
     starred: false,
-    access:['uid001', 'uid003', 'uid004', 'uid005'],
-    folder:0,
-    deleted: '02:07 PM, 03 Mar'
+    access: ['uid001', 'uid003', 'uid004', 'uid005'],
+    folder: 0,
+    deleted: '02:07 PM, 03 Mar',
   },
   {
     id: 'file013',
@@ -427,8 +427,8 @@ export const files = [
     size: 41.5,
     type: 'file',
     starred: false,
-    access:['uid001', 'uid003', 'uid004', 'uid005'],
-    folder:0,
-    deleted: '02:07 PM, 03 Mar'
+    access: ['uid001', 'uid003', 'uid004', 'uid005'],
+    folder: 0,
+    deleted: '02:07 PM, 03 Mar',
   },
-]
+];

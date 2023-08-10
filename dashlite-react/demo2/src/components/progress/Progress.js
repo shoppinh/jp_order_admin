@@ -1,5 +1,5 @@
-import React from "react";
-import classNames from "classnames";
+import React from 'react';
+import classNames from 'classnames';
 
 const Progress = ({ value, size, className }) => {
   const progressClass = classNames({
@@ -9,8 +9,11 @@ const Progress = ({ value, size, className }) => {
   });
   return (
     <div className={progressClass}>
-      <div className="progress-bar" style={{ width: `${value}%`, backgroundColor: "#6576ff" }}></div>
-      <div className="progress-amount">{value}%</div>
+      <div
+        className='progress-bar'
+        style={{ width: `${value}%`, backgroundColor: '#6576ff' }}
+      ></div>
+      <div className='progress-amount'>{value}%</div>
     </div>
   );
 };

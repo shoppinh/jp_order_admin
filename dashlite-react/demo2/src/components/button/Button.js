@@ -1,5 +1,5 @@
-import React from "react";
-import classNames from "classnames";
+import React from 'react';
+import classNames from 'classnames';
 
 const Button = ({ color, size, className, outline, disabled, ...props }) => {
   const buttonClass = classNames({
