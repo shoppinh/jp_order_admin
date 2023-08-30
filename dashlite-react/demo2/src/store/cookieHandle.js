@@ -10,11 +10,13 @@ export const loadDocumentCookieState = () => {
         serializedState = value;
       }
     });
+    console.log('JSON.parse(serializedState);', JSON.parse(serializedState));
 
     // const serializedState = document.cookie;
     if (serializedState === null || serializedState === '') {
       return undefined;
     }
+    console.log('JSON.parse(serializedState);', JSON.parse(serializedState));
     return JSON.parse(serializedState);
   } catch (err) {
     return undefined;

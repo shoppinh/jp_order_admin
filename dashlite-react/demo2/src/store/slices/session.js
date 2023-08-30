@@ -8,7 +8,7 @@ const sessionCache = loadState()?.session;
 const authCache =
   sessionCache?.data?.auth && sessionCache?.data?.auth.rememberMe
     ? sessionCache?.data?.auth
-    : loadDocumentCookieState()?.auth;
+    : loadDocumentCookieState();
 
 export const initialState = {
   data: {
@@ -38,11 +38,6 @@ const slice = createSlice({
       state.loading = false;
     },
     doLogin(state, action) {
-      state.error = null;
-      state.data.auth = { isLogout: false };
-      state.loading = true;
-    },
-    doAdminLogin(state, action) {
       state.error = null;
       state.data.auth = { isLogout: false };
       state.loading = true;

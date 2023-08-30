@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Content from '../../../layout/content/Content';
-import { Card } from 'reactstrap';
+import { Card, Modal, ModalBody } from 'reactstrap';
 import Head from '../../../layout/head/Head';
 import DatePicker from 'react-datepicker';
-import { Modal, ModalBody } from 'reactstrap';
 import {
   Block,
   BlockBetween,
@@ -11,32 +10,25 @@ import {
   BlockHead,
   BlockHeadContent,
   BlockTitle,
+  Button,
+  Col,
   Icon,
   Row,
-  Col,
-  Button,
   RSelect,
 } from '../../../components/Component';
-import { countryOptions, userData } from './UserData';
+import { countryOptions } from './UserData';
 import { getDateStructured } from '../../../utils/Utils';
 import UserProfileAside from './UserProfileAside';
+import { useSelector } from 'react-redux';
+import { getUserInfo } from '../../../store/selectors/session';
 
 const UserProfileRegularPage = () => {
   const [sm, updateSm] = useState(false);
   const [mobileView, setMobileView] = useState(false);
 
   const [modalTab, setModalTab] = useState('1');
-  const [userInfo, setUserInfo] = useState(userData[0]);
-  const [formData, setFormData] = useState({
-    name: 'Abu Bin Ishtiak',
-    displayName: 'Ishtiak',
-    phone: '818474958',
-    dob: '1980-08-10',
-    address: '2337 Kildeer Drive',
-    address2: '',
-    state: 'Kentucky',
-    country: 'Canada',
-  });
+  const currentUser = useSelector(getUserInfo);
+  const [formData, setFormData] = useState(currentUser);
   const [modal, setModal] = useState(false);
 
   const onInputChange = (e) => {
@@ -44,10 +36,6 @@ const UserProfileRegularPage = () => {
   };
 
   const submitForm = () => {
-    let submitData = {
-      ...formData,
-    };
-    setUserInfo(submitData);
     setModal(false);
   };
 
@@ -118,7 +106,7 @@ const UserProfileRegularPage = () => {
                   <div className='data-item' onClick={() => setModal(true)}>
                     <div className='data-col'>
                       <span className='data-label'>Full Name</span>
-                      <span className='data-value'>{userInfo.name}</span>
+                      <span className='data-value'>{formData?.name}</span>
                     </div>
                     <div className='data-col data-col-end'>
                       <span className='data-more'>
@@ -129,7 +117,7 @@ const UserProfileRegularPage = () => {
                   <div className='data-item' onClick={() => setModal(true)}>
                     <div className='data-col'>
                       <span className='data-label'>Display Name</span>
-                      <span className='data-value'>{userInfo.displayName}</span>
+                      <span className='data-value'>{formData?.displayName}</span>
                     </div>
                     <div className='data-col data-col-end'>
                       <span className='data-more'>
@@ -151,7 +139,7 @@ const UserProfileRegularPage = () => {
                   <div className='data-item' onClick={() => setModal(true)}>
                     <div className='data-col'>
                       <span className='data-label'>Phone Number</span>
-                      <span className='data-value text-soft'>{userInfo.phone}</span>
+                      <span className='data-value text-soft'>{formData?.phone}</span>
                     </div>
                     <div className='data-col data-col-end'>
                       <span className='data-more'>
@@ -162,7 +150,7 @@ const UserProfileRegularPage = () => {
                   <div className='data-item' onClick={() => setModal(true)}>
                     <div className='data-col'>
                       <span className='data-label'>Date of Birth</span>
-                      <span className='data-value'>{userInfo.dob}</span>
+                      <span className='data-value'>{formData?.dob}</span>
                     </div>
                     <div className='data-col data-col-end'>
                       <span className='data-more'>
@@ -174,9 +162,9 @@ const UserProfileRegularPage = () => {
                     <div className='data-col'>
                       <span className='data-label'>Address</span>
                       <span className='data-value'>
-                        {userInfo.address},
+                        {formData?.address},
                         <br />
-                        {userInfo.state}, {userInfo.country}
+                        {formData?.state}, {formData?.country}
                       </span>
                     </div>
                     <div className='data-col data-col-end'>
@@ -349,7 +337,10 @@ const UserProfileRegularPage = () => {
                                 selected={new Date(formData.dob)}
                                 className='form-control'
                                 onChange={(date) =>
-                                  setFormData({ ...formData, dob: getDateStructured(date) })
+                                  setFormData({
+                                    ...formData,
+                                    dob: getDateStructured(date),
+                                  })
                                 }
                                 maxDate={new Date()}
                               />
@@ -458,7 +449,12 @@ const UserProfileRegularPage = () => {
                                     label: formData.country,
                                   },
                                 ]}
-                                onChange={(e) => setFormData({ ...formData, country: e.value })}
+                                onChange={(e) =>
+                                  setFormData({
+                                    ...formData,
+                                    country: e.value,
+                                  })
+                                }
                               />
                             </div>
                           </Col>
