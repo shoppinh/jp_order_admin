@@ -1,4 +1,11 @@
-export { login, logout, refreshToken, registerDeviceToken } from './authentication';
+export {
+  login,
+  logout,
+  refreshToken,
+  registerDeviceToken,
+  getUserProfile,
+  updateUserProfile,
+} from './authentication';
 export {
   getUserInfo,
   addNewAddress,
@@ -7,4 +14,7 @@ export {
   getAddressList,
   getUserList,
   updateAddress,
+  deleteUser,
+  updateUserInfo,
+  addNewUser,
 } from './user';

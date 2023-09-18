@@ -23,10 +23,6 @@ const slice = createSlice({
   name: 'session',
   initialState,
   reducers: {
-    addMenuInfo(state, action) {
-      state.data.menuGUID = action.payload.menuGUID;
-      state.data.outletId = action.payload.outletId;
-    },
     updateAuth(state, action) {
       state.data = {
         ...state.data,
@@ -58,8 +54,11 @@ const slice = createSlice({
       state.error = null;
       state.loading = true;
     },
-    updateUserInfo(state, action) {
+    doUpdateUserProfile(state, action) {
       state.error = null;
+      state.loading = true;
+    },
+    doUpdatedUserProfile(state, action) {
       state.data.auth = {
         ...state.data.auth,
         user: {
@@ -67,7 +66,7 @@ const slice = createSlice({
           data: action.payload.user,
         },
       };
-      state.loading = true;
+      state.loading = false;
     },
     updateSessionCheckout(state, action) {
       const { menuGUID, deliveryOption, addedToCartFirstTime } = action.payload;
@@ -86,45 +85,13 @@ const slice = createSlice({
         };
       }
     },
-    updateSellerId(state, action) {
-      state.data.sellerId = action.payload.sellerId;
-      state.data.siteType = action.payload.siteType;
-    },
-    updateTableId(state, action) {
-      state.data.tableId = action.payload.tableId;
-    },
+
     doRegisterDeviceToken(state, action) {},
     updateRegisterDeviceToken(state, action) {
       state.data.auth = {
         ...state.data.auth,
         fcmToken: action.payload.fcmToken,
       };
-    },
-    getCountUnreadRoom(state, action) {
-      state.error = null;
-      state.loading = true;
-    },
-    updateCountUnreadRoom(state, action) {
-      if (action?.payload.menuGUID) {
-        state.error = null;
-        state.data.auth = {
-          ...state.data.auth,
-          user: {
-            ...state.data.auth?.user,
-            notifications: {
-              ...state.data.auth?.user?.notifications,
-              [action.payload.menuGUID]: {
-                messageCountUnread: Number(action.payload.countUnread || '0'),
-              },
-            },
-          },
-        };
-      }
-      state.loading = false;
-    },
-    doSocialRegister(state, action) {
-      state.error = null;
-      state.loading = true;
     },
     Error(state, action) {
       state.error = action.payload;

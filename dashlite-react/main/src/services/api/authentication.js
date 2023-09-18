@@ -31,3 +31,11 @@ export const refreshToken = async (query) => {
 export const registerDeviceToken = async (query) => {
   return new apiClient(query.token).post(APIs.auth.registerDeviceToken, query);
 };
+export const getUserProfile = async (query) => {
+  return new apiClient(query.token).get(APIs.user.userProfile, query);
+};
+
+export const updateUserProfile = async (query) => {
+  const { token, payload } = query;
+  return new apiClient(token).put(APIs.user.userProfile, payload);
+};

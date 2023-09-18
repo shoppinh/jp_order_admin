@@ -1,30 +1,31 @@
 import { loadState } from '../localStorage';
 import { useInjectReducer, useInjectSaga } from '../../utils/@reduxjs/redux-injector';
 import { createSlice } from '../../utils/@reduxjs/toolkit';
-import { customerSaga } from '../sagas/customerSaga';
+import { userSaga } from '../sagas/userSaga';
 
-const customerCache = loadState()?.customer;
+const userCache = loadState()?.user;
 
 export const initialState = {
   data: {
-    ...customerCache?.data,
+    ...userCache?.data,
   },
   error: null,
   loading: false,
 };
 
 const slice = createSlice({
-  name: 'customer',
+  name: 'user',
   initialState,
   reducers: {
-    loadCustomerList(state, action) {
+    loadUserList(state, action) {
       state.loading = true;
       state.error = null;
     },
-    loadedCustomerList(state, action) {
+    loadedUserList(state, action) {
       state.loading = false;
-      state.data.customerList = action.payload;
+      state.data.userList = action.payload;
     },
+    loadUserDetail(state, action) {},
     Error(state, action) {
       state.error = action.payload;
       state.loading = false;
@@ -32,12 +33,12 @@ const slice = createSlice({
   },
 });
 
-export const { name, actions: customerActions, reducer } = slice;
+export const { name, actions: userActions, reducer } = slice;
 
-export const useCustomerSlice = () => {
+export const useUserSlice = () => {
   useInjectReducer({ key: slice.name, reducer: slice.reducer });
-  useInjectSaga({ key: slice.name, saga: customerSaga });
+  useInjectSaga({ key: slice.name, saga: userSaga });
   return {
-    actions: customerActions,
+    actions: userActions,
   };
 };

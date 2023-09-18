@@ -26,6 +26,10 @@ export const APIs = {
       getAddressDetail: '/api/user/address/{id}',
     },
     getUserList: '/api/user/list',
-    getUserInfo: '/api/user/profile',
+    userProfile: '/api/user/profile',
+    updateUser: '/api/user/{id}',
+    deleteUser: '/api/user/{id}',
+    getUserDetail: '/api/user/{id}',
+    addNewUser: '/api/user',
   },
 };
