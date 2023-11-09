@@ -61,3 +61,35 @@ export function* apiGetUserAddressList(query) {
 export function* apiDeleteUserAddress(query) {
   return yield call(api.deleteAddress, query);
 }
+
+// Settings
+
+export function* apiGetUserSettings(query) {
+  return yield call(api.getUserSettings, query);
+}
+
+export function* apiUpdateUserSettings(query) {
+  return yield call(api.updateUserSettings, query);
+}
+
+// Product
+
+export function* apiLoadProductList(query) {
+  return yield call(api.loadProductList, query);
+}
+
+export function* apiLoadProductDetail(query) {
+  return yield call(api.loadProductDetail, query);
+}
+
+export function* apiCreateProduct(query) {
+  return yield call(api.createProduct, query);
+}
+
+export function* apiUpdateProduct(query) {
+  return yield call(api.updateProduct, query);
+}
+
+export function* apiDeleteProduct(query) {
+  return yield call(api.deleteProduct, query);
+}

@@ -1,37 +1,38 @@
-import React, { useState, useEffect } from 'react';
-import Head from '../../../../layout/head/Head';
-import Content from '../../../../layout/content/Content';
+import React, { useEffect, useState } from 'react';
+import Dropzone from 'react-dropzone';
+import { useForm } from 'react-hook-form';
 import {
-  Block,
-  BlockHead,
-  BlockTitle,
-  BlockBetween,
-  BlockHeadContent,
-  BlockDes,
-  Icon,
-  Row,
-  Col,
-  Button,
-  DataTableHead,
-  DataTableRow,
-  DataTableItem,
-  PaginationComponent,
-  RSelect,
-  PreviewAltCard,
-} from '../../../../components/Component';
-import {
+  Badge,
   DropdownItem,
-  UncontrolledDropdown,
   DropdownMenu,
   DropdownToggle,
-  Badge,
+  Modal,
+  ModalBody,
+  UncontrolledDropdown,
 } from 'reactstrap';
-import { productData, categoryOptions } from './ProductData';
 import SimpleBar from 'simplebar-react';
-import { useForm } from 'react-hook-form';
+import {
+  Block,
+  BlockBetween,
+  BlockDes,
+  BlockHead,
+  BlockHeadContent,
+  BlockTitle,
+  Button,
+  Col,
+  DataTableHead,
+  DataTableItem,
+  DataTableRow,
+  Icon,
+  PaginationComponent,
+  PreviewAltCard,
+  RSelect,
+  Row,
+} from '../../../../components/Component';
 import ProductH from '../../../../images/product/h.png';
-import Dropzone from 'react-dropzone';
-import { Modal, ModalBody } from 'reactstrap';
+import Content from '../../../../layout/content/Content';
+import Head from '../../../../layout/head/Head';
+import { categoryOptions, productData } from './ProductData';
 
 const ProductList = () => {
   const [data, setData] = useState(productData);
@@ -203,9 +204,9 @@ const ProductList = () => {
   // toggle function to view product details
   const toggle = (type) => {
     setView({
-      edit: type === 'edit' ? true : false,
-      add: type === 'add' ? true : false,
-      details: type === 'details' ? true : false,
+      edit: type === 'edit',
+      add: type === 'add',
+      details: type === 'details',
     });
   };
 

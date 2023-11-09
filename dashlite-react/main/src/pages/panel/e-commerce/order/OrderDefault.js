@@ -50,9 +50,9 @@ const OrderDefault = () => {
     add: false,
     details: false,
   });
-  const [onSearchText, setSearchText] = useState('');
+  const [onSearchText, setOnSearchText] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemPerPage] = useState(7);
+  const [itemPerPage, setItemPerPage] = useState(7);
 
   // Changing state value when searching name
   useEffect(() => {
@@ -69,8 +69,8 @@ const OrderDefault = () => {
   // toggle function to view order details
   const toggle = (type) => {
     setView({
-      add: type === 'add' ? true : false,
-      details: type === 'details' ? true : false,
+      add: type === 'add',
+      details: type === 'details',
     });
   };
 
@@ -140,7 +140,7 @@ const OrderDefault = () => {
 
   // onChange function for searching name
   const onFilterChange = (e) => {
-    setSearchText(e.target.value);
+    setOnSearchText(e.target.value);
   };
 
   // function to close the form modal

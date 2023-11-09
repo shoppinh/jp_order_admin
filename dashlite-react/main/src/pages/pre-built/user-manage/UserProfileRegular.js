@@ -21,6 +21,8 @@ import { getDateStructured } from '../../../utils/Utils';
 import UserProfileAside from './UserProfileAside';
 import { useSelector } from 'react-redux';
 import { getUserInfo } from '../../../store/selectors/session';
+import { useSessionSlice } from '../../../store/slices/session';
+import { useForm } from 'react-hook-form';
 
 const UserProfileRegularPage = () => {
   const [sm, updateSm] = useState(false);
@@ -28,12 +30,17 @@ const UserProfileRegularPage = () => {
 
   const [modalTab, setModalTab] = useState('1');
   const currentUser = useSelector(getUserInfo);
-  const [formData, setFormData] = useState(currentUser);
+  const { actions: sessionActions } = useSessionSlice();
+  const {
+    handleSubmit,
+    register,
+    getValues,
+    formState: { errors },
+  } = useForm({
+    defaultValues: currentUser,
+  });
+  const formData = getValues();
   const [modal, setModal] = useState(false);
-
-  const onInputChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
 
   const submitForm = () => {
     setModal(false);
@@ -158,7 +165,7 @@ const UserProfileRegularPage = () => {
                       </span>
                     </div>
                   </div>
-                  <div className='data-item' onClick={() => setModal(true)}>
+                  {/* <div className='data-item' onClick={() => setModal(true)}>
                     <div className='data-col'>
                       <span className='data-label'>Address</span>
                       <span className='data-value'>
@@ -172,7 +179,7 @@ const UserProfileRegularPage = () => {
                         <Icon name='forward-ios'></Icon>
                       </span>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
                 <div className='nk-data data-list'>
                   <div className='data-head'>
@@ -289,9 +296,7 @@ const UserProfileRegularPage = () => {
                                 type='text'
                                 id='full-name'
                                 className='form-control'
-                                name='name'
-                                onChange={(e) => onInputChange(e)}
-                                defaultValue={formData?.fullName}
+                                {...register('fullName')}
                                 placeholder='Enter Full name'
                               />
                             </div>
@@ -305,9 +310,7 @@ const UserProfileRegularPage = () => {
                                 type='text'
                                 id='display-name'
                                 className='form-control'
-                                name='displayName'
-                                onChange={(e) => onInputChange(e)}
-                                defaultValue={formData?.username}
+                                {...register('username')}
                                 placeholder='Enter display name'
                               />
                             </div>
@@ -321,14 +324,12 @@ const UserProfileRegularPage = () => {
                                 type='number'
                                 id='phone-no'
                                 className='form-control'
-                                name='phone'
-                                onChange={(e) => onInputChange(e)}
-                                defaultValue={formData?.mobilePhone}
                                 placeholder='Phone Number'
+                                {...register('mobilePhone')}
                               />
                             </div>
                           </Col>
-                          <Col md='6'>
+                          {/* <Col md='6'>
                             <div className='form-group'>
                               <label className='form-label' htmlFor='birth-day'>
                                 Date of Birth
@@ -345,7 +346,7 @@ const UserProfileRegularPage = () => {
                                 maxDate={new Date()}
                               />
                             </div>
-                          </Col>
+                          </Col> */}
                           <Col size='12'>
                             <div className='custom-control custom-switch'>
                               <input
@@ -398,9 +399,7 @@ const UserProfileRegularPage = () => {
                               <input
                                 type='text'
                                 id='address-l1'
-                                name='address'
-                                onChange={(e) => onInputChange(e)}
-                                defaultValue={formData.address}
+                                {...register('address')}
                                 className='form-control'
                               />
                             </div>
@@ -413,14 +412,12 @@ const UserProfileRegularPage = () => {
                               <input
                                 type='text'
                                 id='address-l2'
-                                name='address2'
-                                onChange={(e) => onInputChange(e)}
-                                defaultValue={formData.address2}
+                                {...register('address2')}
                                 className='form-control'
                               />
                             </div>
                           </Col>
-                          <Col md='6'>
+                          {/* <Col md='6'>
                             <div className='form-group'>
                               <label className='form-label' htmlFor='address-st'>
                                 State
@@ -457,7 +454,7 @@ const UserProfileRegularPage = () => {
                                 }
                               />
                             </div>
-                          </Col>
+                          </Col> */}
                           <Col size='12'>
                             <ul className='align-center flex-wrap flex-sm-nowrap gx-4 gy-2'>
                               <li>

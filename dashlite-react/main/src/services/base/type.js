@@ -32,4 +32,16 @@ export const APIs = {
     getUserDetail: '/api/user/{id}',
     addNewUser: '/api/user',
   },
+  setting: {
+    getSetting: '/api/setting',
+    updateSetting: '/api/setting',
+  },
+  product: {
+    loadProductList: '/api/product/list',
+    loadProductDetail: '/api/product/{id}',
+    createProduct: '/api/product',
+    updateProduct: '/api/product/{id}',
+    deleteProduct: '/api/product/{id}',
+  },
+  order: {},
 };

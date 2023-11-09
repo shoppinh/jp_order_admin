@@ -18,3 +18,12 @@ export {
   updateUserInfo,
   addNewUser,
 } from './user';
+export { getUserSettings, updateUserSettings } from './setting';
+
+export {
+  loadProductList,
+  loadProductDetail,
+  createProduct,
+  updateProduct,
+  deleteProduct,
+} from './product';
