@@ -19,17 +19,8 @@ import TotalSales from '../../../components/partials/e-commerce/total-sales/Tota
 import StoreStatistics from '../../../components/partials/default/StoreStatistics';
 import TrafficSources from '../../../components/partials/e-commerce/traffic-sources/TrafficSources';
 import StoreVisitors from '../../../components/partials/e-commerce/store-visitors/StoreVisitors';
-import { useSettingSlice } from '../../../store/slices/setting';
-import { useDispatch, useSelector } from 'react-redux';
-import { getAccessToken } from '../../../store/selectors/session';
 
 const Dashboard = () => {
-  const { actions: settingActions } = useSettingSlice();
-  const dispatch = useDispatch();
-  const currentAccessToken = useSelector(getAccessToken);
-  React.useEffect(() => {
-    if (currentAccessToken) dispatch(settingActions.loadSetting({ token: currentAccessToken }));
-  }, [currentAccessToken, dispatch, settingActions]);
   return (
     <React.Fragment>
       <Head title='Dashboard'></Head>

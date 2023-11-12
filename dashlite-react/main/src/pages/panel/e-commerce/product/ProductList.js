@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import Dropzone from 'react-dropzone';
 import { useForm } from 'react-hook-form';
 import {
@@ -32,18 +32,44 @@ import {
 import ProductH from '../../../../images/product/h.png';
 import Content from '../../../../layout/content/Content';
 import Head from '../../../../layout/head/Head';
-import { categoryOptions, productData } from './ProductData';
-
+import { getProductListData, getProductListTotalItem } from '../../../../store/selectors/product';
+import { useDispatch, useSelector } from 'react-redux';
+import { useProductSlice } from '../../../../store/slices/product';
+import { getAccessToken } from '../../../../store/selectors/session';
+import { ITEM_PER_PAGE } from '../../../../utils/constants';
+import debounce from 'lodash.debounce';
+import { getCategoryListData } from '../../../../store/selectors/category';
+// import { categoryOptions } from './ProductData';
 const ProductList = () => {
-  const [data, setData] = useState(productData);
+  const { actions: productActions } = useProductSlice();
+  const dispatch = useDispatch();
+  const accessToken = useSelector(getAccessToken);
   const [sm, updateSm] = useState(false);
+  const categoryList = useSelector(getCategoryListData);
+
+  const categoryOptions = useMemo(() => {
+    return categoryList.map((item) => {
+      return {
+        value: item.name,
+        label: item.label,
+      };
+    });
+  }, [categoryList]);
+  // Get current list, pagination
+  const [searchText, setSearchText] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const indexOfLastItem = currentPage * ITEM_PER_PAGE;
+  const indexOfFirstItem = indexOfLastItem - ITEM_PER_PAGE;
+  // const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = useSelector(getProductListData);
+  const totalItems = useSelector(getProductListTotalItem);
   const [formData, setFormData] = useState({
     name: '',
     img: null,
     sku: '',
     price: 0,
     salePrice: 0,
-    stock: 0,
+    quantity: 0,
     category: [],
     fav: false,
     check: false,
@@ -54,22 +80,14 @@ const ProductList = () => {
     add: false,
     details: false,
   });
-  const [onSearchText, setSearchText] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemPerPage] = useState(7);
-  const [files, setFiles] = useState([]);
 
-  // Changing state value when searching name
-  useEffect(() => {
-    if (onSearchText !== '') {
-      const filteredObject = productData.filter((item) => {
-        return item.sku.toLowerCase().includes(onSearchText.toLowerCase());
-      });
-      setData([...filteredObject]);
-    } else {
-      setData([...productData]);
-    }
-  }, [onSearchText]);
+  const [files, setFiles] = useState([]);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
 
   // function to close the form modal
   const onFormCancel = () => {
@@ -77,84 +95,85 @@ const ProductList = () => {
     resetForm();
   };
 
-  const resetForm = () => {
+  const resetForm = useCallback(() => {
     setFormData({
       name: '',
       img: null,
       sku: '',
       price: 0,
       salePrice: 0,
-      stock: 0,
+      quantity: 0,
       category: [],
       fav: false,
       check: false,
     });
     reset({});
-  };
+  }, [reset]);
 
   const onFormSubmit = (form) => {
-    const { title, price, salePrice, sku, stock } = form;
-    let submittedData = {
-      id: data.length + 1,
-      name: title,
-      img: files.length > 0 ? files[0].preview : ProductH,
-      sku: sku,
-      price: price,
-      salePrice: salePrice,
-      stock: stock,
-      category: formData.category,
-      fav: false,
-      check: false,
-    };
-    setData([submittedData, ...data]);
+    const { title, price, salePrice, sku, quantity } = form;
+    // let submittedData = {
+    //   id: data.length + 1,
+    //   name: title,
+    //   img: files.length > 0 ? files[0].preview : ProductH,
+    //   sku: sku,
+    //   price: price,
+    //   salePrice: salePrice,
+    //   quantity: quantity,
+    //   category: formData.category,
+    //   fav: false,
+    //   check: false,
+    // };
+    // setData([submittedData, ...data]);
     setView({ open: false });
     setFiles([]);
     resetForm();
   };
 
-  const onEditSubmit = () => {
-    let submittedData;
-    let newItems = data;
-    let index = newItems.findIndex((item) => item.id === editId);
-
-    newItems.forEach((item) => {
-      if (item.id === editId) {
-        submittedData = {
-          id: editId,
-          name: formData.name,
-          img: files.length > 0 ? files[0].preview : item.img,
-          sku: formData.sku,
-          price: formData.price,
-          salePrice: formData.salePrice,
-          stock: formData.stock,
-          category: formData.category,
-          fav: false,
-          check: false,
-        };
+  const onEditSubmit = useCallback(
+    (formData) => {
+      let foundItem = currentItems.find((item) => item._id === editId);
+      const submittedData = {
+        id: editId,
+        name: formData.name,
+        img: files.length > 0 ? files[0].preview : foundItem.img,
+        sku: formData.sku,
+        price: formData.price,
+        salePrice: formData.salePrice,
+        quantity: formData.quantity,
+        category: formData.category,
+        fav: false,
+        check: false,
+      };
+      if (accessToken) {
+        dispatch(
+          productActions.updateProduct({ token: accessToken, productId: editId, ...submittedData })
+        );
+        resetForm();
       }
-    });
-    newItems[index] = submittedData;
-    //setData(newItems);
-    resetForm();
-    setView({ edit: false, add: false });
-  };
+
+      setView({ edit: false, add: false });
+    },
+    [accessToken, currentItems, dispatch, editId, files, productActions, resetForm]
+  );
 
   // function that loads the want to editted data
   const onEditClick = (id) => {
-    data.forEach((item) => {
-      if (item.id === id) {
-        setFormData({
-          name: item.name,
-          img: item.img,
-          sku: item.sku,
-          price: item.price,
-          stock: item.stock,
-          category: item.category,
-          fav: false,
-          check: false,
-        });
-      }
+    console.log('🚀 ~ file: ProductList.js:152 ~ onEditClick ~ id:', id);
+    const foundItem = currentItems.find((item) => item._id === id);
+    console.log('🚀 ~ file: ProductList.js:165 ~ onEditClick ~ foundItem:', foundItem);
+    if (!foundItem) return;
+    setFormData({
+      name: foundItem.name,
+      img: foundItem.productSrcURL,
+      sku: foundItem.SKU,
+      price: foundItem.price,
+      quantity: foundItem.quantity,
+      category: foundItem.category,
+      fav: false,
+      check: false,
     });
+
     setEditedId(id);
     setFiles([]);
     setView({ add: false, edit: true });
@@ -162,43 +181,49 @@ const ProductList = () => {
 
   useEffect(() => {
     reset(formData);
-  }, [formData]);
+  }, [formData, reset]);
 
   // selects all the products
   const selectorCheck = (e) => {
     let newData;
-    newData = data.map((item) => {
-      item.check = e.currentTarget.checked;
-      return item;
-    });
-    setData([...newData]);
+    // newData = data.map((item) => {
+    //   item.check = e.currentTarget.checked;
+    //   return item;
+    // });
+    // setData([...newData]);
   };
 
   // selects one product
   const onSelectChange = (e, id) => {
-    let newData = data;
-    let index = newData.findIndex((item) => item.id === id);
-    newData[index].check = e.currentTarget.checked;
-    setData([...newData]);
+    // let newData = data;
+    // let index = newData.findIndex((item) => item.id === id);
+    // newData[index].check = e.currentTarget.checked;
+    // setData([...newData]);
   };
 
   // onChange function for searching name
-  const onFilterChange = (e) => {
-    setSearchText(e.target.value);
-  };
+  const onFilterChange = useCallback((e) => {
+    debounce(
+      function () {
+        setSearchText(e.target.value);
+      },
+      1000,
+      { leading: true, trailing: false }
+    );
+  }, []);
 
   // function to delete a product
   const deleteProduct = (id) => {
-    let defaultData = data;
-    defaultData = defaultData.filter((item) => item.id !== id);
-    setData([...defaultData]);
+    // let defaultData = data;
+    // defaultData = defaultData.filter((item) => item.id !== id);
+    // setData([...defaultData]);
   };
 
   // function to delete the seletected item
   const selectorDeleteProduct = () => {
-    let newData;
-    newData = data.filter((item) => item.check !== true);
-    setData([...newData]);
+    // let newData;
+    // newData = data.filter((item) => item.check !== true);
+    // setData([...newData]);
   };
 
   // toggle function to view product details
@@ -221,20 +246,20 @@ const ProductList = () => {
     );
   };
 
-  // Get current list, pagination
-  const indexOfLastItem = currentPage * itemPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemPerPage;
-  const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
-
   // Change Page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm();
+  // Fetch product list
+  useEffect(() => {
+    dispatch(
+      productActions.loadProductList({
+        token: accessToken,
+        skip: indexOfFirstItem,
+        limit: ITEM_PER_PAGE,
+        search: searchText,
+      })
+    );
+  }, [accessToken, dispatch, indexOfFirstItem, productActions, searchText]);
 
   return (
     <React.Fragment>
@@ -366,7 +391,7 @@ const ProductList = () => {
                 <span>Price</span>
               </DataTableRow>
               <DataTableRow>
-                <span>Stock</span>
+                <span>Stock quantity</span>
               </DataTableRow>
               <DataTableRow size='md'>
                 <span>Category</span>
@@ -414,11 +439,11 @@ const ProductList = () => {
                           <li>
                             <DropdownItem
                               tag='a'
-                              href='#stock'
+                              href='#quantity'
                               onClick={(ev) => ev.preventDefault()}
                             >
                               <Icon name='bar-c'></Icon>
-                              <span>Update Stock</span>
+                              <span>Update Quantity</span>
                             </DropdownItem>
                           </li>
                           <li>
@@ -438,34 +463,35 @@ const ProductList = () => {
                 </ul>
               </DataTableRow>
             </DataTableHead>
-            {currentItems.length > 0
-              ? currentItems.map((item) => {
+            {currentItems?.length > 0
+              ? currentItems?.map((item) => {
                   const categoryList = [];
-                  item.category.forEach((currentElement) => {
+                  item?.category?.forEach((currentElement) => {
                     categoryList.push(currentElement.label);
                   });
+
                   return (
-                    <DataTableItem key={item.id}>
+                    <DataTableItem key={item._id}>
                       <DataTableRow className='nk-tb-col-check'>
                         <div className='custom-control custom-control-sm custom-checkbox notext'>
                           <input
                             type='checkbox'
                             className='custom-control-input'
                             defaultChecked={item.check}
-                            id={item.id + 'uid1'}
+                            id={item._id + 'uid1'}
                             key={Math.random()}
-                            onChange={(e) => onSelectChange(e, item.id)}
+                            onChange={(e) => onSelectChange(e, item._id)}
                           />
                           <label
                             className='custom-control-label'
-                            htmlFor={item.id + 'uid1'}
+                            htmlFor={item._id + 'uid1'}
                           ></label>
                         </div>
                       </DataTableRow>
                       <DataTableRow size='sm'>
                         <span className='tb-product'>
                           <img
-                            src={item.img ? item.img : ProductH}
+                            src={item.productSrcURL ? item.productSrcURL : ProductH}
                             alt='product'
                             className='thumb'
                           />
@@ -473,13 +499,13 @@ const ProductList = () => {
                         </span>
                       </DataTableRow>
                       <DataTableRow>
-                        <span className='tb-sub'>{item.sku}</span>
+                        <span className='tb-sub'>{item.SKU}</span>
                       </DataTableRow>
                       <DataTableRow>
                         <span className='tb-sub'>$ {item.price}</span>
                       </DataTableRow>
                       <DataTableRow>
-                        <span className='tb-sub'>{item.stock}</span>
+                        <span className='tb-sub'>{item.quantity}</span>
                       </DataTableRow>
                       <DataTableRow size='md'>
                         <span className='tb-sub'>{categoryList.join(', ')}</span>
@@ -516,7 +542,7 @@ const ProductList = () => {
                                       href='#edit'
                                       onClick={(ev) => {
                                         ev.preventDefault();
-                                        onEditClick(item.id);
+                                        onEditClick(item._id);
                                         toggle('edit');
                                       }}
                                     >
@@ -530,7 +556,7 @@ const ProductList = () => {
                                       href='#view'
                                       onClick={(ev) => {
                                         ev.preventDefault();
-                                        onEditClick(item.id);
+                                        onEditClick(item._id);
                                         toggle('details');
                                       }}
                                     >
@@ -544,7 +570,7 @@ const ProductList = () => {
                                       href='#remove'
                                       onClick={(ev) => {
                                         ev.preventDefault();
-                                        deleteProduct(item.id);
+                                        deleteProduct(item._id);
                                       }}
                                     >
                                       <Icon name='trash'></Icon>
@@ -563,10 +589,10 @@ const ProductList = () => {
               : null}
           </div>
           <PreviewAltCard>
-            {data.length > 0 ? (
+            {totalItems > 0 ? (
               <PaginationComponent
-                itemPerPage={itemPerPage}
-                totalItems={data.length}
+                itemPerPage={ITEM_PER_PAGE}
+                totalItems={totalItems}
                 paginate={paginate}
                 currentPage={currentPage}
               />
@@ -659,18 +685,20 @@ const ProductList = () => {
                     </Col>
                     <Col md='6'>
                       <div className='form-group'>
-                        <label className='form-label' htmlFor='stock'>
-                          Stock
+                        <label className='form-label' htmlFor='quantity'>
+                          Quantity
                         </label>
                         <div className='form-control-wrap'>
                           <input
                             type='number'
                             className='form-control'
-                            {...register('stock', { required: 'This is required' })}
-                            value={formData.stock}
-                            onChange={(e) => setFormData({ ...formData, stock: e.target.value })}
+                            {...register('quantity', { required: 'This is required' })}
+                            value={formData.quantity}
+                            onChange={(e) => setFormData({ ...formData, quantity: e.target.value })}
                           />
-                          {errors.stock && <span className='invalid'>{errors.stock.message}</span>}
+                          {errors.quantity && (
+                            <span className='invalid'>{errors.quantity.message}</span>
+                          )}
                         </div>
                       </div>
                     </Col>
@@ -738,7 +766,13 @@ const ProductList = () => {
                                   className='dz-preview dz-processing dz-image-preview dz-error dz-complete'
                                 >
                                   <div className='dz-image'>
-                                    <img src={file.preview} alt='preview' />
+                                    <img
+                                      src={file.preview}
+                                      alt='preview'
+                                      width={120}
+                                      height={120}
+                                      style={{ objectFit: 'cover' }}
+                                    />
                                   </div>
                                 </div>
                               ))}
@@ -805,8 +839,8 @@ const ProductList = () => {
                   </span>
                 </Col>
                 <Col lg={6}>
-                  <span className='sub-text'>Stock</span>
-                  <span className='caption-text'> {formData.stock}</span>
+                  <span className='sub-text'>Stock quantity</span>
+                  <span className='caption-text'> {formData.quantity}</span>
                 </Col>
               </Row>
             </div>
@@ -886,18 +920,20 @@ const ProductList = () => {
                 </Col>
                 <Col md='6'>
                   <div className='form-group'>
-                    <label className='form-label' htmlFor='stock'>
-                      Stock
+                    <label className='form-label' htmlFor='quantity'>
+                      Quantity
                     </label>
                     <div className='form-control-wrap'>
                       <input
                         type='number'
                         className='form-control'
-                        {...register('stock', { required: 'This is required' })}
-                        value={formData.stock}
-                        onChange={(e) => setFormData({ ...formData, stock: e.target.value })}
+                        {...register('quantity', { required: 'This is required' })}
+                        value={formData.quantity}
+                        onChange={(e) => setFormData({ ...formData, quantity: e.target.value })}
                       />
-                      {errors.stock && <span className='invalid'>{errors.stock.message}</span>}
+                      {errors.quantity && (
+                        <span className='invalid'>{errors.quantity.message}</span>
+                      )}
                     </div>
                   </div>
                 </Col>
@@ -956,7 +992,13 @@ const ProductList = () => {
                               className='dz-preview dz-processing dz-image-preview dz-error dz-complete'
                             >
                               <div className='dz-image'>
-                                <img src={file.preview} alt='preview' />
+                                <img
+                                  src={file.preview}
+                                  alt='preview'
+                                  width={120}
+                                  height={120}
+                                  style={{ objectFit: 'cover' }}
+                                />
                               </div>
                             </div>
                           ))}

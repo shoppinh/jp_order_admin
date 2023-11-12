@@ -9,8 +9,8 @@ export const initialState = {
   data: {
     ...productCache?.data,
   },
-  error: null,
   loading: false,
+  error: null,
 };
 
 const slice = createSlice({

@@ -93,3 +93,27 @@ export function* apiUpdateProduct(query) {
 export function* apiDeleteProduct(query) {
   return yield call(api.deleteProduct, query);
 }
+
+// Category
+
+export function* apiLoadCategoryList(query) {
+  return yield call(api.loadCategoryList, query);
+}
+
+export function* apiLoaCategoryDetail(query) {
+  return yield call(api.loadCategoryDetail, query);
+}
+
+export function* apiCreateCategory(query) {
+  return yield call(api.createCategory, query);
+}
+
+export function* apiUpdateCategory(query) {
+  return yield call(api.updateCategory, query);
+}
+
+export function* apiDeleteCategory(query) {
+  return yield call(api.deleteCategory, query);
+}
+
+// Order

@@ -9,8 +9,22 @@ import AppMain from './global/AppMain';
 import AppWrap from './global/AppWrap';
 
 import FileManagerProvider from '../pages/app/file-manager/components/Context';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { useSettingSlice } from '../store/slices/setting';
+import { useCategorySlice } from '../store/slices/category';
+import { getAccessToken } from '../store/selectors/session';
 const Layout = ({ title, ...props }) => {
+  const { actions: settingActions } = useSettingSlice();
+  const { actions: categoryActions } = useCategorySlice();
+  const dispatch = useDispatch();
+  const currentAccessToken = useSelector(getAccessToken);
+  React.useEffect(() => {
+    if (currentAccessToken && currentAccessToken !== '') {
+      dispatch(settingActions.loadSetting({ token: currentAccessToken }));
+      dispatch(categoryActions.loadCategoryList({ token: currentAccessToken }));
+    }
+  }, [categoryActions, currentAccessToken, dispatch, settingActions]);
+
   return (
     <FileManagerProvider>
       <Head title={!title && 'Loading'} />

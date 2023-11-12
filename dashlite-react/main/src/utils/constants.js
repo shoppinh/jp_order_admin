@@ -18,3 +18,5 @@ export const DefaultRole = [
   ConstantRoles.ACCOUNTANT,
   ConstantRoles.STORAGE_MANAGER,
 ];
+
+export const ITEM_PER_PAGE = 10;

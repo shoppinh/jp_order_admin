@@ -18,11 +18,9 @@ root.render(
   <Provider store={store}>
     <HelmetProvider>
       <ThemeProvider>
-        <React.StrictMode>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </React.StrictMode>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
       </ThemeProvider>
     </HelmetProvider>
   </Provider>

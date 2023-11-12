@@ -27,3 +27,11 @@ export {
   updateProduct,
   deleteProduct,
 } from './product';
+
+export {
+  createCategory,
+  deleteCategory,
+  loadCategoryDetail,
+  loadCategoryList,
+  updateCategory,
+} from './category';
