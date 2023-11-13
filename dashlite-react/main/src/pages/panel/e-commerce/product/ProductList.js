@@ -82,6 +82,8 @@ const ProductList = () => {
   });
 
   const [files, setFiles] = useState([]);
+  const [productThumbImg, setProductThumbImg] = useState(null);
+  console.log("🚀 ~ file: ProductList.js:86 ~ ProductList ~ productThumbImg:", productThumbImg)
   const {
     register,
     handleSubmit,
@@ -159,9 +161,7 @@ const ProductList = () => {
 
   // function that loads the want to editted data
   const onEditClick = (id) => {
-    console.log('🚀 ~ file: ProductList.js:152 ~ onEditClick ~ id:', id);
     const foundItem = currentItems.find((item) => item._id === id);
-    console.log('🚀 ~ file: ProductList.js:165 ~ onEditClick ~ foundItem:', foundItem);
     if (!foundItem) return;
     setFormData({
       name: foundItem.name,
@@ -245,6 +245,17 @@ const ProductList = () => {
       )
     );
   };
+
+  const handleDropChangeProductThumb = (acceptedFiles) => {
+    if (acceptedFiles?.[0]) {
+      setProductThumbImg(
+        Object.assign(acceptedFiles?.[0], {
+          preview: URL.createObjectURL(acceptedFiles?.[0]),
+        })
+      );
+    }
+   
+  }
 
   // Change Page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -975,6 +986,43 @@ const ProductList = () => {
                   </div>
                 </Col>
                 <Col size='12'>
+                <label className='form-label' htmlFor='productSrcURL'>
+                      Product Image
+                    </label>
+                  <Dropzone onDrop={(acceptedFiles) => handleDropChangeProductThumb(acceptedFiles)}>
+                    {({ getRootProps, getInputProps }) => (
+                      <section>
+                        <div
+                          {...getRootProps()}
+                          className='dropzone upload-zone small bg-lighter my-2 dz-clickable'
+                        >
+                          <input {...getInputProps()} />
+                          {!productThumbImg ? (
+                            <p>Drag 'n' drop some files here, or click to select files</p>
+                          ): <div
+                              key={productThumbImg?.name}
+                              className='dz-preview dz-processing dz-image-preview dz-error dz-complete'
+                            >
+                              <div className='dz-image'>
+                                <img
+                                  src={productThumbImg?.preview}
+                                  alt='preview'
+                                  width={120}
+                                  height={120}
+                                  style={{ objectFit: 'cover' }}
+                                />
+                              </div>
+                            </div>}
+                          
+                        </div>
+                      </section>
+                    )}
+                  </Dropzone>
+                </Col>
+                <Col size='12'>
+                <label className='form-label' htmlFor='imgAttachments'>
+                      Image Attachments
+                    </label>
                   <Dropzone onDrop={(acceptedFiles) => handleDropChange(acceptedFiles)}>
                     {({ getRootProps, getInputProps }) => (
                       <section>

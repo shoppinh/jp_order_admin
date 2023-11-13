@@ -57,4 +57,9 @@ export const APIs = {
     updateCategory: '/api/category/{id}',
     deleteCategory: '/api/category/{id}',
   },
+  file: {
+    uploadImage: '/api/file/upload/image',
+    uploadImages: '/api/file/upload/images',
+    deleteFile: '/api/file',
+  },
 };

@@ -5,6 +5,8 @@ import {
   apiLoadProductList,
   apiUpdateProduct,
   apiDeleteProduct,
+  apiUploadImages,
+  apiUploadImage,
 } from '../../services/api/apiHelper';
 import { productActions as actions } from '../slices/product';
 
@@ -71,12 +73,26 @@ export function* doLoadProductDetail({ payload }) {
 
 export function* doCreateProduct({ payload }) {
   try {
-    const response = yield call(apiCreateProduct, payload);
-    if (response?.data?.status) {
-      yield put(actions.finished());
-    } else {
-      yield put(actions.Error(response.data.error));
+    const { imageAttachments, productImageThumb, ...rest } = payload;
+    // First upload image thumbnail and image attachments
+    const [uploadImageAttachmentsRes, uploadImageThumbRes] = yield all([
+      call(apiUploadImages, imageAttachments),
+      call(apiUploadImage, productImageThumb),
+    ]);
+    if (uploadImageAttachmentsRes?.data?.status && uploadImageThumbRes?.data?.status) {
+      const createProductPayload = {
+        ...rest,
+        imageAttachments: uploadImageAttachmentsRes.data.data,
+        productImageThumb: uploadImageThumbRes.data.data,
+      };
+      const response = yield call(apiCreateProduct, createProductPayload);
+      if (response?.data?.status) {
+        yield put(actions.finished());
+      } else {
+        yield put(actions.Error(response.data.error));
+      }
     }
+    // Then create product
   } catch (error) {
     console.log('🚀 ~ file: productSaga.js:19 ~ function*doLoadProductList ~ error:', error);
   }

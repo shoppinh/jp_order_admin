@@ -35,3 +35,5 @@ export {
   loadCategoryList,
   updateCategory,
 } from './category';
+
+export { deleteFile, uploadImage, uploadImages } from './file';

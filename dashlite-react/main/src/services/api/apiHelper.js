@@ -117,3 +117,17 @@ export function* apiDeleteCategory(query) {
 }
 
 // Order
+
+// File
+
+export function* apiUploadImage(query) {
+  return yield call(api.uploadImage, query);
+}
+
+export function* apiUploadImages(query) {
+  return yield call(api.uploadImages, query);
+}
+
+export function* apiDeleteFile(query) {
+  return yield call(api.deleteFile, query);
+}
