@@ -1,0 +1,13 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "start",
+			"path": "dashlite-react/main",
+			"problemMatcher": [],
+			"label": "npm: start - dashlite-react/main",
+			"detail": "react-app-rewired start"
+		}
+	]
+}

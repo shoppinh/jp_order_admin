@@ -11,7 +11,13 @@ import {
 import { productActions as actions } from '../slices/product';
 
 export function* productSaga() {
-  yield all([takeLatest(actions.loadProductList.type, doLoadProductList)]);
+  yield all([
+    takeLatest(actions.loadProductList.type, doLoadProductList),
+    takeLatest(actions.loadProductDetail.type, doLoadProductDetail),
+    takeLatest(actions.createProduct.type, doCreateProduct),
+    takeLatest(actions.updateProduct.type, doUpdateProduct),
+    takeLatest(actions.deleteProduct.type, doDeleteProduct),
+  ]);
 }
 
 const parseProduct = (data) => {
@@ -25,12 +31,7 @@ const parseProduct = (data) => {
     SKU: data.SKU,
     quantity: data.quantity,
     productSrcURL: data.productSrcURL,
-    category: data.category?.map((item) => {
-      return {
-        label: item.label,
-        value: item.name,
-      };
-    }),
+    category: data.category,
     createdAt: data.createdAt,
     updatedAt: data.updatedAt,
   };
@@ -67,47 +68,87 @@ export function* doLoadProductDetail({ payload }) {
       yield put(actions.Error(response.data.error));
     }
   } catch (error) {
-    console.log('🚀 ~ file: productSaga.js:19 ~ function*doLoadProductList ~ error:', error);
+    console.log('🚀 ~ file: productSaga.js:19 ~ function*doLoadProductDetail ~ error:', error);
   }
 }
 
 export function* doCreateProduct({ payload }) {
   try {
-    const { imageAttachments, productImageThumb, ...rest } = payload;
+    const { imageAttachments, productImageThumb, ...productPayload } = payload;
     // First upload image thumbnail and image attachments
-    const [uploadImageAttachmentsRes, uploadImageThumbRes] = yield all([
-      call(apiUploadImages, imageAttachments),
-      call(apiUploadImage, productImageThumb),
-    ]);
-    if (uploadImageAttachmentsRes?.data?.status && uploadImageThumbRes?.data?.status) {
-      const createProductPayload = {
-        ...rest,
-        imageAttachments: uploadImageAttachmentsRes.data.data,
-        productImageThumb: uploadImageThumbRes.data.data,
-      };
-      const response = yield call(apiCreateProduct, createProductPayload);
-      if (response?.data?.status) {
-        yield put(actions.finished());
-      } else {
-        yield put(actions.Error(response.data.error));
+    if (imageAttachments) {
+      const uploadImageAttachmentsRes = yield call(apiUploadImages, {
+        files: imageAttachments,
+        token: payload.token,
+      });
+      if (uploadImageAttachmentsRes?.status === 201) {
+        productPayload.imageAttachments = uploadImageAttachmentsRes.data.map((item) => item.path);
       }
+    }
+
+    if (productImageThumb) {
+      const uploadImageThumbRes = yield call(apiUploadImage, {
+        file: productImageThumb,
+        token: payload.token,
+      });
+      if (uploadImageThumbRes?.status === 201) {
+        productPayload.productSrcURL = uploadImageThumbRes.data.data.path;
+      }
+    }
+
+    const response = yield call(apiCreateProduct, productPayload);
+    if (response?.data?.status) {
+      yield put(actions.finished());
+    } else {
+      yield put(actions.Error(response.data.error));
     }
     // Then create product
   } catch (error) {
-    console.log('🚀 ~ file: productSaga.js:19 ~ function*doLoadProductList ~ error:', error);
+    console.log('🚀 ~ file: productSaga.js:19 ~ function*doCreateProduct ~ error:', error);
   }
 }
 
 export function* doUpdateProduct({ payload }) {
   try {
-    const response = yield call(apiUpdateProduct, payload);
+    const { imageAttachments, productImageThumb, ...productPayload } = payload;
+    // First upload image thumbnail and image attachments
+    if (imageAttachments) {
+      const uploadImageAttachmentsRes = yield call(apiUploadImages, {
+        files: imageAttachments,
+        token: payload.token,
+      });
+      if (uploadImageAttachmentsRes?.status === 201) {
+        productPayload.imageAttachments = uploadImageAttachmentsRes.data.map((item) => item.path);
+      }
+    }
+
+    if (productImageThumb) {
+      const uploadImageThumbRes = yield call(apiUploadImage, {
+        file: productImageThumb,
+        token: payload.token,
+      });
+      if (uploadImageThumbRes?.status === 201) {
+        productPayload.productSrcURL = uploadImageThumbRes.data.data.path;
+      }
+    }
+    const updateProductPayload = {
+      ...productPayload,
+    };
+
+    const response = yield call(apiUpdateProduct, updateProductPayload);
     if (response?.data?.status) {
-      yield put(actions.updatedProductDetail(response.data.data));
+      yield put(
+        actions.updatedProduct({
+          ...response.data.data,
+          _id: payload._id,
+        })
+      );
     } else {
       yield put(actions.Error(response.data.error));
     }
+    // Then create product
   } catch (error) {
-    console.log('🚀 ~ file: productSaga.js:19 ~ function*doLoadProductList ~ error:', error);
+    console.log('🚀 ~ file: productSaga.js:19 ~ function*doCreateProduct ~ error:', error);
   }
 }
 
@@ -120,6 +161,6 @@ export function* doDeleteProduct({ payload }) {
       yield put(actions.Error(response.data.error));
     }
   } catch (error) {
-    console.log('🚀 ~ file: productSaga.js:19 ~ function*doLoadProductList ~ error:', error);
+    console.log('🚀 ~ file: productSaga.js:19 ~ function*doDeleteProduct ~ error:', error);
   }
 }

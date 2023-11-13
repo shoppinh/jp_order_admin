@@ -32,7 +32,12 @@ import {
 import ProductH from '../../../../images/product/h.png';
 import Content from '../../../../layout/content/Content';
 import Head from '../../../../layout/head/Head';
-import { getProductListData, getProductListTotalItem } from '../../../../store/selectors/product';
+import {
+  getProductListData,
+  getProductListTotalItem,
+  getProductError,
+  getProductLoading,
+} from '../../../../store/selectors/product';
 import { useDispatch, useSelector } from 'react-redux';
 import { useProductSlice } from '../../../../store/slices/product';
 import { getAccessToken } from '../../../../store/selectors/session';
@@ -45,28 +50,24 @@ const ProductList = () => {
   const dispatch = useDispatch();
   const accessToken = useSelector(getAccessToken);
   const [sm, updateSm] = useState(false);
-  const categoryList = useSelector(getCategoryListData);
-
-  const categoryOptions = useMemo(() => {
-    return categoryList.map((item) => {
-      return {
-        value: item.name,
-        label: item.label,
-      };
-    });
-  }, [categoryList]);
+  const categoryOptions = useSelector(getCategoryListData);
+  const currentItems = useSelector(getProductListData);
+  const totalItems = useSelector(getProductListTotalItem);
+  const productLoading = useSelector(getProductLoading);
+  const productError = useSelector(getProductError);
+  const [isFormSent, setIsFormSent] = useState(false);
   // Get current list, pagination
   const [searchText, setSearchText] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const indexOfLastItem = currentPage * ITEM_PER_PAGE;
   const indexOfFirstItem = indexOfLastItem - ITEM_PER_PAGE;
   // const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
-  const currentItems = useSelector(getProductListData);
-  const totalItems = useSelector(getProductListTotalItem);
+
   const [formData, setFormData] = useState({
     name: '',
-    img: null,
-    sku: '',
+    productSrcURL: '',
+    imageAttachments: [],
+    SKU: '',
     price: 0,
     salePrice: 0,
     quantity: 0,
@@ -83,7 +84,6 @@ const ProductList = () => {
 
   const [files, setFiles] = useState([]);
   const [productThumbImg, setProductThumbImg] = useState(null);
-  console.log("🚀 ~ file: ProductList.js:86 ~ ProductList ~ productThumbImg:", productThumbImg)
   const {
     register,
     handleSubmit,
@@ -100,8 +100,9 @@ const ProductList = () => {
   const resetForm = useCallback(() => {
     setFormData({
       name: '',
-      img: null,
-      sku: '',
+      productSrcURL: '',
+      imageAttachments: [],
+      SKU: '',
       price: 0,
       salePrice: 0,
       quantity: 0,
@@ -112,38 +113,71 @@ const ProductList = () => {
     reset({});
   }, [reset]);
 
-  const onFormSubmit = (form) => {
-    const { title, price, salePrice, sku, quantity } = form;
-    // let submittedData = {
-    //   id: data.length + 1,
-    //   name: title,
-    //   img: files.length > 0 ? files[0].preview : ProductH,
-    //   sku: sku,
-    //   price: price,
-    //   salePrice: salePrice,
-    //   quantity: quantity,
-    //   category: formData.category,
-    //   fav: false,
-    //   check: false,
-    // };
-    // setData([submittedData, ...data]);
-    setView({ open: false });
-    setFiles([]);
-    resetForm();
-  };
+  const onFormSubmit = useCallback(
+    (form) => {
+      const { name, price, salePrice, SKU, quantity, category } = form;
+      let imageAttachmentsFormData = new FormData();
+      let productImageThumbFormData = new FormData();
+      if (productThumbImg) {
+        productImageThumbFormData.append('file', productThumbImg);
+      } else productImageThumbFormData = null;
+      if (files.length > 0) {
+        files.forEach((file) => {
+          imageAttachmentsFormData.append('files', file);
+        });
+      } else imageAttachmentsFormData = null;
+
+      let submittedData = {
+        name: name,
+        productImageThumb: productImageThumbFormData,
+        imageAttachments: imageAttachmentsFormData,
+        SKU: SKU,
+        price: price,
+        salePrice: salePrice,
+        quantity: quantity,
+        category: category?.map((item) => item._id),
+        fav: false,
+        check: false,
+      };
+      if (accessToken) {
+        dispatch(
+          productActions.createProduct({
+            token: accessToken,
+            ...submittedData,
+          })
+        );
+        setView({ open: false });
+        setFiles([]);
+        setProductThumbImg(null);
+        resetForm();
+        setIsFormSent(true);
+      }
+    },
+    [accessToken, dispatch, files, productActions, productThumbImg, resetForm]
+  );
 
   const onEditSubmit = useCallback(
     (formData) => {
-      let foundItem = currentItems.find((item) => item._id === editId);
+      let imageAttachmentsFormData = new FormData();
+      let productImageThumbFormData = new FormData();
+      if (productThumbImg) {
+        productImageThumbFormData.append('file', productThumbImg);
+      } else productImageThumbFormData = null;
+      if (files.length > 0) {
+        files.forEach((file) => {
+          imageAttachmentsFormData.append('files', file);
+        });
+      } else imageAttachmentsFormData = null;
       const submittedData = {
-        id: editId,
+        _id: editId,
         name: formData.name,
-        img: files.length > 0 ? files[0].preview : foundItem.img,
-        sku: formData.sku,
+        productImageThumb: productImageThumbFormData,
+        imageAttachments: imageAttachmentsFormData,
+        SKU: formData.SKU,
         price: formData.price,
         salePrice: formData.salePrice,
         quantity: formData.quantity,
-        category: formData.category,
+        category: formData.category?.map((item) => item._id),
         fav: false,
         check: false,
       };
@@ -151,12 +185,14 @@ const ProductList = () => {
         dispatch(
           productActions.updateProduct({ token: accessToken, productId: editId, ...submittedData })
         );
+        setFiles([]);
+        setProductThumbImg(null);
         resetForm();
       }
 
       setView({ edit: false, add: false });
     },
-    [accessToken, currentItems, dispatch, editId, files, productActions, resetForm]
+    [accessToken, currentItems, dispatch, editId, files, productActions, productThumbImg, resetForm]
   );
 
   // function that loads the want to editted data
@@ -165,8 +201,9 @@ const ProductList = () => {
     if (!foundItem) return;
     setFormData({
       name: foundItem.name,
-      img: foundItem.productSrcURL,
-      sku: foundItem.SKU,
+      productSrcURL: foundItem.productSrcURL,
+      imageAttachments: foundItem.imageAttachments,
+      SKU: foundItem.SKU,
       price: foundItem.price,
       quantity: foundItem.quantity,
       category: foundItem.category,
@@ -176,6 +213,7 @@ const ProductList = () => {
 
     setEditedId(id);
     setFiles([]);
+    setProductThumbImg(null);
     setView({ add: false, edit: true });
   };
 
@@ -254,23 +292,38 @@ const ProductList = () => {
         })
       );
     }
-   
-  }
+  };
 
   // Change Page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   // Fetch product list
   useEffect(() => {
-    dispatch(
-      productActions.loadProductList({
-        token: accessToken,
-        skip: indexOfFirstItem,
-        limit: ITEM_PER_PAGE,
-        search: searchText,
-      })
-    );
-  }, [accessToken, dispatch, indexOfFirstItem, productActions, searchText]);
+    if (
+      accessToken &&
+      (!currentItems?.length || (isFormSent && !productError && !productLoading))
+    ) {
+      dispatch(
+        productActions.loadProductList({
+          token: accessToken,
+          skip: indexOfFirstItem,
+          limit: ITEM_PER_PAGE,
+          search: searchText,
+        })
+      );
+      setIsFormSent(false);
+    }
+  }, [
+    accessToken,
+    currentItems?.length,
+    dispatch,
+    indexOfFirstItem,
+    isFormSent,
+    productActions,
+    productError,
+    productLoading,
+    searchText,
+  ]);
 
   return (
     <React.Fragment>
@@ -502,7 +555,11 @@ const ProductList = () => {
                       <DataTableRow size='sm'>
                         <span className='tb-product'>
                           <img
-                            src={item.productSrcURL ? item.productSrcURL : ProductH}
+                            src={
+                              item.productSrcURL
+                                ? `${process.env.REACT_APP_API_URL}/${item.productSrcURL}`
+                                : ProductH
+                            }
                             alt='product'
                             className='thumb'
                           />
@@ -664,7 +721,10 @@ const ProductList = () => {
                         <div className='form-control-wrap'>
                           <input
                             type='number'
-                            {...register('price', { required: 'This is required' })}
+                            {...register('price', {
+                              required: 'This is required',
+                              valueAsNumber: true,
+                            })}
                             className='form-control'
                             value={formData.price}
                             onChange={(e) => setFormData({ ...formData, price: e.target.value })}
@@ -682,7 +742,9 @@ const ProductList = () => {
                           <input
                             type='number'
                             className='form-control'
-                            {...register('salePrice')}
+                            {...register('salePrice', {
+                              valueAsNumber: true,
+                            })}
                             value={formData.salePrice}
                             onChange={(e) =>
                               setFormData({ ...formData, salePrice: e.target.value })
@@ -703,7 +765,10 @@ const ProductList = () => {
                           <input
                             type='number'
                             className='form-control'
-                            {...register('quantity', { required: 'This is required' })}
+                            {...register('quantity', {
+                              required: 'This is required',
+                              valueAsNumber: true,
+                            })}
                             value={formData.quantity}
                             onChange={(e) => setFormData({ ...formData, quantity: e.target.value })}
                           />
@@ -722,11 +787,11 @@ const ProductList = () => {
                           <input
                             type='text'
                             className='form-control'
-                            {...register('sku', { required: 'This is required' })}
-                            value={formData.sku}
-                            onChange={(e) => setFormData({ ...formData, sku: e.target.value })}
+                            {...register('SKU', { required: 'This is required' })}
+                            value={formData.SKU}
+                            onChange={(e) => setFormData({ ...formData, SKU: e.target.value })}
                           />
-                          {errors.sku && <span className='invalid'>{errors.sku.message}</span>}
+                          {errors.SKU && <span className='invalid'>{errors.SKU.message}</span>}
                         </div>
                       </div>
                     </Col>
@@ -741,6 +806,8 @@ const ProductList = () => {
                             options={categoryOptions}
                             value={formData.category}
                             onChange={(value) => setFormData({ ...formData, category: value })}
+                            getOptionValue={(option) => option._id}
+                            getOptionLabel={(option) => option.label}
                             //ref={register({ required: "This is required" })}
                           />
                           {errors.category && (
@@ -755,8 +822,62 @@ const ProductList = () => {
                           Product Image
                         </label>
                         <div className='form-control-wrap'>
-                          <img src={formData.img} alt=''></img>
+                          <img
+                            src={`${process.env.REACT_APP_API_URL}/${formData.productSrcURL}`}
+                            alt=''
+                          ></img>
                         </div>
+                      </div>
+                    </Col>
+
+                    <Col size='6'>
+                      <Dropzone
+                        onDrop={(acceptedFile) => handleDropChangeProductThumb(acceptedFile)}
+                      >
+                        {({ getRootProps, getInputProps }) => (
+                          <section>
+                            <div
+                              {...getRootProps()}
+                              className='dropzone upload-zone small bg-lighter my-2 dz-clickable'
+                            >
+                              <input {...getInputProps()} />
+                              {!productThumbImg ? (
+                                <p>Drag 'n' drop one file here, or click to select files</p>
+                              ) : (
+                                <div
+                                  key={productThumbImg.name}
+                                  className='dz-preview dz-processing dz-image-preview dz-error dz-complete'
+                                >
+                                  <div className='dz-image'>
+                                    <img
+                                      src={productThumbImg.preview}
+                                      alt='preview'
+                                      width={120}
+                                      height={120}
+                                      style={{ objectFit: 'cover' }}
+                                    />
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          </section>
+                        )}
+                      </Dropzone>
+                    </Col>
+                    <Col size='6'>
+                      <div className='form-group'>
+                        <label className='form-label' htmlFor='category'>
+                          Product Image Attachments
+                        </label>
+                        {formData.imageAttachments?.map((item, index) => (
+                          <div className='form-control-wrap'>
+                            <img
+                              src={`${process.env.REACT_APP_API_URL}/${item}`}
+                              alt=''
+                              key={item._id}
+                            ></img>
+                          </div>
+                        ))}
                       </div>
                     </Col>
                     <Col size='6'>
@@ -792,7 +913,6 @@ const ProductList = () => {
                         )}
                       </Dropzone>
                     </Col>
-
                     <Col size='12'>
                       <Button color='primary' type='submit'>
                         <Icon className='plus'></Icon>
@@ -825,9 +945,9 @@ const ProductList = () => {
             </a>
             <div className='nk-modal-head'>
               <h4 className='nk-modal-title title'>
-                Product <small className='text-primary'>#{formData.sku}</small>
+                Product <small className='text-primary'>#{formData.SKU}</small>
               </h4>
-              <img src={formData.img} alt='' />
+              <img src={`${process.env.REACT_APP_API_URL}/${formData.productSrcURL}`} alt='' />
             </div>
             <div className='nk-tnx-details mt-sm-3'>
               <Row className='gy-3'>
@@ -844,7 +964,7 @@ const ProductList = () => {
                   <span className='caption-text'>
                     {formData.category.map((item, index) => (
                       <Badge key={index} className='me-1' color='secondary'>
-                        {item.value}
+                        {item.name}
                       </Badge>
                     ))}
                   </span>
@@ -901,7 +1021,10 @@ const ProductList = () => {
                     <div className='form-control-wrap'>
                       <input
                         type='number'
-                        {...register('price', { required: 'This is required' })}
+                        {...register('price', {
+                          required: 'This is required',
+                          valueAsNumber: true,
+                        })}
                         className='form-control'
                         value={formData.price}
                         onChange={(e) => setFormData({ ...formData, price: e.target.value })}
@@ -919,7 +1042,9 @@ const ProductList = () => {
                       <input
                         type='number'
                         className='form-control'
-                        {...register('salePrice')}
+                        {...register('salePrice', {
+                          valueAsNumber: true,
+                        })}
                         value={formData.salePrice}
                         onChange={(e) => setFormData({ ...formData, salePrice: e.target.value })}
                       />
@@ -938,7 +1063,10 @@ const ProductList = () => {
                       <input
                         type='number'
                         className='form-control'
-                        {...register('quantity', { required: 'This is required' })}
+                        {...register('quantity', {
+                          required: 'This is required',
+                          valueAsNumber: true,
+                        })}
                         value={formData.quantity}
                         onChange={(e) => setFormData({ ...formData, quantity: e.target.value })}
                       />
@@ -957,11 +1085,11 @@ const ProductList = () => {
                       <input
                         type='text'
                         className='form-control'
-                        {...register('sku', { required: 'This is required' })}
-                        value={formData.sku}
-                        onChange={(e) => setFormData({ ...formData, sku: e.target.value })}
+                        {...register('SKU', { required: 'This is required' })}
+                        value={formData.SKU}
+                        onChange={(e) => setFormData({ ...formData, SKU: e.target.value })}
                       />
-                      {errors.sku && <span className='invalid'>{errors.sku.message}</span>}
+                      {errors.SKU && <span className='invalid'>{errors.SKU.message}</span>}
                     </div>
                   </div>
                 </Col>
@@ -977,6 +1105,8 @@ const ProductList = () => {
                         options={categoryOptions}
                         onChange={(value) => setFormData({ ...formData, category: value })}
                         value={formData.category}
+                        getOptionValue={(option) => option._id}
+                        getOptionLabel={(option) => option.label}
                         //ref={register({ required: "This is required" })}
                       />
                       {errors.category && (
@@ -986,10 +1116,10 @@ const ProductList = () => {
                   </div>
                 </Col>
                 <Col size='12'>
-                <label className='form-label' htmlFor='productSrcURL'>
-                      Product Image
-                    </label>
-                  <Dropzone onDrop={(acceptedFiles) => handleDropChangeProductThumb(acceptedFiles)}>
+                  <label className='form-label' htmlFor='productSrcURL'>
+                    Product Image
+                  </label>
+                  <Dropzone onDrop={(acceptedFile) => handleDropChangeProductThumb(acceptedFile)}>
                     {({ getRootProps, getInputProps }) => (
                       <section>
                         <div
@@ -998,8 +1128,9 @@ const ProductList = () => {
                         >
                           <input {...getInputProps()} />
                           {!productThumbImg ? (
-                            <p>Drag 'n' drop some files here, or click to select files</p>
-                          ): <div
+                            <p>Drag 'n' drop one file here, or click to select files</p>
+                          ) : (
+                            <div
                               key={productThumbImg?.name}
                               className='dz-preview dz-processing dz-image-preview dz-error dz-complete'
                             >
@@ -1012,17 +1143,17 @@ const ProductList = () => {
                                   style={{ objectFit: 'cover' }}
                                 />
                               </div>
-                            </div>}
-                          
+                            </div>
+                          )}
                         </div>
                       </section>
                     )}
                   </Dropzone>
                 </Col>
                 <Col size='12'>
-                <label className='form-label' htmlFor='imgAttachments'>
-                      Image Attachments
-                    </label>
+                  <label className='form-label' htmlFor='imgAttachments'>
+                    Image Attachments
+                  </label>
                   <Dropzone onDrop={(acceptedFiles) => handleDropChange(acceptedFiles)}>
                     {({ getRootProps, getInputProps }) => (
                       <section>

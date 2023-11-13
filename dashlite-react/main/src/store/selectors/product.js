@@ -15,3 +15,11 @@ export const getProductDetail = createSelector(
   [selectDomain],
   (productState) => productState?.data?.data?.currentProduct || {}
 );
+export const getProductLoading = createSelector(
+  [selectDomain],
+  (productState) => productState?.loading || false
+);
+export const getProductError = createSelector(
+  [selectDomain],
+  (productState) => productState?.error || null
+);

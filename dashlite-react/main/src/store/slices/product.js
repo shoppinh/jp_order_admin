@@ -50,7 +50,7 @@ const slice = createSlice({
       state.error = null;
     },
     updatedProduct(state, action) {
-      const foundIndex = state.data?.data?.findIndex((item) => item.id === action.payload.id);
+      const foundIndex = state.data?.data?.findIndex((item) => item._id === action.payload._id);
       if (foundIndex !== -1) {
         state.data.data[foundIndex] = action.payload;
       }
