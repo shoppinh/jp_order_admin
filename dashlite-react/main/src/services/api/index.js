@@ -26,6 +26,7 @@ export {
   createProduct,
   updateProduct,
   deleteProduct,
+  deleteProducts,
 } from './product';
 
 export {

@@ -61,6 +61,10 @@ const slice = createSlice({
       state.loading = true;
       state.error = null;
     },
+    deleteProducts(state) {
+      state.loading = true;
+      state.error = null;
+    },
     Error(state, action) {
       state.error = action.payload;
       state.loading = false;

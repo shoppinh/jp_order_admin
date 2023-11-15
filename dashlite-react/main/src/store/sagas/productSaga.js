@@ -7,6 +7,7 @@ import {
   apiDeleteProduct,
   apiUploadImages,
   apiUploadImage,
+  apiDeleteProducts,
 } from '../../services/api/apiHelper';
 import { productActions as actions } from '../slices/product';
 
@@ -17,6 +18,7 @@ export function* productSaga() {
     takeLatest(actions.createProduct.type, doCreateProduct),
     takeLatest(actions.updateProduct.type, doUpdateProduct),
     takeLatest(actions.deleteProduct.type, doDeleteProduct),
+    takeLatest(actions.deleteProducts.type, doDeleteProducts),
   ]);
 }
 
@@ -162,5 +164,18 @@ export function* doDeleteProduct({ payload }) {
     }
   } catch (error) {
     console.log('🚀 ~ file: productSaga.js:19 ~ function*doDeleteProduct ~ error:', error);
+  }
+}
+
+export function* doDeleteProducts({ payload }) {
+  try {
+    const response = yield call(apiDeleteProducts, payload);
+    if (response?.data?.status) {
+      yield put(actions.finished());
+    } else {
+      yield put(actions.Error(response.data.error));
+    }
+  } catch (error) {
+    console.log('🚀 ~ file: productSaga.js:172 ~ function*doDeleteProducts ~ error:', error);
   }
 }

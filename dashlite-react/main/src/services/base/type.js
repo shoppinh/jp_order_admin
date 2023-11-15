@@ -41,7 +41,8 @@ export const APIs = {
     loadProductDetail: '/api/product/{id}',
     createProduct: '/api/product',
     updateProduct: '/api/product/{id}',
-    deleteProduct: '/api/product/{id}',
+    deleteProduct: '/api/product/delete/{id}',
+    deleteProducts: '/api/product/delete-list',
   },
   order: {
     loadOrderList: '/api/order/list',

@@ -50,12 +50,15 @@ const ProductList = () => {
   const dispatch = useDispatch();
   const accessToken = useSelector(getAccessToken);
   const [sm, updateSm] = useState(false);
+  // Get data from storage
   const categoryOptions = useSelector(getCategoryListData);
-  const currentItems = useSelector(getProductListData);
+  const productList = useSelector(getProductListData);
   const totalItems = useSelector(getProductListTotalItem);
   const productLoading = useSelector(getProductLoading);
   const productError = useSelector(getProductError);
+  // Form state
   const [isFormSent, setIsFormSent] = useState(false);
+  const [currentItems, setCurrentItems] = useState(productList);
   // Get current list, pagination
   const [searchText, setSearchText] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -192,7 +195,7 @@ const ProductList = () => {
 
       setView({ edit: false, add: false });
     },
-    [accessToken, currentItems, dispatch, editId, files, productActions, productThumbImg, resetForm]
+    [accessToken, dispatch, editId, files, productActions, productThumbImg, resetForm]
   );
 
   // function that loads the want to editted data
@@ -222,22 +225,27 @@ const ProductList = () => {
   }, [formData, reset]);
 
   // selects all the products
-  const selectorCheck = (e) => {
-    let newData;
-    // newData = data.map((item) => {
-    //   item.check = e.currentTarget.checked;
-    //   return item;
-    // });
-    // setData([...newData]);
-  };
+  const selectorCheck = useCallback(
+    (e) => {
+      let newData;
+      newData = currentItems.map((item) => {
+        return { ...item, check: e.currentTarget.checked };
+      });
+      setCurrentItems([...newData]);
+    },
+    [currentItems]
+  );
 
   // selects one product
-  const onSelectChange = (e, id) => {
-    // let newData = data;
-    // let index = newData.findIndex((item) => item.id === id);
-    // newData[index].check = e.currentTarget.checked;
-    // setData([...newData]);
-  };
+  const onSelectChange = useCallback(
+    (e, _id) => {
+      let newData = [...currentItems];
+      let index = newData.findIndex((item) => item._id === _id);
+      newData[index] = { ...newData[index], check: e.currentTarget.checked };
+      setCurrentItems([...newData]);
+    },
+    [currentItems]
+  );
 
   // onChange function for searching name
   const onFilterChange = useCallback((e) => {
@@ -251,17 +259,27 @@ const ProductList = () => {
   }, []);
 
   // function to delete a product
-  const deleteProduct = (id) => {
-    // let defaultData = data;
-    // defaultData = defaultData.filter((item) => item.id !== id);
-    // setData([...defaultData]);
-  };
+  const deleteProduct = useCallback(
+    (id) => {
+      if (accessToken) {
+        setIsFormSent(true);
+        dispatch(productActions.deleteProduct({ token: accessToken, productId: id }));
+      }
+    },
+    [accessToken, dispatch, productActions]
+  );
 
   // function to delete the seletected item
   const selectorDeleteProduct = () => {
-    // let newData;
-    // newData = data.filter((item) => item.check !== true);
-    // setData([...newData]);
+    if (accessToken) {
+      setIsFormSent(true);
+      dispatch(
+        productActions.deleteProducts({
+          token: accessToken,
+          productIds: currentItems.filter((item) => item.check === true).map((item) => item._id),
+        })
+      );
+    }
   };
 
   // toggle function to view product details
@@ -297,12 +315,9 @@ const ProductList = () => {
   // Change Page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  // Fetch product list
+  // Re-Fetch product list
   useEffect(() => {
-    if (
-      accessToken &&
-      (!currentItems?.length || (isFormSent && !productError && !productLoading))
-    ) {
+    if (accessToken && isFormSent && !productError && !productLoading) {
       dispatch(
         productActions.loadProductList({
           token: accessToken,
@@ -315,7 +330,6 @@ const ProductList = () => {
     }
   }, [
     accessToken,
-    currentItems?.length,
     dispatch,
     indexOfFirstItem,
     isFormSent,
@@ -324,6 +338,26 @@ const ProductList = () => {
     productLoading,
     searchText,
   ]);
+
+  // Fetch on first load
+  useEffect(() => {
+    if (accessToken) {
+      dispatch(
+        productActions.loadProductList({
+          token: accessToken,
+          skip: indexOfFirstItem,
+          limit: ITEM_PER_PAGE,
+          search: searchText,
+        })
+      );
+    }
+  }, [accessToken, dispatch, indexOfFirstItem, productActions, searchText]);
+
+  // Update current items
+
+  useEffect(() => {
+    setCurrentItems(productList);
+  }, [productList]);
 
   return (
     <React.Fragment>
@@ -477,16 +511,6 @@ const ProductList = () => {
                       </DropdownToggle>
                       <DropdownMenu end>
                         <ul className='link-list-opt no-bdr'>
-                          <li>
-                            <DropdownItem
-                              tag='a'
-                              href='#edit'
-                              onClick={(ev) => ev.preventDefault()}
-                            >
-                              <Icon name='edit'></Icon>
-                              <span>Edit Selected</span>
-                            </DropdownItem>
-                          </li>
                           <li>
                             <DropdownItem
                               tag='a'

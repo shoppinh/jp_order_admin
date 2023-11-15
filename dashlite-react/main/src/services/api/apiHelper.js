@@ -94,6 +94,10 @@ export function* apiDeleteProduct(query) {
   return yield call(api.deleteProduct, query);
 }
 
+export function* apiDeleteProducts(query) {
+  return yield call(api.deleteProducts, query);
+}
+
 // Category
 
 export function* apiLoadCategoryList(query) {

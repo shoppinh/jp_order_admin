@@ -32,3 +32,8 @@ export const deleteProduct = async (query) => {
   const url = APIs.product.deleteProduct.replace('{id}', query.productId);
   return new apiClient(query.token).delete(url);
 };
+
+export const deleteProducts = async (payload) => {
+  const { token, ...rest } = payload;
+  return new apiClient(token).delete(APIs.product.deleteProducts, rest);
+};
