@@ -36,7 +36,7 @@ const slice = createSlice({
     loadedProductDetail(state, action) {
       state.data = {
         ...state.data,
-        ...action.payload,
+        currentItem: action.payload,
       };
       state.loading = false;
       state.error = null;

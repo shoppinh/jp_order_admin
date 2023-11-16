@@ -37,4 +37,5 @@ export {
   updateCategory,
 } from './category';
 
+export { createOrder, deleteOrder, loadOrderDetail, loadOrderList, updateOrder } from './order';
 export { deleteFile, uploadImage, uploadImages } from './file';

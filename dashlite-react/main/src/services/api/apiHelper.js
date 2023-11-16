@@ -122,6 +122,26 @@ export function* apiDeleteCategory(query) {
 
 // Order
 
+export function* apiLoadOrderList(query) {
+  return yield call(api.loadOrderList, query);
+}
+
+export function* apiLoadOrderDetail(query) {
+  return yield call(api.loadOrderDetail, query);
+}
+
+export function* apiCreateOrder(query) {
+  return yield call(api.createOrder, query);
+}
+
+export function* apiUpdateOrder(query) {
+  return yield call(api.updateOrder, query);
+}
+
+export function* apiDeleteOrder(query) {
+  return yield call(api.deleteOrder, query);
+}
+
 // File
 
 export function* apiUploadImage(query) {

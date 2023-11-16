@@ -17,6 +17,28 @@ const slice = createSlice({
   name: 'order',
   initialState,
   reducers: {
+    loadOrderList(state, _action) {
+      state.loading = true;
+      state.error = null;
+    },
+    loadedOrderList(state, action) {
+      state.data = {
+        ...state.data,
+        ...action.payload,
+      };
+      state.loading = false;
+    },
+    loadOrderDetail(state, _action) {
+      state.loading = true;
+      state.error = null;
+    },
+    loadedOrderDetail(state, action) {
+      state.data = {
+        ...state.data,
+        currentItem: action.payload,
+      };
+      state.loading = false;
+    },
     Error(state, action) {
       state.error = action.payload;
       state.loading = false;
