@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Dropzone from 'react-dropzone';
 import { useForm } from 'react-hook-form';
 import {
@@ -9,6 +9,7 @@ import {
   Modal,
   ModalBody,
   UncontrolledDropdown,
+  Spinner,
 } from 'reactstrap';
 import SimpleBar from 'simplebar-react';
 import {
@@ -44,7 +45,16 @@ import { getAccessToken } from '../../../../store/selectors/session';
 import { ITEM_PER_PAGE } from '../../../../utils/constants';
 import debounce from 'lodash.debounce';
 import { getCategoryListData } from '../../../../store/selectors/category';
+import styled from 'styled-components';
 // import { categoryOptions } from './ProductData';
+
+const SpinnerWrapper = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 50%);
+`;
+
 const ProductList = () => {
   const { actions: productActions } = useProductSlice();
   const dispatch = useDispatch();
@@ -248,15 +258,12 @@ const ProductList = () => {
   );
 
   // onChange function for searching name
-  const onFilterChange = useCallback((e) => {
-    debounce(
-      function () {
-        setSearchText(e.target.value);
-      },
-      1000,
-      { leading: true, trailing: false }
-    );
+
+  const onFilterChange = useCallback((value) => {
+    setSearchText(value);
   }, []);
+
+  const handleChangeSearchOutlet = debounce(onFilterChange, 1000);
 
   // function to delete a product
   const deleteProduct = useCallback(
@@ -339,7 +346,7 @@ const ProductList = () => {
     searchText,
   ]);
 
-  // Fetch on first load
+  // Fetch on first load or search text change, or page change
   useEffect(() => {
     if (accessToken) {
       dispatch(
@@ -392,7 +399,7 @@ const ProductList = () => {
                           className='form-control'
                           id='default-04'
                           placeholder='Quick search by SKU'
-                          onChange={(e) => onFilterChange(e)}
+                          onChange={(e) => handleChangeSearchOutlet(e.target.value)}
                         />
                       </div>
                     </li>
@@ -551,144 +558,146 @@ const ProductList = () => {
                 </ul>
               </DataTableRow>
             </DataTableHead>
-            {currentItems?.length > 0
-              ? currentItems?.map((item) => {
-                  const categoryList = [];
-                  item?.category?.forEach((currentElement) => {
-                    categoryList.push(currentElement.label);
-                  });
+            {!productLoading && currentItems?.length > 0 ? (
+              currentItems?.map((item) => {
+                const categoryList = [];
+                item?.category?.forEach((currentElement) => {
+                  categoryList.push(currentElement.label);
+                });
 
-                  return (
-                    <DataTableItem key={item._id}>
-                      <DataTableRow className='nk-tb-col-check'>
-                        <div className='custom-control custom-control-sm custom-checkbox notext'>
-                          <input
-                            type='checkbox'
-                            className='custom-control-input'
-                            defaultChecked={item.check}
-                            id={item._id + 'uid1'}
-                            key={Math.random()}
-                            onChange={(e) => onSelectChange(e, item._id)}
-                          />
-                          <label
-                            className='custom-control-label'
-                            htmlFor={item._id + 'uid1'}
-                          ></label>
-                        </div>
-                      </DataTableRow>
-                      <DataTableRow size='sm'>
-                        <span className='tb-product'>
-                          <img
-                            src={
-                              item.productSrcURL
-                                ? `${process.env.REACT_APP_API_URL}/${item.productSrcURL}`
-                                : ProductH
-                            }
-                            alt='product'
-                            className='thumb'
-                          />
-                          <span className='title'>{item.name}</span>
-                        </span>
-                      </DataTableRow>
-                      <DataTableRow>
-                        <span className='tb-sub'>{item.SKU}</span>
-                      </DataTableRow>
-                      <DataTableRow>
-                        <span className='tb-sub'>$ {item.price}</span>
-                      </DataTableRow>
-                      <DataTableRow>
-                        <span className='tb-sub'>{item.quantity}</span>
-                      </DataTableRow>
-                      <DataTableRow size='md'>
-                        <span className='tb-sub'>{categoryList.join(', ')}</span>
-                      </DataTableRow>
-                      <DataTableRow size='md'>
-                        <div className='asterisk tb-asterisk'>
-                          <a
-                            href='#asterisk'
-                            className={item.fav ? 'active' : ''}
-                            onClick={(ev) => ev.preventDefault()}
-                          >
-                            <Icon name='star' className='asterisk-off'></Icon>
-                            <Icon name='star-fill' className='asterisk-on'></Icon>
-                          </a>
-                        </div>
-                      </DataTableRow>
-                      <DataTableRow className='nk-tb-col-tools'>
-                        <ul className='nk-tb-actions gx-1 my-n1'>
-                          <li className='me-n1'>
-                            <UncontrolledDropdown>
-                              <DropdownToggle
-                                tag='a'
-                                href='#more'
-                                onClick={(ev) => ev.preventDefault()}
-                                className='dropdown-toggle btn btn-icon btn-trigger'
-                              >
-                                <Icon name='more-h'></Icon>
-                              </DropdownToggle>
-                              <DropdownMenu end>
-                                <ul className='link-list-opt no-bdr'>
-                                  <li>
-                                    <DropdownItem
-                                      tag='a'
-                                      href='#edit'
-                                      onClick={(ev) => {
-                                        ev.preventDefault();
-                                        onEditClick(item._id);
-                                        toggle('edit');
-                                      }}
-                                    >
-                                      <Icon name='edit'></Icon>
-                                      <span>Edit Product</span>
-                                    </DropdownItem>
-                                  </li>
-                                  <li>
-                                    <DropdownItem
-                                      tag='a'
-                                      href='#view'
-                                      onClick={(ev) => {
-                                        ev.preventDefault();
-                                        onEditClick(item._id);
-                                        toggle('details');
-                                      }}
-                                    >
-                                      <Icon name='eye'></Icon>
-                                      <span>View Product</span>
-                                    </DropdownItem>
-                                  </li>
-                                  <li>
-                                    <DropdownItem
-                                      tag='a'
-                                      href='#remove'
-                                      onClick={(ev) => {
-                                        ev.preventDefault();
-                                        deleteProduct(item._id);
-                                      }}
-                                    >
-                                      <Icon name='trash'></Icon>
-                                      <span>Remove Product</span>
-                                    </DropdownItem>
-                                  </li>
-                                </ul>
-                              </DropdownMenu>
-                            </UncontrolledDropdown>
-                          </li>
-                        </ul>
-                      </DataTableRow>
-                    </DataTableItem>
-                  );
-                })
-              : null}
+                return (
+                  <DataTableItem key={item._id}>
+                    <DataTableRow className='nk-tb-col-check'>
+                      <div className='custom-control custom-control-sm custom-checkbox notext'>
+                        <input
+                          type='checkbox'
+                          className='custom-control-input'
+                          defaultChecked={item.check}
+                          id={item._id + 'uid1'}
+                          key={Math.random()}
+                          onChange={(e) => onSelectChange(e, item._id)}
+                        />
+                        <label className='custom-control-label' htmlFor={item._id + 'uid1'}></label>
+                      </div>
+                    </DataTableRow>
+                    <DataTableRow size='sm'>
+                      <span className='tb-product'>
+                        <img
+                          src={
+                            item.productSrcURL
+                              ? `${process.env.REACT_APP_API_URL}/${item.productSrcURL}`
+                              : ProductH
+                          }
+                          alt='product'
+                          className='thumb'
+                        />
+                        <span className='title'>{item.name}</span>
+                      </span>
+                    </DataTableRow>
+                    <DataTableRow>
+                      <span className='tb-sub'>{item.SKU}</span>
+                    </DataTableRow>
+                    <DataTableRow>
+                      <span className='tb-sub'>$ {item.price}</span>
+                    </DataTableRow>
+                    <DataTableRow>
+                      <span className='tb-sub'>{item.quantity}</span>
+                    </DataTableRow>
+                    <DataTableRow size='md'>
+                      <span className='tb-sub'>{categoryList.join(', ')}</span>
+                    </DataTableRow>
+                    <DataTableRow size='md'>
+                      <div className='asterisk tb-asterisk'>
+                        <a
+                          href='#asterisk'
+                          className={item.fav ? 'active' : ''}
+                          onClick={(ev) => ev.preventDefault()}
+                        >
+                          <Icon name='star' className='asterisk-off'></Icon>
+                          <Icon name='star-fill' className='asterisk-on'></Icon>
+                        </a>
+                      </div>
+                    </DataTableRow>
+                    <DataTableRow className='nk-tb-col-tools'>
+                      <ul className='nk-tb-actions gx-1 my-n1'>
+                        <li className='me-n1'>
+                          <UncontrolledDropdown>
+                            <DropdownToggle
+                              tag='a'
+                              href='#more'
+                              onClick={(ev) => ev.preventDefault()}
+                              className='dropdown-toggle btn btn-icon btn-trigger'
+                            >
+                              <Icon name='more-h'></Icon>
+                            </DropdownToggle>
+                            <DropdownMenu end>
+                              <ul className='link-list-opt no-bdr'>
+                                <li>
+                                  <DropdownItem
+                                    tag='a'
+                                    href='#edit'
+                                    onClick={(ev) => {
+                                      ev.preventDefault();
+                                      onEditClick(item._id);
+                                      toggle('edit');
+                                    }}
+                                  >
+                                    <Icon name='edit'></Icon>
+                                    <span>Edit Product</span>
+                                  </DropdownItem>
+                                </li>
+                                <li>
+                                  <DropdownItem
+                                    tag='a'
+                                    href='#view'
+                                    onClick={(ev) => {
+                                      ev.preventDefault();
+                                      onEditClick(item._id);
+                                      toggle('details');
+                                    }}
+                                  >
+                                    <Icon name='eye'></Icon>
+                                    <span>View Product</span>
+                                  </DropdownItem>
+                                </li>
+                                <li>
+                                  <DropdownItem
+                                    tag='a'
+                                    href='#remove'
+                                    onClick={(ev) => {
+                                      ev.preventDefault();
+                                      deleteProduct(item._id);
+                                    }}
+                                  >
+                                    <Icon name='trash'></Icon>
+                                    <span>Remove Product</span>
+                                  </DropdownItem>
+                                </li>
+                              </ul>
+                            </DropdownMenu>
+                          </UncontrolledDropdown>
+                        </li>
+                      </ul>
+                    </DataTableRow>
+                  </DataTableItem>
+                );
+              })
+            ) : productLoading ? (
+              <SpinnerWrapper>
+                <Spinner size='md' color='dark' />
+              </SpinnerWrapper>
+            ) : null}
           </div>
+
           <PreviewAltCard>
-            {totalItems > 0 ? (
+            {!productLoading && totalItems > 0 ? (
               <PaginationComponent
                 itemPerPage={ITEM_PER_PAGE}
                 totalItems={totalItems}
                 paginate={paginate}
                 currentPage={currentPage}
               />
-            ) : (
+            ) : productLoading ? null : (
               <div className='text-center'>
                 <span className='text-silent'>No products found</span>
               </div>
