@@ -4,7 +4,7 @@ import ContentAlt from '../../../../layout/content/ContentAlt';
 import { Button, Icon, UserAvatar } from '../../../../components/Component';
 import { messageData } from './MessageData';
 import Simplebar from 'simplebar-react';
-import { findUpper } from '../../../../utils/Utils';
+import { findUpper } from '../../../../utils/helper';
 import MessageItem from './MessageItem';
 
 const AppMessages = () => {

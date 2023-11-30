@@ -32,7 +32,7 @@ import {
   RSelect,
 } from '../../../components/Component';
 import { kycData, filterStatus, filterDoc, bulkActionKycOptions } from './KycData';
-import { findUpper } from '../../../utils/Utils';
+import { findUpper } from '../../../utils/helper';
 import { Link } from 'react-router-dom';
 
 const KycListRegular = () => {

@@ -1,70 +1,83 @@
 import React, { useEffect, useState } from 'react';
-import Head from '../../../../layout/head/Head';
-import Content from '../../../../layout/content/Content';
-import DatePicker from 'react-datepicker';
-import { orderData } from './OrderData';
+import {
+  Badge,
+  Button,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  UncontrolledDropdown,
+} from 'reactstrap';
 import {
   Block,
-  BlockHeadContent,
-  BlockTitle,
   BlockBetween,
   BlockHead,
+  BlockHeadContent,
+  BlockTitle,
   DataTableHead,
   DataTableItem,
   DataTableRow,
   Icon,
-  TooltipComponent,
   PaginationComponent,
   PreviewAltCard,
-  Row,
-  Col,
-  RSelect,
+  TooltipComponent,
 } from '../../../../components/Component';
-import { getDateStructured } from '../../../../utils/Utils';
+import Content from '../../../../layout/content/Content';
+import Head from '../../../../layout/head/Head';
+import { getDateStructured } from '../../../../utils/helper';
+import AddOrder from './AddOrder';
+import EditOrder from './EditOrder';
+// import { orderData } from './OrderData';
+import { useOrderSlice } from '../../../../store/slices/order';
+import { useDispatch, useSelector } from 'react-redux';
+import { OrderStatus } from '../../../../utils/constants';
 import {
-  UncontrolledDropdown,
-  DropdownMenu,
-  DropdownToggle,
-  DropdownItem,
-  Button,
-  Modal,
-  ModalBody,
-  Badge,
-} from 'reactstrap';
-import { useForm } from 'react-hook-form';
+  getOrderError,
+  getOrderListData,
+  getOrderLoading,
+} from '../../../../store/selectors/order';
+import { getAccessToken } from '../../../../store/selectors/session';
+import { ITEM_PER_PAGE } from '../../../../utils/constants';
 
 const OrderDefault = () => {
+  const dispatch = useDispatch();
+  const { actions: orderActions } = useOrderSlice();
+  const orderData = useSelector(getOrderListData);
+  const accessToken = useSelector(getAccessToken);
+  const orderLoading = useSelector(getOrderLoading);
+  const orderError = useSelector(getOrderError);
+
   const [data, setData] = useState(orderData);
   const [smOption, setSmOption] = useState(false);
   const [formData, setFormData] = useState({
-    id: null,
-    orderId: '',
+    _id: '',
     date: new Date(),
-    status: 'Delivered',
+    status: OrderStatus.CONFIRMED,
     customer: '',
-    purchased: '',
-    total: '',
+    purchasedItems: [],
+    totalPrice: 0,
+    totalWeight: 0,
     check: false,
+    orderNote: '',
   });
   const [view, setView] = useState({
     add: false,
     details: false,
   });
-  const [onSearchText, setOnSearchText] = useState('');
+  const [searchText, setSearchText] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemPerPage, setItemPerPage] = useState(7);
+  const [isFormSent, setIsFormSent] = useState(false);
 
   // Changing state value when searching name
   useEffect(() => {
-    if (onSearchText !== '') {
+    if (searchText !== '') {
       const filteredObject = orderData.filter((item) => {
-        return item.orderId.includes(onSearchText);
+        return item.orderId.includes(searchText);
       });
       setData([...filteredObject]);
     } else {
       setData([...orderData]);
     }
-  }, [onSearchText]);
+  }, [searchText, orderData]);
 
   // toggle function to view order details
   const toggle = (type) => {
@@ -87,50 +100,85 @@ const OrderDefault = () => {
   // selects one order
   const onSelectChange = (e, id) => {
     let newData = data;
-    let index = newData.findIndex((item) => item.id === id);
+    let index = newData.findIndex((item) => item._id === id);
     newData[index].check = e.currentTarget.checked;
     setData([...newData]);
   };
 
   // resets forms
   const resetForm = () => {
-    setFormData({
-      id: null,
-      orderId: '',
+    setFormData((prev) => ({
+      ...prev,
       date: new Date(),
-      status: 'Delivered',
+      status: OrderStatus.CONFIRMED,
       customer: '',
-      purchased: '',
-      total: '',
+      purchasedItems: [],
+      totalPrice: 0,
       check: false,
-    });
+    }));
   };
 
   const onFormSubmit = (form) => {
-    const { customer, purchased, total } = form;
+    const { customer, purchasedItems, totalWeight } = form;
+    const mappedPurchasedItems = purchasedItems.map((item) => {
+      return {
+        ...item,
+        preTaxTotal: item.price,
+        taxTotal: item.price * item.quantity * item.tax,
+      };
+    });
+    const totalPrice = mappedPurchasedItems.reduce((acc, item) => {
+      return acc + item.taxTotal;
+    }, 0);
     let submittedData = {
-      id: data.length + 1,
-      orderId: '95981',
       date: getDateStructured(formData.date),
       status: formData.status,
       customer: customer,
-      purchased: purchased,
-      total: total,
+      items: mappedPurchasedItems,
+      totalPrice,
+      totalWeight,
+    };
+    console.log('🚀 ~ file: OrderDefault.js:141 ~ onFormSubmit ~ submittedData:', submittedData);
+    // dispatch(orderActions.createOrder(submittedData));
+  };
+
+  const onEditSubmit = (form) => {
+    const { customer, purchasedItems } = form;
+    const mappedPurchasedItems = purchasedItems.map((item) => {
+      return {
+        ...item,
+        preTaxTotal: item.price,
+        taxTotal: item.price * item.quantity * item.tax,
+      };
+    });
+    const totalPrice = mappedPurchasedItems.reduce((acc, item) => {
+      return acc + item.taxTotal;
+    }, 0);
+    let submittedData = {
+      date: getDateStructured(formData.date),
+      status: formData.status,
+      customer: customer,
+      purchasedItems: mappedPurchasedItems,
+      total: totalPrice,
       check: false,
     };
-    setData([submittedData, ...data]);
+    dispatch(orderActions.updateOrder(submittedData));
     setView({ add: false, details: false });
     resetForm();
   };
 
-  useEffect(() => {
-    reset(formData);
-  }, [formData]);
-
   // function to load detail data
   const loadDetail = (id) => {
-    let index = data.findIndex((item) => item.id === id);
-    setFormData(data[index]);
+    let index = data.findIndex((item) => item._id === id);
+    setFormData({
+      _id: data[index]._id,
+      customer: data[index].user.fullName,
+      date: data[index].createdAt,
+      purchasedItems: data[index].items,
+      totalPrice: data[index].totalPrice,
+      status: data[index].status,
+      totalWeight: data[index].totalWeight,
+    });
   };
 
   // OnChange function to get the input data
@@ -140,7 +188,7 @@ const OrderDefault = () => {
 
   // onChange function for searching name
   const onFilterChange = (e) => {
-    setOnSearchText(e.target.value);
+    setSearchText(e.target.value);
   };
 
   // function to close the form modal
@@ -152,15 +200,15 @@ const OrderDefault = () => {
   // function to change to approve property for an item
   const markAsDelivered = (id) => {
     let newData = data;
-    let index = newData.findIndex((item) => item.id === id);
-    newData[index].status = 'Delivered';
+    let index = newData.findIndex((item) => item._id === id);
+    newData[index].status = OrderStatus.DELIVERED;
     setData([...newData]);
   };
 
   // function to delete a Order
   const deleteOrder = (id) => {
     let defaultData = data;
-    defaultData = defaultData.filter((item) => item.id !== id);
+    defaultData = defaultData.filter((item) => item._id !== id);
     setData([...defaultData]);
   };
 
@@ -175,26 +223,63 @@ const OrderDefault = () => {
   const selectorMarkAsDelivered = () => {
     let newData;
     newData = data.map((item) => {
-      if (item.check === true) item.status = 'Delivered';
+      if (item.check === true) item.status = OrderStatus.DELIVERED;
       return item;
     });
     setData([...newData]);
   };
 
   // Get current list, pagination
-  const indexOfLastItem = currentPage * itemPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemPerPage;
+  const indexOfLastItem = currentPage * ITEM_PER_PAGE;
+  const indexOfFirstItem = indexOfLastItem - ITEM_PER_PAGE;
   const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
 
   // Change Page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  const {
-    reset,
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  // Re-Fetch product list
+  useEffect(() => {
+    if (accessToken && isFormSent && !orderError && !orderLoading) {
+      dispatch(
+        orderActions.loadOrderList({
+          token: accessToken,
+          skip: indexOfFirstItem,
+          limit: ITEM_PER_PAGE,
+          search: searchText,
+        })
+      );
+      setIsFormSent(false);
+    }
+  }, [
+    accessToken,
+    dispatch,
+    indexOfFirstItem,
+    isFormSent,
+    orderActions,
+    orderError,
+    orderLoading,
+    searchText,
+  ]);
+
+  // Fetch on first load or search text change, or page change
+  useEffect(() => {
+    if (accessToken) {
+      dispatch(
+        orderActions.loadOrderList({
+          token: accessToken,
+          skip: indexOfFirstItem,
+          limit: ITEM_PER_PAGE,
+          search: searchText,
+        })
+      );
+    }
+  }, [accessToken, dispatch, indexOfFirstItem, orderActions, searchText]);
+
+  // Update current items
+
+  useEffect(() => {
+    setData(orderData);
+  }, [orderData]);
 
   return (
     <React.Fragment>
@@ -332,10 +417,13 @@ const OrderDefault = () => {
                 <span className='sub-text'>Customer</span>
               </DataTableRow>
               <DataTableRow size='md'>
-                <span className='sub-text'>Purchased</span>
+                <span className='sub-text'>PurchasedItems</span>
               </DataTableRow>
               <DataTableRow>
                 <span className='sub-text'>Total</span>
+              </DataTableRow>
+              <DataTableRow>
+                <span className='sub-text'>Weight</span>
               </DataTableRow>
 
               <DataTableRow className='nk-tb-col-tools'>
@@ -386,64 +474,67 @@ const OrderDefault = () => {
 
             {currentItems.length > 0
               ? currentItems.map((item) => (
-                  <DataTableItem key={item.id}>
+                  <DataTableItem key={item._id}>
                     <DataTableRow className='nk-tb-col-check'>
                       <div className='custom-control custom-control-sm custom-checkbox notext'>
                         <input
                           type='checkbox'
                           className='custom-control-input'
                           defaultChecked={item.check}
-                          id={item.id + 'oId-all'}
+                          id={item._id + 'oId-all'}
                           key={Math.random()}
-                          onChange={(e) => onSelectChange(e, item.id)}
+                          onChange={(e) => onSelectChange(e, item._id)}
                         />
                         <label
                           className='custom-control-label'
-                          htmlFor={item.id + 'oId-all'}
+                          htmlFor={item._id + 'oId-all'}
                         ></label>
                       </div>
                     </DataTableRow>
                     <DataTableRow>
                       <a href='#id' onClick={(ev) => ev.preventDefault()}>
-                        #{item.orderId}
+                        {item._id}
                       </a>
                     </DataTableRow>
                     <DataTableRow size='md'>
-                      <span>{item.date}</span>
+                      <span>{item.createdAt}</span>
                     </DataTableRow>
                     <DataTableRow>
                       <span
                         className={`dot bg-${
-                          item.status === 'Delivered' ? 'success' : 'warning'
+                          item.status === OrderStatus.DELIVERED ? 'success' : 'warning'
                         } d-sm-none`}
                       ></span>
                       <Badge
                         className='badge-sm badge-dot has-bg d-none d-sm-inline-flex'
-                        color={item.status === 'Delivered' ? 'success' : 'warning'}
+                        color={item.status === OrderStatus.DELIVERED ? 'success' : 'warning'}
                       >
                         {item.status}
                       </Badge>
                     </DataTableRow>
                     <DataTableRow size='sm'>
-                      <span className='tb-sub'>{item.customer}</span>
+                      <span className='tb-sub'>{item.user.fullName}</span>
                     </DataTableRow>
                     <DataTableRow size='md'>
-                      <span className='tb-sub text-primary'>{item.purchased}</span>
+                      <span className='tb-sub text-primary'>{item.items?.length}</span>
                     </DataTableRow>
                     <DataTableRow>
-                      <span className='tb-lead'>$ {item.total}</span>
+                      <span className='tb-lead'>$ {item.totalPrice}</span>
+                    </DataTableRow>
+                    <DataTableRow>
+                      <span className='tb-lead'>KG {item.totalWeight}</span>
                     </DataTableRow>
                     <DataTableRow className='nk-tb-col-tools'>
                       <ul className='nk-tb-actions gx-1'>
-                        {item.status !== 'Delivered' && (
+                        {item.status !== OrderStatus.DELIVERED && (
                           <li
                             className='nk-tb-action-hidden'
-                            onClick={() => markAsDelivered(item.id)}
+                            onClick={() => markAsDelivered(item._id)}
                           >
                             <TooltipComponent
                               tag='a'
                               containerClassName='btn btn-trigger btn-icon'
-                              id={'delivery' + item.id}
+                              id={'delivery' + item._id}
                               icon='truck'
                               direction='top'
                               text='Mark as Delivered'
@@ -453,14 +544,14 @@ const OrderDefault = () => {
                         <li
                           className='nk-tb-action-hidden'
                           onClick={() => {
-                            loadDetail(item.id);
+                            loadDetail(item._id);
                             toggle('details');
                           }}
                         >
                           <TooltipComponent
                             tag='a'
                             containerClassName='btn btn-trigger btn-icon'
-                            id={'view' + item.id}
+                            id={'view' + item._id}
                             icon='eye'
                             direction='top'
                             text='View Details'
@@ -482,7 +573,7 @@ const OrderDefault = () => {
                                     href='#dropdown'
                                     onClick={(ev) => {
                                       ev.preventDefault();
-                                      loadDetail(item.id);
+                                      loadDetail(item._id);
                                       toggle('details');
                                     }}
                                   >
@@ -490,14 +581,14 @@ const OrderDefault = () => {
                                     <span>Order Details</span>
                                   </DropdownItem>
                                 </li>
-                                {item.status !== 'Delivered' && (
+                                {item.status !== OrderStatus.DELIVERED && (
                                   <li>
                                     <DropdownItem
                                       tag='a'
                                       href='#dropdown'
                                       onClick={(ev) => {
                                         ev.preventDefault();
-                                        markAsDelivered(item.id);
+                                        markAsDelivered(item._id);
                                       }}
                                     >
                                       <Icon name='truck'></Icon>
@@ -511,7 +602,7 @@ const OrderDefault = () => {
                                     href='#dropdown'
                                     onClick={(ev) => {
                                       ev.preventDefault();
-                                      deleteOrder(item.id);
+                                      deleteOrder(item._id);
                                     }}
                                   >
                                     <Icon name='trash'></Icon>
@@ -531,7 +622,7 @@ const OrderDefault = () => {
           <PreviewAltCard>
             {data.length > 0 ? (
               <PaginationComponent
-                itemPerPage={itemPerPage}
+                ITEM_PER_PAGE={ITEM_PER_PAGE}
                 totalItems={data.length}
                 paginate={paginate}
                 currentPage={currentPage}
@@ -544,190 +635,19 @@ const OrderDefault = () => {
           </PreviewAltCard>
         </Block>
 
-        <Modal
+        <AddOrder
           isOpen={view.add}
-          toggle={() => onFormCancel()}
-          className='modal-dialog-centered'
-          size='lg'
-        >
-          <ModalBody>
-            <a href='#cancel' className='close'>
-              {' '}
-              <Icon
-                name='cross-sm'
-                onClick={(ev) => {
-                  ev.preventDefault();
-                  onFormCancel();
-                }}
-              ></Icon>
-            </a>
-            <div className='p-2'>
-              <h5 className='title'>Add Order</h5>
-              <div className='mt-4'>
-                <form onSubmit={handleSubmit(onFormSubmit)}>
-                  <Row className='g-3'>
-                    <Col md='12'>
-                      <div className='form-group'>
-                        <label className='form-label' htmlFor='customer'>
-                          Customer Name
-                        </label>
-                        <div className='form-control-wrap'>
-                          <input
-                            type='text'
-                            className='form-control'
-                            {...register('customer', {
-                              required: 'This field is required',
-                            })}
-                            onChange={(e) => setFormData({ ...formData, customer: e.target.value })}
-                            value={formData.customer}
-                          />
-                          {errors.customer && (
-                            <span className='invalid'>{errors.customer.message}</span>
-                          )}
-                        </div>
-                      </div>
-                    </Col>
-                    <Col md='6'>
-                      <div className='form-group'>
-                        <label className='form-label' htmlFor='date'>
-                          Date of order
-                        </label>
-                        <div className='form-control-wrap'>
-                          <DatePicker
-                            selected={formData.date}
-                            className='form-control'
-                            onChange={(date) => setFormData({ ...formData, date: date })}
-                          />
-                          {errors.date && <span className='invalid'>{errors.date.message}</span>}
-                        </div>
-                      </div>
-                    </Col>
-                    <Col md='6'>
-                      <div className='form-group'>
-                        <label className='form-label' htmlFor='purchased'>
-                          Purchased Product
-                        </label>
-                        <div className='form-control-wrap'>
-                          <input
-                            type='text'
-                            className='form-control'
-                            {...register('purchased', { required: 'This is required' })}
-                            value={formData.purchased}
-                            onChange={(e) =>
-                              setFormData({ ...formData, purchased: e.target.value })
-                            }
-                          />
-                          {errors.purchased && (
-                            <span className='invalid'>{errors.purchased.message}</span>
-                          )}
-                        </div>
-                      </div>
-                    </Col>
-                    <Col md='6'>
-                      <div className='form-group'>
-                        <label className='form-label' htmlFor='total'>
-                          Total Price
-                        </label>
-                        <div className='form-control-wrap'>
-                          <input
-                            type='number'
-                            className='form-control'
-                            {...register('total', { required: 'This is required' })}
-                            value={formData.total}
-                            onChange={(e) => setFormData({ ...formData, total: e.target.value })}
-                          />
-                          {errors.total && <span className='invalid'>{errors.total.message}</span>}
-                        </div>
-                      </div>
-                    </Col>
-                    <Col md='6'>
-                      <div className='form-group'>
-                        <label className='form-label' htmlFor='status'>
-                          Status
-                        </label>
-                        <div className='form-control-wrap'>
-                          <RSelect
-                            name='status'
-                            options={[
-                              { value: 'On Hold', label: 'On Hold' },
-                              { value: 'Delivered', label: 'Delivered' },
-                            ]}
-                            onChange={(e) => setFormData({ ...formData, status: e.value })}
-                            value={{ value: formData.status, label: formData.status }}
-                          />
-                        </div>
-                      </div>
-                    </Col>
+          onFormCancel={onFormCancel}
+          onFormSubmit={onFormSubmit}
+          setView={setView}
+        />
 
-                    <Col size='12'>
-                      <Button color='primary' type='submit'>
-                        <Icon className='plus'></Icon>
-                        <span>Add Order</span>
-                      </Button>
-                    </Col>
-                  </Row>
-                </form>
-              </div>
-            </div>
-          </ModalBody>
-        </Modal>
-
-        <Modal
+        <EditOrder
           isOpen={view.details}
-          toggle={() => onFormCancel()}
-          className='modal-dialog-centered'
-          size='lg'
-        >
-          <ModalBody>
-            <a href='#cancel' className='close'>
-              {' '}
-              <Icon
-                name='cross-sm'
-                onClick={(ev) => {
-                  ev.preventDefault();
-                  onFormCancel();
-                }}
-              ></Icon>
-            </a>
-            <div className='nk-tnx-details mt-sm-3'>
-              <div className='nk-modal-head mb-3'>
-                <h5 className='title'>Order Details</h5>
-              </div>
-              <Row className='gy-3'>
-                <Col lg={6}>
-                  <span className='sub-text'>Order Id</span>
-                  <span className='caption-text'>{formData.orderId}</span>
-                </Col>
-                <Col lg={6}>
-                  <span className='sub-text'>Status</span>
-                  <span
-                    className={`dot bg-${
-                      formData.status === 'Delivered' ? 'success' : 'warning'
-                    } d-sm-none`}
-                  ></span>
-                  <Badge
-                    className='badge-sm badge-dot has-bg d-none d-sm-inline-flex'
-                    color={formData.status === 'Delivered' ? 'success' : 'warning'}
-                  >
-                    {formData.status}
-                  </Badge>
-                </Col>
-                <Col lg={6}>
-                  <span className='sub-text'>Customer</span>
-                  <span className='caption-text'>{formData.customer}</span>
-                </Col>
-                <Col lg={6}>
-                  <span className='sub-text'>Purchased Product</span>
-                  <span className='caption-text'>{formData.purchased}</span>
-                </Col>
-                <Col lg={6}>
-                  <span className='sub-text'>Total Price</span>
-                  <span className='caption-text'>{formData.total}</span>
-                </Col>
-              </Row>
-            </div>
-          </ModalBody>
-        </Modal>
+          value={formData}
+          onFormCancel={onFormCancel}
+          onFormSubmit={onEditSubmit}
+        />
       </Content>
     </React.Fragment>
   );

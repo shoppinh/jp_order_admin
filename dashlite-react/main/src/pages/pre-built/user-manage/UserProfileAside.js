@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Icon, UserAvatar } from '../../../components/Component';
-import { findUpper } from '../../../utils/Utils';
+import { findUpper } from '../../../utils/helper';
 import { DropdownItem, UncontrolledDropdown, DropdownMenu, DropdownToggle } from 'reactstrap';
 
 const UserProfileAside = ({ updateSm, sm, profileData }) => {
-
   useEffect(() => {
     sm
       ? document.body.classList.add('toggle-shown')

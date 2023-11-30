@@ -1,6 +1,6 @@
 import parse from 'html-react-parser';
 import { UserAvatar } from '../../../components/Component';
-import { findUpper } from '../../../utils/Utils';
+import { findUpper } from '../../../utils/helper';
 
 export const ReplyItem = ({ item }) => {
   const { theme, name, date, replyMarkup, note, replyId, time } = item;

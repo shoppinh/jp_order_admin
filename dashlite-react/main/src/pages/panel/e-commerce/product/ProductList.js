@@ -78,7 +78,7 @@ const ProductList = () => {
 
   const [formData, setFormData] = useState({
     name: '',
-    productSrcURL: '',
+    productImageURL: '',
     imageAttachments: [],
     SKU: '',
     price: 0,
@@ -113,7 +113,7 @@ const ProductList = () => {
   const resetForm = useCallback(() => {
     setFormData({
       name: '',
-      productSrcURL: '',
+      productImageURL: '',
       imageAttachments: [],
       SKU: '',
       price: 0,
@@ -214,7 +214,7 @@ const ProductList = () => {
     if (!foundItem) return;
     setFormData({
       name: foundItem.name,
-      productSrcURL: foundItem.productSrcURL,
+      productImageURL: foundItem.productImageURL,
       imageAttachments: foundItem.imageAttachments,
       SKU: foundItem.SKU,
       price: foundItem.price,
@@ -584,8 +584,8 @@ const ProductList = () => {
                       <span className='tb-product'>
                         <img
                           src={
-                            item.productSrcURL
-                              ? `${process.env.REACT_APP_API_URL}/${item.productSrcURL}`
+                            item.productImageURL
+                              ? `${process.env.REACT_APP_API_URL}/${item.productImageURL}`
                               : ProductH
                           }
                           alt='product'
@@ -684,7 +684,7 @@ const ProductList = () => {
               })
             ) : productLoading ? (
               <SpinnerWrapper>
-                <Spinner size='md' color='dark' />
+                <Spinner size='large' color='dark' />
               </SpinnerWrapper>
             ) : null}
           </div>
@@ -856,7 +856,7 @@ const ProductList = () => {
                         </label>
                         <div className='form-control-wrap'>
                           <img
-                            src={`${process.env.REACT_APP_API_URL}/${formData.productSrcURL}`}
+                            src={`${process.env.REACT_APP_API_URL}/${formData.productImageURL}`}
                             alt=''
                           ></img>
                         </div>
@@ -980,7 +980,7 @@ const ProductList = () => {
               <h4 className='nk-modal-title title'>
                 Product <small className='text-primary'>#{formData.SKU}</small>
               </h4>
-              <img src={`${process.env.REACT_APP_API_URL}/${formData.productSrcURL}`} alt='' />
+              <img src={`${process.env.REACT_APP_API_URL}/${formData.productImageURL}`} alt='' />
             </div>
             <div className='nk-tnx-details mt-sm-3'>
               <Row className='gy-3'>
@@ -1149,7 +1149,7 @@ const ProductList = () => {
                   </div>
                 </Col>
                 <Col size='12'>
-                  <label className='form-label' htmlFor='productSrcURL'>
+                  <label className='form-label' htmlFor='productImageURL'>
                     Product Image
                   </label>
                   <Dropzone onDrop={(acceptedFile) => handleDropChangeProductThumb(acceptedFile)}>

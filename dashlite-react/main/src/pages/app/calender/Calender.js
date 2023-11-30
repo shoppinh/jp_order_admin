@@ -18,7 +18,7 @@ import {
 } from '../../../components/Component';
 import { eventOptions, events } from '../../../components/partials/calender/CalenderData';
 import { useForm } from 'react-hook-form';
-import { setDateForPicker } from '../../../utils/Utils';
+import { setDateForPicker } from '../../../utils/helper';
 
 const Calender = () => {
   const [modal, setModal] = useState(false);

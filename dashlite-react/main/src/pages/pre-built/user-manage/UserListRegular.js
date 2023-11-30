@@ -24,7 +24,7 @@ import {
 import Content from '../../../layout/content/Content';
 import Head from '../../../layout/head/Head';
 import { filterRole, filterStatus, userData } from './UserData';
-import { bulkActionOptions, findUpper } from '../../../utils/Utils';
+import { bulkActionOptions, findUpper } from '../../../utils/helper';
 import { Link } from 'react-router-dom';
 import { UserContext } from './UserContext';
 import EditModal from './EditModal';

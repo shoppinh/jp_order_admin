@@ -17,7 +17,7 @@ import {
 } from '../../../components/Component';
 import { galleryData } from './GalleryData';
 import ImageContainer from '../../../components/partials/gallery/GalleryImage';
-import { findUpper } from '../../../utils/Utils';
+import { findUpper } from '../../../utils/helper';
 
 const GalleryCard = () => {
   const [data] = useState(galleryData);

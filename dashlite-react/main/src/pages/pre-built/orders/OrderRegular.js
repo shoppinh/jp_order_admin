@@ -33,7 +33,7 @@ import {
   Badge,
 } from 'reactstrap';
 import { useForm } from 'react-hook-form';
-import { getDateStructured } from '../../../utils/Utils';
+import { getDateStructured } from '../../../utils/helper';
 
 const OrderRegular = () => {
   const [data, setData] = useState(orderData);

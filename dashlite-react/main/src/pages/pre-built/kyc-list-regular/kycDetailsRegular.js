@@ -15,7 +15,7 @@ import {
   Col,
   UserAvatar,
 } from '../../../components/Component';
-import { findUpper } from '../../../utils/Utils';
+import { findUpper } from '../../../utils/helper';
 import { kycData } from './KycData';
 import { Link, useParams } from 'react-router-dom';
 

@@ -27,6 +27,7 @@ export {
   updateProduct,
   deleteProduct,
   deleteProducts,
+  queryProduct,
 } from './product';
 
 export {

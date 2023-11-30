@@ -6,7 +6,7 @@ import Tags from '@yaireo/tagify/dist/react.tagify';
 import { contacts, formTemplates } from './InboxData';
 import { Button, Icon, TooltipComponent } from '../../../components/Component';
 import { UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
-import { currentTime, getDateStructured } from '../../../utils/Utils';
+import { currentTime, getDateStructured } from '../../../utils/helper';
 
 const tagifySettings = {
   blacklist: ['xxx', 'yyy', 'zzz'],

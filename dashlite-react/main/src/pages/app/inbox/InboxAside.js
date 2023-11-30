@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import SimpleBar from 'simplebar-react';
 import InboxForm from './InboxForm';
 import { Icon, UserAvatar, Button, LinkItem, LinkList } from '../../../components/Component';
-import { findUpper } from '../../../utils/Utils';
+import { findUpper } from '../../../utils/helper';
 import { colourOptions } from './InboxData';
 import {
   DropdownItem,

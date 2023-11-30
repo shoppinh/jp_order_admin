@@ -9,7 +9,7 @@ import {
   UncontrolledDropdown,
 } from 'reactstrap';
 import { DataTableHead, DataTableItem, DataTableRow } from '../../../table/DataTable';
-import { findUpper } from '../../../../utils/Utils';
+import { findUpper } from '../../../../utils/helper';
 import { investData } from './InvestData';
 
 const RecentInvest = () => {

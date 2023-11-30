@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { DropdownItem, DropdownMenu, DropdownToggle, UncontrolledDropdown } from 'reactstrap';
 import { Icon, UserAvatar, TooltipComponent } from '../../../components/Component';
-import { findUpper } from '../../../utils/Utils';
+import { findUpper } from '../../../utils/helper';
 import { contacts } from './InboxData';
 
 const InboxReplyItem = ({ reply, replyTo, forwardTo, deleteMessage }) => {

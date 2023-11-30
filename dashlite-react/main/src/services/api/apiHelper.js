@@ -98,6 +98,10 @@ export function* apiDeleteProducts(query) {
   return yield call(api.deleteProducts, query);
 }
 
+export function* apiQueryProduct(query) {
+  return yield call(api.queryProduct, query);
+}
+
 // Category
 
 export function* apiLoadCategoryList(query) {

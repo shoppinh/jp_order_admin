@@ -13,7 +13,7 @@ export const getProductListTotalItem = createSelector(
 );
 export const getProductDetail = createSelector(
   [selectDomain],
-  (productState) => productState?.data?.data?.currentProduct || {}
+  (productState) => productState?.data?.currentProduct
 );
 export const getProductLoading = createSelector(
   [selectDomain],
@@ -22,4 +22,8 @@ export const getProductLoading = createSelector(
 export const getProductError = createSelector(
   [selectDomain],
   (productState) => productState?.error || null
+);
+export const getQueriedProduct = createSelector(
+  [selectDomain],
+  (productState) => productState?.data?.queriedProduct
 );

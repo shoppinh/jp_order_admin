@@ -65,6 +65,30 @@ const slice = createSlice({
       state.loading = true;
       state.error = null;
     },
+    queryProduct(state) {
+      state.data = {
+        ...state.data,
+        queriedProduct: null,
+      };
+      state.loading = true;
+      state.error = null;
+    },
+    queriedProduct(state, action) {
+      state.data = {
+        ...state.data,
+        ...action.payload,
+      };
+      state.loading = false;
+      state.error = null;
+    },
+    queriedProductFailed(state, action) {
+      state.data = {
+        ...state.data,
+        queriedProduct: null,
+      };
+      state.loading = false;
+      state.error = null;
+    },
     Error(state, action) {
       state.error = action.payload;
       state.loading = false;

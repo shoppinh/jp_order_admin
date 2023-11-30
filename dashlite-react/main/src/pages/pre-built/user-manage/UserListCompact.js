@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Content from '../../../layout/content/Content';
 import Head from '../../../layout/head/Head';
-import { findUpper } from '../../../utils/Utils';
+import { findUpper } from '../../../utils/helper';
 import { userData, filterRole, filterStatus } from './UserData';
 import { DropdownMenu, DropdownToggle, UncontrolledDropdown, DropdownItem } from 'reactstrap';
 import {
@@ -29,7 +29,7 @@ import { Link } from 'react-router-dom';
 import { UserContext } from './UserContext';
 import EditModal from './EditModal';
 import AddModal from './AddModal';
-import { bulkActionOptions } from '../../../utils/Utils';
+import { bulkActionOptions } from '../../../utils/helper';
 
 const UserListCompact = () => {
   const { contextData } = useContext(UserContext);

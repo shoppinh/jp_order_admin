@@ -16,7 +16,7 @@ import {
 } from 'reactstrap';
 import { useForm } from 'react-hook-form';
 import { Col, Row, RSelect } from '../../Component';
-import { setDateForPicker } from '../../../utils/Utils';
+import { setDateForPicker } from '../../../utils/helper';
 import { eventOptions, returnDate } from './CalenderData';
 
 const EventView = (event) => {

@@ -15,7 +15,7 @@ import {
   Modal,
 } from 'reactstrap';
 import data from '../Data';
-import { findUpper } from '../../../../utils/Utils';
+import { findUpper } from '../../../../utils/helper';
 import ProfileUpdate from '../modals/ProfileUpdate';
 import classnames from 'classnames';
 

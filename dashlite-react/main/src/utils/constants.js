@@ -19,4 +19,17 @@ export const DefaultRole = [
   ConstantRoles.STORAGE_MANAGER,
 ];
 
+export const OrderStatus = {
+  PENDING: 'PENDING',
+  CONFIRMED: 'CONFIRMED',
+  SHIPPING: 'SHIPPING',
+  DELIVERED: 'DELIVERED',
+  CANCELLED: 'CANCELLED',
+  RETURNED: 'RETURNED',
+  REFUNDED: 'REFUNDED',
+  COMPLETED: 'COMPLETED',
+};
+
 export const ITEM_PER_PAGE = 10;
+
+export const TOAST_DEFAULT_TIME = 3000;

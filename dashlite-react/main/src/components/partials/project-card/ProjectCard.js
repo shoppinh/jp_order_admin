@@ -3,7 +3,7 @@ import { DropdownMenu, DropdownToggle, UncontrolledDropdown, Progress, Badge } f
 import { PreviewCard } from '../../Component';
 import UserAvatar from '../../user/UserAvatar';
 import Icon from '../../icon/Icon';
-import { setDeadlineDays } from '../../../utils/Utils';
+import { setDeadlineDays } from '../../../utils/helper';
 
 export const ProjectCard = ({ ...props }) => {
   return (

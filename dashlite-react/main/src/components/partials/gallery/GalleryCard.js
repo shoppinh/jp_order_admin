@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ImageContainer from './GalleryImage';
 import { UserAvatar, Icon, Button } from '../../Component';
-import { findUpper } from '../../../utils/Utils';
+import { findUpper } from '../../../utils/helper';
 import { Card } from 'reactstrap';
 
 const GalleryCard = ({ img, userName, theme, userImg, userEmail, heartCount }) => {

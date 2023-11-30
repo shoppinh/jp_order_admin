@@ -37,3 +37,11 @@ export const deleteProducts = async (payload) => {
   const { token, ...rest } = payload;
   return new apiClient(token).delete(APIs.product.deleteProducts, rest);
 };
+
+export const queryProduct = async (query) => {
+  const params = {
+    productSrcURL: query.productSrcURL,
+  };
+
+  return new apiClient().post(APIs.product.queryProduct, params);
+};

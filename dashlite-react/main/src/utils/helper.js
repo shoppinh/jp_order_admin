@@ -152,3 +152,17 @@ export const bulkActionOptions = [
   { value: 'suspend', label: 'Suspend User' },
   { value: 'delete', label: 'Delete User' },
 ];
+
+export const normalizePrice = (value, digits) => {
+  if (isNaN(value)) {
+    return 0;
+  }
+  if (digits) {
+    return Number(value).toFixed(digits);
+  }
+  return value;
+};
+
+export const capitalizeFirstLetter = (string) => {
+  return string ? string.charAt(0).toUpperCase() + string.slice(1) : '';
+};

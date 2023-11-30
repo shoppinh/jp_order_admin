@@ -26,7 +26,7 @@ import {
   DataTableItem,
 } from '../../../components/Component';
 import { projectData } from './ProjectData';
-import { findUpper, setDeadline, setDeadlineDays, calcPercentage } from '../../../utils/Utils';
+import { findUpper, setDeadline, setDeadlineDays, calcPercentage } from '../../../utils/helper';
 import FormModal from './FormModal';
 
 export const ProjectListPage = () => {

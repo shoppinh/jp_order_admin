@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import Content from '../../../layout/content/Content';
 import Head from '../../../layout/head/Head';
 import { Card, Modal, ModalBody, Badge } from 'reactstrap';
@@ -18,8 +18,7 @@ import {
   Sidebar,
   UserAvatar,
 } from '../../../components/Component';
-import { useNavigate } from 'react-router-dom';
-import { currentTime, findUpper, monthNames, todaysDate } from '../../../utils/Utils';
+import { currentTime, findUpper, monthNames, todaysDate } from '../../../utils/helper';
 import { UserContext } from './UserContext';
 import { notes } from './UserData';
 

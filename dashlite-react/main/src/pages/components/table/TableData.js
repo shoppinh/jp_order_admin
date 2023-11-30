@@ -4,7 +4,7 @@ import User3 from '../../../images/avatar/a-sm.jpg';
 import User4 from '../../../images/avatar/d-sm.jpg';
 import React from 'react';
 import { UserAvatar, Icon } from '../../../components/Component';
-import { findUpper } from '../../../utils/Utils';
+import { findUpper } from '../../../utils/helper';
 
 export const basicData = {
   header: ['#', 'First', 'Last'],

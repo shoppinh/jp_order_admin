@@ -18,7 +18,7 @@ import {
 } from '../../../components/Component';
 import { Link } from 'react-router-dom';
 import { userData } from './UserData';
-import { findUpper } from '../../../utils/Utils';
+import { findUpper } from '../../../utils/helper';
 import { UserContext } from './UserContext';
 import CardFormModal from './CardFormModal';
 

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext, useRef } from 'react';
 import { DropdownItem, DropdownMenu, DropdownToggle, UncontrolledDropdown } from 'reactstrap';
 import SimpleBar from 'simplebar-react';
 import { UserAvatar, Icon, Button } from '../../../components/Component';
-import { currentTime, findUpper, truncate } from '../../../utils/Utils';
+import { currentTime, findUpper, truncate } from '../../../utils/helper';
 import { ChatContext } from './ChatContext';
 import classNames from 'classnames';
 import ChatSideBar from './ChatSideBar';

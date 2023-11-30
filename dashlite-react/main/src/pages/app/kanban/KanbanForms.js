@@ -3,7 +3,7 @@ import DatePicker from 'react-datepicker';
 import Select from 'react-select';
 import { ModalBody, Col } from 'reactstrap';
 import { Icon, Button, RSelect } from '../../../components/Component';
-import { getDateStructured } from '../../../utils/Utils';
+import { getDateStructured } from '../../../utils/helper';
 import { useForm } from 'react-hook-form';
 import { ColorOptions } from '../../../components/partials/color-select-menu/ColorMenu';
 import { tagSet, teamList, themes } from './KanbanData';

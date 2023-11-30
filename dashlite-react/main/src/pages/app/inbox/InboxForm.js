@@ -9,7 +9,7 @@ import {
   DropdownToggle,
   UncontrolledDropdown,
 } from 'reactstrap';
-import { getDateStructured, currentTime } from '../../../utils/Utils';
+import { getDateStructured, currentTime } from '../../../utils/helper';
 
 const tagifySettings = {
   blacklist: ['xxx', 'yyy', 'zzz'],

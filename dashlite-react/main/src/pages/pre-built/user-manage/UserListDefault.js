@@ -22,7 +22,7 @@ import {
 import Content from '../../../layout/content/Content';
 import Head from '../../../layout/head/Head';
 import { filterStatus, userData } from './UserData';
-import { findUpper } from '../../../utils/Utils';
+import { findUpper } from '../../../utils/helper';
 import { Link } from 'react-router-dom';
 import { UserContext } from './UserContext';
 import EditModal from './EditModal';

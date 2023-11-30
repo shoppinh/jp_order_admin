@@ -3,7 +3,7 @@ import { Icon, UserAvatar } from '../../../components/Component';
 import SimpleBar from 'simplebar-react';
 import { Input, Button } from 'reactstrap';
 import { ChatItem, ContactItem } from './ChatPartials';
-import { findUpper } from '../../../utils/Utils';
+import { findUpper } from '../../../utils/helper';
 import { chatData } from './ChatData';
 import { ChatContext } from './ChatContext';
 

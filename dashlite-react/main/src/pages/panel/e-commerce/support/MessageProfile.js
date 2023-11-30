@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row, Col, UncontrolledDropdown, DropdownToggle, DropdownMenu, Card } from 'reactstrap';
 import SimpleBar from 'simplebar-react';
-import { findUpper } from '../../../../utils/Utils';
+import { findUpper } from '../../../../utils/helper';
 import { Icon, UserAvatar, LinkList, LinkItem } from '../../../../components/Component';
 
 const MessageProfileSidebar = ({ sidebar, profile }) => {

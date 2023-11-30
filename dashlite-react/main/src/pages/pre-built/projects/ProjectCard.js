@@ -17,7 +17,7 @@ import {
   PaginationComponent,
 } from '../../../components/Component';
 import { projectData } from './ProjectData';
-import { findUpper, setDeadline, setDeadlineDays, calcPercentage } from '../../../utils/Utils';
+import { findUpper, setDeadline, setDeadlineDays, calcPercentage } from '../../../utils/helper';
 import {
   DropdownMenu,
   DropdownToggle,

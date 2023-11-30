@@ -3,7 +3,7 @@ import DatePicker from 'react-datepicker';
 import { Icon, RSelect, Col } from '../../../../components/Component';
 import { useForm } from 'react-hook-form';
 import { ModalBody, Button } from 'reactstrap';
-import { getDateStructured } from '../../../../utils/Utils';
+import { getDateStructured } from '../../../../utils/helper';
 import data, { dateFormat, languageOptions, timezoneFormat } from '../Data';
 
 const ProfileUpdate = ({ formData, setFormData, setModal }) => {

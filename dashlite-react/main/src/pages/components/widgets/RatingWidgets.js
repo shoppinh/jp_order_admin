@@ -16,7 +16,7 @@ import {
   CodeBlock,
   Rating,
 } from '../../../components/Component';
-import { findUpper } from '../../../utils/Utils';
+import { findUpper } from '../../../utils/helper';
 import { Row, Col, Progress, Card, Collapse, Button, Badge } from 'reactstrap';
 
 const RatingWidgets = () => {

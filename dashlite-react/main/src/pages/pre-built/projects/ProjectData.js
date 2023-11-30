@@ -3,7 +3,7 @@ import TeamImg2 from '../../../images/avatar/c-sm.jpg';
 import TeamImg3 from '../../../images/avatar/a-sm.jpg';
 import TeamImg4 from '../../../images/avatar/d-sm.jpg';
 
-import { setDeadline } from '../../../utils/Utils';
+import { setDeadline } from '../../../utils/helper';
 
 export const projectData = [
   {

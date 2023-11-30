@@ -29,7 +29,7 @@ import {
   ProjectCard,
   Progress,
 } from '../../../components/Component';
-import { findUpper } from '../../../utils/Utils';
+import { findUpper } from '../../../utils/helper';
 import {
   Card,
   Row,

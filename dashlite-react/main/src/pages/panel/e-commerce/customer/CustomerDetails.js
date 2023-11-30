@@ -18,7 +18,7 @@ import {
 import { useNavigate, useParams } from 'react-router-dom';
 import Content from '../../../../layout/content/Content';
 import Head from '../../../../layout/head/Head';
-import { currentTime, findUpper, monthNames, todaysDate } from '../../../../utils/Utils';
+import { currentTime, findUpper, monthNames, todaysDate } from '../../../../utils/helper';
 import { CustomerContext } from './CustomerContext';
 import { notes } from './CustomerData';
 

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Dropzone from 'react-dropzone';
 import { Button } from 'reactstrap';
 import { Icon } from '../../../../components/Component';
-import { bytesToMegaBytes } from '../../../../utils/Utils';
+import { bytesToMegaBytes } from '../../../../utils/helper';
 
 import { iconsType } from '../components/Icons';
 

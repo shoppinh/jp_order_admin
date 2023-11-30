@@ -5,7 +5,7 @@ import InboxMessages from './InboxMessages';
 import InboxDraft, { InboxDraftList } from './InboxDraft';
 import { contacts } from './InboxData';
 import { Icon, UserAvatar, TooltipComponent } from '../../../components/Component';
-import { findUpper } from '../../../utils/Utils';
+import { findUpper } from '../../../utils/helper';
 import {
   Badge,
   DropdownItem,

@@ -10,7 +10,7 @@ import {
   UncontrolledDropdown,
 } from 'reactstrap';
 import { Icon, UserAvatar } from '../../../components/Component';
-import { findUpper } from '../../../utils/Utils';
+import { findUpper } from '../../../utils/helper';
 import { KanbanTaskForm, KanbanBoardForm } from './KanbanForms';
 
 export const KanbanCard = ({ data, setData, card, index, column }) => {

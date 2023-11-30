@@ -5,7 +5,7 @@ import SlideC from '../../../images/slides/slide-c.jpg';
 import { UserAvatar, Icon, LinkList, LinkItem } from '../../../components/Component';
 import { DropdownItem, DropdownMenu, DropdownToggle, UncontrolledDropdown } from 'reactstrap';
 import SimpleBar from 'simplebar-react';
-import { findUpper } from '../../../utils/Utils';
+import { findUpper } from '../../../utils/helper';
 import { ChatContext } from './ChatContext';
 
 const ChatSideBar = ({ sidebar, chat }) => {

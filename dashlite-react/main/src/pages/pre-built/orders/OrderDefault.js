@@ -20,7 +20,7 @@ import {
   Col,
   RSelect,
 } from '../../../components/Component';
-import { getDateStructured } from '../../../utils/Utils';
+import { getDateStructured } from '../../../utils/helper';
 import {
   UncontrolledDropdown,
   DropdownMenu,

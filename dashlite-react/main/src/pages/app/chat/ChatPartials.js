@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { DropdownToggle, DropdownMenu, UncontrolledDropdown, DropdownItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Icon, UserAvatar } from '../../../components/Component';
-import { findUpper } from '../../../utils/Utils';
+import { findUpper } from '../../../utils/helper';
 import { ChatContext } from './ChatContext';
 
 export const MeChat = ({ item, chat, onRemoveMessage }) => {

@@ -1,6 +1,12 @@
 import { takeLatest, all, call, put } from 'redux-saga/effects';
 import { orderActions as actions } from '../slices/order';
-import { apiLoadOrderList } from '../../services/api/apiHelper';
+import {
+  apiCreateOrder,
+  apiDeleteOrder,
+  apiLoadOrderDetail,
+  apiLoadOrderList,
+  apiUpdateOrder,
+} from '../../services/api/apiHelper';
 export function* orderSaga() {
   yield all([
     takeLatest(actions.loadOrderList.type, doLoadOrderList),
@@ -21,6 +27,7 @@ export function parseOrder(item) {
     status: item.status,
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
+    purchasedItems: item.items,
   };
 }
 
@@ -38,16 +45,52 @@ export function* doLoadOrderList({ payload }) {
           totalItem: response.data.data.totalItem,
         })
       );
-    }
+    } else yield put(actions.Error(response.data.error));
   } catch (error) {
     console.log('🚀 ~ file: orderSaga.js:17 ~ function*doLoadOrderList ~ error:', error);
   }
 }
 
-export function* doLoadOrderDetail({ payload }) {}
+export function* doLoadOrderDetail({ payload }) {
+  try {
+    const response = yield call(apiLoadOrderDetail, payload);
+    if (response?.data?.status) {
+      yield put(actions.loadedOrderDetail(parseOrder(response.data.data)));
+    } else yield put(actions.Error(response.data.error));
+  } catch (error) {
+    console.log('🚀 ~ file: orderSaga.js:28 ~ function*doLoadOrderDetail ~ error:', error);
+  }
+}
 
-export function* doCreateOrder({ payload }) {}
+export function* doCreateOrder({ payload }) {
+  try {
+    const response = yield call(apiCreateOrder, payload);
+    if (response?.data?.status) {
+      yield put(actions.finished());
+    } else yield put(actions.Error(response.data.error));
+  } catch (error) {
+    console.log('🚀 ~ file: orderSaga.js:53 ~ function*doCreateOrder ~ error:', error);
+  }
+}
 
-export function* doUpdateOrder({ payload }) {}
+export function* doUpdateOrder({ payload }) {
+  try {
+    const response = yield call(apiUpdateOrder, payload);
+    if (response?.data?.status) {
+      yield put(actions.updatedOrder(response.data.data));
+    } else yield put(actions.Error(response.data.error));
+  } catch (error) {
+    console.log('🚀 ~ file: orderSaga.js:64 ~ function*doUpdateOrder ~ error:', error);
+  }
+}
 
-export function* doDeleteOrder({ payload }) {}
+export function* doDeleteOrder({ payload }) {
+  try {
+    const response = yield call(apiDeleteOrder, payload);
+    if (response?.data?.status) {
+      yield put(actions.finished());
+    } else yield put(actions.Error(response.data.error));
+  } catch (error) {
+    console.log('🚀 ~ file: orderSaga.js:75 ~ function*doDeleteOrder ~ error:', error);
+  }
+}

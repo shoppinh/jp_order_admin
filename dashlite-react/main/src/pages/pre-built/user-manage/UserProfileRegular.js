@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import Content from '../../../layout/content/Content';
+import { useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
 import { Card, Modal, ModalBody } from 'reactstrap';
-import Head from '../../../layout/head/Head';
-import DatePicker from 'react-datepicker';
 import {
   Block,
   BlockBetween,
@@ -14,15 +13,12 @@ import {
   Col,
   Icon,
   Row,
-  RSelect,
 } from '../../../components/Component';
-import { countryOptions } from './UserData';
-import { getDateStructured } from '../../../utils/Utils';
-import UserProfileAside from './UserProfileAside';
-import { useSelector } from 'react-redux';
+import Content from '../../../layout/content/Content';
+import Head from '../../../layout/head/Head';
 import { getUserInfo } from '../../../store/selectors/session';
 import { useSessionSlice } from '../../../store/slices/session';
-import { useForm } from 'react-hook-form';
+import UserProfileAside from './UserProfileAside';
 
 const UserProfileRegularPage = () => {
   const [sm, updateSm] = useState(false);

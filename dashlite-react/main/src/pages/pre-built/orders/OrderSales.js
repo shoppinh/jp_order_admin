@@ -28,7 +28,7 @@ import {
   RSelect,
 } from '../../../components/Component';
 import { saleOrders, statusOptions } from './OrderData';
-import { dateFormatterAlt } from '../../../utils/Utils';
+import { dateFormatterAlt } from '../../../utils/helper';
 import { useForm } from 'react-hook-form';
 
 const OrderSales = () => {

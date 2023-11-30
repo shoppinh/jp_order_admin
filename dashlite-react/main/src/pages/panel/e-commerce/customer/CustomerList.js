@@ -20,7 +20,7 @@ import {
   PreviewAltCard,
 } from '../../../../components/Component';
 import { filterStatus, CustomerData } from './CustomerData';
-import { findUpper } from '../../../../utils/Utils';
+import { findUpper } from '../../../../utils/helper';
 import { Link } from 'react-router-dom';
 import EditModal from './EditModal';
 import AddModal from './AddModal';

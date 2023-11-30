@@ -8,6 +8,7 @@ import {
   apiUploadImages,
   apiUploadImage,
   apiDeleteProducts,
+  apiQueryProduct,
 } from '../../services/api/apiHelper';
 import { productActions as actions } from '../slices/product';
 
@@ -19,6 +20,7 @@ export function* productSaga() {
     takeLatest(actions.updateProduct.type, doUpdateProduct),
     takeLatest(actions.deleteProduct.type, doDeleteProduct),
     takeLatest(actions.deleteProducts.type, doDeleteProducts),
+    takeLatest(actions.queryProduct.type, doQueryProduct),
   ]);
 }
 
@@ -32,7 +34,7 @@ const parseProduct = (data) => {
     imageAttachments: data.imageAttachments,
     SKU: data.SKU,
     quantity: data.quantity,
-    productSrcURL: data.productSrcURL,
+    productImageURL: data.productImageURL,
     category: data.category,
     createdAt: data.createdAt,
     updatedAt: data.updatedAt,
@@ -65,7 +67,11 @@ export function* doLoadProductDetail({ payload }) {
   try {
     const response = yield call(apiLoadProductDetail, payload);
     if (response?.data?.status) {
-      yield put(actions.loadedProductDetail(response.data.data));
+      yield put(
+        actions.loadedProductDetail({
+          currentProduct: parseProduct(response.data.data),
+        })
+      );
     } else {
       yield put(actions.Error(response.data.error));
     }
@@ -94,7 +100,7 @@ export function* doCreateProduct({ payload }) {
         token: payload.token,
       });
       if (uploadImageThumbRes?.status === 201) {
-        productPayload.productSrcURL = uploadImageThumbRes.data.data.path;
+        productPayload.productImageURL = uploadImageThumbRes.data.data.path;
       }
     }
 
@@ -130,7 +136,7 @@ export function* doUpdateProduct({ payload }) {
         token: payload.token,
       });
       if (uploadImageThumbRes?.status === 201) {
-        productPayload.productSrcURL = uploadImageThumbRes.data.data.path;
+        productPayload.productImageURL = uploadImageThumbRes.data.data.path;
       }
     }
     const updateProductPayload = {
@@ -177,5 +183,22 @@ export function* doDeleteProducts({ payload }) {
     }
   } catch (error) {
     console.log('🚀 ~ file: productSaga.js:172 ~ function*doDeleteProducts ~ error:', error);
+  }
+}
+
+export function* doQueryProduct({ payload }) {
+  try {
+    const response = yield call(apiQueryProduct, payload);
+    if (response?.data?.status) {
+      yield put(
+        actions.queriedProduct({
+          queriedProduct: parseProduct(response.data.data),
+        })
+      );
+    } else {
+      yield put(actions.queriedProductFailed(response.data.error));
+    }
+  } catch (error) {
+    console.log('🚀 ~ file: productSaga.js:19 ~ function*doQueryProduct ~ error:', error);
   }
 }

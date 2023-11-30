@@ -39,9 +39,32 @@ const slice = createSlice({
       };
       state.loading = false;
     },
+    createOrder(state, _action) {
+      state.loading = true;
+      state.error = null;
+    },
+    updateOrder(state, _action) {
+      state.loading = true;
+      state.error = null;
+    },
+    updatedOrder(state, action) {
+      const foundIndex = state.data?.data?.findIndex((item) => item._id === action.payload._id);
+      if (foundIndex !== -1) {
+        state.data.data[foundIndex] = action.payload;
+      }
+      state.loading = false;
+    },
+    deleteOrder(state, _action) {
+      state.loading = true;
+      state.error = null;
+    },
     Error(state, action) {
       state.error = action.payload;
       state.loading = false;
+    },
+    finished(state) {
+      state.loading = false;
+      state.error = null;
     },
   },
 });

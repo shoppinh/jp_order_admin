@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useSettingSlice } from '../store/slices/setting';
 import { useCategorySlice } from '../store/slices/category';
 import { getAccessToken } from '../store/selectors/session';
+import JToast from '../components/toast/Toast';
 const Layout = ({ title, ...props }) => {
   const { actions: settingActions } = useSettingSlice();
   const { actions: categoryActions } = useCategorySlice();
@@ -37,6 +38,7 @@ const Layout = ({ title, ...props }) => {
             <Footer />
           </AppWrap>
         </AppMain>
+        <JToast />
       </AppRoot>
     </FileManagerProvider>
   );

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import SimpleBar from 'simplebar-react';
 import { UserAvatar, Icon } from '../../../../components/Component';
-import { findUpper } from '../../../../utils/Utils';
+import { findUpper } from '../../../../utils/helper';
 import { contacts } from './ContactData';
 import { chatData } from '../ChatData';
 import { ContactItem } from '../ChatPartials';
