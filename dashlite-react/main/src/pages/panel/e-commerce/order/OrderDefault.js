@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   Badge,
   Button,
@@ -27,16 +27,15 @@ import { getDateStructured } from '../../../../utils/helper';
 import AddOrder from './AddOrder';
 import EditOrder from './EditOrder';
 // import { orderData } from './OrderData';
-import { useOrderSlice } from '../../../../store/slices/order';
 import { useDispatch, useSelector } from 'react-redux';
-import { OrderStatus } from '../../../../utils/constants';
 import {
   getOrderError,
   getOrderListData,
   getOrderLoading,
 } from '../../../../store/selectors/order';
 import { getAccessToken } from '../../../../store/selectors/session';
-import { ITEM_PER_PAGE } from '../../../../utils/constants';
+import { useOrderSlice } from '../../../../store/slices/order';
+import { ITEM_PER_PAGE, OrderStatus } from '../../../../utils/constants';
 
 const OrderDefault = () => {
   const dispatch = useDispatch();
@@ -58,6 +57,7 @@ const OrderDefault = () => {
     totalWeight: 0,
     check: false,
     orderNote: '',
+    guestAddress: '',
   });
   const [view, setView] = useState({
     add: false,
@@ -118,29 +118,39 @@ const OrderDefault = () => {
     }));
   };
 
-  const onFormSubmit = (form) => {
-    const { customer, purchasedItems, totalWeight } = form;
-    const mappedPurchasedItems = purchasedItems.map((item) => {
-      return {
-        ...item,
-        preTaxTotal: item.price,
-        taxTotal: item.price * item.quantity * item.tax,
+  const onFormSubmit = useCallback(
+    (form) => {
+      const { customer, purchasedItems, totalWeight, guestAddress } = form;
+      const mappedPurchasedItems = purchasedItems.map((item) => {
+        return {
+          ...item,
+          preTaxTotal: item.price,
+          taxTotal: item.price * item.quantity * item.tax,
+        };
+      });
+      const totalPrice = mappedPurchasedItems.reduce((acc, item) => {
+        return acc + item.taxTotal;
+      }, 0);
+      let submittedData = {
+        date: getDateStructured(formData.date),
+        status: formData.status,
+        customer: customer,
+        items: mappedPurchasedItems,
+        totalPrice,
+        totalWeight,
+        guestAddress,
       };
-    });
-    const totalPrice = mappedPurchasedItems.reduce((acc, item) => {
-      return acc + item.taxTotal;
-    }, 0);
-    let submittedData = {
-      date: getDateStructured(formData.date),
-      status: formData.status,
-      customer: customer,
-      items: mappedPurchasedItems,
-      totalPrice,
-      totalWeight,
-    };
-    console.log('🚀 ~ file: OrderDefault.js:141 ~ onFormSubmit ~ submittedData:', submittedData);
-    // dispatch(orderActions.createOrder(submittedData));
-  };
+
+      dispatch(
+        orderActions.createOrder({
+          ...submittedData,
+          token: accessToken,
+        })
+      );
+      setIsFormSent(true);
+    },
+    [accessToken, dispatch, formData.date, formData.status, orderActions]
+  );
 
   const onEditSubmit = (form) => {
     const { customer, purchasedItems } = form;
@@ -417,7 +427,7 @@ const OrderDefault = () => {
                 <span className='sub-text'>Customer</span>
               </DataTableRow>
               <DataTableRow size='md'>
-                <span className='sub-text'>PurchasedItems</span>
+                <span className='sub-text'>Purchased Items</span>
               </DataTableRow>
               <DataTableRow>
                 <span className='sub-text'>Total</span>
@@ -482,7 +492,7 @@ const OrderDefault = () => {
                           className='custom-control-input'
                           defaultChecked={item.check}
                           id={item._id + 'oId-all'}
-                          key={Math.random()}
+                          key={item._id}
                           onChange={(e) => onSelectChange(e, item._id)}
                         />
                         <label
@@ -497,7 +507,7 @@ const OrderDefault = () => {
                       </a>
                     </DataTableRow>
                     <DataTableRow size='md'>
-                      <span>{item.createdAt}</span>
+                      <span>{getDateStructured(new Date(item.createdAt))}</span>
                     </DataTableRow>
                     <DataTableRow>
                       <span
@@ -513,10 +523,10 @@ const OrderDefault = () => {
                       </Badge>
                     </DataTableRow>
                     <DataTableRow size='sm'>
-                      <span className='tb-sub'>{item.user.fullName}</span>
+                      <span className='tb-sub'>{item?.user?.fullName || item.fullName}</span>
                     </DataTableRow>
                     <DataTableRow size='md'>
-                      <span className='tb-sub text-primary'>{item.items?.length}</span>
+                      <span className='tb-sub text-primary'>{item.purchasedItems?.length}</span>
                     </DataTableRow>
                     <DataTableRow>
                       <span className='tb-lead'>$ {item.totalPrice}</span>

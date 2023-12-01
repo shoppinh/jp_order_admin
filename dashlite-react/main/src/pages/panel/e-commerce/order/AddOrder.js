@@ -16,7 +16,7 @@ import {
 } from '../../../../components/Component';
 
 import ProductH from '../../../../images/product/h.png';
-import { getOrderError } from '../../../../store/selectors/order';
+import { getOrderError, getOrderLoading } from '../../../../store/selectors/order';
 import { getProductLoading, getQueriedProduct } from '../../../../store/selectors/product';
 import { getAppSettings } from '../../../../store/selectors/setting';
 import { useProductSlice } from '../../../../store/slices/product';
@@ -48,13 +48,16 @@ const AddOrder = (props) => {
       totalPrice: 0,
       orderNote: '',
       totalWeight: 0,
+      guestAddress: '',
     },
   });
   const queriedProduct = useSelector(getQueriedProduct);
-  const isLoading = useSelector(getProductLoading);
+  const productLoading = useSelector(getProductLoading);
+  const orderLoading = useSelector(getOrderLoading);
   const orderError = useSelector(getOrderError);
-  const [isFormSent, setIsFormSent] = useState(false);
+  const [isProductFormSent, setIsProductFormSent] = useState(false);
   const [isAddFormSent, setIsAddFormSent] = useState(false);
+  console.log('🚀 ~ file: AddOrder.js:59 ~ AddOrder ~ isAddFormSent:', isAddFormSent);
   const appSetting = useSelector(getAppSettings);
   const formValue = watch();
 
@@ -68,7 +71,7 @@ const AddOrder = (props) => {
         productSrcURL,
       })
     );
-    setIsFormSent(true);
+    setIsProductFormSent(true);
   }, [dispatch, productActions, productSrcURL]);
   const purchasedItemss = watch('purchasedItems');
   let totalPrice = 0;
@@ -79,10 +82,10 @@ const AddOrder = (props) => {
   }
 
   useEffect(() => {
-    if (!isLoading && isFormSent) {
+    if (!productLoading && isProductFormSent) {
       if (queriedProduct) {
         if (fields.find((item) => item?._id === queriedProduct?._id)) {
-          setIsFormSent(false);
+          setIsProductFormSent(false);
           return;
         }
         append({
@@ -97,9 +100,9 @@ const AddOrder = (props) => {
           quantity: 0,
           tax: appSetting.taxRate,
         });
-      setIsFormSent(false);
+      setIsProductFormSent(false);
     }
-  }, [appSetting.taxRate, append, fields, isFormSent, isLoading, queriedProduct]);
+  }, [appSetting.taxRate, append, fields, isProductFormSent, productLoading, queriedProduct]);
 
   useEffect(() => {
     if (!isOpen) {
@@ -116,13 +119,14 @@ const AddOrder = (props) => {
   );
 
   useEffect(() => {
-    if (isAddFormSent && !isLoading && !orderError) {
+    if (isAddFormSent && !orderLoading && !orderError) {
       setView({ add: false, details: false });
-    } else if (orderError) {
+      setIsAddFormSent(false);
+    } else if (isAddFormSent && !orderLoading && orderError) {
       toast.error(<ErrorToastDialog message={orderError?.message} />);
+      setIsAddFormSent(false);
     }
-    setIsAddFormSent(false);
-  }, [isAddFormSent, isLoading, orderError, setView]);
+  }, [isAddFormSent, orderLoading, orderError, setView]);
 
   useEffect(() => {}, []);
   return (
@@ -188,10 +192,10 @@ const AddOrder = (props) => {
                             color='primary'
                             className='btn-dim'
                             onClick={handleAppendProduct}
-                            disabled={!productSrcURL || isLoading}
+                            disabled={!productSrcURL || productLoading}
                             lo
                           >
-                            {isLoading ? (
+                            {productLoading ? (
                               <>
                                 <Spinner size='sm' />
                                 <span>Fetching product</span>
@@ -202,6 +206,26 @@ const AddOrder = (props) => {
                           </Button>
                         </div>
                       </div>
+                    </div>
+                  </div>
+                </Col>
+                <Col md='12'>
+                  <div className='form-group'>
+                    <label className='form-label' htmlFor='purchasedItems'>
+                      Order address
+                    </label>
+                    <div className='form-control-wrap'>
+                      <input
+                        type='text'
+                        className='form-control'
+                        {...register('guestAddress', {
+                          required: 'This field is required',
+                        })}
+                        placeholder='Enter order address'
+                      />
+                      {errors.guestAddress && (
+                        <span className='invalid'>{errors.guestAddress.message}</span>
+                      )}
                     </div>
                   </div>
                 </Col>
@@ -353,7 +377,9 @@ const AddOrder = (props) => {
                       <input
                         type='text'
                         className='form-control'
-                        {...register('totalWeight')}
+                        {...register('totalWeight', {
+                          valueAsNumber: true,
+                        })}
                         placeholder='Enter order total weight in KG'
                       />
                       {errors.totalWeight && (

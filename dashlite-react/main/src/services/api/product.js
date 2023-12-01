@@ -43,5 +43,5 @@ export const queryProduct = async (query) => {
     productSrcURL: query.productSrcURL,
   };
 
-  return new apiClient().post(APIs.product.queryProduct, params);
+  return new apiClient('').post(APIs.product.queryProduct, params);
 };

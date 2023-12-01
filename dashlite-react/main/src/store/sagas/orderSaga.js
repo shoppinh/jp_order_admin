@@ -21,6 +21,7 @@ export function parseOrder(item) {
   return {
     _id: item._id,
     address: item.address,
+    guestAddress: item.guestAddress,
     user: item.user,
     totalWeight: item.totalWeight,
     totalPrice: item.totalPrice,
@@ -28,6 +29,7 @@ export function parseOrder(item) {
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
     purchasedItems: item.items,
+    fullName: item.fullName,
   };
 }
 

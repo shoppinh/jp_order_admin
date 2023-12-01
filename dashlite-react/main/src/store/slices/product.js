@@ -66,12 +66,12 @@ const slice = createSlice({
       state.error = null;
     },
     queryProduct(state) {
+      state.error = null;
       state.data = {
         ...state.data,
         queriedProduct: null,
       };
       state.loading = true;
-      state.error = null;
     },
     queriedProduct(state, action) {
       state.data = {

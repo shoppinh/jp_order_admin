@@ -43,6 +43,7 @@ export const APIs = {
     updateProduct: '/api/product/{id}',
     deleteProduct: '/api/product/delete/{id}',
     deleteProducts: '/api/product/delete-list',
+    queryProduct: '/api/product/query',
   },
   order: {
     loadOrderList: '/api/order/list',
