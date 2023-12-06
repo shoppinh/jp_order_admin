@@ -2,7 +2,6 @@ import axios from 'axios';
 import { fetchCurrentLocale } from '../../utils/localization';
 import { errorInterceptor, requestInterceptor, responseInterceptor } from './interceptor';
 import { AcceptType } from './type';
-import * as https from 'https';
 // axios.defaults.baseURL = 'http://10.10.13.158:3000';
 axios.defaults.baseURL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
 // Timeout seconds
@@ -37,11 +36,6 @@ class apiClient {
       ...authHeader,
       locale: currentLocale,
     };
-
-    this.httpsAgent = new https.Agent({
-      requestCert: true,
-      rejectUnauthorized: true,
-    });
   }
 
   get = (url, body, option) => {
@@ -57,7 +51,7 @@ class apiClient {
         ...headers,
       },
       ...rest,
-      httpsAgent: this.httpsAgent,
+      
     });
   };
 
@@ -72,7 +66,7 @@ class apiClient {
         ...headers,
       },
       ...rest,
-      httpsAgent: this.httpsAgent,
+      
     });
   };
 
@@ -87,7 +81,7 @@ class apiClient {
         ...headers,
       },
       ...rest,
-      httpsAgent: this.httpsAgent,
+      
     });
   };
 
@@ -103,7 +97,7 @@ class apiClient {
         ...headers,
       },
       ...rest,
-      httpsAgent: this.httpsAgent,
+      
     });
   };
 
@@ -119,7 +113,7 @@ class apiClient {
         ...headers,
       },
       ...rest,
-      httpsAgent: this.httpsAgent,
+      
     });
   };
 
@@ -134,7 +128,7 @@ class apiClient {
       },
       data: JSON.stringify(body),
       ...rest,
-      httpsAgent: this.httpsAgent,
+      
     });
   };
 }
